@@ -38,6 +38,9 @@ contenido hasta la publicación del vídeo (2026-10-06):
   primera es **enseñar finanzas personales**. Después vendrán otras temáticas para otras listas.
 - **Antes de hacer más vídeos, cerrar el formato** con un vídeo de presentación breve. "Una vez
   esté todo bien vamos con los siguientes vídeos."
+- **Más colorido, más didáctico y sin tanto foco en el dinero como tal** (al ver el episodio 1,
+  2026-10-06). Es una corrección del formato, no solo de ese vídeo: está en `CLAUDE.md`.
+- **Una intro y un cierre comunes** a todos los vídeos (2026-10-06).
 - **Formato y presentador aprobados** tras ver el tráiler ("me gusta", 2026-10-06). **Money 101
   es el nombre definitivo** de la serie. **Público general**, no solo de EE. UU. Los doce temas
   propuestos valen como primera lista de reproducción, la de básicos.
@@ -51,7 +54,7 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | **Primer vídeo: el tráiler de Money 101** (`videos/2026-10-06-money-101-trailer/`): 6 escenas, 45 segundos, vídeo y Short (las mismas seis escenas), con voz (676 caracteres enviados). `make check` en verde | Sin publicar. Es la pieza de prueba del formato; si la lista de temas cambia, cambia su escena `04-topics` |
 | **Temas de Money 101 aprobados** (abajo, "La serie Money 101"), para público general | |
 | **Intro y cierre comunes** (2026-10-06, pedidos por el usuario al ver el episodio 1): `channel/intro.html` (el nombre del canal, "Money, markets and companies, explained", y la serie y el episodio del vídeo; 3,8 s) y `channel/outro.html` (gracias, el hueco del vídeo siguiente y el del botón de suscribirse; 12 s, para la pantalla final de YouTube). Los pone el montaje en cada vídeo (`render.scenes`); el Short y los tráileres no los llevan. `[intro] after` permite poner la intro después del gancho en vez de al principio. Capítulos en la descripción (`chapters:` en el guion) y un `youtube.txt` más completo | Que el usuario los vea. La intro va al principio porque así la pidió; con `after = 2` iría tras el gancho |
-| **Episodio 1, interés compuesto, hecho** (`videos/2026-10-06-compound-interest/`): 24 escenas más intro y cierre, vídeo de 4:34 y Short de 0:34 (escenas 01, 08 y 09), con voz (unos 5.000 caracteres enviados entre las dos pasadas). En dólares y al 8 % de ejemplo (decisiones del usuario); lo de Einstein quedó fuera. `make check` en verde y `make kit` hecho (`build/youtube.txt`). Las diapositivas con gráficos usan lo nuevo de `theme/slide.css`: `.chart`, `.bars`, `.hbars`, `.sum`, `.room` | **Publicarlo es cosa del usuario**, a mano en YouTube Studio; luego `make published`. No se ha escuchado. La voz dice el guion de corrido a unas 190 palabras por minuto: un vídeo de 4 minutos y medio pide unas 720 palabras |
+| **Episodio 1, interés compuesto, rehecho** (`videos/2026-10-06-compound-interest/`) con la corrección del usuario: 26 escenas más intro y cierre, vídeo de 4:16 y Short de 0:41 (el acertijo: escenas 01, 02, 03 y 05). Abre con el acertijo del nenúfar que se duplica cada día, sigue con bloques frente a bola de nieve, y el dinero (dólares, 8 % de ejemplo) llega en la escena 11. Cada parte tiene su tono de color. `make check` en verde y `make kit` hecho. Estilo común: tonos (`tone-*`), `--pop`, paleta viva, `.art` para dibujos | **Que el usuario vea el rediseño**, y publicarlo si le vale (a mano; luego `make published`). No se ha escuchado. El tráiler de Money 101 sigue montado con el aspecto anterior: si se vuelve a montar, saldrá con los fondos nuevos y sin tonos propios |
 | **La base** (2026-10-06): formato de vídeo (una carpeta en `videos/` con brief, guion, un dibujo por escena y miniatura), plantilla (`templates/video/`), estilo común de las diapositivas (`theme/slide.css`, el tema oscuro de Market Hub, en horizontal y en vertical) y `channel.toml` | Hecho el tráiler (arriba) |
 | Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), la boca del presentador (`mouth.py`), cuándo se dice cada palabra (`timing.py`), línea de comandos (`__main__.py`). Tests sin red | |
 | **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920). `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
@@ -144,7 +147,8 @@ país. Lo que hay que vigilar en cada brief: que "enseñar" no se vuelva "aconse
 1. El usuario sube el episodio 1 a mano (`videos/2026-10-06-compound-interest/build/youtube.txt`
    dice qué pegar y qué marcar) y da su dirección: `make published VIDEO=compound URL=... SHORT=...`.
 2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El siguiente es la
-   inflación (el episodio 1 la anuncia al cerrar). Las preguntas pequeñas de edición (un inciso,
+   inflación (el episodio 1 la anuncia al cerrar: "the same snowball, rolling against the cash
+   in your pocket"). Las preguntas pequeñas de edición (un inciso,
    qué escenas hacen el Short) las decide quien hace el vídeo: el usuario no quiere que se le
    pregunten.
 3. `/publish-video` del tráiler y de cada episodio: publicar a mano, cuando él lo pida.

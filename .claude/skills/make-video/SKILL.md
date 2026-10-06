@@ -26,6 +26,13 @@ a video at the top of `src/marketmedia/videos.py`. `channel.toml` has the length
 
 - **Series.** The data on top names the video's series (`series:`, one of `channel.toml`'s) and
   its number in it (`episode:`). The series gives every slide its colour and its name.
+- **Teach the idea before the money.** The user wants the videos colourful and didactic, and not
+  centred on money as such. So the idea is first shown with something anyone has seen, drawn
+  and moving (compound growth was a lily pad doubling on a pond, a stack of blocks and a
+  snowball), and with a question the viewer tries to answer before hearing the answer. The
+  dollars come once the idea is understood, as its application, and take a part of the video,
+  not all of it. One thing per scene, and a recap of three things at the end. The episode on
+  compound interest (`videos/2026-10-06-compound-interest/`) is the example to follow.
 - **Structure.** A hook in the first ten seconds (the fact or the question, not a greeting);
   a title card; three to five parts, each one idea; a close that says what the viewer now knows
   and what to watch next. One scene per picture: when what is on screen should change, a new
@@ -88,10 +95,17 @@ service, no model on the network, no picture taken from anywhere.
   `.figure`, `.row`, `.card`, `.tiles`, `.steps`, `.foot`). What is particular to a slide goes
   in a `<style>` of its own. Nothing is loaded from the network; system fonts only. The
   trailer of Money 101 (`videos/2026-10-06-money-101-trailer/`) is the format to follow.
-- **The look is for people in their twenties, not for children**: large, short headlines, one
-  colour that stands out (`--accent`, the series' colour: `.accent`, `.mark`, `.hl`), a lot of
-  dark space. No emoji, no clip art, no exclamation marks. A small drawing is an inline SVG
-  drawn in strokes of the accent.
+- **The look is colourful, for people in their twenties, not for children**: large, short
+  headlines on deep, saturated backgrounds. Give each part of the video a tone, on the slide's
+  body (`<body class="tone-ocean">`; `tone-plum`, `tone-forest`, `tone-ember`, or none for
+  indigo), so the colour changes when the subject does; each tone has its own colour of
+  emphasis (`--pop`: `.accent`, `.mark`, `.hl`, bars, lines). No emoji, no clip art, no
+  exclamation marks.
+- **Draw the thing itself.** A drawing is an inline SVG (`class="art"`) in the bright colours
+  of the shared style (`--sky`, `--sun`, `--pink`, `--mint`, `--coral`, `--violet`, `--snow`),
+  with its parts coming in on the voice (`.pop` with `data-say`) or moving along a path of its
+  own (keyframes in the slide's `<style>`, started by `data-say` through `--at`). A row of
+  numbers is the last resort, not the first.
 - **One idea per slide, and few words**: twelve at most outside a chart. The narration carries
   the sentence; the slide carries the figure, the comparison or the drawing.
 - **A slide moves, and on the voice.** Nothing is on screen before the voice gets to it. Give

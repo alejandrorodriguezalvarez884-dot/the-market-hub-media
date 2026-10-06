@@ -56,9 +56,23 @@ Reglas que no se negocian:
 
 El canal se dirige a **gente joven, no a niños**, y a un **público general**, no solo de EE. UU.
 (decisiones del usuario, 2026-10-06): titulares
-grandes y cortos, un color que destaca, escenas breves, cada cosa en pantalla cuando la voz la
-nombra, y un tono directo que no trata al espectador de tonto. Nada de emojis, de jerga forzada
-ni de prisa sin motivo.
+grandes y cortos, escenas breves, cada cosa en pantalla cuando la voz la nombra, y un tono
+directo que no trata al espectador de tonto. Nada de emojis, de jerga forzada ni de prisa sin
+motivo.
+
+**Colorido y didáctico, y sin poner el foco en el dinero como tal** (el usuario, al ver el
+primer episodio en negro, con un solo color y contado todo en dólares, 2026-10-06):
+
+- *Colorido*: fondos de color saturado que cambian con cada parte del vídeo (los tonos de
+  `theme/slide.css`: `tone-ocean`, `tone-plum`, `tone-forest`, `tone-ember`, y el índigo si no se
+  dice nada) y una paleta viva para lo que se dibuja. No se vuelve al negro con un solo color.
+- *Didáctico*: la idea se enseña primero con algo que se ve y que cualquiera conoce (un
+  nenúfar que se duplica en un estanque, una pila de bloques, una bola de nieve), dibujado y
+  en movimiento; una pregunta que el espectador intenta contestar antes de oír la respuesta;
+  una cosa por escena; y un repaso al final.
+- *El dinero es la aplicación, no el hilo*: las cifras en dólares llegan cuando la idea ya se ha
+  entendido, y ocupan una parte del vídeo, no todo. Un vídeo que es una ristra de cantidades
+  no es el formato.
 
 El contenido va **por temáticas**: cada serie (`[series.*]` en `channel.toml`) es un tema, una
 lista de reproducción de YouTube y un color en todas las diapositivas de sus vídeos. Un guion

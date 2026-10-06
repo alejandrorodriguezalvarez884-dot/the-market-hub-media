@@ -147,6 +147,17 @@ Eight percent is well above what the one sourced figure in the video shows (3.5 
 after inflation for global stocks this century, UBS): the video says so, in scene
 22-not-a-promise, and every slide with arithmetic carries "an example, not a forecast".
 
+## Redesigned (2026-10-06)
+
+The user saw the first cut and asked for it "more colourful and didactic, and not so focused on
+money as such". The video was remade: it opens with the riddle of the lily pad that doubles
+every day (half the pond on day 29; on day 15, 0.003 percent; on day 20, a tenth of one
+percent: all arithmetic), names the thing (compound growth), sets adding the same amount (a
+stack of blocks) against adding a share of what is there (a snowball), and only then does the
+sums in dollars. The scenes that were dropped: the two lines of simple and compound interest,
+the half-way chart, the ladder of doublings, the 230 dollars a month to catch up. The Short is
+now the riddle. Each part has its own colour.
+
 ## Open questions for the user (answered above)
 
 - Numbers with no currency sign (my proposal, for a general audience), or in dollars or euros?

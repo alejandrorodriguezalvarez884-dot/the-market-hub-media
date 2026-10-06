@@ -69,6 +69,8 @@ make test
    figures count up as the voice names them. `make frames` photographs each with the Chrome on
    this machine, frame by frame while it moves, at 1920x1080, and the scenes of the Short at
    1080x1920 as well.
+   A slide has a tone (`<body class="tone-ocean">`): a saturated background and the colour that
+   stands out on it, one for each part of a video.
    A thing comes in when the voice says its word (`data-say="inflation"`): when each word is
    said is worked out from the sound (`timing.py`).
    The channel's host is one of those drawings (`theme/presenter.js`): a presenter with a body
