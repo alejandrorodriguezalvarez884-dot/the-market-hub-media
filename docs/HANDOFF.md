@@ -148,5 +148,5 @@ país. Lo que hay que vigilar en cada brief: que "enseñar" no se vuelva "aconse
    qué escenas hacen el Short) las decide quien hace el vídeo: el usuario no quiere que se le
    pregunten.
 3. `/publish-video` del tráiler y de cada episodio: publicar a mano, cuando él lo pida.
-4. **Este Mac no tiene credenciales de GitHub**: los commits se quedan en local hasta que el
-   usuario hace `git push`.
+4. En el Mac del usuario el push va por SSH (su clave ya está en GitHub): cada repo del workspace
+   tiene `url."git@github.com:".pushInsteadOf "https://github.com/"` en su configuración local.
