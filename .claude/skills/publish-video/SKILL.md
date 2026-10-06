@@ -30,9 +30,9 @@ make check VIDEO=<name>
 make kit VIDEO=<name>
 ```
 
-It writes `videos/<name>/build/youtube.txt`: the title, the description (with the sources and
-the notice that it is not advice) and the tags of the video, and the title and the description
-of the Short. If it says some scenes have no voice yet, tell the user and ask whether that is
+It writes `videos/<name>/build/youtube.txt`: the title, the description (with the chapters,
+the sources and the notice that it is not advice) and the tags of the video, when its end
+screen starts, its playlist, and the title and the description of the Short. If it says some scenes have no voice yet, tell the user and ask whether that is
 what they want to publish.
 
 Tell the user, in Spanish, what is in `videos/<name>/build/` and what each file is for:
@@ -41,8 +41,15 @@ Tell the user, in Spanish, what is in `videos/<name>/build/` and what each file 
 - `short.mp4`, with `short.srt`;
 - `youtube.txt`, to paste from.
 
-And what to set by hand in YouTube Studio: not made for kids; the Short's "related video", once
-the video is public. Then stop: uploading is theirs to do.
+And what to set by hand in YouTube Studio, in the order Studio asks for it: the title, the
+description and the thumbnail; the playlist of its series (made there the first time); not made
+for kids; the tags, the language and the category (Education) under "Show more"; the captions
+file; the end screen over the outro, from the moment `youtube.txt` gives (a video on the frame
+that says "Watch next", the subscribe element on the circle); and the Short's "related video",
+once the video is public. YouTube's "altered or synthetic content" question is theirs to answer:
+its help page says clearly unrealistic or animated content needs no disclosure, and the channel
+is a drawn presenter with a synthetic narrator that imitates nobody
+(https://support.google.com/youtube/answer/14328491). Then stop: uploading is theirs to do.
 
 ## 3. Record where it is
 

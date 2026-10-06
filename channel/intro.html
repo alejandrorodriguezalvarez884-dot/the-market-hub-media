@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- The channel's intro, the same in every video: its name, what it does, and which series and episode this is. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../theme/slide.css">
+<style>
+  .ident { display: flex; align-items: center; gap: 0.3em; max-width: none; white-space: nowrap;
+           font-size: 5.6vw; line-height: 1; font-weight: 800; letter-spacing: -0.045em; color: var(--ink-strong); }
+  .ident i { flex: none; width: 0.66em; height: 0.66em; border-radius: 0.17em; background: var(--accent); }
+  .chip { align-self: flex-start; font-size: 1.5vw; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <main class="slide">
+    <p class="ident pop"><i></i>The Market Hub</p>
+    <p class="lead in" data-say="money">Money, markets and companies, <span class="hl" data-say="explained">explained</span>.</p>
+    <span class="chip solid pop" data-say="explained+0.3" data-series>New video</span>
+  </main>
+  <div class="presenter" data-cues="0:wave money:explain"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">themarkethub.app</span></footer>
+<script src="../theme/presenter.js"></script>
+<script src="../theme/slide.js"></script>
+</body>
+</html>

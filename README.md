@@ -79,12 +79,16 @@ make test
 4. **Narration** (`voice/01-name.wav`): one sound file per scene, spoken by Google Cloud
    Text-to-Speech. A scene with no file is held in silence for the time its words would take,
    so a film can be watched and timed before a word is spoken.
+   Every video opens with the channel's intro and closes with its outro (`channel/intro.html`,
+   `channel/outro.html`, `[intro]` and `[outro]` in `channel.toml`): the same two scenes in all
+   of them, in the colour of the video's series. A Short and a trailer have neither.
 5. **Films** (`build/video.mp4`, `build/short.mp4`): each frame held for as long as its
    narration lasts, joined with the ffmpeg that comes with the `imageio-ffmpeg` package. The
    video's captions are a file beside it (`captions.srt`); the Short's are drawn into the
    picture by the slide itself, a few words at a time, the one being said in the series' colour.
 6. **Publishing**: `build/youtube.txt` has the title, the tags and a description that carries
-   the sources and a notice that it is not advice. `published.json` records where it is.
+   the chapters (`chapters:` in the script, timed from the film), the sources and a notice
+   that it is not advice; and what to set by hand: the end screen over the outro, the playlist. `published.json` records where it is.
 
 The build and the narration are not in git; everything else is.
 

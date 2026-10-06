@@ -6,6 +6,10 @@ held, for as long as its narration lasts, plus a short silence. A scene whose na
 words would take at the channel's pace, in silence: a film can be watched, timed and corrected
 before a word is spoken.
 
+A video (not its Short, and not a trailer) also opens with the channel's intro and closes with
+its outro: two scenes that are the same in every video, drawn in channel/ and said once
+(channel.toml). The outro is held long enough for YouTube's end screen.
+
 The video's captions are a file beside it (captions.srt), for YouTube to show when asked. The
 Short's are in the picture already, a few words at a time: many Shorts are watched with no
 sound. The page draws them, with the rest of the slide (frames.py, theme/slide.js).
@@ -61,14 +65,29 @@ def spoken(scene: Scene, words_per_minute: int) -> float:
     return max(MIN_SECONDS, scene.words / words_per_minute * 60)
 
 
+def scenes(script: Script, channel: Channel, short: bool = False) -> list[Scene]:
+    """The scenes of a film, in order: the script's own and, in a video, the channel's intro and outro."""
+    own = list(script.cut(short))
+    if short or script.kind or not own:
+        return own
+    if channel.intro:
+        own.insert(min(max(channel.intro.after, 0), len(own)), Scene(channel.intro.scene, channel.intro.narration))
+    if channel.outro:
+        own.append(Scene(channel.outro.scene, channel.outro.narration))
+    return own
+
+
 def plan(video: Video, script: Script, channel: Channel, short: bool = False,
          measure: Callable[[Path], float] = length) -> list[Cut]:
     """The scenes of the video, or of its Short, each with how long it is held."""
     cuts = []
-    for scene in script.cut(short):
+    for scene in scenes(script, channel, short):
         voice = video.voice(scene.name)
         said = measure(voice) if voice else spoken(scene, channel.words_per_minute)
-        cuts.append(Cut(scene, voice, said, said + channel.gap_seconds))
+        held = said + channel.gap_seconds
+        if channel.outro and scene.name == channel.outro.scene:
+            held = max(held, channel.outro.seconds)
+        cuts.append(Cut(scene, voice, said, held))
     return cuts
 
 

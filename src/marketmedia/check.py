@@ -45,6 +45,9 @@ def problems(video: Video, channel: Channel) -> list[str]:
         drawings[scene.name] = video.drawing(scene.name)
         if not drawings[scene.name]:
             found.append(f"scene {scene.name}: no drawing in slides/")
+    for shared in (channel.intro, channel.outro):
+        if shared and not script.kind and not shared.drawing.is_file():
+            found.append(f"channel.toml has an {shared.name}, and channel/{shared.name}.html is missing")
     scenes = {s.name for s in script.scenes}
     slides = video.path / "slides"
     for file in sorted(slides.iterdir()) if slides.is_dir() else []:

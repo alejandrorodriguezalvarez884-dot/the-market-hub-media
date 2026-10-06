@@ -21,6 +21,7 @@ from .script import Script
 
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 DESCRIPTION_MAX = 5000  # YouTube's own limit
+CHAPTER_MIN = 10        # seconds: YouTube ignores chapters when one is shorter
 
 
 def _secrets() -> tuple[Path, Path]:
@@ -29,9 +30,31 @@ def _secrets() -> tuple[Path, Path]:
             Path(os.environ.get("YOUTUBE_TOKEN") or folder / "youtube-token.json"))
 
 
-def description(script: Script, channel: Channel) -> str:
-    """What goes under the video: its description, where its facts come from, and the notice."""
+def chapters(script: Script, cuts: list) -> str:
+    """The video's chapters as YouTube reads them in a description: a time and a title on each
+    line, the first at 0:00. ``cuts`` is the plan of the video (render.plan). Empty when the
+    script names fewer than three, which is the least YouTube takes. No chapter may be shorter
+    than ten seconds, so a short intro belongs to the first chapter instead of being one."""
+    starts, at = {}, 0.0
+    for cut in cuts:
+        starts[cut.scene.name] = at
+        at += cut.seconds
+    marks = sorted((starts[scene], title) for scene, title in script.chapters if scene in starts)
+    if len(marks) < 3:
+        return ""
+    if 0 < marks[0][0] < CHAPTER_MIN:
+        marks[0] = (0.0, marks[0][1])
+    elif marks[0][0] > 0:
+        marks.insert(0, (0.0, "Intro"))
+    return "\n".join(f"{int(t) // 60}:{int(t) % 60:02d} {title}" for t, title in marks)
+
+
+def description(script: Script, channel: Channel, chapters: str = "") -> str:
+    """What goes under the video: its description, its chapters, where its facts come from, and
+    the notice."""
     parts = [script.description]
+    if chapters:
+        parts.append("Chapters:\n" + chapters)
     if script.sources:
         parts.append("Sources:\n" + "\n".join(f"- {label}: {address}" for label, address in script.sources))
     if channel.disclaimer:
@@ -112,17 +135,26 @@ def upload(film: Path, thumbnail: Path | None, script: Script, channel: Channel,
     return record
 
 
-def kit(script: Script, channel: Channel) -> str:
-    """What to paste into YouTube Studio to publish the video and its Short by hand."""
+def kit(script: Script, channel: Channel, cuts: list | None = None) -> str:
+    """What to paste into YouTube Studio to publish the video and its Short by hand. ``cuts`` is
+    the plan of the video (render.plan): with it the description carries the chapters and the
+    kit says when the end screen starts."""
     words = description(script, channel)
     parts = [
         "Paste into YouTube Studio. The files are in this folder.",
         "=== VIDEO: video.mp4 ===",
         f"Title:\n{script.title}",
-        f"Description:\n{words}",
+        f"Description:\n{description(script, channel, chapters(script, cuts or []))}",
         f"Tags:\n{', '.join(script.tags)}",
-        "Thumbnail: thumbnail.jpg\nCaptions: captions.srt\nAudience: not made for kids",
+        f"Thumbnail: thumbnail.jpg\nCaptions: captions.srt (language: {channel.language})\n"
+        f"Audience: not made for kids\nCategory: Education\nVideo language: {channel.language}",
     ]
+    outro = [c for c in cuts or [] if channel.outro and c.scene.name == channel.outro.scene]
+    if outro:
+        total = sum(c.seconds for c in cuts)
+        start = total - outro[0].seconds
+        parts.append(f"End screen: from {int(start) // 60}:{int(start) % 60:02d} to the end ({outro[0].seconds:.0f} seconds). "
+                     "Put a video element on the frame that says 'Watch next' and the subscribe element on the circle.")
     series = channel.series.get(script.series)
     if series:
         parts.append(f"Playlist: {series.name}" + (f"  {series.playlist}" if series.playlist else "  (make it in YouTube Studio the first time)"))

@@ -67,6 +67,15 @@ finanzas personales. En una serie de enseñar la regla de no aconsejar pesa toda
 explica cómo funciona algo (el interés compuesto, la inflación, una deuda) y qué cambia según
 lo que se haga, no qué debe hacer quien lo ve.
 
+**Todos los vídeos abren y cierran igual** (decisión del usuario, 2026-10-06): una intro y un
+cierre comunes al canal, dibujados una vez en `channel/intro.html` y `channel/outro.html` y
+dichos una vez (`[intro]` y `[outro]` en `channel.toml`; su voz, en `channel/voice/`, sí está en
+git para que suene igual en todos). El montaje los pone solo, al principio y al final de cada
+vídeo; el Short y los tráileres no los llevan. Toman el color y el nombre de la serie del
+vídeo. El cierre dura lo que pide la pantalla final de YouTube y deja sitio para el vídeo
+siguiente y el botón de suscribirse. Un guion no escribe su propia intro ni su despedida, y un
+cambio en la intro o el cierre cambia todos los vídeos que se monten después.
+
 `kind: trailer` es un vídeo que presenta el canal o una serie: dura lo que dice `[trailer]` y,
 al no llevar cifras, no necesita fuentes.
 

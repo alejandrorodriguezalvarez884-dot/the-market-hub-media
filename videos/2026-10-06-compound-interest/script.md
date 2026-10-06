@@ -6,6 +6,16 @@ series: money-101
 episode: 1
 short: 01-hook, 08-decades, 09-last-decade
 short_title: The last ten years do most of the work
+chapters:
+  - 01-hook | What $1,000 becomes in 40 years
+  - 04-year-one | Interest on interest
+  - 07-two-lines | Simple vs compound
+  - 08-decades | When the money arrives
+  - 12-rule-of-72 | The rule of 72
+  - 15-question | How much, or how long?
+  - 20-both-ways | The same curve, as a debt
+  - 22-not-a-promise | 8% is an example, not a promise
+  - 23-recap | Three things to keep
 sources:
   - What is compound interest? and the Rule of 72, Investor.gov (U.S. Securities and Exchange Commission) | https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest
   - OECD/INFE 2023 International Survey of Adult Financial Literacy | https://www.oecd.org/en/publications/2023/12/oecd-infe-2023-international-survey-of-adult-financial-literacy_8ce94e2c.html

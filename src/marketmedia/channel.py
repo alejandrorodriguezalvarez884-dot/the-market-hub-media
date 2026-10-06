@@ -22,6 +22,24 @@ class Series:
 
 
 @dataclass(frozen=True)
+class Shared:
+    """A scene every video of the channel has: its intro or its outro. Its drawing is
+    channel/<name>.html and its narration channel/voice/<name>.wav, made once for all of them."""
+    name: str          # "intro" or "outro"
+    scene: str         # its name as a scene of a film: 00-intro, 99-outro
+    narration: str
+    after: int         # the intro: how many of the video's own scenes play before it (0 opens the video)
+    seconds: float     # the outro: held at least this long, for YouTube's end screen
+
+    @property
+    def drawing(self) -> Path:
+        return ROOT / "channel" / f"{self.name}.html"
+
+
+SHARED = {"00-intro": "intro", "99-outro": "outro"}   # the scene names no script may use
+
+
+@dataclass(frozen=True)
 class Channel:
     name: str
     language: str
@@ -49,11 +67,20 @@ class Channel:
     synthetic_media: bool
     disclaimer: str
     series: dict[str, Series]
+    intro: Shared | None = None
+    outro: Shared | None = None
 
 
 def _range(value, default: tuple[float, float]) -> tuple[float, float]:
     low, high = value if value else default
     return float(low), float(high)
+
+
+def _shared(data: dict, name: str, scene: str) -> Shared | None:
+    said = " ".join(str(data.get(name, {}).get("narration", "")).split())
+    if not said:
+        return None
+    return Shared(name, scene, said, int(data[name].get("after", 0)), float(data[name].get("seconds", 0)))
 
 
 def load(path: Path | None = None) -> Channel:
@@ -83,4 +110,6 @@ def load(path: Path | None = None) -> Channel:
         disclaimer=" ".join(youtube.get("disclaimer", "").split()),
         series={slug: Series(slug, s.get("name", slug), s.get("tagline", ""), s.get("accent", ""), s.get("playlist", ""))
                 for slug, s in data.get("series", {}).items()},
+        intro=_shared(data, "intro", "00-intro"),
+        outro=_shared(data, "outro", "99-outro"),
     )

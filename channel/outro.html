@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- The channel's outro, the same in every video: thanks, and the two places YouTube's end screen fills, the next video and the subscribe button. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../theme/slide.css">
+<style>
+  /* YouTube draws its own things over these two: a video on the frame, the channel on the ring. */
+  .ends { display: flex; align-items: center; gap: 2.6vw; }
+  .frame { width: 33vw; aspect-ratio: 16 / 9; border-radius: 1.2vw; border: 0.22vw solid var(--accent);
+           background: color-mix(in srgb, var(--panel) 90%, transparent); display: grid; place-items: center; }
+  .ring { width: 9.6vw; aspect-ratio: 1; border-radius: 50%; border: 0.22vw solid var(--accent);
+          background: color-mix(in srgb, var(--panel) 90%, transparent); display: grid; place-items: center; }
+  .ends span { font-family: var(--mono); font-size: 1.1vw; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip" data-series>The Market Hub</span></header>
+<div class="stage">
+  <main class="slide">
+    <h2 class="in">Thanks for <span class="mark">watching</span>.</h2>
+    <div class="ends">
+      <div class="frame in" data-say="next"><span>Watch next</span></div>
+      <div class="ring pop" data-say="subscribe"><span>Subscribe</span></div>
+    </div>
+  </main>
+  <div class="presenter" data-cues="0:wave next:point subscribe:thumb"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Sources in the description &middot; themarkethub.app</span></footer>
+<script src="../theme/presenter.js"></script>
+<script src="../theme/slide.js"></script>
+</body>
+</html>

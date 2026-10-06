@@ -50,7 +50,8 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | **Formato nuevo** (2026-10-06, segunda sesión). Presentador nuevo (`theme/presenter.js`): medio cuerpo con sudadera, manos, diez poses (`rest`, `wave`, `explain`, `open`, `point`, `one`, `two`, `three`, `thumb`, `shrug`), boca que se abre con el volumen y se cierra sobre los dientes en las eses (`mouth.sharpness`), cabeza y cejas que siguen el acento de la voz, parpadeo y miradas a la diapositiva. Estilo nuevo (`theme/slide.css`): titulares grandes, un color de serie (`--accent`), palabras marcadas, tarjetas, fondo con luces que se mueven; en las escenas que no son suyas el presentador es una cara en un círculo cuyo aro late con la voz. Sobre cada diapositiva el montaje pone la línea de progreso, el panel que cruza entre escenas y, en el Short, los subtítulos (los dibuja la página, ya no ffmpeg). **Cada cosa entra cuando la voz dice su palabra** (`data-say`, `timing.py`: los puntos del guion se casan con los silencios de la voz). Series en `channel.toml` (`series:`, `episode:` en el guion) y vídeos de presentación (`kind: trailer`). 62 tests en verde | El usuario lo vio y lo aprobó (2026-10-06). No dijo nada de la pronunciación ni de la sincronía, que quien lo montó no puede oír |
 | **Primer vídeo: el tráiler de Money 101** (`videos/2026-10-06-money-101-trailer/`): 6 escenas, 45 segundos, vídeo y Short (las mismas seis escenas), con voz (676 caracteres enviados). `make check` en verde | Sin publicar. Es la pieza de prueba del formato; si la lista de temas cambia, cambia su escena `04-topics` |
 | **Temas de Money 101 aprobados** (abajo, "La serie Money 101"), para público general | |
-| **Episodio 1, interés compuesto, hecho** (`videos/2026-10-06-compound-interest/`): 24 escenas, vídeo de 4:18 y Short de 0:34 (escenas 01, 08 y 09), con voz (unos 5.000 caracteres enviados entre las dos pasadas). En dólares y al 8 % de ejemplo (decisiones del usuario); lo de Einstein quedó fuera. `make check` en verde. Las diapositivas con gráficos usan lo nuevo de `theme/slide.css`: `.chart`, `.bars`, `.hbars`, `.sum`, `.room` | **Que el usuario lo vea.** Sin publicar. No se ha escuchado. La voz dice el guion de corrido a unas 190 palabras por minuto: un vídeo de 4 minutos y medio pide unas 720 palabras |
+| **Intro y cierre comunes** (2026-10-06, pedidos por el usuario al ver el episodio 1): `channel/intro.html` (el nombre del canal, "Money, markets and companies, explained", y la serie y el episodio del vídeo; 3,8 s) y `channel/outro.html` (gracias, el hueco del vídeo siguiente y el del botón de suscribirse; 12 s, para la pantalla final de YouTube). Los pone el montaje en cada vídeo (`render.scenes`); el Short y los tráileres no los llevan. `[intro] after` permite poner la intro después del gancho en vez de al principio. Capítulos en la descripción (`chapters:` en el guion) y un `youtube.txt` más completo | Que el usuario los vea. La intro va al principio porque así la pidió; con `after = 2` iría tras el gancho |
+| **Episodio 1, interés compuesto, hecho** (`videos/2026-10-06-compound-interest/`): 24 escenas más intro y cierre, vídeo de 4:34 y Short de 0:34 (escenas 01, 08 y 09), con voz (unos 5.000 caracteres enviados entre las dos pasadas). En dólares y al 8 % de ejemplo (decisiones del usuario); lo de Einstein quedó fuera. `make check` en verde y `make kit` hecho (`build/youtube.txt`). Las diapositivas con gráficos usan lo nuevo de `theme/slide.css`: `.chart`, `.bars`, `.hbars`, `.sum`, `.room` | **Publicarlo es cosa del usuario**, a mano en YouTube Studio; luego `make published`. No se ha escuchado. La voz dice el guion de corrido a unas 190 palabras por minuto: un vídeo de 4 minutos y medio pide unas 720 palabras |
 | **La base** (2026-10-06): formato de vídeo (una carpeta en `videos/` con brief, guion, un dibujo por escena y miniatura), plantilla (`templates/video/`), estilo común de las diapositivas (`theme/slide.css`, el tema oscuro de Market Hub, en horizontal y en vertical) y `channel.toml` | Hecho el tráiler (arriba) |
 | Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), la boca del presentador (`mouth.py`), cuándo se dice cada palabra (`timing.py`), línea de comandos (`__main__.py`). Tests sin red | |
 | **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920). `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
@@ -127,9 +128,10 @@ país. Lo que hay que vigilar en cada brief: que "enseñar" no se vuelva "aconse
 
 1. **El presentador** está aprobado. Sin decidir: si tiene nombre y lo dice.
 2. **El formato** está aprobado. Sigue sin música (decisión anterior) y sin efectos de sonido.
-3. **Declarar el contenido sintético.** `synthetic_media = false` en `channel.toml`. YouTube pide
-   declararlo cuando el contenido alterado o sintético parece real; con una voz sintética hay que
-   revisarlo antes del primer vídeo.
+3. **Declarar el contenido sintético.** `synthetic_media = false` en `channel.toml`. La ayuda de
+   YouTube (https://support.google.com/youtube/answer/14328491, vista el 2026-10-06) dice que no
+   hace falta declarar lo claramente irreal o animado; el canal es un presentador dibujado con
+   una voz sintética que no imita a nadie. La casilla la marca el usuario al subir.
 4. **El resto de la gestión del canal**, que la base no cubre: listas de reproducción, responder
    comentarios, leer las estadísticas para decidir los siguientes temas.
 5. **El aspecto**: el tema es el de la web, sobrio. Por decidir si el canal quiere una identidad
@@ -139,7 +141,8 @@ país. Lo que hay que vigilar en cada brief: que "enseñar" no se vuelva "aconse
 
 ## Siguientes pasos
 
-1. El usuario ve el episodio 1 (`videos/2026-10-06-compound-interest/build/`) y dice qué cambia.
+1. El usuario sube el episodio 1 a mano (`videos/2026-10-06-compound-interest/build/youtube.txt`
+   dice qué pegar y qué marcar) y da su dirección: `make published VIDEO=compound URL=... SHORT=...`.
 2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El siguiente es la
    inflación (el episodio 1 la anuncia al cerrar). Las preguntas pequeñas de edición (un inciso,
    qué escenas hacen el Short) las decide quien hace el vídeo: el usuario no quiere que se le

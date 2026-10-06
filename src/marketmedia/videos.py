@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .channel import ROOT
+from .channel import ROOT, SHARED
 
 NAME = re.compile(r"(\d{4}-\d{2}-\d{2})-([a-z0-9][a-z0-9\-]{2,70})")
 DRAWINGS = (".html", ".svg")
@@ -71,8 +71,11 @@ class Video:
         return self.build / ("short.srt" if short else "captions.srt")
 
     def drawing(self, scene: str) -> Path | None:
-        """The drawing of a scene, or of the thumbnail when ``scene`` is "thumbnail"."""
+        """The drawing of a scene, or of the thumbnail when ``scene`` is "thumbnail". The intro and
+        the outro are the channel's, not the video's: channel/intro.html and channel/outro.html."""
         folder = self.path if scene == "thumbnail" else self.path / "slides"
+        if scene in SHARED:
+            folder, scene = ROOT / "channel", SHARED[scene]
         return next((folder / f"{scene}{ext}" for ext in DRAWINGS if (folder / f"{scene}{ext}").is_file()), None)
 
     def frame(self, scene: str, short: bool = False) -> Path:
@@ -84,9 +87,15 @@ class Video:
         It is empty or missing when the scene is still."""
         return self.frame(scene, short).with_suffix("")
 
+    def voices(self, scene: str) -> tuple[Path, str]:
+        """The folder a scene's narration is kept in, and its file's name with no ending."""
+        if scene in SHARED:
+            return ROOT / "channel" / "voice", SHARED[scene]
+        return self.path / "voice", scene
+
     def voice(self, scene: str) -> Path | None:
-        return next((self.path / "voice" / f"{scene}{ext}" for ext in AUDIO
-                     if (self.path / "voice" / f"{scene}{ext}").is_file()), None)
+        folder, stem = self.voices(scene)
+        return next((folder / f"{stem}{ext}" for ext in AUDIO if (folder / f"{stem}{ext}").is_file()), None)
 
     def record(self) -> dict | None:
         return json.loads(self.published.read_text(encoding="utf-8")) if self.published.is_file() else None

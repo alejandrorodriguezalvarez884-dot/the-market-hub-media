@@ -2,6 +2,7 @@
 
     videos/<video>/voice/01-hook.wav
     videos/<video>/voice/made.json     what each file was made from, so that nothing is made twice
+    channel/voice/intro.wav            the intro and the outro, the same in every video: said once
 
 It uses the owner's own Google Cloud session (``gcloud auth application-default login``) and
 project. The service is paid by the character once a monthly free allowance is spent, so a scene
@@ -18,6 +19,7 @@ import os
 from collections.abc import Callable
 
 from .channel import Channel
+from . import render
 from .script import Scene, Script
 from .videos import Video
 
@@ -67,21 +69,22 @@ def _mark(scene: Scene, channel: Channel) -> str:
 
 def pending(video: Video, script: Script, channel: Channel) -> list[Scene]:
     """The scenes whose narration is missing or was made from other words or another voice."""
-    made = _made(video)
     out = []
-    for scene in script.scenes:
+    for scene in render.scenes(script, channel):
         if not scene.narration:
             continue
+        folder, stem = video.voices(scene.name)
+        made = _made(folder)
         file = video.voice(scene.name)
-        if file and scene.name not in made:
+        if file and stem not in made:
             continue  # the owner's own recording
-        if not file or made[scene.name] != _mark(scene, channel):
+        if not file or made[stem] != _mark(scene, channel):
             out.append(scene)
     return out
 
 
-def _made(video: Video) -> dict:
-    record = video.path / "voice" / "made.json"
+def _made(folder) -> dict:
+    record = folder / "made.json"
     return json.loads(record.read_text(encoding="utf-8")) if record.is_file() else {}
 
 
@@ -90,16 +93,16 @@ def make(video: Video, script: Script, channel: Channel, speak: Speak = cloud,
     """Speak the scenes that need it. Returns how many characters were sent to the service."""
     if not channel.voice_name:
         raise ValueError("channel.toml names no voice ([voice] name)")
-    folder = video.path / "voice"
-    made = _made(video)
     sent = 0
     for scene in pending(video, script, channel):
         sound = speak(scene.narration, channel)
-        folder.mkdir(exist_ok=True)
-        (folder / f"{scene.name}.wav").write_bytes(sound)
-        made[scene.name] = _mark(scene, channel)
+        folder, stem = video.voices(scene.name)
+        folder.mkdir(parents=True, exist_ok=True)
+        made = _made(folder)
+        (folder / f"{stem}.wav").write_bytes(sound)
+        made[stem] = _mark(scene, channel)
         # Written after each scene: a failure half way does not lose what was already paid for.
         (folder / "made.json").write_text(json.dumps(made, indent=2) + "\n", encoding="utf-8", newline="\n")
         sent += len(scene.narration)
-        log(f"  voice/{scene.name}.wav  {len(scene.narration)} characters")
+        log(f"  {folder.parent.name}/voice/{stem}.wav  {len(scene.narration)} characters")
     return sent

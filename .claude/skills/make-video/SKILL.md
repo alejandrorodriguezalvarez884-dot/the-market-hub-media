@@ -30,6 +30,15 @@ a video at the top of `src/marketmedia/videos.py`. `channel.toml` has the length
   a title card; three to five parts, each one idea; a close that says what the viewer now knows
   and what to watch next. One scene per picture: when what is on screen should change, a new
   scene starts. A scene runs 4 to 15 seconds; a picture held longer loses people.
+- **The channel's intro and outro are not yours to write.** Every video opens with the same
+  intro and closes with the same outro (`channel/`, `channel.toml`); the film adds them by
+  itself. So the script starts at the hook and ends at its close, which hands over: what the
+  viewer now knows and what the next episode is. It does not greet, name the channel, thank
+  anyone or ask for a subscription: the intro and the outro do. They take about 16 seconds of
+  the video's length.
+- **Chapters.** `chapters:` on top lists the scenes where a part starts, each with a title of a
+  few words (`- 08-decades | When the money arrives`): five to ten of them, none shorter than
+  ten seconds. They go into the description with their times.
 - **Length.** Four to six minutes: about 800 to 1,150 words at the voice's pace (some 200 a
   minute; `words_per_minute` in `channel.toml`). `make check` refuses a video outside it.
 - **Voice.** A person who has read the documents and explains them to a friend in their twenties

@@ -45,3 +45,13 @@ name = "Money 101"
 tagline = "How money really works. One idea at a time."
 accent = "#c6f24e"
 playlist = ""                        # the playlist's address on YouTube, once it exists
+
+# What every video opens and closes with (not a Short, not a trailer). Each is drawn once, in
+# channel/intro.html and channel/outro.html, and said once, into channel/voice/.
+[intro]
+narration = "This is The Market Hub. Money, markets and companies, explained."
+after = 0                            # how many of the video's own scenes play before it: 0 opens the video
+
+[outro]
+narration = "Thanks for watching. The next video is right here. And subscribe, so you don't miss the one after it."
+seconds = 12                         # held at least this long: YouTube's end screen takes 5 to 20 seconds

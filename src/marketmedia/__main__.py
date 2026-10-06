@@ -120,7 +120,7 @@ def _kit(args, channel) -> int:
         return 1
     script = scripts.load(video.script)
     silent = [s.name for s in script.scenes if s.narration and not video.voice(s.name)]
-    video.kit.write_text(youtube.kit(script, channel), encoding="utf-8", newline="\n")
+    video.kit.write_text(youtube.kit(script, channel, render.plan(video, script, channel)), encoding="utf-8", newline="\n")
     print(f"{video.kit.relative_to(channels.ROOT).as_posix()}")
     if silent:
         print(f"Note: {len(silent)} scenes have no voice yet; the film holds them in silence.")

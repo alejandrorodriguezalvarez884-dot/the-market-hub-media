@@ -28,6 +28,9 @@ in a "seconds:" line.
 "short:" names the scenes that, in that order, make the Short: a cut of the video that stands on
 its own, drawn again upright. "short_title:" is its title, when it is not the video's.
 
+"chapters:" is a list like "sources:", each "the scene a chapter starts at | its title": the
+description of the video gets them with their times, for YouTube to cut the video into chapters.
+
 "series:" is the series the video belongs to (one of channel.toml's) and "episode:" its number in
 it. "kind: trailer" is for a video that presents the channel or a series instead of explaining
 something: it is short (channel.toml's [trailer]) and, having no figures, needs no sources.
@@ -85,6 +88,7 @@ class Script:
     series: str = ""             # the slug of its series in channel.toml
     episode: int | None = None
     kind: str = ""               # "" for a video, "trailer" for one that presents a series
+    chapters: tuple[tuple[str, str], ...] = ()   # (the scene it starts at, its title)
 
     def cut(self, short: bool = False) -> list[Scene]:
         """The scenes of the video, or those of its Short."""
@@ -168,7 +172,12 @@ def parse(text: str, name: str = "script.md") -> Script:
     for item in data.get("sources") if isinstance(data.get("sources"), list) else []:
         label, _, address = item.rpartition("|")
         sources.append((label.strip(), address.strip()))
+    chapters = []
+    for item in data.get("chapters") if isinstance(data.get("chapters"), list) else []:
+        scene, _, title = item.partition("|")
+        chapters.append((scene.strip(), title.strip()))
     return Script(
+        chapters=tuple(chapters),
         title=_text(data.get("title")),
         description=_text(data.get("description")),
         tags=_list(data.get("tags")),
@@ -224,6 +233,12 @@ def problems(script: Script) -> list[str]:
         if scene.seconds is not None and scene.seconds <= 0:
             found.append(f"scene {scene.name}: 'seconds:' must be more than zero")
 
+    for scene in script.scenes:
+        if scene.name in ("00-intro", "99-outro"):
+            found.append(f"scene {scene.name}: that name is the channel's own intro or outro")
+    for scene, title in script.chapters:
+        if scene not in names or not title:
+            found.append(f"a chapter is not 'a scene of the script | its title': {scene!r}")
     if not script.short:
         found.append("no 'short:' line: name the scenes that make the Short")
     for name in script.short:

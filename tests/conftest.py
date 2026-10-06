@@ -36,7 +36,7 @@ Fewer shares, same profit. Each share gets more of it.
 @pytest.fixture
 def channel():
     """The channel as it is, but taking a film of any length: the videos of the tests are a few seconds."""
-    return replace(channels.load(REPO / "channel.toml"), minutes=(0, 10), short_seconds=(0, 60))
+    return replace(channels.load(REPO / "channel.toml"), minutes=(0, 10), short_seconds=(0, 60), intro=None, outro=None)
 
 
 @pytest.fixture
