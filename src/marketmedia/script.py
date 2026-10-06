@@ -5,6 +5,8 @@
     description: Two or three sentences for the video's page on YouTube.
     tags: buybacks, earnings per share
     tickers: AAPL, MSFT
+    short: 01-hook, 05-the-figure, 09-close
+    short_title: Profit flat, earnings per share up
     sources:
       - What the link says | https://example.gov/release
       - The company's annual report | https://www.sec.gov/...
@@ -21,6 +23,9 @@ A scene is a "## " heading with its name (two digits, a dash, a few words) and, 
 said. Its picture is slides/<name>.html (or .svg). A scene where nothing is said gives its length
 in a "seconds:" line.
 
+"short:" names the scenes that, in that order, make the Short: a cut of the video that stands on
+its own, drawn again upright. "short_title:" is its title, when it is not the video's.
+
 ``load`` reads one, and refuses it when it cannot be read as a script. ``problems`` says what
 stops a script that can be read from being published.
 """
@@ -28,7 +33,7 @@ stops a script that can be read from being published.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 SCENE = re.compile(r"\d{2}-[a-z0-9][a-z0-9\-]{0,40}")
@@ -68,6 +73,15 @@ class Script:
     tickers: list[str]
     sources: list[tuple[str, str]]  # (what the link says, its address)
     scenes: list[Scene]
+    short: list[str] = field(default_factory=list)  # the scenes of the Short, in its order
+    short_title: str = ""
+
+    def cut(self, short: bool = False) -> list[Scene]:
+        """The scenes of the video, or those of its Short."""
+        if not short:
+            return self.scenes
+        by_name = {s.name: s for s in self.scenes}
+        return [by_name[name] for name in self.short if name in by_name]
 
     @property
     def words(self) -> int:
@@ -151,6 +165,8 @@ def parse(text: str, name: str = "script.md") -> Script:
         tickers=[t.upper() for t in _list(data.get("tickers"))],
         sources=sources,
         scenes=_scenes(body, name),
+        short=_list(data.get("short")),
+        short_title=_text(data.get("short_title")),
     )
 
 
@@ -167,9 +183,11 @@ def problems(script: Script) -> list[str]:
         found.append(f"the title has {len(script.title)} characters; YouTube takes {TITLE_MAX}")
     if not script.description:
         found.append("no description")
-    for field, value in (("title", script.title), ("description", script.description)):
+    if len(script.short_title) > TITLE_MAX:
+        found.append(f"the Short's title has {len(script.short_title)} characters; YouTube takes {TITLE_MAX}")
+    for what, value in (("title", script.title), ("description", script.description), ("Short's title", script.short_title)):
         if "<" in value or ">" in value:
-            found.append(f"the {field} has < or >, which YouTube refuses")
+            found.append(f"the {what} has < or >, which YouTube refuses")
     if len(",".join(script.tags)) > TAGS_MAX:
         found.append(f"the tags add up to more than {TAGS_MAX} characters")
     if len(script.sources) < 2:
@@ -191,7 +209,15 @@ def problems(script: Script) -> list[str]:
         if scene.seconds is not None and scene.seconds <= 0:
             found.append(f"scene {scene.name}: 'seconds:' must be more than zero")
 
-    spoken = "\n".join([script.title, script.description, *(s.narration for s in script.scenes)])
+    if not script.short:
+        found.append("no 'short:' line: name the scenes that make the Short")
+    for name in script.short:
+        if name not in names:
+            found.append(f"the Short names a scene that is not in the script: {name}")
+    if len(set(script.short)) != len(script.short):
+        found.append("the Short names a scene more than once")
+
+    spoken = "\n".join([script.title, script.short_title, script.description, *(s.narration for s in script.scenes)])
     for match in ADVICE.finditer(spoken):
         found.append(f"reads as advice: {match.group(0)!r}")
     if "TODO" in spoken or any("TODO" in part for source in script.sources for part in source):

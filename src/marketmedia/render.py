@@ -1,8 +1,10 @@
-"""From the frames and the narration of each scene to the film: build/video.mp4 and its captions.
+"""From the frames and the narration of each scene to a film and its captions.
 
-Each scene is its picture held for as long as its narration lasts, plus a short silence. A scene
-with no recording yet is held for the time its words would take at the channel's pace, in
-silence: the film can be watched, timed and corrected before a word is recorded.
+Two films come out of a script: the video (every scene, as wide as a screen) and its Short (the
+scenes the script names, upright). Each scene is its picture held for as long as its narration
+lasts, plus a short silence. A scene whose narration is not made yet is held for the time its
+words would take at the channel's pace, in silence: a film can be watched, timed and corrected
+before a word is spoken.
 """
 
 from __future__ import annotations
@@ -40,23 +42,25 @@ def length(path: Path) -> float:
 
 @dataclass(frozen=True)
 class Cut:
-    """One scene in the film."""
+    """One scene in a film."""
     scene: Scene
-    voice: Path | None   # its narration, when it is recorded
+    voice: Path | None   # its narration, when it is made
     spoken: float        # how long the narration lasts, or would
     seconds: float       # how long the picture is held: the narration and the silence after it
 
 
 def spoken(scene: Scene, words_per_minute: int) -> float:
-    """How long a scene with no recording is held."""
+    """How long a scene with no narration yet is held."""
     if scene.seconds:
         return scene.seconds
     return max(MIN_SECONDS, scene.words / words_per_minute * 60)
 
 
-def plan(video: Video, script: Script, channel: Channel, measure: Callable[[Path], float] = length) -> list[Cut]:
+def plan(video: Video, script: Script, channel: Channel, short: bool = False,
+         measure: Callable[[Path], float] = length) -> list[Cut]:
+    """The scenes of the video, or of its Short, each with how long it is held."""
     cuts = []
-    for scene in script.scenes:
+    for scene in script.cut(short):
         voice = video.voice(scene.name)
         said = measure(voice) if voice else spoken(scene, channel.words_per_minute)
         cuts.append(Cut(scene, voice, said, said + channel.gap_seconds))
@@ -106,26 +110,31 @@ def _run(args: list[str]) -> None:
         raise RuntimeError(f"ffmpeg failed: {done.stderr.strip()[-600:]}")
 
 
-def film(video: Video, script: Script, channel: Channel, log: Callable[[str], None] = print) -> Path:
-    """Make build/video.mp4 and build/captions.srt. The frames must be drawn already (frames.py)."""
-    cuts = plan(video, script, channel)
-    missing = [c.scene.name for c in cuts if not video.frame(c.scene.name).is_file()]
+def film(video: Video, script: Script, channel: Channel, short: bool = False,
+         log: Callable[[str], None] = print) -> Path:
+    """Make the video (build/video.mp4) or its Short (build/short.mp4), with its captions.
+    The frames must be drawn already (frames.py)."""
+    cuts = plan(video, script, channel, short)
+    if not cuts:
+        raise ValueError("the script names no scenes for the Short" if short else "the script has no scenes")
+    missing = [c.scene.name for c in cuts if not video.frame(c.scene.name, short).is_file()]
     if missing:
         raise FileNotFoundError(f"no frame for: {', '.join(missing)}")
-    parts = video.build / "parts"
+    width, height = (channel.short_width, channel.short_height) if short else (channel.width, channel.height)
+    parts = video.build / ("short-parts" if short else "parts")
     parts.mkdir(parents=True, exist_ok=True)
     tool = ffmpeg()
     for cut in cuts:
         sound = ["-i", str(cut.voice), "-af", "apad"] if cut.voice else ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo"]
         _run([tool, "-y", "-loglevel", "error", "-loop", "1", "-framerate", str(channel.fps),
-              "-i", str(video.frame(cut.scene.name)), *sound, "-t", f"{cut.seconds:.3f}",
-              "-vf", f"scale={channel.width}:{channel.height}", "-c:v", "libx264", "-tune", "stillimage",
+              "-i", str(video.frame(cut.scene.name, short)), *sound, "-t", f"{cut.seconds:.3f}",
+              "-vf", f"scale={width}:{height}", "-c:v", "libx264", "-tune", "stillimage",
               "-pix_fmt", "yuv420p", "-r", str(channel.fps), "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
               str(parts / f"{cut.scene.name}.mp4")])
-        log(f"  {cut.scene.name}  {cut.seconds:5.1f}s  {'voice' if cut.voice else 'silent'}")
-    order = video.build / "parts.txt"
-    order.write_text("".join(f"file 'parts/{c.scene.name}.mp4'\n" for c in cuts), encoding="utf-8", newline="\n")
+        log(f"  {cut.scene.name:<28} {cut.seconds:5.1f}s  {'voice' if cut.voice else 'silent'}")
+    order = video.build / f"{parts.name}.txt"
+    order.write_text("".join(f"file '{parts.name}/{c.scene.name}.mp4'\n" for c in cuts), encoding="utf-8", newline="\n")
     _run([tool, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(order),
-          "-c", "copy", "-movflags", "+faststart", str(video.film)])
-    video.captions.write_text(captions(cuts), encoding="utf-8", newline="\n")
-    return video.film
+          "-c", "copy", "-movflags", "+faststart", str(video.film(short))])
+    video.captions(short).write_text(captions(cuts), encoding="utf-8", newline="\n")
+    return video.film(short)

@@ -1,9 +1,11 @@
 """Turns the drawing of each scene into its frame, and the thumbnail's into its picture, with the
 Chrome on this machine.
 
-A drawing is one file that needs nothing from the network: an HTML page that fills its window
-(16:9), or an SVG with viewBox="0 0 1920 1080" and no width or height. A page that draws with a
-script may set window.slideReady to a promise; the picture is taken when it settles.
+A drawing is one file that needs nothing from the network: an HTML page that fills its window,
+or an SVG with a viewBox and no width or height. The same drawing is photographed twice when its
+scene is in the Short: as wide as the video (1920x1080) and upright (1080x1920), so it must read
+well both ways (theme/slide.css changes the sizes when the window is upright). A page that draws
+with a script may set window.slideReady to a promise; the picture is taken when it settles.
 """
 
 from __future__ import annotations
@@ -33,11 +35,15 @@ def _theme_age() -> float:
 def draw(video: Video, script: Script, channel: Channel, everything: bool = False,
          log: Callable[[str], None] = print) -> int:
     """Draw the frames that are missing or older than their drawing. Returns how many it drew."""
+    wide = {"width": channel.width, "height": channel.height}
+    upright = {"width": channel.short_width, "height": channel.short_height}
+    wanted = [(s.name, video.frame(s.name), wide) for s in script.scenes]
+    wanted += [(s.name, video.frame(s.name, short=True), upright) for s in script.cut(short=True)]
+    wanted.append(("thumbnail", video.thumbnail, THUMBNAIL))
+
     theme = _theme_age()
     todo: list[tuple[Path, Path, dict]] = []
-    size = {"width": channel.width, "height": channel.height}
-    for name, target, viewport in [(s.name, video.frame(s.name), size) for s in script.scenes] + \
-                                  [("thumbnail", video.thumbnail, THUMBNAIL)]:
+    for name, target, viewport in wanted:
         source = video.drawing(name)
         if source and (everything or max(_age(source), theme) > _age(target)):
             todo.append((source, target, viewport))
@@ -48,7 +54,7 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
     with sync_playwright() as p:
         browser = p.chromium.launch(channel=os.environ.get("MEDIA_BROWSER", "chrome"), headless=True)
         try:
-            page = browser.new_page(viewport=size, device_scale_factor=1)
+            page = browser.new_page(viewport=wide, device_scale_factor=1)
             page.on("pageerror", lambda e: log(f"  page error: {e}"))
             for source, target, viewport in todo:
                 target.parent.mkdir(parents=True, exist_ok=True)

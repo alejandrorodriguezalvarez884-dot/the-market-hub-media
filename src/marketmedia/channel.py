@@ -16,11 +16,21 @@ class Channel:
     name: str
     language: str
     site: str
+    # The video
     width: int
     height: int
     fps: int
+    minutes: tuple[float, float]
     words_per_minute: int
     gap_seconds: float
+    # The Short
+    short_width: int
+    short_height: int
+    short_seconds: tuple[float, float]
+    # The narration
+    voice_name: str
+    voice_language: str
+    # YouTube
     category: str
     privacy: str
     made_for_kids: bool
@@ -28,9 +38,14 @@ class Channel:
     disclaimer: str
 
 
+def _range(value, default: tuple[float, float]) -> tuple[float, float]:
+    low, high = value if value else default
+    return float(low), float(high)
+
+
 def load(path: Path | None = None) -> Channel:
     data = tomllib.loads((path or ROOT / "channel.toml").read_text(encoding="utf-8"))
-    video, youtube = data.get("video", {}), data.get("youtube", {})
+    video, short, voice, youtube = (data.get(k, {}) for k in ("video", "short", "voice", "youtube"))
     return Channel(
         name=data["name"],
         language=data.get("language", "en"),
@@ -38,8 +53,14 @@ def load(path: Path | None = None) -> Channel:
         width=int(video.get("width", 1920)),
         height=int(video.get("height", 1080)),
         fps=int(video.get("fps", 30)),
+        minutes=_range(video.get("minutes"), (4, 6)),
         words_per_minute=int(video.get("words_per_minute", 150)),
         gap_seconds=float(video.get("gap_seconds", 0.4)),
+        short_width=int(short.get("width", 1080)),
+        short_height=int(short.get("height", 1920)),
+        short_seconds=_range(short.get("seconds"), (30, 60)),
+        voice_name=voice.get("name", ""),
+        voice_language=voice.get("language", "en-US"),
         category=str(youtube.get("category", "27")),
         privacy=youtube.get("privacy", "private"),
         made_for_kids=bool(youtube.get("made_for_kids", False)),

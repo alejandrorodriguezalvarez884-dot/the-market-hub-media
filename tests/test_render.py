@@ -45,3 +45,11 @@ def test_a_long_sentence_is_cut_into_several_captions():
 
 def test_a_stamp_is_hours_minutes_seconds_and_thousandths():
     assert render._stamp(3725.5) == "01:02:05,500"
+
+
+def test_the_short_is_the_scenes_the_script_names(video, channel):
+    script = scripts.load(video.script)
+    cuts = render.plan(video, script, channel, short=True)
+    assert [c.scene.name for c in cuts] == ["01-hook", "03-point"]
+    assert video.frame("01-hook", short=True).parent.name == "short-frames"
+    assert video.film(short=True).name == "short.mp4" and video.captions(short=True).name == "short.srt"

@@ -1,3 +1,4 @@
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -12,6 +13,8 @@ title: What a buyback does to earnings per share
 description: A company that buys its own shares divides the same profit among fewer of them.
 tags: buybacks, earnings per share
 tickers: aapl
+short: 01-hook, 03-point
+short_title: Profit flat, earnings per share up
 sources:
   - The annual report | https://www.sec.gov/report
   - The buyback announcement | https://example.com/release
@@ -32,7 +35,8 @@ Fewer shares, same profit. Each share gets more of it.
 
 @pytest.fixture
 def channel():
-    return channels.load(REPO / "channel.toml")
+    """The channel as it is, but taking a film of any length: the videos of the tests are a few seconds."""
+    return replace(channels.load(REPO / "channel.toml"), minutes=(0, 10), short_seconds=(0, 60))
 
 
 @pytest.fixture

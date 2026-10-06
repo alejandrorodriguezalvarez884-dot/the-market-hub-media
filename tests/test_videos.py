@@ -1,26 +1,27 @@
 import shutil
+from dataclasses import replace
 
 import pytest
 
-from marketmedia import videos
+from marketmedia import check, videos
 
 from .conftest import REPO
 
 
 def test_a_whole_video_has_no_problems(video, channel):
-    assert videos.check(video, channel) == []
+    assert check.problems(video, channel) == []
     assert video.slug == "what-a-buyback-does"
     assert video.stage() == "script"
 
 
 def test_a_scene_with_no_drawing_is_a_problem(video, channel):
     (video.path / "slides" / "03-point.html").unlink()
-    assert videos.check(video, channel) == ["scene 03-point: no drawing in slides/"]
+    assert check.problems(video, channel) == ["scene 03-point: no drawing in slides/"]
 
 
 def test_a_drawing_with_no_scene_is_a_problem(video, channel):
     (video.path / "slides" / "09-extra.svg").write_text("<svg/>", encoding="utf-8")
-    assert videos.check(video, channel) == ["slides/09-extra.svg belongs to no scene"]
+    assert check.problems(video, channel) == ["slides/09-extra.svg belongs to no scene"]
 
 
 @pytest.mark.parametrize("markup", [
@@ -31,18 +32,25 @@ def test_a_drawing_with_no_scene_is_a_problem(video, channel):
 ])
 def test_a_drawing_takes_nothing_from_the_network(video, channel, markup):
     (video.path / "slides" / "01-hook.html").write_text(f"<!doctype html>{markup}", encoding="utf-8")
-    assert videos.check(video, channel) == ["slides/01-hook.html loads something from the network"]
+    assert check.problems(video, channel) == ["slides/01-hook.html loads something from the network"]
 
 
 def test_the_shared_style_is_not_the_network(video, channel):
     (video.path / "slides" / "01-hook.html").write_text(
         '<!doctype html><link rel="stylesheet" href="../../../theme/slide.css">', encoding="utf-8")
-    assert videos.check(video, channel) == []
+    assert check.problems(video, channel) == []
 
 
 def test_no_thumbnail_is_a_problem(video, channel):
     (video.path / "thumbnail.html").unlink()
-    assert videos.check(video, channel) == ["no thumbnail.html (or .svg)"]
+    assert check.problems(video, channel) == ["no thumbnail.html (or .svg)"]
+
+
+def test_a_video_and_its_short_run_what_the_channel_says(video, channel):
+    # The video of the tests runs 12 seconds and its Short 9: far from 4 to 6 minutes and 30 to 60 seconds.
+    found = check.problems(video, replace(channel, minutes=(4, 6), short_seconds=(30, 60)))
+    assert found == ["the video runs 0:12; the channel's videos run 4:00 to 6:00",
+                     "the Short runs 0:09; a Short runs 0:30 to 1:00"]
 
 
 def test_a_new_video_is_the_template_with_its_title(tmp_path, channel):
@@ -51,8 +59,9 @@ def test_a_new_video_is_the_template_with_its_title(tmp_path, channel):
     assert video.name == "2026-10-06-why-margins-matter-a-first-look"
     assert "title: Why margins matter: a first look!" in video.script.read_text(encoding="utf-8")
     assert video.stage() == "brief"
-    # Nothing of the template can be published as it comes.
-    assert any("TODO" in p for p in videos.check(video, channel))
+    # Nothing of the template can be published as it comes, and nothing else is wrong with it.
+    found = check.problems(video, channel)
+    assert found and all("TODO" in p for p in found)
     with pytest.raises(ValueError):
         videos.new("Why margins matter: a first look!", root=tmp_path, today="2026-10-07")
 

@@ -70,3 +70,18 @@ p { max-width: 34ch; }
 body.thumbnail { padding: 7vh 6vw; }
 body.thumbnail h1 { font-size: 9vw; max-width: 12ch; }
 body.thumbnail .kicker { font-size: 2.4vw; }
+
+/* Upright, for the Short: the same slide in a 1080x1920 frame. Sizes follow the width, and the
+   top and the bottom are left clear for what YouTube draws over a Short. */
+@media (orientation: portrait) {
+  body { font-size: 4.8vw; padding: 12vh 8vw 20vh; }
+  .kicker { font-size: 2.9vw; }
+  h1 { font-size: 10.5vw; max-width: none; }
+  h2 { font-size: 7.4vw; max-width: none; }
+  p { max-width: none; }
+  .figure { font-size: 24vw; }
+  .figure-label { font-size: 4.4vw; max-width: none; }
+  .row { flex-direction: column; gap: 4vh; }
+  .foot { flex-direction: column; align-items: flex-start; gap: 0.6vh; font-size: 2.3vw; }
+  .foot .source { text-align: left; }
+}

@@ -6,14 +6,20 @@ la bolsa y sus empresas, a partir de los temas o ideas que da el usuario. Lee pr
 toma el usuario, y cada una manda sobre su paso:
 
 - [`analyze-idea`](.claude/skills/analyze-idea/SKILL.md): estudia una idea y escribe su brief.
-- [`make-video`](.claude/skills/make-video/SKILL.md): del brief aprobado al vídeo montado.
-- [`publish-video`](.claude/skills/publish-video/SKILL.md): lo sube a YouTube, tras confirmarlo.
+- [`make-video`](.claude/skills/make-video/SKILL.md): del brief aprobado al vídeo y su Short,
+  montados y con voz.
+- [`publish-video`](.claude/skills/publish-video/SKILL.md): deja todo listo para publicarlo a
+  mano en YouTube Studio y apunta dónde quedó.
+
+Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
+segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
+y la misma voz, dibujadas de nuevo en vertical). El canal es **en inglés**.
 
 Reglas que no se negocian:
 - **Todo lo que piensa se hace en la sesión de Claude Code**, con la cuota del usuario: estudiar
   la idea, escribir el guion, dibujar las diapositivas. El código del repo no llama a ningún
-  modelo ni a ninguna API de pago; solo hace lo que debe salir igual cada vez (comprobar, dibujar
-  los fotogramas, montar, subir).
+  modelo de lenguaje; solo hace lo que debe salir igual cada vez (comprobar, dibujar los
+  fotogramas, poner la voz, montar).
 - **Explicar y opinar sí, aconsejar no.** Un vídeo puede defender una tesis o criticar una
   decisión de una empresa. No le dice a quien lo ve qué hacer con su dinero: nada de comprar,
   vender o mantener, precios objetivo, predicciones de precio ni carteras recomendadas.
@@ -25,11 +31,12 @@ Reglas que no se negocian:
   logotipos, ni caras de personas reales. Cada diapositiva y cada miniatura se dibujan aquí, como
   código (HTML o SVG), y se convierten en imagen con el Chrome de esta máquina. No se usa ningún
   servicio ni modelo de generación de imágenes.
-- **Publicar es decisión del usuario, vídeo a vídeo.** Solo se sube cuando lo pide para un vídeo
-  concreto y tras ver qué se va a subir. Se sube como privado salvo que diga otra cosa en ese
-  momento. Aprobar un brief o un guion no es aprobar la publicación.
-- **No se gasta sin preguntar.** Ningún servicio de pago (voz, imágenes, música) se usa sin que
-  el usuario lo haya decidido antes.
+- **Publicar es decisión del usuario, vídeo a vídeo.** Hoy publica él a mano, en YouTube Studio:
+  `make kit` le deja el texto que pegar y `make published` apunta la dirección. Aprobar un brief
+  o un guion no es aprobar la publicación. La subida por la API (`make auth`, `make upload`) es
+  para cuando YouTube audite el proyecto, y solo si él la pide.
+- **No se gasta sin preguntar.** El único servicio de pago decidido es la voz (abajo). Cualquier
+  otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.
 - **Nada programado y nada en GitHub Actions.** Todo se lanza a mano, con una skill o desde el
   `Makefile`. Tampoco se programa la publicación en YouTube.
@@ -41,11 +48,15 @@ Reglas que no se negocian:
 
 ## La voz
 
-**Sin decidir todavía** (ver "Decisiones pendientes" en `docs/HANDOFF.md`). La narración de cada
-escena es un archivo de sonido, `videos/<vídeo>/voice/<escena>.wav` (o `.mp3`, `.m4a`); el montaje
-usa los que haya y deja en silencio el resto, durante el tiempo que tardarían en decirse sus
-palabras. Hasta que el usuario decida cómo se hace la voz, los vídeos se montan en silencio y, si
-graba él, se le da el guion escena a escena con el nombre que debe llevar cada archivo.
+La narración la dice **Google Cloud Text-to-Speech** (decisión del usuario, 2026-10-06), con una
+voz Chirp 3 HD (`[voice]` en `channel.toml`), la sesión de `gcloud` del usuario y su proyecto.
+`make voice` genera un archivo por escena en `videos/<vídeo>/voice/` y solo vuelve a decir las
+escenas cuyas palabras, o la voz, han cambiado. Se cobra por carácter pasado un tramo gratuito
+mensual (1 millón de caracteres al mes en estas voces, según la página de precios de Google el
+2026-10-06; un vídeo son unos 5.000): por eso la voz se genera con el guion ya cerrado, y
+`make voice DRY=1` dice antes cuántos caracteres mandaría. No se cambia a una voz o a un servicio
+más caro sin preguntar. Un archivo que el usuario deje a mano en `voice/` se respeta. Sin voz, el
+montaje deja la escena en silencio el tiempo que tardarían en decirse sus palabras.
 
 ## Convenciones
 

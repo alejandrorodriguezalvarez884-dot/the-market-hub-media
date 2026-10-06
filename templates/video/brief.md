@@ -34,6 +34,13 @@ The scenes, in order: what each one says and what it shows.
 
 1. TODO
 
+## The Short
+
+The two or three scenes of the outline that, alone and in that order, give one whole idea in
+thirty seconds to a minute.
+
+- TODO
+
 ## Open questions for the user
 
 - TODO

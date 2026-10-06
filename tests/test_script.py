@@ -71,3 +71,13 @@ def test_a_scene_needs_words_or_seconds_and_a_proper_name():
 def test_a_script_with_todo_is_not_finished():
     script = scripts.parse(SCRIPT.replace("Here is how.", "TODO the rest."))
     assert any("TODO" in p for p in scripts.problems(script))
+
+
+def test_the_short_names_scenes_of_the_script():
+    script = scripts.parse(SCRIPT)
+    assert script.short == ["01-hook", "03-point"] and script.short_title == "Profit flat, earnings per share up"
+    assert [s.name for s in script.cut(short=True)] == ["01-hook", "03-point"]
+    missing = scripts.parse(SCRIPT.replace("short: 01-hook, 03-point", "short: 01-hook, 07-gone"))
+    assert any("07-gone" in p for p in scripts.problems(missing))
+    none = scripts.parse(SCRIPT.replace("short: 01-hook, 03-point\n", ""))
+    assert any("no 'short:' line" in p for p in scripts.problems(none))

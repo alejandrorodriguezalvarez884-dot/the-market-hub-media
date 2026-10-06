@@ -4,16 +4,29 @@ name = "The Market Hub"
 language = "en"                      # the language of the narration and of every text on screen
 site = "https://themarkethub.app"
 
+# The video: horizontal, four to six minutes.
 [video]
 width = 1920
 height = 1080
 fps = 30
-words_per_minute = 150               # the pace assumed for a scene whose narration is not recorded yet
+minutes = [4, 6]                     # how long a video runs
+words_per_minute = 150               # the pace assumed for a scene whose narration is not made yet
 gap_seconds = 0.4                    # silence left after each scene
+
+# The Short: a few scenes of the video, drawn again upright.
+[short]
+width = 1080
+height = 1920
+seconds = [30, 60]                   # how long a Short runs
+
+# The narration: Google Cloud Text-to-Speech, with the owner's gcloud session.
+[voice]
+name = "en-US-Chirp3-HD-Charon"
+language = "en-US"
 
 [youtube]
 category = "27"                      # Education
-privacy = "private"                  # what an upload starts as; made public by hand, in YouTube Studio
+privacy = "private"                  # what an upload through the API starts as
 made_for_kids = false
 synthetic_media = false              # YouTube's "altered or synthetic content" declaration
 disclaimer = """

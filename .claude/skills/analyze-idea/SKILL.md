@@ -17,7 +17,8 @@ Work from the root of the `the-market-hub-media` repo (in the workspace it is th
 
 - `make status` lists every video and how far along it is. Read the briefs of the recent ones
   (`videos/*/brief.md`): do not propose a video that makes the same point as one of them.
-- `channel.toml` says the language of the channel and the pace of its narration.
+- `channel.toml` says what a video is: four to six minutes, in English, with a Short of thirty
+  seconds to a minute cut from its own scenes.
 
 ## 2. Open the video's folder
 
@@ -61,8 +62,10 @@ reason is a good answer; do not stretch a weak idea into a video.
 
 Fill in `brief.md` in the video's folder, every section of the template: the idea in the user's
 words, the verdict, the angle in one sentence, who it is for, the facts each with its address,
-the strongest objection, the outline scene by scene (what each says and what it shows), and the
-questions only the user can answer. No `TODO` left.
+the strongest objection, the outline scene by scene (what each says and what it shows), which
+of those scenes would make the Short, and the questions only the user can answer. No `TODO`
+left. The outline is for a video of four to six minutes: an idea that needs twenty is two or
+three videos, and the verdict is **narrow it**.
 
 Leave `script.md`, `slides/` and `thumbnail.html` as they came: they are `make-video`'s work.
 
@@ -74,6 +77,6 @@ template files.
 Commit the brief with a message that names the idea, and push.
 
 Then tell the user, in Spanish and briefly: the verdict and why, the angle in one sentence, the
-three facts that carry it (with their sources), how long a video it would make, and the open
+three facts that carry it (with their sources), what the Short would be, and the open
 questions. If they gave several ideas, one brief each, and say which you would make first and
 why. Then stop: the script is written when they say so.

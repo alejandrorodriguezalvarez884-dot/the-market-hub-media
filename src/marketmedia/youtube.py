@@ -1,14 +1,18 @@
-"""Publishing a video on the channel, through the YouTube Data API.
+"""Publishing a video on the channel.
 
-The channel's owner signs in once (``make auth``) with an OAuth client of their own Google Cloud
-project, kept in .secrets/client_secret.json; the token it gives is kept beside it. Neither is
-ever in git. Uploading is free: it spends the API's daily quota, not money.
+Today it is published by hand: ``kit`` writes what to paste into YouTube Studio, and ``by_hand``
+remembers where the video ended up. YouTube keeps private whatever an API project uploads until
+the project passes its audit, so the upload through the YouTube Data API (``upload``) is for
+after that. For it, the channel's owner signs in once (``make auth``) with an OAuth client of
+their own Google Cloud project, kept in .secrets/client_secret.json; the token it gives is kept
+beside it. Neither is ever in git. Uploading is free: it spends the API's daily quota, not money.
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -105,6 +109,41 @@ def upload(film: Path, thumbnail: Path | None, script: Script, channel: Channel,
             record["thumbnail"] = True
         except Exception as exc:  # noqa: BLE001 - the video is up: say the thumbnail is not, do not lose the record
             record["thumbnail_error"] = type(exc).__name__
+    return record
+
+
+def kit(script: Script, channel: Channel) -> str:
+    """What to paste into YouTube Studio to publish the video and its Short by hand."""
+    words = description(script, channel)
+    parts = [
+        "Paste into YouTube Studio. The files are in this folder.",
+        "=== VIDEO: video.mp4 ===",
+        f"Title:\n{script.title}",
+        f"Description:\n{words}",
+        f"Tags:\n{', '.join(script.tags)}",
+        "Thumbnail: thumbnail.jpg\nCaptions: captions.srt\nAudience: not made for kids",
+    ]
+    if script.short:
+        parts += [
+            "=== SHORT: short.mp4 ===",
+            f"Title:\n{script.short_title or script.title}",
+            f"Description:\n{words}",
+            "Captions: short.srt\nRelated video: the video above, once it is public",
+        ]
+    return "\n\n".join(parts) + "\n"
+
+
+ADDRESS = re.compile(r"https://(www\.)?(youtube\.com/(watch\?v=|shorts/)|youtu\.be/)[\w\-]{6,}\S*")
+
+
+def by_hand(url: str, short_url: str | None = None) -> dict:
+    """What to remember of a video its owner published in YouTube Studio."""
+    for address in filter(None, (url, short_url)):
+        if not ADDRESS.fullmatch(address):
+            raise ValueError(f"not the address of a YouTube video: {address}")
+    record = {"url": url, "by": "hand", "published_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    if short_url:
+        record["short_url"] = short_url
     return record
 
 
