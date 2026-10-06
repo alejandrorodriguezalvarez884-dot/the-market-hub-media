@@ -70,6 +70,18 @@ def _theme_age() -> float:
     return max((_age(f) for f in theme.rglob("*")), default=0.0) if theme.is_dir() else 0.0
 
 
+def _shot(page, tries: int = 3, **how) -> bytes:
+    """Photograph the page. Chrome now and then fails to answer one request among thousands: ask again."""
+    from playwright.sync_api import Error
+    for attempt in range(tries):
+        try:
+            return page.screenshot(**how)
+        except Error:
+            if attempt == tries - 1:
+                raise
+    raise AssertionError("unreachable")
+
+
 def count(seconds: float, fps: int) -> int:
     """How many frames a scene of ``seconds`` takes."""
     return round(min(seconds, MOVING_MAX) * fps)
@@ -145,7 +157,7 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
                 if moving is None:  # the thumbnail: the drawing at rest, as a JPEG YouTube takes
                     page.evaluate(SEEK, seconds * 1000)
                     for quality in (90, 80, 70, 60):
-                        picture = page.screenshot(type="jpeg", quality=quality)
+                        picture = _shot(page, type="jpeg", quality=quality)
                         if len(picture) <= THUMBNAIL_BYTES:
                             break
                     target.write_bytes(picture)
@@ -158,10 +170,10 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
                 # One more than the scene takes: the film never runs out of pictures.
                 for n in range(count(scene["seconds"], channel.fps) + 1):
                     page.evaluate(SEEK, min(n / channel.fps, scene["seconds"]) * 1000)
-                    page.screenshot(path=str(moving / f"{n:04d}.jpg"), type="jpeg", quality=92)
+                    _shot(page, path=str(moving / f"{n:04d}.jpg"), type="jpeg", quality=92, timeout=10000)
                 # The one to look at: the slide as the voice ends, before the next scene covers it.
                 page.evaluate(SEEK, scene["spoken"] * 1000)
-                page.screenshot(path=str(target), type="png")
+                _shot(page, path=str(target), type="png")
                 log(f"  {where}  {scene['seconds']:.1f}s" + (f", moving for {seconds:.1f}s" if seconds else "")
                     + ("" if scene["voice"] else ", no voice yet"))
         finally:

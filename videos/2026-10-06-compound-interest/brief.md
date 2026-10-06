@@ -126,7 +126,28 @@ Scenes 01-hook, 08-decades and 09-last-decade: the question, the four decades, a
 that the last ten years add more than the first twenty. About 40 seconds, one whole idea, and it
 needs nothing from the scenes left out.
 
-## Open questions for the user
+## Decided after the brief (2026-10-06)
+
+The user: figures in **dollars**, and the example rate is **8 percent**, not 5. Left to the
+editor: the Einstein aside is out (ten seconds the video does not need) and the Short is the one
+proposed. So the arithmetic of the video, at 8 percent a year, is:
+
+- 1,000 dollars left alone: 2,159 after 10 years, 4,661 after 20, 10,063 after 30, 21,725 after
+  40. With simple interest, 4,200. Year one earns 80; year two 86.40, of which 6.40 is interest
+  on interest.
+- The last ten years add 11,662: more than the first thirty together (9,063). Half of the final
+  sum is reached in year 31.
+- Doubling: every 9 years (72 / 8). At 12 percent, 6; at 4 percent, 18; at 2 percent, 36.
+- 100 dollars a month for 40 years: 322,108, of which 48,000 was paid in. Starting ten years
+  later: 140,855, with 36,000 paid in. The first ten years of deposits, 12,000, become 181,253:
+  56 percent of the total. To end in the same place ten years late takes about 230 a month.
+- A debt of 1,000 at 20 percent with nothing paid off: 2,074 after 4 years, 4,300 after 8.
+
+Eight percent is well above what the one sourced figure in the video shows (3.5 percent a year
+after inflation for global stocks this century, UBS): the video says so, in scene
+22-not-a-promise, and every slide with arithmetic carries "an example, not a forecast".
+
+## Open questions for the user (answered above)
 
 - Numbers with no currency sign (my proposal, for a general audience), or in dollars or euros?
 - Is 5 percent a fair example rate? It is said as an example every time, never as what to expect.

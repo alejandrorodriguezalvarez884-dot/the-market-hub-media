@@ -121,10 +121,42 @@ p { max-width: 32ch; }
 .button { display: inline-flex; align-items: center; gap: 0.5em; align-self: flex-start; padding: 0.5em 1.1em; border-radius: 99em;
           background: var(--accent); color: var(--on-accent); font-size: 2.3vw; font-weight: 800; letter-spacing: -0.01em; }
 
+/* A sum written out: its parts side by side, on one line.  <p class="sum"><span>$1,000</span><span class="accent">+ $80</span></p> */
+.sum { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.35em; max-width: none; font-size: 8vw; line-height: 1; font-weight: 800;
+       letter-spacing: -0.045em; color: var(--ink-strong); font-variant-numeric: tabular-nums; }
+
+/* A chart drawn as an inline SVG: it takes the room the slide has. Its text is sized in the SVG's own units. */
+.chart { flex: 1; min-height: 0; width: 100%; overflow: visible; }
+.chart text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+.chart .tick { font-family: var(--mono); font-weight: 500; letter-spacing: 0.06em; fill: var(--muted); }
+.chart .axis { stroke: var(--line-strong); stroke-width: 2; fill: none; }
+.chart .guide { stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 6 8; fill: none; }
+.chart .line { stroke: var(--accent); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+/* Bars that stand: each is its value, the bar (its height is the value: style="height: 46%") and its name.
+   <div class="bars"><div class="bar"><div><b>$2,159</b><i class="grow" style="height: 9%"></i></div><span>10 years</span></div>...</div> */
+.bars { flex: 1; min-height: 0; display: flex; align-items: stretch; gap: 2.2vw; }
+.bars .bar { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.bars .bar > div { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 1vh; }
+.bars .bar b { font-size: 2.9vw; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong); font-variant-numeric: tabular-nums; }
+.bars .bar i { display: block; flex: none; border-radius: 0.9vw 0.9vw 0 0; background: var(--accent); }
+.bars .bar > span { padding-top: 1vh; border-top: 2px solid var(--line-strong); font-family: var(--mono); font-size: 1.2vw; font-weight: 600;
+                    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+/* Bars that lie: a name, the bar (its width is the value: style="width: 46%") and its value.
+   <div class="hbars"><div class="hbar"><span>Last 10 years</span><div><i class="wide" style="width: 100%"></i><b>+$11,662</b></div></div>...</div> */
+.hbars { display: flex; flex-direction: column; gap: 2.4vh; }
+.hbar { display: grid; grid-template-columns: 13vw 1fr; align-items: center; gap: 1.6vw; }
+.hbar > span { font-family: var(--mono); font-size: 1.2vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.hbar > div { display: flex; align-items: center; gap: 1.2vw; min-width: 0; }
+.hbar i { display: block; flex: none; height: 7vh; border-radius: 0 0.9vw 0.9vw 0; background: var(--accent); }
+.hbar i.quiet, .bars .bar i.quiet { background: var(--line-strong); }
+.hbar b { font-size: 3vw; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* A slide whose drawing would run under the presenter's ring leaves him the room. */
+.slide.room { padding-right: 16vw; }
+
 /* The foot of every slide: the channel on the left, where the figures come from on the right. */
 .foot { display: flex; justify-content: space-between; align-items: center; gap: 4vw; padding-top: 2vh;
         border-top: 1px solid var(--line); font-family: var(--mono); font-size: 1vw; letter-spacing: 0.08em; color: var(--faint); }
-.foot .brand { display: inline-flex; align-items: center; gap: 0.7em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.foot .brand { display: inline-flex; align-items: center; gap: 0.7em; white-space: nowrap; text-transform: uppercase; font-weight: 600; color: var(--muted); }
 .foot .brand::before { content: ""; width: 0.7em; height: 0.7em; border-radius: 0.16em; background: var(--accent); }
 .foot .source { text-align: right; }
 
@@ -203,6 +235,15 @@ body.thumbnail .stage > .presenter svg { animation: none; }
   .tile svg { width: 9vw; height: 9vw; }
   .step { font-size: 6.2vw; gap: 3.4vw; }
   .button { font-size: 5vw; }
+  .sum { font-size: 15vw; }
+  .slide.room { padding-right: 0; }
+  .bars { gap: 3vw; }
+  .bars .bar b { font-size: 4.5vw; }
+  .bars .bar > span { font-size: 2.5vw; letter-spacing: 0.06em; }
+  .hbar { grid-template-columns: 1fr; gap: 0.6vh; }
+  .hbar > span { font-size: 2.7vw; }
+  .hbar i { height: 4.6vh; }
+  .hbar b { font-size: 6.4vw; }
   .foot { padding-top: 1.2vh; font-size: 2.2vw; }
   .foot .source { text-align: right; }
   .progress { height: 0.5vh; }

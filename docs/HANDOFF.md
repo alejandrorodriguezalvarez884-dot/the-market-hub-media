@@ -50,7 +50,7 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | **Formato nuevo** (2026-10-06, segunda sesión). Presentador nuevo (`theme/presenter.js`): medio cuerpo con sudadera, manos, diez poses (`rest`, `wave`, `explain`, `open`, `point`, `one`, `two`, `three`, `thumb`, `shrug`), boca que se abre con el volumen y se cierra sobre los dientes en las eses (`mouth.sharpness`), cabeza y cejas que siguen el acento de la voz, parpadeo y miradas a la diapositiva. Estilo nuevo (`theme/slide.css`): titulares grandes, un color de serie (`--accent`), palabras marcadas, tarjetas, fondo con luces que se mueven; en las escenas que no son suyas el presentador es una cara en un círculo cuyo aro late con la voz. Sobre cada diapositiva el montaje pone la línea de progreso, el panel que cruza entre escenas y, en el Short, los subtítulos (los dibuja la página, ya no ffmpeg). **Cada cosa entra cuando la voz dice su palabra** (`data-say`, `timing.py`: los puntos del guion se casan con los silencios de la voz). Series en `channel.toml` (`series:`, `episode:` en el guion) y vídeos de presentación (`kind: trailer`). 62 tests en verde | El usuario lo vio y lo aprobó (2026-10-06). No dijo nada de la pronunciación ni de la sincronía, que quien lo montó no puede oír |
 | **Primer vídeo: el tráiler de Money 101** (`videos/2026-10-06-money-101-trailer/`): 6 escenas, 45 segundos, vídeo y Short (las mismas seis escenas), con voz (676 caracteres enviados). `make check` en verde | Sin publicar. Es la pieza de prueba del formato; si la lista de temas cambia, cambia su escena `04-topics` |
 | **Temas de Money 101 aprobados** (abajo, "La serie Money 101"), para público general | |
-| **Episodio 1, interés compuesto**: brief hecho (`videos/2026-10-06-compound-interest/brief.md`), veredicto *make it*, unas 25 escenas, con las cifras calculadas y las fuentes comprobadas (SEC, OCDE, UBS, Quote Investigator) | **Que el usuario lea el brief y conteste sus cuatro preguntas** (moneda, tipo del 5 %, lo de Einstein, qué escenas hacen el Short). Luego `/make-video compound-interest` |
+| **Episodio 1, interés compuesto, hecho** (`videos/2026-10-06-compound-interest/`): 24 escenas, vídeo de 4:18 y Short de 0:34 (escenas 01, 08 y 09), con voz (unos 5.000 caracteres enviados entre las dos pasadas). En dólares y al 8 % de ejemplo (decisiones del usuario); lo de Einstein quedó fuera. `make check` en verde. Las diapositivas con gráficos usan lo nuevo de `theme/slide.css`: `.chart`, `.bars`, `.hbars`, `.sum`, `.room` | **Que el usuario lo vea.** Sin publicar. No se ha escuchado. La voz dice el guion de corrido a unas 190 palabras por minuto: un vídeo de 4 minutos y medio pide unas 720 palabras |
 | **La base** (2026-10-06): formato de vídeo (una carpeta en `videos/` con brief, guion, un dibujo por escena y miniatura), plantilla (`templates/video/`), estilo común de las diapositivas (`theme/slide.css`, el tema oscuro de Market Hub, en horizontal y en vertical) y `channel.toml` | Hecho el tráiler (arriba) |
 | Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), la boca del presentador (`mouth.py`), cuándo se dice cada palabra (`timing.py`), línea de comandos (`__main__.py`). Tests sin red | |
 | **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920). `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
@@ -89,6 +89,8 @@ contenido hasta la publicación del vídeo (2026-10-06):
   del guion se casan, en orden, con los silencios que se oyen en el audio, y entre dos de ellos
   las palabras se reparten el tiempo en que la voz suena. Por eso una lista se escribe con un
   punto tras cada cosa. Sin eso, en una lista dicha despacio el desfase pasaba de un segundo.
+- **Una captura que falla se repite** (`frames._shot`): entre miles de fotogramas, Chrome deja
+  alguna vez una petición sin contestar.
 - **Tipos de letra del sistema.** En este Mac las diapositivas salen con San Francisco
   (`system-ui`); en otra máquina saldrían con la suya. Si el canal se monta en más de una
   máquina habrá que meter un tipo de letra libre en `theme/`.
@@ -137,9 +139,11 @@ país. Lo que hay que vigilar en cada brief: que "enseñar" no se vuelva "aconse
 
 ## Siguientes pasos
 
-1. El usuario lee el brief del episodio 1 y contesta sus preguntas; entonces
-   `/make-video compound-interest`.
-2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`.
+1. El usuario ve el episodio 1 (`videos/2026-10-06-compound-interest/build/`) y dice qué cambia.
+2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El siguiente es la
+   inflación (el episodio 1 la anuncia al cerrar). Las preguntas pequeñas de edición (un inciso,
+   qué escenas hacen el Short) las decide quien hace el vídeo: el usuario no quiere que se le
+   pregunten.
 3. `/publish-video` del tráiler y de cada episodio: publicar a mano, cuando él lo pida.
 4. **Este Mac no tiene credenciales de GitHub**: los commits se quedan en local hasta que el
    usuario hace `git push`.
