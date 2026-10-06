@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- The natural guess, day fifteen, is wrong: on day fifteen the pads could barely be seen. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  .pond { display: block; overflow: visible; }
+
+  .guess { display: flex; align-items: center; gap: 4vw; }
+  .guess > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2vh; }
+  .day { position: relative; align-self: flex-start; max-width: none; font-size: 9.6vw; line-height: 1; font-weight: 800; letter-spacing: -0.045em; color: var(--ink-strong); }
+  .day i { position: absolute; left: -3%; right: -3%; top: 46%; height: 0.11em; border-radius: 0.06em; background: var(--coral); }
+  .pond { width: 100%; }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; }
+    .guess { flex-direction: column; align-items: stretch; gap: 2vh; }
+    .guess > div { gap: 1vh; }
+    .day { font-size: 16vw; }
+    .pond { width: 48vw; }
+    .lead { font-size: 5.2vw; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 01</span></header>
+<main class="slide room">
+  <div class="guess">
+    <div>
+      <p class="kicker in">The natural guess</p>
+      <p class="day in" data-say="fifteen">Day 15<i class="wide" data-say="wrong"></i></p>
+      <p class="lead in" data-say="half the time">Half the time, half the pond?</p>
+    </div>
+    <div class="seen fade" data-say="barely-1">
+      <svg class="pond" viewBox="0 0 420 230">
+      <rect x="6" y="6" width="408" height="218" rx="46" fill="#1478c2" stroke="var(--sky)" stroke-width="6"/>
+      <path d="M70 118 q18 -9 36 0 M286 70 q18 -9 36 0 M214 176 q18 -9 36 0" stroke="rgba(255,255,255,0.3)" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <g fill="var(--mint)" stroke="#12966a" stroke-width="3" stroke-linejoin="round"></g><circle cx="42" cy="43" r="2.2" fill="var(--mint)"/>
+    </svg>
+      <p class="lead">Day 15: <span class="accent">0.003%</span> of the pond</p>
+    </div>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Our arithmetic: half of the pond, halved fourteen more times</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Growing by a share of what is there: a snowball rolling downhill, bigger and faster at every turn. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  .slide { padding-top: 2.4vh; }
+
+  .ball { animation: roll 4.4s cubic-bezier(0.5, 0, 0.9, 0.7) both; animation-delay: var(--at, 0s); transform-box: view-box; transform-origin: 0 0; }
+  @keyframes roll {
+    0% { transform: translate(123.7px, 107.0px) scale(1.300); }
+    20% { transform: translate(269.2px, 143.9px) scale(1.860); }
+    40% { transform: translate(415.5px, 178.5px) scale(2.662); }
+    60% { transform: translate(562.7px, 209.7px) scale(3.809); }
+    80% { transform: translate(711.3px, 236.2px) scale(5.451); }
+    100% { transform: translate(862.0px, 255.9px) scale(7.800); }
+  }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 01</span></header>
+<main class="slide room">
+  <p class="kicker in">Adding a share of what's there</p>
+  <svg class="art" viewBox="0 0 1000 440">
+    <path d="M40 96 L960 366 L960 440 L40 440 Z" fill="rgba(255,255,255,0.1)"/>
+    <path d="M40 96 L960 366" stroke="var(--snow)" stroke-width="5" stroke-linecap="round"/>
+    <circle class="fade" data-say="snowball+0.50" cx="123.7" cy="107.0" r="13.0" fill="none" stroke="var(--snow)" stroke-width="3" stroke-dasharray="3 9" opacity="0.5"/><circle class="fade" data-say="snowball+1.58" cx="342.3" cy="161.5" r="22.3" fill="none" stroke="var(--snow)" stroke-width="3" stroke-dasharray="3 9" opacity="0.5"/><circle class="fade" data-say="snowball+2.48" cx="525.8" cy="202.3" r="34.8" fill="none" stroke="var(--snow)" stroke-width="3" stroke-dasharray="3 9" opacity="0.5"/><circle class="fade" data-say="snowball+3.31" cx="696.4" cy="233.8" r="52.6" fill="none" stroke="var(--snow)" stroke-width="3" stroke-dasharray="3 9" opacity="0.5"/>
+    <g class="ball" data-say="snowball"><circle r="10" fill="var(--snow)"/><circle cx="-3.2" cy="-3.4" r="2.6" fill="#ffffff"/><path d="M-6 3.5 q3 2.6 7 2" stroke="#c9d3ee" stroke-width="1" fill="none" stroke-linecap="round"/></g>
+    <g class="fade" data-say="speeds"><text x="930" y="150" font-size="40" text-anchor="end" style="fill: var(--pop)">It speeds up.</text></g>
+  </svg>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

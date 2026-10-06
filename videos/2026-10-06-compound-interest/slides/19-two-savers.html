@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Two people save the same hundred dollars a month; one starts today, the other ten years later. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  .hbar { grid-template-columns: 17vw 1fr; }
+  .hbar > span { line-height: 1.5; }
+  .hbar > span b { display: block; font-family: var(--sans); font-size: 2.3vw; font-weight: 800; letter-spacing: -0.03em; text-transform: none; color: var(--ink-strong); }
+  .hbar i.early { background: var(--sky); }
+  .hbar i.late { background: var(--sun); }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 01</span></header>
+<main class="slide room">
+  <p class="kicker in" data-say="each">$100 a month &middot; 8% a year</p>
+  <div class="hbars">
+    <div class="hbar in" data-say="one starts"><span><b>Starts today</b>40 years of saving</span><div><i class="wide early" data-say="one starts+0.3" style="width: 80%"></i></div></div>
+    <div class="hbar in" data-say="other"><span><b>Starts 10 years later</b>30 years of saving</span><div><i class="wide late" data-say="other+0.3" style="width: 60%; margin-left: 20%"></i></div></div>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

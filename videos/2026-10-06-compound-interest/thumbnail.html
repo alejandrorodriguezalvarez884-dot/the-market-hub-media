@@ -1,20 +1,28 @@
 <!doctype html>
-<!-- The thumbnail: the episode's name, what a thousand dollars becomes, and the presenter. -->
+<!-- The thumbnail: the episode's name, the pond half covered, and the presenter. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="../../theme/slide.css">
 <style>
   body.thumbnail { padding-bottom: 0; }
-  .lead { font-size: 5.4vw; white-space: nowrap; }
+  body.thumbnail h1 { font-size: 9.6vw; }
+  .pond { display: block; width: 30vw; }
+  .row { align-items: center; gap: 2vw; }
+  .row > * { flex: none; }
+  .lead { font-size: 4.4vw; white-space: nowrap; }
 </style>
 </head>
-<body class="thumbnail">
+<body class="thumbnail tone-ocean">
 <div class="stage">
   <main class="slide">
     <span class="chip solid" style="align-self: flex-start" data-series>Money 101</span>
     <h1>Compound <span class="mark">interest</span></h1>
-    <p class="lead">$1,000 &rarr; <span class="accent">$21,725</span></p>
+    <div class="row"><svg class="pond" viewBox="0 0 420 230">
+      <rect x="6" y="6" width="408" height="218" rx="46" fill="#1478c2" stroke="var(--sky)" stroke-width="6"/>
+      <path d="M70 118 q18 -9 36 0 M286 70 q18 -9 36 0 M214 176 q18 -9 36 0" stroke="rgba(255,255,255,0.3)" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <g fill="var(--mint)" stroke="#12966a" stroke-width="3" stroke-linejoin="round"><path d="M42 43 L60.5 35.5 A20 20 0 1 0 60.5 50.5 Z"/><path d="M42 91 L60.5 83.5 A20 20 0 1 0 60.5 98.5 Z"/><path d="M42 139 L60.5 131.5 A20 20 0 1 0 60.5 146.5 Z"/><path d="M42 187 L60.5 179.5 A20 20 0 1 0 60.5 194.5 Z"/><path d="M90 43 L108.5 35.5 A20 20 0 1 0 108.5 50.5 Z"/><path d="M90 91 L108.5 83.5 A20 20 0 1 0 108.5 98.5 Z"/><path d="M90 139 L108.5 131.5 A20 20 0 1 0 108.5 146.5 Z"/><path d="M90 187 L108.5 179.5 A20 20 0 1 0 108.5 194.5 Z"/><path d="M138 43 L156.5 35.5 A20 20 0 1 0 156.5 50.5 Z"/><path d="M138 91 L156.5 83.5 A20 20 0 1 0 156.5 98.5 Z"/><path d="M138 139 L156.5 131.5 A20 20 0 1 0 156.5 146.5 Z"/><path d="M138 187 L156.5 179.5 A20 20 0 1 0 156.5 194.5 Z"/><path d="M186 43 L204.5 35.5 A20 20 0 1 0 204.5 50.5 Z"/><path d="M186 91 L204.5 83.5 A20 20 0 1 0 204.5 98.5 Z"/><path d="M186 139 L204.5 131.5 A20 20 0 1 0 204.5 146.5 Z"/><path d="M186 187 L204.5 179.5 A20 20 0 1 0 204.5 194.5 Z"/></g>
+    </svg><p class="lead">&times;2 every day</p></div>
   </main>
   <div class="presenter" data-cues="-2:one"></div>
 </div>

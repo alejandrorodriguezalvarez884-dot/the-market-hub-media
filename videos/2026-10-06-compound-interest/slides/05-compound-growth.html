@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- The name of the thing: compound growth. It is behind savings, debts and prices. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  .behind { display: flex; gap: 1vw; max-width: none; }
+  .behind .chip { font-size: 1.5vw; }
+  @media (orientation: portrait) { .behind { gap: 2vw; } .behind .chip { font-size: 3.2vw; } .lead { font-size: 5.4vw; } }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 01</span></header>
+<div class="stage">
+<main class="slide">
+    <h1 class="pop" data-say="compound">Compound <span class="hl" data-say="growth">growth</span></h1>
+    <p class="lead in" data-say="slow">Slow for a long time. <span class="accent">Then very fast.</span></p>
+    <p class="behind">
+      <span class="chip pop" data-say="savings">Savings</span>
+      <span class="chip pop" data-say="debts">Debts</span>
+      <span class="chip pop" data-say="price">Prices</span>
+    </p>
+</main>
+<div class="presenter" data-cues="0:explain slow:open savings:one debts:two price:three"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

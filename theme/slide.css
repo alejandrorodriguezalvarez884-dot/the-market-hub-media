@@ -1,5 +1,6 @@
-/* The look every slide shares: Market Hub's dark page, with the weight, the colour and the pace
-   of a channel made for people in their twenties. Sized for a 1920x1080 frame, and for the
+/* The look every slide shares: deep, saturated backgrounds that change colour with the part of
+   the video, a handful of bright colours on them, and the weight and the pace of a channel made
+   for people in their twenties. Sized for a 1920x1080 frame, and for the
    upright 1080x1920 of a Short. A slide links this file and adds what is its own in a <style>.
 
      <header class="top"><span class="chip" data-series>Money 101</span></header>
@@ -7,42 +8,63 @@
      <footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
      <div class="presenter corner"></div>
 
-   One colour stands out, --accent: it is the colour of the video's series (channel.toml), set
-   by theme/slide.js. Green and red are only for a figure that went up or down, never a verdict. */
+   Two colours stand out. --accent is the colour of the video's series (channel.toml), set by
+   theme/slide.js: it marks what belongs to the channel (the chip, the line of progress, the
+   presenter's ring, the captions). --pop is the colour of the slide's own emphasis (a marked
+   word, a bar, a line): each tone has its own. A slide picks its tone on its body,
+   <body class="tone-ocean">: night (if none is said), ocean, plum, forest or ember. Use one tone
+   for each part of a video, so the colour changes when the subject does.
+   --up and --down are only for a figure that went up or down, never for a verdict. */
 
 :root {
-  --page: #0a0b0c;
-  --panel: #121416;
-  --raised: #1b1e21;
-  --line: #262a2e;
-  --line-strong: #3d4248;
-  --ink: #d2d0c9;
-  --ink-strong: #f7f5ef;
-  --muted: #96948e;
-  --faint: #666662;
-  --up: #35c98f;
-  --down: #ff6b57;
-  --warn: #e0b341;
+  --page: #1d1758;         /* the background, from this at the top... */
+  --page-2: #0d0a33;       /* ...to this at the bottom */
+  --glow: #ff5fa2;         /* the second of the two lights behind the slide */
+  --panel: rgba(255, 255, 255, 0.075);
+  --raised: rgba(255, 255, 255, 0.13);
+  --line: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.32);
+  --ink: #e6e3f4;
+  --ink-strong: #ffffff;
+  --muted: rgba(255, 255, 255, 0.68);
+  --faint: rgba(255, 255, 255, 0.46);
+  --up: #5df2b0;
+  --down: #ff6b6b;
+  --warn: #ffd23f;
   --accent: #c6f24e;       /* the series' colour */
-  --on-accent: #0b0c0d;    /* what is written on it */
-  /* Colours that name a series in a chart, in the order to use them. */
-  --series-1: #7aa2f7;
-  --series-2: #e0b341;
-  --series-3: #c792ea;
-  --series-4: #5fd3c4;
+  --on-accent: #0f0c2e;    /* what is written on a bright colour */
+  --pop: var(--accent);    /* the slide's own emphasis: each tone has its own */
+  /* The bright colours, by name: for a drawing, or for the series of a chart, in this order. */
+  --sky: #4cc9f0;
+  --sun: #ffd23f;
+  --pink: #ff7ac3;
+  --mint: #5df2b0;
+  --coral: #ff6b6b;
+  --violet: #b79cff;
+  --snow: #f4f7ff;
+  --series-1: var(--sky);
+  --series-2: var(--sun);
+  --series-3: var(--pink);
+  --series-4: var(--mint);
   --sans: system-ui, -apple-system, "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --voice: 0;              /* how loud the voice is at this frame, 0 to 1 (theme/slide.js) */
 }
+/* The tones: a background and the colour that stands out on it. */
+body.tone-ocean  { --page: #0c4a7a; --page-2: #06203f; --glow: #4cc9f0; --pop: var(--sun); }
+body.tone-plum   { --page: #5a1f86; --page-2: #220c44; --glow: #ff7ac3; --pop: var(--pink); }
+body.tone-forest { --page: #0e5a48; --page-2: #06251f; --glow: #ffd23f; --pop: var(--mint); }
+body.tone-ember  { --page: #7a1d3a; --page-2: #2b0a1c; --glow: #ffb84c; --pop: var(--coral); }
 
 * { box-sizing: border-box; margin: 0; }
 
-html { width: 100vw; height: 100vh; overflow: hidden; background: var(--page); }
+html { width: 100vw; height: 100vh; overflow: hidden; background: #0d0a33; }
 
 body {
   position: relative; isolation: isolate; overflow: hidden;
   width: 100vw; height: 100vh;
   color: var(--ink);
+  background: linear-gradient(165deg, var(--page), var(--page-2) 78%);
   font-family: var(--sans);
   font-size: 2.4vw;
   font-weight: 500;
@@ -54,11 +76,11 @@ body {
 /* Behind everything: two soft lights that drift, and a field of dots. */
 body::before { content: ""; position: absolute; inset: -20%; z-index: -2;
   background:
-    radial-gradient(36% 44% at 24% 30%, color-mix(in srgb, var(--accent) 17%, transparent), transparent 72%),
-    radial-gradient(34% 40% at 80% 76%, color-mix(in srgb, var(--series-1) 13%, transparent), transparent 72%);
+    radial-gradient(34% 42% at 22% 26%, color-mix(in srgb, var(--pop) 22%, transparent), transparent 72%),
+    radial-gradient(36% 44% at 82% 78%, color-mix(in srgb, var(--glow) 26%, transparent), transparent 72%);
   animation: slide-drift 22s ease-in-out infinite alternate; }
 body::after { content: ""; position: absolute; inset: 0; z-index: -1;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.075) 1px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.11) 1px, transparent 1.5px);
   background-size: 2.4vw 2.4vw;
   -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 80%);
           mask-image: radial-gradient(ellipse at center, #000 25%, transparent 80%); }
@@ -77,20 +99,20 @@ body::after { content: ""; position: absolute; inset: 0; z-index: -1;
 .slide { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3.2vh; min-height: 0; }
 .slide.top-aligned { justify-content: flex-start; padding-top: 4vh; }
 
-.kicker { max-width: none; font-family: var(--mono); font-size: 1.3vw; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.kicker { max-width: none; font-family: var(--mono); font-size: 1.3vw; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pop); }
 h1 { font-size: 6.6vw; line-height: 1.04; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.04em; max-width: 14ch; }
 h2 { font-size: 4.3vw; line-height: 1.04; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.035em; max-width: 20ch; }
 p { max-width: 32ch; }
 .lead { font-size: 3vw; line-height: 1.16; font-weight: 600; color: var(--ink-strong); letter-spacing: -0.02em; }
 .muted { color: var(--muted); }
-.accent { color: var(--accent); }
+.accent { color: var(--pop); }
 .up { color: var(--up); }
 .down { color: var(--down); }
 /* A word that matters: on the series' colour, like a sticker... */
-.mark { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 58% / 100% 80%; color: var(--on-accent); padding: 0 0.16em; border-radius: 0.12em;
+.mark { background: linear-gradient(var(--pop), var(--pop)) no-repeat 0 58% / 100% 80%; color: var(--on-accent); padding: 0 0.16em; border-radius: 0.12em;
         -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 /* ...or marked as the voice gets to it (give it its moment: data-say="word"). */
-.hl { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 58% / 0% 80%; padding: 0 0.16em; margin: 0 -0.06em; border-radius: 0.12em;
+.hl { background: linear-gradient(var(--pop), var(--pop)) no-repeat 0 58% / 0% 80%; padding: 0 0.16em; margin: 0 -0.06em; border-radius: 0.12em;
       -webkit-box-decoration-break: clone; box-decoration-break: clone;
       animation: slide-mark 0.45s cubic-bezier(0.3, 0.8, 0.3, 1) both; animation-delay: var(--at, 0s); }
 @keyframes slide-mark { from { background-size: 0% 80%; color: inherit; } to { background-size: 100% 80%; color: var(--on-accent); } }
@@ -102,7 +124,7 @@ p { max-width: 32ch; }
 /* Two or three things side by side. */
 .row { display: flex; gap: 3vw; align-items: flex-start; }
 .row > * { flex: 1; min-width: 0; }
-.rule { border: 0; border-top: 0.3vh solid var(--accent); width: 12vw; }
+.rule { border: 0; border-top: 0.5vh solid var(--pop); width: 12vw; }
 
 /* A panel: one thing set apart from the rest. */
 .card { background: color-mix(in srgb, var(--panel) 88%, transparent); border: 1px solid var(--line); border-radius: 1.4vw; padding: 2.4vh 1.8vw; }
@@ -115,15 +137,21 @@ p { max-width: 32ch; }
 /* Things in order: a number and what it is. */
 .steps { display: flex; flex-direction: column; gap: 2vh; }
 .step { display: flex; align-items: center; gap: 1.6vw; font-size: 3vw; font-weight: 750; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink-strong); }
-.step .n { flex: none; display: grid; place-items: center; width: 2.1em; height: 1.5em; border-radius: 0.4em; background: var(--accent); color: var(--on-accent);
+.step .n { flex: none; display: grid; place-items: center; width: 2.1em; height: 1.5em; border-radius: 0.4em; background: var(--pop); color: var(--on-accent);
            font-family: var(--mono); font-size: 0.62em; font-weight: 700; letter-spacing: 0; }
 /* Something to press, drawn: it is a picture of a button, not a button. */
 .button { display: inline-flex; align-items: center; gap: 0.5em; align-self: flex-start; padding: 0.5em 1.1em; border-radius: 99em;
-          background: var(--accent); color: var(--on-accent); font-size: 2.3vw; font-weight: 800; letter-spacing: -0.01em; }
+          background: var(--pop); color: var(--on-accent); font-size: 2.3vw; font-weight: 800; letter-spacing: -0.01em; }
 
 /* A sum written out: its parts side by side, on one line.  <p class="sum"><span>$1,000</span><span class="accent">+ $80</span></p> */
 .sum { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.35em; max-width: none; font-size: 8vw; line-height: 1; font-weight: 800;
        letter-spacing: -0.045em; color: var(--ink-strong); font-variant-numeric: tabular-nums; }
+
+/* A drawing: an inline SVG that shows the thing itself (a pond, a snowball, a stack of blocks). It
+   takes the room the slide has; its colours come from the bright ones above. */
+.art { flex: 1; min-height: 0; width: 100%; overflow: visible; }
+.art text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+.art .tick { font-family: var(--mono); font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
 
 /* A chart drawn as an inline SVG: it takes the room the slide has. Its text is sized in the SVG's own units. */
 .chart { flex: 1; min-height: 0; width: 100%; overflow: visible; }
@@ -131,14 +159,14 @@ p { max-width: 32ch; }
 .chart .tick { font-family: var(--mono); font-weight: 500; letter-spacing: 0.06em; fill: var(--muted); }
 .chart .axis { stroke: var(--line-strong); stroke-width: 2; fill: none; }
 .chart .guide { stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 6 8; fill: none; }
-.chart .line { stroke: var(--accent); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.chart .line { stroke: var(--pop); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; fill: none; }
 /* Bars that stand: each is its value, the bar (its height is the value: style="height: 46%") and its name.
    <div class="bars"><div class="bar"><div><b>$2,159</b><i class="grow" style="height: 9%"></i></div><span>10 years</span></div>...</div> */
 .bars { flex: 1; min-height: 0; display: flex; align-items: stretch; gap: 2.2vw; }
 .bars .bar { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .bars .bar > div { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 1vh; }
 .bars .bar b { font-size: 2.9vw; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong); font-variant-numeric: tabular-nums; }
-.bars .bar i { display: block; flex: none; border-radius: 0.9vw 0.9vw 0 0; background: var(--accent); }
+.bars .bar i { display: block; flex: none; border-radius: 0.9vw 0.9vw 0 0; background: var(--pop); }
 .bars .bar > span { padding-top: 1vh; border-top: 2px solid var(--line-strong); font-family: var(--mono); font-size: 1.2vw; font-weight: 600;
                     letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 /* Bars that lie: a name, the bar (its width is the value: style="width: 46%") and its value.
@@ -147,7 +175,7 @@ p { max-width: 32ch; }
 .hbar { display: grid; grid-template-columns: 13vw 1fr; align-items: center; gap: 1.6vw; }
 .hbar > span { font-family: var(--mono); font-size: 1.2vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .hbar > div { display: flex; align-items: center; gap: 1.2vw; min-width: 0; }
-.hbar i { display: block; flex: none; height: 7vh; border-radius: 0 0.9vw 0.9vw 0; background: var(--accent); }
+.hbar i { display: block; flex: none; height: 7vh; border-radius: 0 0.9vw 0.9vw 0; background: var(--pop); }
 .hbar i.quiet, .bars .bar i.quiet { background: var(--line-strong); }
 .hbar b { font-size: 3vw; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
 /* A slide whose drawing would run under the presenter's ring leaves him the room. */
@@ -190,7 +218,7 @@ body.thumbnail .stage > .presenter svg { animation: none; }
 .progress { position: absolute; left: 0; top: 0; height: 0.7vh; width: 100%; z-index: 8; background: var(--accent);
             transform-origin: left; transform: scaleX(0); }
 /* From one scene to the next: a panel crosses the frame, in the silence between the two. */
-.wipe { position: absolute; inset: 0 -1vw; z-index: 9; background: var(--panel); transform: translateX(-102%);
+.wipe { position: absolute; inset: 0 -1vw; z-index: 9; background: var(--page-2); transform: translateX(-102%);
         border-left: 1vw solid var(--accent); border-right: 1vw solid var(--accent); }
 /* The Short's captions: a few words at a time, the one being said in the series' colour. */
 .captions { display: none; }
@@ -207,7 +235,7 @@ body.thumbnail .stage > .presenter svg { animation: none; }
 @keyframes slide-host { from { opacity: 0; transform: translateY(9%); } }
 /* In any other scene he is a face in a ring, in the corner, and the ring swells with his voice. */
 .presenter.corner { position: absolute; right: 6vw; bottom: 10.5vh; width: 12.5vw; aspect-ratio: 1; border-radius: 50%; overflow: hidden; z-index: 4;
-                    background: radial-gradient(circle at 50% 30%, var(--raised), var(--panel));
+                    background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--page) 70%, #ffffff), var(--page-2));
                     box-shadow: 0 0 0 calc(0.28vw + var(--voice) * 0.42vw) var(--accent), 0 0 0 calc(0.9vw + var(--voice) * 0.9vw) color-mix(in srgb, var(--accent) 22%, transparent);
                     animation: slide-pop 0.42s cubic-bezier(0.25, 1.5, 0.45, 1) both; }
 .presenter.corner svg { width: 150%; height: auto; margin: -5% 0 0 -25%; }
@@ -250,7 +278,7 @@ body.thumbnail .stage > .presenter svg { animation: none; }
 
   .captions { display: block; position: absolute; left: 6vw; right: 6vw; top: 67.5vh; z-index: 6; text-align: center; }
   .caption { display: none; font-size: 8.4vw; line-height: 1.04; font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase; color: #ffffff;
-             -webkit-text-stroke: 1.7vw var(--page); paint-order: stroke fill; }
+             -webkit-text-stroke: 1.7vw var(--page-2); paint-order: stroke fill; }
   .caption.on { display: block; }
   .caption .now { color: var(--accent); }
 
@@ -264,3 +292,6 @@ body.thumbnail .stage > .presenter svg { animation: none; }
   .stage > .slide { justify-content: flex-start; gap: 2vh; height: 28vh; }
   .stage > .presenter { position: absolute; left: 50%; bottom: -1vh; height: 47vh; margin: 0 0 0 calc(-47vh * 600 / 720 / 2); }
 }
+
+/* In a drawing, a thing that lands or comes in does it about its own middle. */
+svg .pop, svg .in, svg .fade { transform-box: fill-box; transform-origin: center; }

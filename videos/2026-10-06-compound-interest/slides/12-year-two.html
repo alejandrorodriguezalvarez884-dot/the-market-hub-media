@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Year one: a thousand dollars earns eighty. -->
+<!-- Year two: the interest earns interest. The extra 6.40 is the snowball picking up snow. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -11,12 +11,15 @@
   .card small { display: block; margin-bottom: 0.8vh; font-family: var(--mono); font-size: 1.15vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 </style>
 </head>
-<body>
+<body class="tone-forest">
 <header class="top"><span class="chip" data-series>Money 101 &middot; EP 01</span></header>
 <main class="slide room">
-  <p class="kicker in">Year 1</p>
-  <p class="sum"><span class="in" data-say="thousand">$1,000</span><span class="accent pop" data-say="eighty">+ $80</span></p>
-  <p class="lead in" data-say="now">Now there's <span class="mark">$1,080</span></p>
+  <p class="kicker in">Year 2</p>
+  <p class="sum"><span class="in" data-say="all">$1,080</span><span class="accent pop" data-say="eighty-six">+ $86.40</span></p>
+  <div class="parts">
+    <div class="card in" data-say="eighty-six+0.9"><small>On your $1,000</small>$80.00</div>
+    <div class="card in" data-say="extra"><small>On last year's interest</small><span class="hl" data-say="interest on">$6.40</span></div>
+  </div>
 </main>
 <footer class="foot"><span class="brand">The Market Hub</span><span class="source">Our arithmetic: 8% a year, compounded yearly. An example, not a forecast.</span></footer>
 <div class="presenter corner"></div>

@@ -1,118 +1,126 @@
 ---
 title: Compound interest: why time matters more than the amount
-description: A thousand dollars left alone at eight percent a year becomes more than twenty-one thousand in forty years, and most of it arrives at the end. How compound interest works, why its curve bends, the rule of 72, and why the same arithmetic runs against you in a debt. The eight percent is an example, not a promise.
-tags: compound interest, rule of 72, personal finance, money basics, saving, investing basics, financial literacy
+description: A lily pad that doubles every day covers a pond in thirty days. On which day is the pond half covered? The answer is how compound growth works, and it runs your savings, your debts and the price of everything. With a pond, a stack of blocks, a snowball and, only then, the money. The eight percent is an example, not a promise.
+tags: compound interest, compound growth, rule of 72, personal finance, money basics, exponential growth, financial literacy
 series: money-101
 episode: 1
-short: 01-hook, 08-decades, 09-last-decade
-short_title: The last ten years do most of the work
+short: 01-riddle, 02-guess, 03-answer, 05-compound-growth
+short_title: The lily pad riddle most people get wrong
 chapters:
-  - 01-hook | What $1,000 becomes in 40 years
-  - 04-year-one | Interest on interest
-  - 07-two-lines | Simple vs compound
-  - 08-decades | When the money arrives
-  - 12-rule-of-72 | The rule of 72
-  - 15-question | How much, or how long?
-  - 20-both-ways | The same curve, as a debt
-  - 22-not-a-promise | 8% is an example, not a promise
-  - 23-recap | Three things to keep
+  - 01-riddle | The lily pad riddle
+  - 05-compound-growth | Compound growth
+  - 08-two-ways | Blocks or a snowball
+  - 11-year-one | The same thing, with money
+  - 16-rule-of-72 | The rule of 72
+  - 18-question | How much, or how early?
+  - 22-both-ways | When the snowball rolls at you
+  - 24-not-a-promise | 8% is an example, not a promise
+  - 25-recap | Three things to keep
 sources:
   - What is compound interest? and the Rule of 72, Investor.gov (U.S. Securities and Exchange Commission) | https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest
   - OECD/INFE 2023 International Survey of Adult Financial Literacy | https://www.oecd.org/en/publications/2023/12/oecd-infe-2023-international-survey-of-adult-financial-literacy_8ce94e2c.html
   - UBS Global Investment Returns Yearbook 2025, release of 4 March 2025 | https://www.ubs.com/global/en/media/display-page-ndp/en-20250304-global-investment-returns-yearbook-2025.html
 ---
 
-## 01-hook
+## 01-riddle
 
-Put a thousand dollars somewhere that pays eight percent a year. Don't touch it for forty years. How much is there at the end? More than twenty-one thousand dollars. And most of it shows up in the last few years.
+A lily pad sits on a pond. Every day, it doubles. After thirty days, the pond is completely covered. So here's the question. On which day was the pond half covered?
 
-## 02-survey
+## 02-guess
 
-If you guessed a lot less, you're in good company. In a survey across thirty-nine countries, only forty-two percent of adults got a compound interest question right. Even among people who already have savings, it's fewer than half.
+If your gut says day fifteen, that's the natural guess. Half the time, half the pond. It's also wrong. On day fifteen, you could barely see the lily pads at all.
 
-## 03-title
+## 03-answer
+
+The answer is day twenty-nine. One day before the end. Because if it doubles every day, then yesterday it was half of today.
+
+## 04-going-back
+
+Go back further. Day twenty-eight, a quarter. Day twenty-seven, an eighth. And on day twenty, the lily pads cover a tenth of one percent of the pond.
+
+## 05-compound-growth
+
+That's compound growth. Growth that feeds on itself. Slow for a long time, and then very fast. And it's the thing behind your savings, your debts, and the price of almost everything.
+
+## 06-title
 seconds: 3
 
-## 04-year-one
+## 07-survey
 
-Start with year one. A thousand dollars at eight percent earns eighty dollars. Now there's one thousand and eighty.
+It isn't obvious to most of us. In a survey across thirty-nine countries, only forty-two percent of adults got a compound interest question right.
 
-## 05-year-two
+## 08-two-ways
 
-Year two is where it changes. You earn eight percent on all of it. So not eighty dollars, but eighty-six forty. That extra six dollars and forty cents is interest on last year's interest. That's the whole idea.
+There are two ways for something to grow. One: add the same amount every time. Two: add a share of whatever is already there.
 
-## 06-two-ways
+## 09-blocks
 
-There are two ways to pay interest. Only on what you put in. That's simple interest. Or on everything that's there, including the interest already paid. That's compound interest. The difference sounds small. It isn't.
+The first is like stacking blocks. One more block every day. After eight days, eight blocks. Steady. And never any faster. Day eight looks exactly like day one: one more block.
 
-## 07-two-lines
+## 10-snowball
 
-Same thousand dollars, same eight percent, forty years. With simple interest, you end with forty-two hundred. With compound interest, twenty-one thousand seven hundred. Five times as much. Same money, same rate. The only difference is whether the interest gets to earn interest.
+The second is like a snowball rolling downhill. The bigger it gets, the more snow it picks up on every turn. Near the bottom, a single turn adds more than the whole first stretch did. So it doesn't just grow. It speeds up.
 
-## 08-decades
+## 11-year-one
 
-Now watch when the money arrives. After ten years, the thousand is about twenty-two hundred. After twenty, forty-seven hundred. After thirty, ten thousand. After forty, twenty-one thousand seven hundred.
+Now do it with money. Put a thousand dollars somewhere that pays eight percent a year. In year one, it earns eighty dollars.
 
-## 09-last-decade
+## 12-year-two
 
-Look at that last step. The final ten years add almost twelve thousand dollars. That's more than the first thirty years put together. Nothing changed except time.
+In year two, it earns eight percent of all of it. Eighty-six dollars and forty cents. That extra six forty is the snowball picking up snow. It's interest on last year's interest.
 
-## 10-half-way
+## 13-decades
 
-Put another way: it takes thirty-one years to reach half of the final amount. The other half arrives in the last nine. Half the money, in less than a quarter of the time.
+Now leave it alone, and watch. After ten years, about twenty-two hundred dollars. After twenty, forty-seven hundred. After thirty, ten thousand. After forty, twenty-one thousand seven hundred.
 
-## 11-slow
+## 14-last-decade
 
-So for a very long time, compound interest looks like nothing is happening. The curve is almost flat. And then it isn't. The early years aren't wasted. They're what the late years are built on. It's also the part that's easiest to give up on.
+Look at that last step. The final ten years add almost twelve thousand dollars. That's more than the first thirty years put together. It's day twenty-nine on the pond, all over again.
 
-## 12-rule-of-72
+## 15-slow
 
-There's a shortcut for all this. It's called the rule of seventy-two. Divide seventy-two by the interest rate, and you get roughly how many years it takes to double. It's an approximation, but a good one.
+And that's the hard part about compounding. For most of the time, it looks like nothing is happening. But the early days aren't wasted. They're what the last days are built on.
 
-## 13-doublings
+## 16-rule-of-72
 
-At eight percent, that's nine years. So a thousand becomes two thousand in nine years. Four thousand in eighteen. Eight thousand in twenty-seven. Sixteen thousand in thirty-six.
+So how fast does something double? There's a shortcut, called the rule of seventy-two. Divide seventy-two by the growth rate, and you get roughly the number of years.
 
-## 14-rates
+## 17-doublings
 
-The rate changes everything. At twelve percent, doubling takes six years. At four percent, eighteen. At two percent, thirty-six. Small differences in the rate are big differences in time.
+At eight percent, that's nine years. At four percent, eighteen. At two percent, thirty-six. A small change in the rate is a big change in time. Twice the rate, half the wait.
 
-## 15-question
+## 18-question
 
-So which matters more? How much you put in, or how long it stays there? Here's a way to see it.
+So what matters more? How much you start with, or how early you start?
 
-## 16-forty-years
+## 19-two-savers
 
-Take a hundred dollars a month, for forty years, at the same eight percent. You pay in forty-eight thousand dollars. You end up with about three hundred and twenty thousand. The rest, more than two hundred and seventy thousand dollars, is interest.
+Picture two people. Each saves a hundred dollars a month, at the same eight percent. One starts today, and keeps going for forty years. The other starts ten years later.
 
-## 17-ten-late
+## 20-result
 
-Now start ten years later. Thirty years instead of forty. You pay in thirty-six thousand. You end up with about a hundred and forty thousand. Less than half. Same hundred dollars. Same rate. Just ten fewer years.
+The early one ends up with about three hundred and twenty thousand dollars. The late one, about a hundred and forty thousand. Less than half, for three quarters of the effort.
 
-## 18-first-ten
+## 21-first-ten
 
-Those first ten years were a quarter of the money. They ended up as more than half of the result. Twelve thousand dollars of deposits turned into a hundred and eighty thousand.
+Those first ten years were a quarter of the money. They became more than half of the result. Twelve thousand dollars of deposits turned into a hundred and eighty thousand. Time did what money couldn't.
 
-## 19-catching-up
+## 22-both-ways
 
-To catch up from ten years behind, a hundred a month isn't enough. It takes about two hundred and thirty. More than double, every month, for thirty years.
+But the snowball doesn't care which way it rolls. On your savings, it grows for you. On a debt, it grows against you.
 
-## 20-both-ways
+## 23-debt
 
-None of this is on your side by nature. Compound interest works for whoever is owed the money. A bank pays it to you on your savings. You pay it to a bank on a loan.
+A debt at twenty percent a year, with nothing paid off, doubles in under four years. And then it more than doubles again in the four after that. A thousand dollars owed becomes more than four thousand in eight years.
 
-## 21-debt
+## 24-not-a-promise
 
-A debt at twenty percent a year, with nothing paid off, doubles in under four years. A thousand dollars owed becomes two thousand. Four years after that, more than four thousand. That's why a balance left alone gets heavy so fast. Same curve. Just pointed at you.
+One honest warning. Eight percent was an example, not a promise. Real growth is bumpy. After inflation, global stocks returned three and a half percent a year so far this century. A lower rate. The same shape.
 
-## 22-not-a-promise
+## 25-recap
 
-And one honest warning. Eight percent was an example, not a promise. Real returns move around. After inflation, global stocks returned three and a half percent a year so far this century. A lower rate, but the same shape. Slow, then fast. And fees and taxes take their share too. They get their own episodes.
+Three things to keep. One: compound growth is growth on top of growth. Two: it's slow, and then it's fast. Three: seventy-two divided by the rate is the years it takes to double.
 
-## 23-recap
+## 26-close
 
-Three things to keep. One: compound interest is interest on interest. Two: it's slow, and then it's fast. Three: seventy-two divided by the rate is the years to double.
-
-## 24-close
-
-Next time: inflation. The same arithmetic, working against the cash in your pocket. Everything else in Money one-oh-one builds on this one. Sources are in the description.
+Next time: inflation. The same snowball, rolling against the cash in your pocket.
