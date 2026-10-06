@@ -38,15 +38,19 @@ contenido hasta la publicación del vídeo (2026-10-06):
   primera es **enseñar finanzas personales**. Después vendrán otras temáticas para otras listas.
 - **Antes de hacer más vídeos, cerrar el formato** con un vídeo de presentación breve. "Una vez
   esté todo bien vamos con los siguientes vídeos."
+- **Formato y presentador aprobados** tras ver el tráiler ("me gusta", 2026-10-06). **Money 101
+  es el nombre definitivo** de la serie. **Público general**, no solo de EE. UU. Los doce temas
+  propuestos valen como primera lista de reproducción, la de básicos.
 - **Publicación: a mano primero** (YouTube Studio); la auditoría de la API se pide más adelante.
 
 ## Dónde estamos
 
 | Hecho | Pendiente |
 |---|---|
-| **Formato nuevo** (2026-10-06, segunda sesión). Presentador nuevo (`theme/presenter.js`): medio cuerpo con sudadera, manos, diez poses (`rest`, `wave`, `explain`, `open`, `point`, `one`, `two`, `three`, `thumb`, `shrug`), boca que se abre con el volumen y se cierra sobre los dientes en las eses (`mouth.sharpness`), cabeza y cejas que siguen el acento de la voz, parpadeo y miradas a la diapositiva. Estilo nuevo (`theme/slide.css`): titulares grandes, un color de serie (`--accent`), palabras marcadas, tarjetas, fondo con luces que se mueven; en las escenas que no son suyas el presentador es una cara en un círculo cuyo aro late con la voz. Sobre cada diapositiva el montaje pone la línea de progreso, el panel que cruza entre escenas y, en el Short, los subtítulos (los dibuja la página, ya no ffmpeg). **Cada cosa entra cuando la voz dice su palabra** (`data-say`, `timing.py`: los puntos del guion se casan con los silencios de la voz). Series en `channel.toml` (`series:`, `episode:` en el guion) y vídeos de presentación (`kind: trailer`). 62 tests en verde | **El usuario tiene que verlo y decir qué cambia.** No se ha escuchado: quien lo montó no oye el audio. Por comprobar de oído: que "Money one-oh-one" suene bien y que las entradas caigan sobre su palabra |
+| **Formato nuevo** (2026-10-06, segunda sesión). Presentador nuevo (`theme/presenter.js`): medio cuerpo con sudadera, manos, diez poses (`rest`, `wave`, `explain`, `open`, `point`, `one`, `two`, `three`, `thumb`, `shrug`), boca que se abre con el volumen y se cierra sobre los dientes en las eses (`mouth.sharpness`), cabeza y cejas que siguen el acento de la voz, parpadeo y miradas a la diapositiva. Estilo nuevo (`theme/slide.css`): titulares grandes, un color de serie (`--accent`), palabras marcadas, tarjetas, fondo con luces que se mueven; en las escenas que no son suyas el presentador es una cara en un círculo cuyo aro late con la voz. Sobre cada diapositiva el montaje pone la línea de progreso, el panel que cruza entre escenas y, en el Short, los subtítulos (los dibuja la página, ya no ffmpeg). **Cada cosa entra cuando la voz dice su palabra** (`data-say`, `timing.py`: los puntos del guion se casan con los silencios de la voz). Series en `channel.toml` (`series:`, `episode:` en el guion) y vídeos de presentación (`kind: trailer`). 62 tests en verde | El usuario lo vio y lo aprobó (2026-10-06). No dijo nada de la pronunciación ni de la sincronía, que quien lo montó no puede oír |
 | **Primer vídeo: el tráiler de Money 101** (`videos/2026-10-06-money-101-trailer/`): 6 escenas, 45 segundos, vídeo y Short (las mismas seis escenas), con voz (676 caracteres enviados). `make check` en verde | Sin publicar. Es la pieza de prueba del formato; si la lista de temas cambia, cambia su escena `04-topics` |
-| **Temas de Money 101 propuestos** al usuario (abajo, "La serie Money 101") | Que los apruebe o los cambie. Ningún brief hecho todavía |
+| **Temas de Money 101 aprobados** (abajo, "La serie Money 101"), para público general | |
+| **Episodio 1, interés compuesto**: brief hecho (`videos/2026-10-06-compound-interest/brief.md`), veredicto *make it*, unas 25 escenas, con las cifras calculadas y las fuentes comprobadas (SEC, OCDE, UBS, Quote Investigator) | **Que el usuario lea el brief y conteste sus cuatro preguntas** (moneda, tipo del 5 %, lo de Einstein, qué escenas hacen el Short). Luego `/make-video compound-interest` |
 | **La base** (2026-10-06): formato de vídeo (una carpeta en `videos/` con brief, guion, un dibujo por escena y miniatura), plantilla (`templates/video/`), estilo común de las diapositivas (`theme/slide.css`, el tema oscuro de Market Hub, en horizontal y en vertical) y `channel.toml` | Hecho el tráiler (arriba) |
 | Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), la boca del presentador (`mouth.py`), cuándo se dice cada palabra (`timing.py`), línea de comandos (`__main__.py`). Tests sin red | |
 | **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920). `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
@@ -104,24 +108,23 @@ contenido hasta la publicación del vídeo (2026-10-06):
 - **La descripción** de cada pieza lleva las fuentes del guion y el aviso de que no es
   asesoramiento (`channel.toml`).
 
-## La serie Money 101 (propuesta, sin aprobar)
+## La serie Money 101 (aprobada el 2026-10-06)
 
-Enseñar finanzas personales, una idea por vídeo. Nombre y color (lima, `#c6f24e`) provisionales.
-Temas propuestos, en este orden: (1) interés compuesto; (2) inflación; (3) qué cuesta de verdad
+Enseñar finanzas personales, una idea por vídeo, para público general: la lista de básicos.
+Color lima (`#c6f24e`). Temas, en este orden: (1) interés compuesto; (2) inflación; (3) qué cuesta de verdad
 una deuda (TAE, pago mínimo de una tarjeta); (4) adónde va una nómina (bruto y neto); (5) un
 presupuesto como reparto, no como dieta; (6) el colchón de emergencia y para qué sirve; (7)
 ahorrar frente a invertir: riesgo y plazo; (8) qué es un fondo indexado; (9) diversificar; (10)
 lo que se llevan las comisiones en treinta años; (11) cómo funciona una hipoteca: fijo y
-variable; (12) impuestos sobre lo que se gana invirtiendo. Por decidir con el usuario: si el
-público es de EE. UU. o general (cambia las fuentes y temas como la puntuación de crédito o los
-planes de jubilación), y que "enseñar" no se vuelva "aconsejar".
+variable; (12) impuestos sobre lo que se gana invirtiendo. Al ser para público general, las
+fuentes son internacionales cuando las hay (OCDE, bancos centrales) y los temas que cambian de un
+país a otro (nómina, hipoteca, impuestos) se cuentan por su mecanismo, no por la norma de un
+país. Lo que hay que vigilar en cada brief: que "enseñar" no se vuelva "aconsejar".
 
 ## Decisiones pendientes (a debatir con el usuario)
 
-1. **El presentador**: darlo por bueno o seguir (rasgos, ropa, pelo; si tiene nombre). La boca
-   sigue el volumen y la aspereza de la voz, no las sílabas.
-2. **El formato**: el color de la serie, el ritmo, el panel entre escenas, los subtítulos del
-   Short. Sigue sin música (decisión anterior); sin efectos de sonido tampoco.
+1. **El presentador** está aprobado. Sin decidir: si tiene nombre y lo dice.
+2. **El formato** está aprobado. Sigue sin música (decisión anterior) y sin efectos de sonido.
 3. **Declarar el contenido sintético.** `synthetic_media = false` en `channel.toml`. YouTube pide
    declararlo cuando el contenido alterado o sintético parece real; con una voz sintética hay que
    revisarlo antes del primer vídeo.
@@ -134,9 +137,9 @@ planes de jubilación), y que "enseñar" no se vuelva "aconsejar".
 
 ## Siguientes pasos
 
-1. El usuario ve el tráiler (`videos/2026-10-06-money-101-trailer/build/video.mp4` y
-   `short.mp4`; se rehacen con `make voice` y `make render VIDEO=trailer`, la voz no está en git)
-   y dice qué cambia del presentador y del formato.
-2. Aprobar o cambiar los temas de Money 101.
-3. Con el formato cerrado: `/analyze-idea` del primer tema, leer el brief, y `/make-video`.
-4. `/publish-video`: publicar a mano, cuando él lo pida.
+1. El usuario lee el brief del episodio 1 y contesta sus preguntas; entonces
+   `/make-video compound-interest`.
+2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`.
+3. `/publish-video` del tráiler y de cada episodio: publicar a mano, cuando él lo pida.
+4. **Este Mac no tiene credenciales de GitHub**: los commits se quedan en local hasta que el
+   usuario hace `git push`.

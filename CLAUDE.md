@@ -54,7 +54,8 @@ Reglas que no se negocian:
 
 ## El formato y las series
 
-El canal se dirige a **gente joven, no a niños** (decisión del usuario, 2026-10-06): titulares
+El canal se dirige a **gente joven, no a niños**, y a un **público general**, no solo de EE. UU.
+(decisiones del usuario, 2026-10-06): titulares
 grandes y cortos, un color que destaca, escenas breves, cada cosa en pantalla cuando la voz la
 nombra, y un tono directo que no trata al espectador de tonto. Nada de emojis, de jerga forzada
 ni de prisa sin motivo.
