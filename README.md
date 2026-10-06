@@ -15,7 +15,7 @@ Claude Code session, and the code here only does what must come out the same eve
 - [`.claude/skills/`](.claude/skills/): the three skills, one per decision the owner makes.
 - [`channel.toml`](channel.toml): what every video shares: the language, the size and the length
   of the video and of the Short, the voice.
-- [`theme/slide.css`](theme/slide.css): the look every slide shares, wide and upright.
+- [`theme/`](theme/): the look and the movement every slide shares, wide and upright.
 - [`templates/video/`](templates/video/): what a new video's folder starts as.
 - [`CLAUDE.md`](CLAUDE.md): the rules a video keeps.
 
@@ -65,8 +65,10 @@ make test
    the scenes, each a `## 01-name` heading with what is said under it. A `short:` line names
    the scenes that make the Short.
 3. **Slides** (`slides/01-name.html` or `.svg`): one drawing per scene, written as code, with
-   nothing loaded from the network. `make frames` turns each into a 1920x1080 frame with the
-   Chrome on this machine, and the scenes of the Short into a 1080x1920 frame as well.
+   nothing loaded from the network. A slide moves: its parts come in, its bars rise and its
+   figures count up as the voice names them. `make frames` photographs each with the Chrome on
+   this machine, frame by frame while it moves, at 1920x1080, and the scenes of the Short at
+   1080x1920 as well.
 4. **Narration** (`voice/01-name.wav`): one sound file per scene, spoken by Google Cloud
    Text-to-Speech. A scene with no file is held in silence for the time its words would take,
    so a film can be watched and timed before a word is spoken.

@@ -86,3 +86,20 @@ body.thumbnail .kicker { font-size: 2.4vw; }
   .foot { flex-direction: column; align-items: flex-start; gap: 0.6vh; font-size: 2.3vw; }
   .foot .source { text-align: left; }
 }
+
+/* Movement. Each of these runs once and stays as it ends, so the slide at rest is the slide as it
+   would be drawn still. `--at` is when it starts, in seconds from the start of the scene: set it
+   to when the narration reaches the thing (style="--at: 2.5s"). */
+.in   { animation: slide-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--at, 0s); }    /* comes up into place */
+.fade { animation: slide-fade 0.6s ease both; animation-delay: var(--at, 0s); }                              /* appears where it is */
+.grow { transform-box: fill-box; transform-origin: bottom;                                                  /* a bar, from its foot */
+        animation: slide-grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--at, 0s); }
+.wide { transform-box: fill-box; transform-origin: left;                                                    /* a bar, from its left end */
+        animation: slide-wide 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--at, 0s); }
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1;                                                          /* a line of a chart: give it pathLength="1" */
+        animation: slide-draw 1.4s ease-in-out both; animation-delay: var(--at, 0s); }
+@keyframes slide-in   { from { opacity: 0; transform: translateY(2.2vh); } }
+@keyframes slide-fade { from { opacity: 0; } }
+@keyframes slide-grow { from { transform: scaleY(0); } }
+@keyframes slide-wide { from { transform: scaleX(0); } }
+@keyframes slide-draw { to { stroke-dashoffset: 0; } }

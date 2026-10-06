@@ -34,10 +34,11 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | Hecho | Pendiente |
 |---|---|
 | **La base** (2026-10-06): formato de vídeo (una carpeta en `videos/` con brief, guion, un dibujo por escena y miniatura), plantilla (`templates/video/`), estilo común de las diapositivas (`theme/slide.css`, el tema oscuro de Market Hub, en horizontal y en vertical) y `channel.toml` | **Ningún vídeo todavía.** El usuario aún no ha dado un tema |
-| Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), línea de comandos (`__main__.py`). 46 tests en verde, sin red | |
+| Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), línea de comandos (`__main__.py`). 48 tests en verde, sin red | |
 | **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920). `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
 | **Voz** (`make voice`): contra la API REST de Google Cloud Text-to-Speech. Solo vuelve a decir las escenas que cambian; `DRY=1` no gasta. **Probada contra Google el 2026-10-06**: API activada en el proyecto `arctic-robot-474306-g3`, cuatro muestras (Charon, Iapetus, Sadaltager, Schedar) y un vídeo de prueba de 3 escenas con voz. En total, unos 930 caracteres | Voz elegida: Schedar, ritmo 1.0. La voz habla a unas 200 palabras por minuto (medido en la prueba); `words_per_minute = 190` es la estimación para escenas sin voz |
 | **Subtítulos del Short incrustados** con ffmpeg (`subtitles`), unas pocas palabras cada vez, en la banda que las diapositivas verticales dejan libre (el tercio inferior). Visto en dos fotogramas de la prueba | |
+| **Escenas animadas** (2026-10-06): los elementos de una diapositiva entran, las barras suben, las líneas se dibujan y las cifras cuentan, en el momento que marca `--at` (clases `.in`, `.fade`, `.grow`, `.wide`, `.draw` de `theme/slide.css`; cifras con `theme/slide.js`). No se graba la pantalla: `frames.py` para las animaciones y las coloca en el instante de cada fotograma (30 por segundo), así sale igual siempre. Probado con un gráfico de prueba, en horizontal y en vertical | Ajustar los `--at` a la voz real se hace a ojo en la skill: no hay todavía marcas de tiempo por palabra |
 | **Publicación a mano** (`make kit`, `make published`): el texto para pegar en YouTube Studio y el registro de la dirección | Probarlo con el primer vídeo |
 | Subida por la API (`make auth`, `make upload`): escrita, con tests del cuerpo de la petición | Para después de la auditoría de YouTube. **Sin probar contra YouTube** |
 | Tres skills: `analyze-idea`, `make-video`, `publish-video` | Probarlas en una sesión nueva, con la primera idea |
@@ -56,6 +57,11 @@ contenido hasta la publicación del vídeo (2026-10-06):
   voz. Lo único que cambia es el fotograma: el mismo dibujo se fotografía en 1080x1920, y el
   estilo común cambia los tamaños cuando la ventana es vertical (`@media (orientation: portrait)`).
   Por eso una diapositiva se dibuja con medidas relativas y debe leerse bien de las dos formas.
+- **El movimiento no se graba, se calcula.** Chrome para todas las animaciones de la página y las
+  pone en el instante de cada fotograma (`document.getAnimations()`, y `window.slideAt` para lo
+  que dibuja un script). Deja `build/frames/<escena>/0000.jpg…` mientras algo se mueve y
+  `build/frames/<escena>.png` con la diapositiva ya en reposo; el montaje reproduce los
+  fotogramas y mantiene el último hasta que acaba la escena.
 - **El montaje no necesita la voz.** Una escena sin archivo en `voice/` se mantiene en silencio
   el tiempo que tardarían en decirse sus palabras (190 por minuto, en `channel.toml`). Con voz,
   dura lo que dura el archivo. Así se ve y se mide un vídeo antes de gastar un carácter.
@@ -79,8 +85,8 @@ contenido hasta la publicación del vídeo (2026-10-06):
    el motor Avatar III y 4,83 $/min con Avatar IV; D-ID por API, 35 $/mes por 45 minutos). Por
    decidir: cuánto sale el avatar en cada vídeo, qué proveedor, quién es el avatar y el tope de
    gasto. Cambia la regla de "nada de servicios de imagen" de `CLAUDE.md`, que habrá que reescribir.
-2. **Imagen animada.** Hoy cada escena es una diapositiva fija. Animar los gráficos se puede hacer
-   aquí, grabando con Chrome fotograma a fotograma, sin coste.
+2. **Transiciones entre escenas.** Dentro de la escena ya hay movimiento; entre escenas el
+   corte es seco.
 3. **Declarar el contenido sintético.** `synthetic_media = false` en `channel.toml`. YouTube pide
    declararlo cuando el contenido alterado o sintético parece real; con una voz sintética hay que
    revisarlo antes del primer vídeo.

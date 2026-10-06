@@ -79,6 +79,11 @@ class Video:
         """A scene's frame: as wide as the video, or upright for the Short."""
         return self.build / ("short-frames" if short else "frames") / f"{scene}.png"
 
+    def moving(self, scene: str, short: bool = False) -> Path:
+        """The folder with a scene's frames while something on it moves, one picture per frame.
+        It is empty or missing when the scene is still."""
+        return self.frame(scene, short).with_suffix("")
+
     def voice(self, scene: str) -> Path | None:
         return next((self.path / "voice" / f"{scene}{ext}" for ext in AUDIO
                      if (self.path / "voice" / f"{scene}{ext}").is_file()), None)

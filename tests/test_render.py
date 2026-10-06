@@ -60,3 +60,16 @@ def test_the_shorts_captions_are_a_few_words_at_a_time(video, channel):
     lines = [block.split("\n")[2] for block in render.captions(cuts, render.SHORT_CAPTION_CHARS).strip().split("\n\n")]
     assert all(len(line) <= render.SHORT_CAPTION_CHARS for line in lines)
     assert " ".join(lines) == "Profit did not grow. Earnings per share did. Here is how. Fewer shares, same profit. Each share gets more of it."
+
+
+def test_a_still_scene_is_one_frame_held_and_a_moving_one_is_its_frames(video, channel):
+    source, hold = render.picture(video, "01-hook", False, 30, 7.5)
+    assert source[:1] == ["-loop"] and source[-1].endswith("01-hook.png") and hold == ""
+    moving = video.moving("01-hook")
+    moving.mkdir(parents=True)
+    (moving / "0000.jpg").write_bytes(b"a frame")
+    source, hold = render.picture(video, "01-hook", False, 30, 7.5)
+    assert source == ["-framerate", "30", "-i", str(moving / "%04d.jpg")]
+    assert hold == "tpad=stop_mode=clone:stop_duration=7.500"
+    # The Short has frames of its own.
+    assert render.picture(video, "01-hook", True, 30, 7.5)[1] == ""

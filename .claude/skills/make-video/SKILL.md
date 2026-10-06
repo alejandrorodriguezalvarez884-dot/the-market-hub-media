@@ -73,6 +73,14 @@ service, no model on the network, no picture taken from anywhere.
   a slide goes in a `<style>` of its own. Nothing is loaded from the network; system fonts only.
 - **One idea per slide, and few words**: twelve at most outside a chart. The narration carries
   the sentence; the slide carries the figure, the comparison or the drawing.
+- **A slide moves.** Nothing is on screen before the voice gets to it: the title comes in, then
+  each bar rises, the line is drawn, the figure counts up, in the order the narration names
+  them. Use the classes of the shared style (`.in`, `.fade`, `.grow`, `.wide`, `.draw`) with
+  `style="--at: 2.5s"` for when each starts, counted from the start of the scene, and
+  `theme/slide.js` for a figure that counts up (`data-count`). Read the narration aloud to place
+  the times: at the voice's pace, ten words are about three seconds. Movement explains; it does
+  not decorate: nothing loops, bounces or spins, and everything has come to rest well before
+  the scene ends. How a drawing can move is at the top of `src/marketmedia/frames.py`.
 - **Charts are drawn as inline SVG from the figures in the brief**, with their axis, their unit
   and their date. Colours that name a series come from `--series-1..4`. Green and red only for
   a figure that went up or down, never as a verdict, and no arrows that point where a price
@@ -101,8 +109,11 @@ make render VIDEO=<name>     # draws the frames, then makes the video, the Short
 **Look at every frame you made**: `build/frames/*.png`, `build/short-frames/*.png` and
 `build/thumbnail.jpg`. Text that is cut or runs off the frame, a chart whose labels overlap, an
 upright slide with everything crammed in a corner or reaching into the captions' band, a slide
-that says something the narration does not: fix the drawing and render again. Two passes is normal. Then read the timings
-`make render` printed: a scene far outside 8 to 25 seconds wants splitting or joining.
+that says something the narration does not: fix the drawing and render again. Two passes is normal. Those pictures are each slide
+at rest; to see one half way through its movement, open a few of
+`build/frames/<scene>/*.jpg` (one picture per frame, thirty a second). Then read the timings
+`make render` printed: a scene far outside 8 to 25 seconds wants splitting or joining, and one
+that moves for longer than it lasts has its movement cut.
 
 ## 5. Give it its voice
 
@@ -110,6 +121,10 @@ The narration is spoken by Google Cloud Text-to-Speech, a scene at a time, into 
 user has decided it is made here, without asking each time. It is paid by the character past a
 monthly free allowance, so do it when the script is settled and the frames are right, not
 before.
+
+Once each scene has its voice it lasts what the voice lasts, which is rarely what was assumed:
+listen to where the voice names each thing (or work it out from the scene's length and its
+words) and move the `--at` of each element to match.
 
 ```bash
 make voice VIDEO=<name> DRY=1    # how many scenes and characters it would send; spends nothing

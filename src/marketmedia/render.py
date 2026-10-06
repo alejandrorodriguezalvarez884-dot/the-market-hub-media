@@ -1,8 +1,8 @@
 """From the frames and the narration of each scene to a film and its captions.
 
 Two films come out of a script: the video (every scene, as wide as a screen) and its Short (the
-scenes the script names, upright). Each scene is its picture held for as long as its narration
-lasts, plus a short silence. A scene whose narration is not made yet is held for the time its
+scenes the script names, upright). Each scene is its picture, moving while it moves and then
+held, for as long as its narration lasts, plus a short silence. A scene whose narration is not made yet is held for the time its
 words would take at the channel's pace, in silence: a film can be watched, timed and corrected
 before a word is spoken.
 
@@ -118,6 +118,16 @@ def _run(args: list[str], cwd: Path | None = None) -> None:
         raise RuntimeError(f"ffmpeg failed: {done.stderr.strip()[-600:]}")
 
 
+def picture(video: Video, scene: str, short: bool, fps: int, seconds: float) -> tuple[list[str], str]:
+    """How ffmpeg reads a scene's picture, and the filter that goes with it: its moving frames
+    and then the last of them held until the scene ends, or its one still frame."""
+    moving = video.moving(scene, short)
+    if moving.is_dir() and any(moving.glob("*.jpg")):
+        return (["-framerate", str(fps), "-i", str(moving / "%04d.jpg")],
+                f"tpad=stop_mode=clone:stop_duration={seconds:.3f}")
+    return ["-loop", "1", "-framerate", str(fps), "-i", str(video.frame(scene, short))], ""
+
+
 def film(video: Video, script: Script, channel: Channel, short: bool = False,
          log: Callable[[str], None] = print) -> Path:
     """Make the video (build/video.mp4) or its Short (build/short.mp4), with its captions.
@@ -134,12 +144,13 @@ def film(video: Video, script: Script, channel: Channel, short: bool = False,
     tool = ffmpeg()
     for cut in cuts:
         sound = ["-i", str(cut.voice), "-af", "apad"] if cut.voice else ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo"]
-        _run([tool, "-y", "-loglevel", "error", "-loop", "1", "-framerate", str(channel.fps),
-              "-i", str(video.frame(cut.scene.name, short)), *sound, "-t", f"{cut.seconds:.3f}",
-              "-vf", f"scale={width}:{height}", "-c:v", "libx264", "-tune", "stillimage",
+        source, hold = picture(video, cut.scene.name, short, channel.fps, cut.seconds)
+        _run([tool, "-y", "-loglevel", "error", *source, *sound, "-t", f"{cut.seconds:.3f}",
+              "-vf", ",".join(f for f in (hold, f"scale={width}:{height}") if f), "-c:v", "libx264",
               "-pix_fmt", "yuv420p", "-r", str(channel.fps), "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
               str(parts / f"{cut.scene.name}.mp4")])
-        log(f"  {cut.scene.name:<28} {cut.seconds:5.1f}s  {'voice' if cut.voice else 'silent'}")
+        log(f"  {cut.scene.name:<28} {cut.seconds:5.1f}s  {'voice' if cut.voice else 'silent'}"
+            f"{'  moving' if hold else ''}")
     order = video.build / f"{parts.name}.txt"
     order.write_text("".join(f"file '{parts.name}/{c.scene.name}.mp4'\n" for c in cuts), encoding="utf-8", newline="\n")
     joined = video.build / "short-plain.mp4" if short else video.film()
