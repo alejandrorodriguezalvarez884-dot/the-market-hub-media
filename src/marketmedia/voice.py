@@ -27,10 +27,13 @@ Speak = Callable[[str, Channel], bytes]
 
 def request(text: str, channel: Channel) -> dict:
     """What is asked of the service for one scene."""
+    sound: dict = {"audioEncoding": "LINEAR16"}  # a WAV file
+    if channel.voice_rate != 1.0:
+        sound["speakingRate"] = channel.voice_rate
     return {
         "input": {"text": text},
         "voice": {"languageCode": channel.voice_language, "name": channel.voice_name},
-        "audioConfig": {"audioEncoding": "LINEAR16"},  # a WAV file
+        "audioConfig": sound,
     }
 
 
@@ -38,8 +41,11 @@ def cloud(text: str, channel: Channel) -> bytes:
     """Speak ``text`` with Google Cloud Text-to-Speech and return the WAV file."""
     import google.auth
     from google.auth.transport.requests import AuthorizedSession
-    credentials, project = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
-    project = os.environ.get("GOOGLE_CLOUD_PROJECT") or project
+    # The project that is billed: said by the Makefile, or the one of the session.
+    wanted = os.environ.get("GOOGLE_CLOUD_PROJECT") or None
+    credentials, project = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"],
+                                               quota_project_id=wanted)
+    project = wanted or project
     if not project:
         raise RuntimeError("no Google Cloud project: set GOOGLE_CLOUD_PROJECT or 'gcloud config set project'")
     response = AuthorizedSession(credentials).post(URL, json=request(text, channel),
@@ -54,8 +60,9 @@ def cloud(text: str, channel: Channel) -> bytes:
 
 
 def _mark(scene: Scene, channel: Channel) -> str:
-    """What a scene's sound depends on: its words and the voice."""
-    return hashlib.sha256(f"{channel.voice_name}|{channel.voice_language}|{scene.narration}".encode()).hexdigest()[:16]
+    """What a scene's sound depends on: its words, the voice and its pace."""
+    made_from = f"{channel.voice_name}|{channel.voice_language}|{channel.voice_rate}|{scene.narration}"
+    return hashlib.sha256(made_from.encode()).hexdigest()[:16]
 
 
 def pending(video: Video, script: Script, channel: Channel) -> list[Scene]:

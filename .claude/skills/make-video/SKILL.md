@@ -26,8 +26,8 @@ a video at the top of `src/marketmedia/videos.py`. `channel.toml` has the length
   a title card; three to five parts, each one idea; a close that says what the viewer now knows
   and what to watch next. One scene per picture: when what is on screen should change, a new
   scene starts. A scene runs 8 to 25 seconds; a picture held longer loses people.
-- **Length.** Four to six minutes: 600 to 900 words at the channel's pace (150 a minute).
-  `make check` refuses a video outside it.
+- **Length.** Four to six minutes: about 800 to 1,150 words at the voice's pace (some 200 a
+  minute; `words_per_minute` in `channel.toml`). `make check` refuses a video outside it.
 - **Voice.** A person who has read the documents and explains them to a friend who is clever and
   not in finance. Short sentences. One figure per sentence, rounded the way one would say it
   aloud ("almost a third", "about 4 billion dollars"). No jargon left unexplained. Say the
@@ -56,8 +56,8 @@ with the same words and the same voice, drawn again upright. It is not a trailer
 sees only the Short must come away with one whole idea.
 
 - Pick the scenes that stand on their own: usually the hook, the scene with the figure that
-  carries the video, and one that says what it means. Thirty seconds to a minute (75 to 150
-  words); `make check` refuses a Short outside it.
+  carries the video, and one that says what it means. Thirty seconds to a minute (about 100 to
+  190 words); `make check` refuses a Short outside it.
 - Read the chosen scenes one after another, alone. If a sentence leans on a scene that is not in
   the cut ("as we saw", "that second figure"), reword it in the script so that it works in both
   films, or choose other scenes.
@@ -81,8 +81,9 @@ service, no model on the network, no picture taken from anywhere.
 - **A slide of the Short is photographed twice**: 1920x1080 for the video and 1080x1920 for the
   Short. Size things with `vw`, `vh` and `%`, never with fixed pixels, and use
   `@media (orientation: portrait)` (as the shared style does) to stack what sits side by side
-  and to enlarge a chart. Keep the top eighth and the bottom fifth of the upright frame clear:
-  YouTube draws over them.
+  and to enlarge a chart. Keep the top tenth and the bottom third of the upright frame clear
+  (the shared style's padding does): the Short's captions are drawn there, a few words at a
+  time, above what YouTube draws over a Short.
 - No real logos, no faces of real people, no brand's look. A company is told by its name in
   plain type and by what it does.
 - Start each file, after the doctype, with a comment that says what the slide shows.
@@ -99,15 +100,16 @@ make render VIDEO=<name>     # draws the frames, then makes the video, the Short
 
 **Look at every frame you made**: `build/frames/*.png`, `build/short-frames/*.png` and
 `build/thumbnail.jpg`. Text that is cut or runs off the frame, a chart whose labels overlap, an
-upright slide with everything crammed in a corner, a slide that says something the narration
-does not: fix the drawing and render again. Two passes is normal. Then read the timings
+upright slide with everything crammed in a corner or reaching into the captions' band, a slide
+that says something the narration does not: fix the drawing and render again. Two passes is normal. Then read the timings
 `make render` printed: a scene far outside 8 to 25 seconds wants splitting or joining.
 
 ## 5. Give it its voice
 
-The narration is spoken by Google Cloud Text-to-Speech, a scene at a time, into `voice/`. It
-is paid by the character past a monthly free allowance, so do it when the script is settled,
-not before.
+The narration is spoken by Google Cloud Text-to-Speech, a scene at a time, into `voice/`. The
+user has decided it is made here, without asking each time. It is paid by the character past a
+monthly free allowance, so do it when the script is settled and the frames are right, not
+before.
 
 ```bash
 make voice VIDEO=<name> DRY=1    # how many scenes and characters it would send; spends nothing

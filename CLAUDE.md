@@ -51,7 +51,8 @@ Reglas que no se negocian:
 La narración la dice **Google Cloud Text-to-Speech** (decisión del usuario, 2026-10-06), con una
 voz Chirp 3 HD (`[voice]` en `channel.toml`), la sesión de `gcloud` del usuario y su proyecto.
 `make voice` genera un archivo por escena en `videos/<vídeo>/voice/` y solo vuelve a decir las
-escenas cuyas palabras, o la voz, han cambiado. Se cobra por carácter pasado un tramo gratuito
+escenas cuyas palabras, o la voz, han cambiado. Se genera dentro de `make-video`, sin preguntar
+cada vez (decisión del usuario). Se cobra por carácter pasado un tramo gratuito
 mensual (1 millón de caracteres al mes en estas voces, según la página de precios de Google el
 2026-10-06; un vídeo son unos 5.000): por eso la voz se genera con el guion ya cerrado, y
 `make voice DRY=1` dice antes cuántos caracteres mandaría. No se cambia a una voz o a un servicio

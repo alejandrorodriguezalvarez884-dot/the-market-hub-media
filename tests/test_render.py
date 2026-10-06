@@ -53,3 +53,10 @@ def test_the_short_is_the_scenes_the_script_names(video, channel):
     assert [c.scene.name for c in cuts] == ["01-hook", "03-point"]
     assert video.frame("01-hook", short=True).parent.name == "short-frames"
     assert video.film(short=True).name == "short.mp4" and video.captions(short=True).name == "short.srt"
+
+
+def test_the_shorts_captions_are_a_few_words_at_a_time(video, channel):
+    cuts = render.plan(video, scripts.load(video.script), channel, short=True)
+    lines = [block.split("\n")[2] for block in render.captions(cuts, render.SHORT_CAPTION_CHARS).strip().split("\n\n")]
+    assert all(len(line) <= render.SHORT_CAPTION_CHARS for line in lines)
+    assert " ".join(lines) == "Profit did not grow. Earnings per share did. Here is how. Fewer shares, same profit. Each share gets more of it."

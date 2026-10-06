@@ -128,7 +128,7 @@ def kit(script: Script, channel: Channel) -> str:
             "=== SHORT: short.mp4 ===",
             f"Title:\n{script.short_title or script.title}",
             f"Description:\n{words}",
-            "Captions: short.srt\nRelated video: the video above, once it is public",
+            "Captions: already in the picture\nRelated video: the video above, once it is public",
         ]
     return "\n\n".join(parts) + "\n"
 

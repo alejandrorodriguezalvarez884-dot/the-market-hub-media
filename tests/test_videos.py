@@ -47,10 +47,10 @@ def test_no_thumbnail_is_a_problem(video, channel):
 
 
 def test_a_video_and_its_short_run_what_the_channel_says(video, channel):
-    # The video of the tests runs 12 seconds and its Short 9: far from 4 to 6 minutes and 30 to 60 seconds.
+    # The video of the tests runs 10 seconds and its Short 7: far from 4 to 6 minutes and 30 to 60 seconds.
     found = check.problems(video, replace(channel, minutes=(4, 6), short_seconds=(30, 60)))
-    assert found == ["the video runs 0:12; the channel's videos run 4:00 to 6:00",
-                     "the Short runs 0:09; a Short runs 0:30 to 1:00"]
+    assert found == ["the video runs 0:10; the channel's videos run 4:00 to 6:00",
+                     "the Short runs 0:07; a Short runs 0:30 to 1:00"]
 
 
 def test_a_new_video_is_the_template_with_its_title(tmp_path, channel):

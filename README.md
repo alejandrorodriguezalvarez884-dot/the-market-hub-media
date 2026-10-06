@@ -70,9 +70,10 @@ make test
 4. **Narration** (`voice/01-name.wav`): one sound file per scene, spoken by Google Cloud
    Text-to-Speech. A scene with no file is held in silence for the time its words would take,
    so a film can be watched and timed before a word is spoken.
-5. **Films** (`build/video.mp4`, `build/short.mp4`, and the captions of each): each frame held
-   for as long as its narration lasts, joined with the ffmpeg that comes with the
-   `imageio-ffmpeg` package.
+5. **Films** (`build/video.mp4`, `build/short.mp4`): each frame held for as long as its
+   narration lasts, joined with the ffmpeg that comes with the `imageio-ffmpeg` package. The
+   video's captions are a file beside it (`captions.srt`); the Short's are drawn into the
+   picture, a few words at a time.
 6. **Publishing**: `build/youtube.txt` has the title, the tags and a description that carries
    the sources and a notice that it is not advice. `published.json` records where it is.
 
@@ -86,7 +87,8 @@ The build and the narration are not in git; everything else is.
    (`gcloud services enable texttospeech.googleapis.com`).
 2. `gcloud auth application-default login`, if this machine has not done it yet.
 
-The voice is in `channel.toml` (`[voice]`): a Chirp 3 HD voice, `en-US-Chirp3-HD-<name>`. These
+The voice is in `channel.toml` (`[voice]`): a Chirp 3 HD voice, `en-US-Chirp3-HD-<name>`, and its
+pace (`rate`). These
 voices are free up to a million characters a month and paid by the character after that (Google's
 pricing page, October 2026); a video is about five thousand. A scene is spoken again only when
 its words or the voice change, and `make voice DRY=1` says what it would send without spending.

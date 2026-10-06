@@ -67,3 +67,12 @@ def test_a_recording_of_the_owner_is_left_alone(video, channel, spoken):
     voice.make(video, script, channel, speak=spoken, log=lambda _: None)
     assert spoken.calls == [script.scenes[2].narration]
     assert (video.path / "voice" / "01-hook.mp3").read_bytes() == b"my own voice"
+
+
+def test_a_pace_other_than_the_voices_own_is_asked_for_and_speaks_everything_again(video, channel, spoken):
+    assert "speakingRate" not in voice.request("Hello.", channel)["audioConfig"]
+    slower = replace(channel, voice_rate=0.9)
+    assert voice.request("Hello.", slower)["audioConfig"]["speakingRate"] == 0.9
+    script = scripts.load(video.script)
+    voice.make(video, script, channel, speak=spoken, log=lambda _: None)
+    assert [s.name for s in voice.pending(video, script, slower)] == ["01-hook", "03-point"]

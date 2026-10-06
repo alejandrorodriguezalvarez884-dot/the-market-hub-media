@@ -71,10 +71,11 @@ body.thumbnail { padding: 7vh 6vw; }
 body.thumbnail h1 { font-size: 9vw; max-width: 12ch; }
 body.thumbnail .kicker { font-size: 2.4vw; }
 
-/* Upright, for the Short: the same slide in a 1080x1920 frame. Sizes follow the width, and the
-   top and the bottom are left clear for what YouTube draws over a Short. */
+/* Upright, for the Short: the same slide in a 1080x1920 frame. Sizes follow the width. The top
+   tenth is left clear, and so is the bottom third: the captions are drawn there, above what
+   YouTube draws over a Short. */
 @media (orientation: portrait) {
-  body { font-size: 4.8vw; padding: 12vh 8vw 20vh; }
+  body { font-size: 4.8vw; padding: 10vh 8vw 34vh; }
   .kicker { font-size: 2.9vw; }
   h1 { font-size: 10.5vw; max-width: none; }
   h2 { font-size: 7.4vw; max-width: none; }

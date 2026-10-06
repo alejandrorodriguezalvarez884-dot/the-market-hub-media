@@ -10,7 +10,7 @@ width = 1920
 height = 1080
 fps = 30
 minutes = [4, 6]                     # how long a video runs
-words_per_minute = 150               # the pace assumed for a scene whose narration is not made yet
+words_per_minute = 190               # the pace assumed for a scene whose narration is not made yet
 gap_seconds = 0.4                    # silence left after each scene
 
 # The Short: a few scenes of the video, drawn again upright.
@@ -23,6 +23,7 @@ seconds = [30, 60]                   # how long a Short runs
 [voice]
 name = "en-US-Chirp3-HD-Charon"
 language = "en-US"
+rate = 1.0                           # its pace: 1.0 is the voice's own, about 200 words a minute
 
 [youtube]
 category = "27"                      # Education

@@ -20,7 +20,9 @@ contenido hasta la publicación del vídeo (2026-10-06):
 - **Idioma: inglés.**
 - **Dos tipos de pieza**: vídeo de 4 a 6 minutos, y Short (o reel) de 30 segundos a 1 minuto.
 - **El Short es un recorte del vídeo largo**, no una pieza aparte.
-- **Voz: Google Cloud Text-to-Speech.**
+- **Voz: Google Cloud Text-to-Speech**, masculina y con acento de EE. UU. Se genera sola al
+  hacer el vídeo, sin preguntar cada vez.
+- **Subtítulos incrustados solo en el Short**; el vídeo largo lleva su `.srt` aparte.
 - **Publicación: a mano primero** (YouTube Studio); la auditoría de la API se pide más adelante.
 
 ## Dónde estamos
@@ -28,9 +30,10 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | Hecho | Pendiente |
 |---|---|
 | **La base** (2026-10-06): formato de vídeo (una carpeta en `videos/` con brief, guion, un dibujo por escena y miniatura), plantilla (`templates/video/`), estilo común de las diapositivas (`theme/slide.css`, el tema oscuro de Market Hub, en horizontal y en vertical) y `channel.toml` | **Ningún vídeo todavía.** El usuario aún no ha dado un tema |
-| Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), línea de comandos (`__main__.py`). 44 tests en verde, sin red | |
-| **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920) con sus subtítulos. `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
-| **Voz** (`make voice`): escrita contra la API REST de Google Cloud Text-to-Speech, con tests que sustituyen al servicio. Solo vuelve a decir las escenas que cambian; `DRY=1` no gasta | **Sin probar contra Google**: falta activar la API en el proyecto y elegir la voz (hoy `en-US-Chirp3-HD-Charon`, puesta sin oírla) |
+| Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), línea de comandos (`__main__.py`). 46 tests en verde, sin red | |
+| **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920). `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
+| **Voz** (`make voice`): contra la API REST de Google Cloud Text-to-Speech. Solo vuelve a decir las escenas que cambian; `DRY=1` no gasta. **Probada contra Google el 2026-10-06**: API activada en el proyecto `arctic-robot-474306-g3`, cuatro muestras (Charon, Iapetus, Sadaltager, Schedar) y un vídeo de prueba de 3 escenas con voz. En total, unos 930 caracteres | **Que el usuario elija la voz** entre las muestras (hoy `en-US-Chirp3-HD-Charon`) y el ritmo. La voz habla a unas 200 palabras por minuto (medido en la prueba); `words_per_minute = 190` es la estimación para escenas sin voz |
+| **Subtítulos del Short incrustados** con ffmpeg (`subtitles`), unas pocas palabras cada vez, en la banda que las diapositivas verticales dejan libre (el tercio inferior). Visto en dos fotogramas de la prueba | |
 | **Publicación a mano** (`make kit`, `make published`): el texto para pegar en YouTube Studio y el registro de la dirección | Probarlo con el primer vídeo |
 | Subida por la API (`make auth`, `make upload`): escrita, con tests del cuerpo de la petición | Para después de la auditoría de YouTube. **Sin probar contra YouTube** |
 | Tres skills: `analyze-idea`, `make-video`, `publish-video` | Probarlas en una sesión nueva, con la primera idea |
@@ -50,7 +53,7 @@ contenido hasta la publicación del vídeo (2026-10-06):
   estilo común cambia los tamaños cuando la ventana es vertical (`@media (orientation: portrait)`).
   Por eso una diapositiva se dibuja con medidas relativas y debe leerse bien de las dos formas.
 - **El montaje no necesita la voz.** Una escena sin archivo en `voice/` se mantiene en silencio
-  el tiempo que tardarían en decirse sus palabras (150 por minuto, en `channel.toml`). Con voz,
+  el tiempo que tardarían en decirse sus palabras (190 por minuto, en `channel.toml`). Con voz,
   dura lo que dura el archivo. Así se ve y se mide un vídeo antes de gastar un carácter.
 - **La voz** usa la sesión de `gcloud` del usuario (credenciales por defecto de la aplicación) y
   su proyecto. `voice/made.json` guarda de qué palabras y con qué voz se hizo cada archivo.
@@ -67,24 +70,21 @@ contenido hasta la publicación del vídeo (2026-10-06):
 
 ## Decisiones pendientes (a debatir con el usuario)
 
-1. **Qué voz**, de las cerca de 30 Chirp 3 HD, y con qué acento (`en-US` o `en-GB`). Lo natural es oír
-   unas muestras; para eso hay que activar antes la API en su proyecto.
-2. **Cuándo se genera la voz**: dentro de `make-video` sin preguntar, o solo cuando él haya visto
-   el montaje en silencio.
-3. **Subtítulos incrustados en el Short** (muchos se ven sin sonido). Hoy van en un `.srt` aparte.
-4. **Movimiento y música.** Hoy son diapositivas fijas, sin música.
-5. **Declarar el contenido sintético.** `synthetic_media = false` en `channel.toml`. YouTube pide
+1. **Qué voz** de las cuatro muestras (o pedir otras) y **a qué ritmo** (`rate` en `channel.toml`;
+   1.0 son unas 200 palabras por minuto).
+2. **Movimiento y música.** Hoy son diapositivas fijas, sin música.
+3. **Declarar el contenido sintético.** `synthetic_media = false` en `channel.toml`. YouTube pide
    declararlo cuando el contenido alterado o sintético parece real; con una voz sintética hay que
    revisarlo antes del primer vídeo.
-6. **El resto de la gestión del canal**, que la base no cubre: listas de reproducción, responder
+4. **El resto de la gestión del canal**, que la base no cubre: listas de reproducción, responder
    comentarios, leer las estadísticas para decidir los siguientes temas.
-7. **El aspecto**: el tema es el de la web, sobrio. Por decidir si el canal quiere una identidad
+5. **El aspecto**: el tema es el de la web, sobrio. Por decidir si el canal quiere una identidad
    propia (cabecera, cierre, miniaturas con un estilo reconocible).
-8. **La auditoría de la API de YouTube**, para subir sin pasar por YouTube Studio: cuando haya
+6. **La auditoría de la API de YouTube**, para subir sin pasar por YouTube Studio: cuando haya
    varios vídeos publicados que enseñar.
 
 ## Siguientes pasos
 
-1. Activar Cloud Text-to-Speech en el proyecto del usuario (con su permiso) y elegir la voz.
+1. Elegir la voz y el ritmo.
 2. Dar una primera idea: `/analyze-idea <tema>`, leer el brief, y `/make-video`.
 3. `/publish-video`: publicar a mano ese primer vídeo y su Short.

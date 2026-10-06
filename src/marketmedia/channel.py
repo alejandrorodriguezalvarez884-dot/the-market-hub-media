@@ -30,6 +30,7 @@ class Channel:
     # The narration
     voice_name: str
     voice_language: str
+    voice_rate: float
     # YouTube
     category: str
     privacy: str
@@ -61,6 +62,7 @@ def load(path: Path | None = None) -> Channel:
         short_seconds=_range(short.get("seconds"), (30, 60)),
         voice_name=voice.get("name", ""),
         voice_language=voice.get("language", "en-US"),
+        voice_rate=float(voice.get("rate", 1.0)),
         category=str(youtube.get("category", "27")),
         privacy=youtube.get("privacy", "private"),
         made_for_kids=bool(youtube.get("made_for_kids", False)),
