@@ -29,7 +29,8 @@ contenido hasta la publicación del vídeo (2026-10-06):
   servicio de pago (HeyGen por API: 0,99 $/min con el motor Avatar III y 4,83 $/min con Avatar
   IV; D-ID: 35 $/mes por 45 minutos; precios de sus páginas el 2026-10-06) y que gratis solo
   quedaba probar modelos abiertos en GPU gratuita (Kaggle), eligió un **presentador dibujado
-  aquí**, gratis y automático.
+  aquí**, gratis y automático. El personaje actual **vale como base** y debe salir **siempre**:
+  grande al abrir y al cerrar, y pequeño en una esquina en el resto de escenas.
 - **Subtítulos incrustados solo en el Short**; el vídeo largo lleva su `.srt` aparte.
 - **Publicación: a mano primero** (YouTube Studio); la auditoría de la API se pide más adelante.
 
@@ -43,7 +44,7 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | **Voz** (`make voice`): contra la API REST de Google Cloud Text-to-Speech. Solo vuelve a decir las escenas que cambian; `DRY=1` no gasta. **Probada contra Google el 2026-10-06**: API activada en el proyecto `arctic-robot-474306-g3`, cuatro muestras (Charon, Iapetus, Sadaltager, Schedar) y un vídeo de prueba de 3 escenas con voz. En total, unos 930 caracteres | Voz elegida: Schedar, ritmo 1.0. La voz habla a unas 200 palabras por minuto (medido en la prueba); `words_per_minute = 190` es la estimación para escenas sin voz |
 | **Subtítulos del Short incrustados** con ffmpeg (`subtitles`), unas pocas palabras cada vez, en la banda que las diapositivas verticales dejan libre (el tercio inferior). Visto en dos fotogramas de la prueba | |
 | **Escenas animadas** (2026-10-06): los elementos de una diapositiva entran, las barras suben, las líneas se dibujan y las cifras cuentan, en el momento que marca `--at` (clases `.in`, `.fade`, `.grow`, `.wide`, `.draw` de `theme/slide.css`; cifras con `theme/slide.js`). No se graba la pantalla: `frames.py` para las animaciones y las coloca en el instante de cada fotograma (30 por segundo), así sale igual siempre. Probado con un gráfico de prueba, en horizontal y en vertical | Ajustar los `--at` a la voz real se hace a ojo en la skill: no hay todavía marcas de tiempo por palabra |
-| **Presentador dibujado** (2026-10-06): un busto en colores planos, dibujado en `theme/slide.js` (`<div class="presenter"></div>`), que parpadea y mueve la boca con la voz de la escena (`mouth.py` lee el volumen del audio fotograma a fotograma; cinco bocas). Abre y cierra el vídeo en la disposición `.stage` y puede ir pequeño en una esquina (`.corner`). Probado con voz real en horizontal y en vertical | **Que el usuario vea el personaje** y diga qué cambiar (cara, ropa, estilo) y en qué escenas quiere que salga |
+| **Presentador dibujado** (2026-10-06): un busto en colores planos, dibujado en `theme/slide.js` (`<div class="presenter"></div>`), que parpadea y mueve la boca con la voz de la escena (`mouth.py` lee el volumen del audio fotograma a fotograma; cinco bocas). Abre y cierra el vídeo en la disposición `.stage` y puede ir pequeño en una esquina (`.corner`). Probado con voz real en horizontal y en vertical | El usuario lo vio y lo dio por bueno como base. La plantilla ya lo lleva en la esquina de `03-point`; falta verlo sobre un gráfico de verdad, que tiene que dejarle sitio |
 | **Publicación a mano** (`make kit`, `make published`): el texto para pegar en YouTube Studio y el registro de la dirección | Probarlo con el primer vídeo |
 | Subida por la API (`make auth`, `make upload`): escrita, con tests del cuerpo de la petición | Para después de la auditoría de YouTube. **Sin probar contra YouTube** |
 | Tres skills: `analyze-idea`, `make-video`, `publish-video` | Probarlas en una sesión nueva, con la primera idea |
@@ -85,8 +86,8 @@ contenido hasta la publicación del vídeo (2026-10-06):
 
 ## Decisiones pendientes (a debatir con el usuario)
 
-1. **El aspecto del presentador y cuánto sale.** El dibujo actual es una primera versión. La boca
-   sigue el volumen de la voz, no las sílabas: basta para un dibujo, no para una cara realista.
+1. **Mejorar el presentador**, cuando toque: es una primera versión. La boca sigue el volumen de
+   la voz, no las sílabas: basta para un dibujo, no para una cara realista.
 2. **Transiciones entre escenas.** Dentro de la escena ya hay movimiento; entre escenas el
    corte es seco.
 3. **Declarar el contenido sintético.** `synthetic_media = false` en `channel.toml`. YouTube pide
@@ -101,6 +102,6 @@ contenido hasta la publicación del vídeo (2026-10-06):
 
 ## Siguientes pasos
 
-1. Ajustar el presentador con lo que diga el usuario.
+1. La sesión del 2026-10-06 se cerró aquí, con la base completa y sin ningún vídeo hecho.
 2. Dar una primera idea: `/analyze-idea <tema>`, leer el brief, y `/make-video`.
 3. `/publish-video`: publicar a mano ese primer vídeo y su Short.

@@ -96,10 +96,12 @@ service, no model on the network, no picture taken from anywhere.
   into `<div class="presenter"></div>`; his mouth follows the scene's voice and he blinks). He
   opens and closes every video in a scene of his own (the `.stage` layout of the template's
   `01-hook` and `04-close`: the words on the left, he on the right) and he is in the first
-  scene of the Short. In a scene that shows a chart or a figure he is not needed; if the scene
-  is him explaining rather than a picture to read, he can stand in the corner
-  (`<div class="presenter corner"></div>`), and the drawing leaves him that corner free. Never
-  redraw him inside a slide and never replace him with a picture of a person.
+  scene of the Short. In every other scene that has words he stands small in the corner
+  (`<div class="presenter corner"></div>`, as in the template's `03-point`): the user wants him
+  on screen all the time. The drawing leaves him that corner free: the bottom right of the wide
+  frame and, upright, the right side just above the captions' band. Every slide with him loads
+  `theme/slide.js`. Never redraw him inside a slide and never replace him with a picture of a
+  person.
 - No real logos, no faces of real people, no brand's look. A company is told by its name in
   plain type and by what it does.
 - Start each file, after the doctype, with a comment that says what the slide shows.

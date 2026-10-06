@@ -32,7 +32,8 @@ Reglas que no se negocian:
   código (HTML o SVG), y se convierten en imagen con el Chrome de esta máquina. No se usa ningún
   servicio ni modelo de generación de imágenes.
 - **El presentador es un dibujo hecho aquí** (`theme/slide.js`), que mueve la boca con la voz. No
-  es la cara de nadie. El usuario quería un avatar hiperrealista y lo descartó por el coste
+  es la cara de nadie. Sale en todas las escenas: grande al abrir y al cerrar, pequeño en una
+  esquina en las demás. El usuario quería un avatar hiperrealista y lo descartó por el coste
   (2026-10-06): no se sustituye por un avatar realista, por un servicio de avatares ni por vídeo
   de una persona real sin que él lo decida.
 - **Publicar es decisión del usuario, vídeo a vídeo.** Hoy publica él a mano, en YouTube Studio:
