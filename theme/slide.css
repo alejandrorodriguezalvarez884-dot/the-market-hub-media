@@ -103,3 +103,27 @@ body.thumbnail .kicker { font-size: 2.4vw; }
 @keyframes slide-grow { from { transform: scaleY(0); } }
 @keyframes slide-wide { from { transform: scaleX(0); } }
 @keyframes slide-draw { to { stroke-dashoffset: 0; } }
+
+/* The presenter: the channel's host, drawn by theme/slide.js into <div class="presenter"></div>.
+   His mouth follows the voice of the scene and he blinks; the script sets which face is shown. */
+.presenter svg { display: block; width: 100%; height: 100%; }
+.presenter .mouth, .presenter .lids { display: none; }
+.presenter[data-mouth="0"] .m0, .presenter[data-mouth="1"] .m1, .presenter[data-mouth="2"] .m2,
+.presenter[data-mouth="3"] .m3, .presenter[data-mouth="4"] .m4 { display: inline; }
+.presenter[data-blink="1"] .eyes { display: none; }
+.presenter[data-blink="1"] .lids { display: inline; }
+
+/* A scene of his own (the hook, the close): the words on the left and he on the right, standing
+   on the rule of the foot.  <div class="stage"><main class="slide">...</main><div class="presenter"></div></div> */
+.stage { flex: 1; display: flex; align-items: flex-end; gap: 3vw; min-height: 0; }
+.stage > .slide { flex: 1; align-self: stretch; min-width: 0; }
+.stage > .presenter { flex: none; height: 92%; aspect-ratio: 400 / 440; }
+/* In any other scene he can stand small in the corner, over the foot: leave him the room. */
+.presenter.corner { position: absolute; right: 6vw; bottom: 9.6vh; width: 14vw; aspect-ratio: 400 / 440; }
+
+@media (orientation: portrait) {
+  .stage { flex-direction: column; align-items: stretch; gap: 2vh; }
+  .stage > .slide { flex: 1; }
+  .stage > .presenter { align-self: center; height: auto; width: 66vw; }
+  .presenter.corner { right: 8vw; bottom: 38.6vh; width: 30vw; }
+}

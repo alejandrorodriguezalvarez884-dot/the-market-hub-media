@@ -15,6 +15,10 @@ is dropped. What can be set that way:
 - A script of the page: it sets ``window.slideSeconds`` to how long it moves and
   ``window.slideAt = (seconds) => {...}`` to draw itself at a given time (theme/slide.js does
   this for the figures that count up).
+- The presenter (theme/slide.js): his mouth follows the scene's voice for as long as it lasts.
+  The page is handed how open the mouth is at each frame (``window.slideVoice``, from mouth.py)
+  and says, with ``window.slideKey(seconds)``, which of his few faces a frame shows: once the
+  rest of the slide is still, each face is photographed once and used for every frame it is in.
 
 For each scene this leaves ``build/frames/<scene>/0000.jpg ...`` while something moves, and
 ``build/frames/<scene>.png``, the slide once everything has come to rest. A page that loads
@@ -28,6 +32,7 @@ import shutil
 from collections.abc import Callable
 from pathlib import Path
 
+from . import mouth
 from .channel import ROOT, Channel
 from .script import Script
 from .videos import Video
@@ -82,8 +87,10 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
     todo = []
     for name, target, moving, viewport in wanted:
         source = video.drawing(name)
-        if source and (everything or max(_age(source), theme) > _age(target)):
-            todo.append((source, target, moving, viewport))
+        voice = video.voice(name) if moving else None
+        # A new voice redraws the scene: the presenter speaks with it.
+        if source and (everything or max(_age(source), theme, _age(voice) if voice else 0.0) > _age(target)):
+            todo.append((source, target, moving, viewport, voice))
     if not todo:
         return 0
 
@@ -93,12 +100,18 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
         try:
             page = browser.new_page(viewport=wide, device_scale_factor=1)
             page.on("pageerror", lambda e: log(f"  page error: {e}"))
-            for source, target, moving, viewport in todo:
+            for source, target, moving, viewport, voice in todo:
                 target.parent.mkdir(parents=True, exist_ok=True)
                 page.set_viewport_size(viewport)
                 page.goto(source.resolve().as_uri())
                 page.evaluate("async () => { await document.fonts?.ready; await window.slideReady; }")
                 seconds = page.evaluate(FREEZE)
+                # With a presenter and a voice, the scene moves for as long as he speaks.
+                speaks = 0.0
+                if voice and page.evaluate("() => typeof window.slideKey === 'function'"):
+                    levels = mouth.of(voice, channel.fps)
+                    page.evaluate("(voice) => { window.slideVoice = voice; }", {"fps": channel.fps, "levels": levels})
+                    speaks = len(levels) / channel.fps
                 where = target.relative_to(video.path).as_posix()
                 if moving is None:  # the thumbnail: the drawing at rest, as a JPEG YouTube takes
                     page.evaluate(SEEK, seconds * 1000)
@@ -110,17 +123,28 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
                     log(f"  {where}")
                     continue
                 shutil.rmtree(moving, ignore_errors=True)
-                frames = count(seconds, channel.fps)
+                whole = max(seconds, speaks)
+                frames = count(whole, channel.fps)
+                faces: dict[str, Path] = {}  # the presenter's faces already photographed
                 if frames:
                     moving.mkdir(parents=True)
                     # One more than the movement takes: the last picture is the slide at rest, which
                     # is the one the film holds until the scene ends.
                     for n in range(frames + 1):
-                        page.evaluate(SEEK, min(n / channel.fps, seconds) * 1000)
-                        page.screenshot(path=str(moving / f"{n:04d}.jpg"), type="jpeg", quality=95)
-                page.evaluate(SEEK, seconds * 1000)
+                        at = min(n / channel.fps, whole)
+                        picture = moving / f"{n:04d}.jpg"
+                        face = page.evaluate("(s) => window.slideKey(s)", at) if speaks and at > seconds else None
+                        if face in faces:
+                            shutil.copyfile(faces[face], picture)
+                            continue
+                        page.evaluate(SEEK, at * 1000)
+                        page.screenshot(path=str(picture), type="jpeg", quality=95)
+                        if face:
+                            faces[face] = picture
+                page.evaluate(SEEK, whole * 1000)
                 page.screenshot(path=str(target), type="png")
-                log(f"  {where}" + (f"  moves for {seconds:.1f}s" if frames else ""))
+                log(f"  {where}" + (f"  moves for {seconds:.1f}s" if seconds else "")
+                    + (f"  speaks for {speaks:.1f}s" if speaks else ""))
         finally:
             browser.close()
     return len(todo)
