@@ -62,6 +62,13 @@ make published VIDEO=<name> URL=https://www.youtube.com/watch?v=... SHORT=https:
 It writes `published.json` in the video's folder. Commit it with a message that names the
 video, and push. Update "Dónde estamos" in `docs/HANDOFF.md`.
 
+Then put it on the portal's Media page, which is kept by hand (in the workspace, the
+`market-hub-landing` repo; read its `CLAUDE.md` first): add the video and its Short to its
+playlist in `site/src/lib/media.ts`, copy `build/thumbnail.jpg` to `site/public/media/` as the
+video's cover and a frame of the Short (one of `build/short-frames/*.png`, as a 540x960 JPEG)
+as the Short's, run `make check` there, commit and push. Deploying the portal is the user's to
+ask for.
+
 ## Later: uploading through the API
 
 `make auth` and `make upload VIDEO=<name>` upload the video through the YouTube Data API, as a

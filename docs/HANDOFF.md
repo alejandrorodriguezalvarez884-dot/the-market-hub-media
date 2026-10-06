@@ -127,6 +127,13 @@ fuentes son internacionales cuando las hay (OCDE, bancos centrales) y los temas 
 país a otro (nómina, hipoteca, impuestos) se cuentan por su mecanismo, no por la norma de un
 país. Lo que hay que vigilar en cada brief: que "enseñar" no se vuelva "aconsejar".
 
+## El canal en la web
+
+El portal tiene una página Media (`market-hub-landing`, `/media/`) que enseña el canal por
+listas de reproducción. Se mantiene a mano: al publicar un vídeo hay que añadirlo allí
+(`site/src/lib/media.ts` y su carátula en `site/public/media/`); la skill `publish-video` lo
+dice. El tráiler y el episodio 1 ya están.
+
 ## Decisiones pendientes (a debatir con el usuario)
 
 1. **El presentador** está aprobado. Sin decidir: si tiene nombre y lo dice.
