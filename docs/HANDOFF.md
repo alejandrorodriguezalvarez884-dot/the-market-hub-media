@@ -24,8 +24,12 @@ contenido hasta la publicación del vídeo (2026-10-06):
   (`en-US-Chirp3-HD-Schedar`), a su ritmo natural (`rate = 1.0`). Se genera sola al hacer el
   vídeo, sin preguntar cada vez.
 - **Sin música.**
-- **Quiere imagen animada, no diapositivas fijas, y un avatar hiperrealista que cuente las
-  noticias.** Aún no está hecho ni decidido cómo: ver "Decisiones pendientes".
+- **Imagen animada**, no diapositivas fijas.
+- **Un presentador que cuente las noticias.** Lo quería hiperrealista; al ver que eso exige un
+  servicio de pago (HeyGen por API: 0,99 $/min con el motor Avatar III y 4,83 $/min con Avatar
+  IV; D-ID: 35 $/mes por 45 minutos; precios de sus páginas el 2026-10-06) y que gratis solo
+  quedaba probar modelos abiertos en GPU gratuita (Kaggle), eligió un **presentador dibujado
+  aquí**, gratis y automático.
 - **Subtítulos incrustados solo en el Short**; el vídeo largo lleva su `.srt` aparte.
 - **Publicación: a mano primero** (YouTube Studio); la auditoría de la API se pide más adelante.
 
@@ -34,11 +38,12 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | Hecho | Pendiente |
 |---|---|
 | **La base** (2026-10-06): formato de vídeo (una carpeta en `videos/` con brief, guion, un dibujo por escena y miniatura), plantilla (`templates/video/`), estilo común de las diapositivas (`theme/slide.css`, el tema oscuro de Market Hub, en horizontal y en vertical) y `channel.toml` | **Ningún vídeo todavía.** El usuario aún no ha dado un tema |
-| Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), línea de comandos (`__main__.py`). 48 tests en verde, sin red | |
+| Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), línea de comandos (la boca del presentador (`mouth.py`), `__main__.py`). 51 tests en verde, sin red | |
 | **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920). `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
 | **Voz** (`make voice`): contra la API REST de Google Cloud Text-to-Speech. Solo vuelve a decir las escenas que cambian; `DRY=1` no gasta. **Probada contra Google el 2026-10-06**: API activada en el proyecto `arctic-robot-474306-g3`, cuatro muestras (Charon, Iapetus, Sadaltager, Schedar) y un vídeo de prueba de 3 escenas con voz. En total, unos 930 caracteres | Voz elegida: Schedar, ritmo 1.0. La voz habla a unas 200 palabras por minuto (medido en la prueba); `words_per_minute = 190` es la estimación para escenas sin voz |
 | **Subtítulos del Short incrustados** con ffmpeg (`subtitles`), unas pocas palabras cada vez, en la banda que las diapositivas verticales dejan libre (el tercio inferior). Visto en dos fotogramas de la prueba | |
 | **Escenas animadas** (2026-10-06): los elementos de una diapositiva entran, las barras suben, las líneas se dibujan y las cifras cuentan, en el momento que marca `--at` (clases `.in`, `.fade`, `.grow`, `.wide`, `.draw` de `theme/slide.css`; cifras con `theme/slide.js`). No se graba la pantalla: `frames.py` para las animaciones y las coloca en el instante de cada fotograma (30 por segundo), así sale igual siempre. Probado con un gráfico de prueba, en horizontal y en vertical | Ajustar los `--at` a la voz real se hace a ojo en la skill: no hay todavía marcas de tiempo por palabra |
+| **Presentador dibujado** (2026-10-06): un busto en colores planos, dibujado en `theme/slide.js` (`<div class="presenter"></div>`), que parpadea y mueve la boca con la voz de la escena (`mouth.py` lee el volumen del audio fotograma a fotograma; cinco bocas). Abre y cierra el vídeo en la disposición `.stage` y puede ir pequeño en una esquina (`.corner`). Probado con voz real en horizontal y en vertical | **Que el usuario vea el personaje** y diga qué cambiar (cara, ropa, estilo) y en qué escenas quiere que salga |
 | **Publicación a mano** (`make kit`, `make published`): el texto para pegar en YouTube Studio y el registro de la dirección | Probarlo con el primer vídeo |
 | Subida por la API (`make auth`, `make upload`): escrita, con tests del cuerpo de la petición | Para después de la auditoría de YouTube. **Sin probar contra YouTube** |
 | Tres skills: `analyze-idea`, `make-video`, `publish-video` | Probarlas en una sesión nueva, con la primera idea |
@@ -80,11 +85,8 @@ contenido hasta la publicación del vídeo (2026-10-06):
 
 ## Decisiones pendientes (a debatir con el usuario)
 
-1. **El avatar hiperrealista.** No se puede dibujar aquí: hace falta un servicio de pago
-   (precios mirados el 2026-10-06 en sus páginas: HeyGen por API, sin suscripción, 0,99 $/min con
-   el motor Avatar III y 4,83 $/min con Avatar IV; D-ID por API, 35 $/mes por 45 minutos). Por
-   decidir: cuánto sale el avatar en cada vídeo, qué proveedor, quién es el avatar y el tope de
-   gasto. Cambia la regla de "nada de servicios de imagen" de `CLAUDE.md`, que habrá que reescribir.
+1. **El aspecto del presentador y cuánto sale.** El dibujo actual es una primera versión. La boca
+   sigue el volumen de la voz, no las sílabas: basta para un dibujo, no para una cara realista.
 2. **Transiciones entre escenas.** Dentro de la escena ya hay movimiento; entre escenas el
    corte es seco.
 3. **Declarar el contenido sintético.** `synthetic_media = false` en `channel.toml`. YouTube pide
@@ -99,6 +101,6 @@ contenido hasta la publicación del vídeo (2026-10-06):
 
 ## Siguientes pasos
 
-1. Decidir el avatar y hacer la imagen animada.
+1. Ajustar el presentador con lo que diga el usuario.
 2. Dar una primera idea: `/analyze-idea <tema>`, leer el brief, y `/make-video`.
 3. `/publish-video`: publicar a mano ese primer vídeo y su Short.

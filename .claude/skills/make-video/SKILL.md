@@ -92,6 +92,14 @@ service, no model on the network, no picture taken from anywhere.
   and to enlarge a chart. Keep the top tenth and the bottom third of the upright frame clear
   (the shared style's padding does): the Short's captions are drawn there, a few words at a
   time, above what YouTube draws over a Short.
+- **The presenter hosts the video.** He is the channel's drawn host (`theme/slide.js` draws him
+  into `<div class="presenter"></div>`; his mouth follows the scene's voice and he blinks). He
+  opens and closes every video in a scene of his own (the `.stage` layout of the template's
+  `01-hook` and `04-close`: the words on the left, he on the right) and he is in the first
+  scene of the Short. In a scene that shows a chart or a figure he is not needed; if the scene
+  is him explaining rather than a picture to read, he can stand in the corner
+  (`<div class="presenter corner"></div>`), and the drawing leaves him that corner free. Never
+  redraw him inside a slide and never replace him with a picture of a person.
 - No real logos, no faces of real people, no brand's look. A company is told by its name in
   plain type and by what it does.
 - Start each file, after the doctype, with a comment that says what the slide shows.
@@ -136,7 +144,8 @@ If `make voice` fails for lack of credentials or because the service is not enab
 answered and stop: do not look for another way in. After the second render, run `make check`
 again: the real voice may run faster or slower than the estimate and take the video or the Short
 outside its length. If it does, trim or add words and repeat (only the changed scenes are spoken
-again).
+again). The second render also redraws the presenter's scenes: his mouth follows the voice
+that now exists.
 
 ## 6. Commit, and tell the user
 

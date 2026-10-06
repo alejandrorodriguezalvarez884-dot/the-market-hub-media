@@ -69,6 +69,8 @@ make test
    figures count up as the voice names them. `make frames` photographs each with the Chrome on
    this machine, frame by frame while it moves, at 1920x1080, and the scenes of the Short at
    1080x1920 as well.
+   The channel's host is one of those drawings (`theme/slide.js`): a presenter whose mouth
+   follows the voice of the scene.
 4. **Narration** (`voice/01-name.wav`): one sound file per scene, spoken by Google Cloud
    Text-to-Speech. A scene with no file is held in silence for the time its words would take,
    so a film can be watched and timed before a word is spoken.

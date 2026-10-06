@@ -31,6 +31,10 @@ Reglas que no se negocian:
   logotipos, ni caras de personas reales. Cada diapositiva y cada miniatura se dibujan aquí, como
   código (HTML o SVG), y se convierten en imagen con el Chrome de esta máquina. No se usa ningún
   servicio ni modelo de generación de imágenes.
+- **El presentador es un dibujo hecho aquí** (`theme/slide.js`), que mueve la boca con la voz. No
+  es la cara de nadie. El usuario quería un avatar hiperrealista y lo descartó por el coste
+  (2026-10-06): no se sustituye por un avatar realista, por un servicio de avatares ni por vídeo
+  de una persona real sin que él lo decida.
 - **Publicar es decisión del usuario, vídeo a vídeo.** Hoy publica él a mano, en YouTube Studio:
   `make kit` le deja el texto que pegar y `make published` apunta la dirección. Aprobar un brief
   o un guion no es aprobar la publicación. La subida por la API (`make auth`, `make upload`) es
