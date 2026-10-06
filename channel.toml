@@ -21,7 +21,7 @@ seconds = [30, 60]                   # how long a Short runs
 
 # The narration: Google Cloud Text-to-Speech, with the owner's gcloud session.
 [voice]
-name = "en-US-Chirp3-HD-Charon"
+name = "en-US-Chirp3-HD-Schedar"
 language = "en-US"
 rate = 1.0                           # its pace: 1.0 is the voice's own, about 200 words a minute
 
