@@ -29,6 +29,9 @@ def problems(video: Video, channel: Channel) -> list[str]:
     except scripts.Invalid as exc:
         return [str(exc)]
     found = scripts.problems(script)
+    if script.series and script.series not in channel.series:
+        found.append(f"'series: {script.series}' is not a series of channel.toml"
+                     + (f" ({', '.join(channel.series)})" if channel.series else ""))
 
     length = len(youtube.description(script, channel))
     if length > youtube.DESCRIPTION_MAX:
@@ -60,9 +63,11 @@ def problems(video: Video, channel: Channel) -> list[str]:
     # How long each runs: with the narration that is made, and the channel's pace for the rest.
     if script.scenes:
         seconds = sum(c.seconds for c in render.plan(video, script, channel))
-        low, high = (m * 60 for m in channel.minutes)
+        trailer = script.kind == "trailer"
+        low, high = channel.trailer_seconds if trailer else (m * 60 for m in channel.minutes)
         if not low <= seconds <= high:
-            found.append(f"the video runs {_clock(seconds)}; the channel's videos run {_clock(low)} to {_clock(high)}")
+            found.append(f"the trailer runs {_clock(seconds)}; a trailer runs {_clock(low)} to {_clock(high)}" if trailer else
+                         f"the video runs {_clock(seconds)}; the channel's videos run {_clock(low)} to {_clock(high)}")
     if script.cut(short=True):
         seconds = sum(c.seconds for c in render.plan(video, script, channel, short=True))
         low, high = channel.short_seconds

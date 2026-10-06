@@ -3,6 +3,7 @@ from dataclasses import replace
 
 import pytest
 
+from marketmedia import script as scripts
 from marketmedia import check, videos
 
 from .conftest import REPO
@@ -71,3 +72,18 @@ def test_a_video_is_found_by_a_part_of_its_name(video):
     assert videos.find("buyback", root).name == video.name
     with pytest.raises(LookupError):
         videos.find("dividends", root)
+
+
+def test_a_trailer_is_short_and_needs_no_sources(video, channel):
+    text = video.script.read_text(encoding="utf-8")
+    top, body = text.split("sources:")[0], text.split("---", 2)[2]
+    video.script.write_text(top + "kind: trailer\nseries: money-101\n---" + body, encoding="utf-8")
+    assert check.problems(video, replace(channel, trailer_seconds=(5, 90))) == []
+    assert check.problems(video, replace(channel, trailer_seconds=(30, 90))) == ["the trailer runs 0:10; a trailer runs 0:30 to 1:30"]
+
+
+def test_a_series_must_be_one_of_the_channels(video, channel):
+    text = video.script.read_text(encoding="utf-8")
+    video.script.write_text(text.replace("tickers: aapl", "tickers: aapl\nseries: no-such-series\nepisode: 2"), encoding="utf-8")
+    assert scripts.load(video.script).episode == 2
+    assert any("no-such-series" in problem for problem in check.problems(video, channel))

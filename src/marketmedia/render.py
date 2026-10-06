@@ -7,7 +7,8 @@ words would take at the channel's pace, in silence: a film can be watched, timed
 before a word is spoken.
 
 The video's captions are a file beside it (captions.srt), for YouTube to show when asked. The
-Short's are drawn into the picture, a few words at a time: many Shorts are watched with no sound.
+Short's are in the picture already, a few words at a time: many Shorts are watched with no
+sound. The page draws them, with the rest of the slide (frames.py, theme/slide.js).
 """
 
 from __future__ import annotations
@@ -24,11 +25,7 @@ from .videos import Video
 
 MIN_SECONDS = 2.0          # no picture is shown for less
 CAPTION_CHARS = 84         # two lines of text on screen
-SHORT_CAPTION_CHARS = 30   # a few words at a time, large, in the Short
-# How the Short's captions are drawn (an ASS style; sizes are on a page 288 high). They sit in
-# the band the upright slides leave free, above what YouTube draws over a Short.
-SHORT_CAPTION_STYLE = ("FontName=Segoe UI,Bold=1,FontSize=11,PrimaryColour=&H00EAF0F2,OutlineColour=&H000D0C0B,"
-                       "BorderStyle=1,Outline=1.2,Shadow=0,Alignment=2,MarginV=58,MarginL=31,MarginR=31")
+SHORT_CAPTION_CHARS = 30   # a few words at a time, in the Short's caption file
 DURATION = re.compile(r"Duration:\s*(\d+):(\d\d):(\d\d(?:\.\d+)?)")
 
 
@@ -119,8 +116,8 @@ def _run(args: list[str], cwd: Path | None = None) -> None:
 
 
 def picture(video: Video, scene: str, short: bool, fps: int, seconds: float) -> tuple[list[str], str]:
-    """How ffmpeg reads a scene's picture, and the filter that goes with it: its moving frames
-    and then the last of them held until the scene ends, or its one still frame."""
+    """How ffmpeg reads a scene's picture, and the filter that goes with it: its frames, the last
+    of them held if they run short of the scene, or its one still frame."""
     moving = video.moving(scene, short)
     if moving.is_dir() and any(moving.glob("*.jpg")):
         return (["-framerate", str(fps), "-i", str(moving / "%04d.jpg")],
@@ -153,15 +150,8 @@ def film(video: Video, script: Script, channel: Channel, short: bool = False,
             f"{'  moving' if hold else ''}")
     order = video.build / f"{parts.name}.txt"
     order.write_text("".join(f"file '{parts.name}/{c.scene.name}.mp4'\n" for c in cuts), encoding="utf-8", newline="\n")
-    joined = video.build / "short-plain.mp4" if short else video.film()
     _run([tool, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(order),
-          "-c", "copy", "-movflags", "+faststart", str(joined)])
+          "-c", "copy", "-movflags", "+faststart", str(video.film(short))])
     words = captions(cuts, SHORT_CAPTION_CHARS if short else CAPTION_CHARS)
     video.captions(short).write_text(words, encoding="utf-8", newline="\n")
-    if short:
-        # Run inside build/, with plain file names: a Windows path in a filter needs escaping.
-        _run([tool, "-y", "-loglevel", "error", "-i", joined.name,
-              "-vf", f"subtitles={video.captions(short).name}:force_style='{SHORT_CAPTION_STYLE}'",
-              "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "copy", "-movflags", "+faststart",
-              video.film(short).name], cwd=video.build)
     return video.film(short)

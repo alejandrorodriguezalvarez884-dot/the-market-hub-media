@@ -1,129 +1,225 @@
-/* The look every slide shares: Market Hub's dark theme, sized for a 1920x1080 frame.
-   A slide links this file and adds what is its own in a <style> of its own.
-   Green and red are only for a figure that went up or down, never for a verdict. */
+/* The look every slide shares: Market Hub's dark page, with the weight, the colour and the pace
+   of a channel made for people in their twenties. Sized for a 1920x1080 frame, and for the
+   upright 1080x1920 of a Short. A slide links this file and adds what is its own in a <style>.
+
+     <header class="top"><span class="chip" data-series>Money 101</span></header>
+     <main class="slide"> ... </main>
+     <footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+     <div class="presenter corner"></div>
+
+   One colour stands out, --accent: it is the colour of the video's series (channel.toml), set
+   by theme/slide.js. Green and red are only for a figure that went up or down, never a verdict. */
 
 :root {
-  --page: #0b0c0d;
-  --panel: #101213;
-  --raised: #191b1d;
-  --line: #222528;
-  --line-strong: #3a3e42;
-  --ink: #c9c7c1;
-  --ink-strong: #f2f0ea;
-  --muted: #8c8b86;
-  --faint: #5f5f5b;
+  --page: #0a0b0c;
+  --panel: #121416;
+  --raised: #1b1e21;
+  --line: #262a2e;
+  --line-strong: #3d4248;
+  --ink: #d2d0c9;
+  --ink-strong: #f7f5ef;
+  --muted: #96948e;
+  --faint: #666662;
   --up: #35c98f;
   --down: #ff6b57;
   --warn: #e0b341;
+  --accent: #c6f24e;       /* the series' colour */
+  --on-accent: #0b0c0d;    /* what is written on it */
   /* Colours that name a series in a chart, in the order to use them. */
   --series-1: #7aa2f7;
   --series-2: #e0b341;
   --series-3: #c792ea;
   --series-4: #5fd3c4;
-  --sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --voice: 0;              /* how loud the voice is at this frame, 0 to 1 (theme/slide.js) */
 }
 
 * { box-sizing: border-box; margin: 0; }
 
-html, body { width: 100vw; height: 100vh; overflow: hidden; }
+html { width: 100vw; height: 100vh; overflow: hidden; background: var(--page); }
 
 body {
-  background: var(--page);
+  position: relative; isolation: isolate; overflow: hidden;
+  width: 100vw; height: 100vh;
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 2.5vw;
-  line-height: 1.3;
+  font-size: 2.4vw;
+  font-weight: 500;
+  line-height: 1.25;
   display: flex;
   flex-direction: column;
-  padding: 6vh 6vw 4.5vh;
+  padding: 5vh 6vw 4vh;
 }
+/* Behind everything: two soft lights that drift, and a field of dots. */
+body::before { content: ""; position: absolute; inset: -20%; z-index: -2;
+  background:
+    radial-gradient(36% 44% at 24% 30%, color-mix(in srgb, var(--accent) 17%, transparent), transparent 72%),
+    radial-gradient(34% 40% at 80% 76%, color-mix(in srgb, var(--series-1) 13%, transparent), transparent 72%);
+  animation: slide-drift 22s ease-in-out infinite alternate; }
+body::after { content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.075) 1px, transparent 1.5px);
+  background-size: 2.4vw 2.4vw;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 80%);
+          mask-image: radial-gradient(ellipse at center, #000 25%, transparent 80%); }
+@keyframes slide-drift { from { transform: translate(-3%, -2%) scale(1); } to { transform: translate(4%, 3%) scale(1.14); } }
 
-/* The slide itself: what is between the top of the frame and the foot. */
-.slide { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3.5vh; min-height: 0; }
-.slide.top { justify-content: flex-start; }
+/* The top of every slide: which series this is. */
+.top { display: flex; align-items: center; gap: 1.2vw; min-height: 4.4vh; }
+.chip { display: inline-flex; align-items: center; gap: 0.6em; padding: 0.42em 0.9em; border: 1px solid var(--line-strong);
+        border-radius: 99em; background: color-mix(in srgb, var(--panel) 80%, transparent);
+        font-family: var(--mono); font-size: 1.05vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-strong); }
+.chip::before { content: ""; width: 0.62em; height: 0.62em; border-radius: 50%; background: var(--accent); }
+.chip.solid { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.chip.solid::before { background: var(--on-accent); }
 
-.kicker { font-family: var(--mono); font-size: 1.25vw; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-h1 { font-size: 5.2vw; line-height: 1.06; font-weight: 600; color: var(--ink-strong); letter-spacing: -0.02em; max-width: 18ch; }
-h2 { font-size: 3.4vw; line-height: 1.12; font-weight: 600; color: var(--ink-strong); letter-spacing: -0.015em; max-width: 26ch; }
-p { max-width: 34ch; }
+/* The slide itself: what is between the top and the foot. */
+.slide { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3.2vh; min-height: 0; }
+.slide.top-aligned { justify-content: flex-start; padding-top: 4vh; }
+
+.kicker { max-width: none; font-family: var(--mono); font-size: 1.3vw; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: 6.6vw; line-height: 1.04; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.04em; max-width: 14ch; }
+h2 { font-size: 4.3vw; line-height: 1.04; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.035em; max-width: 20ch; }
+p { max-width: 32ch; }
+.lead { font-size: 3vw; line-height: 1.16; font-weight: 600; color: var(--ink-strong); letter-spacing: -0.02em; }
 .muted { color: var(--muted); }
+.accent { color: var(--accent); }
 .up { color: var(--up); }
 .down { color: var(--down); }
+/* A word that matters: on the series' colour, like a sticker... */
+.mark { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 58% / 100% 80%; color: var(--on-accent); padding: 0 0.16em; border-radius: 0.12em;
+        -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* ...or marked as the voice gets to it (give it its moment: data-say="word"). */
+.hl { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 58% / 0% 80%; padding: 0 0.16em; margin: 0 -0.06em; border-radius: 0.12em;
+      -webkit-box-decoration-break: clone; box-decoration-break: clone;
+      animation: slide-mark 0.45s cubic-bezier(0.3, 0.8, 0.3, 1) both; animation-delay: var(--at, 0s); }
+@keyframes slide-mark { from { background-size: 0% 80%; color: inherit; } to { background-size: 100% 80%; color: var(--on-accent); } }
 
 /* One figure, as large as the frame allows, with what it measures under it. */
-.figure { font-family: var(--mono); font-size: 11vw; line-height: 1; font-weight: 500; color: var(--ink-strong); letter-spacing: -0.04em; }
-.figure-label { font-size: 2vw; color: var(--muted); max-width: 40ch; }
+.figure { font-family: var(--sans); font-size: 12vw; line-height: 0.95; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.figure-label { font-size: 2.1vw; color: var(--muted); max-width: 36ch; }
 
 /* Two or three things side by side. */
-.row { display: flex; gap: 4vw; align-items: flex-start; }
+.row { display: flex; gap: 3vw; align-items: flex-start; }
 .row > * { flex: 1; min-width: 0; }
-.rule { border: 0; border-top: 1px solid var(--line-strong); }
+.rule { border: 0; border-top: 0.3vh solid var(--accent); width: 12vw; }
+
+/* A panel: one thing set apart from the rest. */
+.card { background: color-mix(in srgb, var(--panel) 88%, transparent); border: 1px solid var(--line); border-radius: 1.4vw; padding: 2.4vh 1.8vw; }
+/* A grid of them, each a small drawing and a few words. */
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4vw; }
+.tile { display: flex; align-items: center; gap: 1.2vw; background: color-mix(in srgb, var(--panel) 88%, transparent);
+        border: 1px solid var(--line); border-radius: 1.4vw; padding: 2.2vh 1.5vw;
+        font-size: 2.1vw; font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; color: var(--ink-strong); }
+.tile svg { flex: none; width: 4.4vw; height: 4.4vw; }
+/* Things in order: a number and what it is. */
+.steps { display: flex; flex-direction: column; gap: 2vh; }
+.step { display: flex; align-items: center; gap: 1.6vw; font-size: 3vw; font-weight: 750; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink-strong); }
+.step .n { flex: none; display: grid; place-items: center; width: 2.1em; height: 1.5em; border-radius: 0.4em; background: var(--accent); color: var(--on-accent);
+           font-family: var(--mono); font-size: 0.62em; font-weight: 700; letter-spacing: 0; }
+/* Something to press, drawn: it is a picture of a button, not a button. */
+.button { display: inline-flex; align-items: center; gap: 0.5em; align-self: flex-start; padding: 0.5em 1.1em; border-radius: 99em;
+          background: var(--accent); color: var(--on-accent); font-size: 2.3vw; font-weight: 800; letter-spacing: -0.01em; }
 
 /* The foot of every slide: the channel on the left, where the figures come from on the right. */
-.foot { display: flex; justify-content: space-between; align-items: baseline; gap: 4vw; padding-top: 2.2vh;
-        border-top: 1px solid var(--line); font-family: var(--mono); font-size: 1.05vw; letter-spacing: 0.06em; color: var(--faint); }
-.foot .brand { text-transform: uppercase; color: var(--muted); }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 4vw; padding-top: 2vh;
+        border-top: 1px solid var(--line); font-family: var(--mono); font-size: 1vw; letter-spacing: 0.08em; color: var(--faint); }
+.foot .brand { display: inline-flex; align-items: center; gap: 0.7em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.foot .brand::before { content: ""; width: 0.7em; height: 0.7em; border-radius: 0.16em; background: var(--accent); }
 .foot .source { text-align: right; }
 
 /* The thumbnail: fewer, larger words. */
 body.thumbnail { padding: 7vh 6vw; }
-body.thumbnail h1 { font-size: 9vw; max-width: 12ch; }
-body.thumbnail .kicker { font-size: 2.4vw; }
-
-/* Upright, for the Short: the same slide in a 1080x1920 frame. Sizes follow the width. The top
-   tenth is left clear, and so is the bottom third: the captions are drawn there, above what
-   YouTube draws over a Short. */
-@media (orientation: portrait) {
-  body { font-size: 4.8vw; padding: 10vh 8vw 34vh; }
-  .kicker { font-size: 2.9vw; }
-  h1 { font-size: 10.5vw; max-width: none; }
-  h2 { font-size: 7.4vw; max-width: none; }
-  p { max-width: none; }
-  .figure { font-size: 24vw; }
-  .figure-label { font-size: 4.4vw; max-width: none; }
-  .row { flex-direction: column; gap: 4vh; }
-  .foot { flex-direction: column; align-items: flex-start; gap: 0.6vh; font-size: 2.3vw; }
-  .foot .source { text-align: left; }
-}
+body.thumbnail h1 { font-size: 10.5vw; max-width: 9ch; }
+body.thumbnail .chip { font-size: 2.2vw; }
+body.thumbnail .stage > .presenter svg { animation: none; }
 
 /* Movement. Each of these runs once and stays as it ends, so the slide at rest is the slide as it
-   would be drawn still. `--at` is when it starts, in seconds from the start of the scene: set it
-   to when the narration reaches the thing (style="--at: 2.5s"). */
-.in   { animation: slide-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--at, 0s); }    /* comes up into place */
-.fade { animation: slide-fade 0.6s ease both; animation-delay: var(--at, 0s); }                              /* appears where it is */
+   would be drawn still. When it starts is either a word of the narration, data-say="word" (see
+   theme/slide.js), or a number of seconds from the start of the scene, style="--at: 2.5s". */
+.in   { animation: slide-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at, 0s); }       /* comes up into place */
+.fade { animation: slide-fade 0.5s ease both; animation-delay: var(--at, 0s); }                              /* appears where it is */
+.pop  { animation: slide-pop 0.42s cubic-bezier(0.25, 1.5, 0.45, 1) both; animation-delay: var(--at, 0s); }  /* lands, a touch past its size */
 .grow { transform-box: fill-box; transform-origin: bottom;                                                  /* a bar, from its foot */
-        animation: slide-grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--at, 0s); }
+        animation: slide-grow 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at, 0s); }
 .wide { transform-box: fill-box; transform-origin: left;                                                    /* a bar, from its left end */
-        animation: slide-wide 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--at, 0s); }
+        animation: slide-wide 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at, 0s); }
 .draw { stroke-dasharray: 1; stroke-dashoffset: 1;                                                          /* a line of a chart: give it pathLength="1" */
-        animation: slide-draw 1.4s ease-in-out both; animation-delay: var(--at, 0s); }
-@keyframes slide-in   { from { opacity: 0; transform: translateY(2.2vh); } }
+        animation: slide-draw 1.3s ease-in-out both; animation-delay: var(--at, 0s); }
+@keyframes slide-in   { from { opacity: 0; transform: translateY(3.2vh); } }
 @keyframes slide-fade { from { opacity: 0; } }
+@keyframes slide-pop  { from { opacity: 0; transform: scale(0.8); } }
 @keyframes slide-grow { from { transform: scaleY(0); } }
 @keyframes slide-wide { from { transform: scaleX(0); } }
 @keyframes slide-draw { to { stroke-dashoffset: 0; } }
 
-/* The presenter: the channel's host, drawn by theme/slide.js into <div class="presenter"></div>.
-   His mouth follows the voice of the scene and he blinks; the script sets which face is shown. */
-.presenter svg { display: block; width: 100%; height: 100%; }
-.presenter .mouth, .presenter .lids { display: none; }
-.presenter[data-mouth="0"] .m0, .presenter[data-mouth="1"] .m1, .presenter[data-mouth="2"] .m2,
-.presenter[data-mouth="3"] .m3, .presenter[data-mouth="4"] .m4 { display: inline; }
-.presenter[data-blink="1"] .eyes { display: none; }
-.presenter[data-blink="1"] .lids { display: inline; }
+/* What theme/slide.js draws over every slide of a film. */
+/* How far into the film this is. */
+.progress { position: absolute; left: 0; top: 0; height: 0.7vh; width: 100%; z-index: 8; background: var(--accent);
+            transform-origin: left; transform: scaleX(0); }
+/* From one scene to the next: a panel crosses the frame, in the silence between the two. */
+.wipe { position: absolute; inset: 0 -1vw; z-index: 9; background: var(--panel); transform: translateX(-102%);
+        border-left: 1vw solid var(--accent); border-right: 1vw solid var(--accent); }
+/* The Short's captions: a few words at a time, the one being said in the series' colour. */
+.captions { display: none; }
 
-/* A scene of his own (the hook, the close): the words on the left and he on the right, standing
-   on the rule of the foot.  <div class="stage"><main class="slide">...</main><div class="presenter"></div></div> */
-.stage { flex: 1; display: flex; align-items: flex-end; gap: 3vw; min-height: 0; }
+/* The presenter: the channel's host, drawn by theme/presenter.js into <div class="presenter"></div>. */
+.presenter svg { display: block; width: 100%; height: 100%; overflow: visible; }
+/* A scene of his own (the hook, the close): the words on the left and he on the right, cut at
+   the rule of the foot.  <div class="stage"><main class="slide">...</main><div class="presenter"></div></div> */
+.stage { flex: 1; display: flex; align-items: flex-end; gap: 2vw; min-height: 0; }
 .stage > .slide { flex: 1; align-self: stretch; min-width: 0; }
-.stage > .presenter { flex: none; height: 92%; aspect-ratio: 400 / 440; }
-/* In any other scene he can stand small in the corner, over the foot: leave him the room. */
-.presenter.corner { position: absolute; right: 6vw; bottom: 9.6vh; width: 14vw; aspect-ratio: 400 / 440; }
+.stage > .presenter { flex: none; height: 104%; aspect-ratio: 600 / 720; margin-right: 1vw;
+                      clip-path: inset(-60% -60% 0 -60%); }   /* his hands may leave his box; his body ends at the rule */
+.stage > .presenter svg { animation: slide-host 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.1) both; }
+@keyframes slide-host { from { opacity: 0; transform: translateY(9%); } }
+/* In any other scene he is a face in a ring, in the corner, and the ring swells with his voice. */
+.presenter.corner { position: absolute; right: 6vw; bottom: 10.5vh; width: 12.5vw; aspect-ratio: 1; border-radius: 50%; overflow: hidden; z-index: 4;
+                    background: radial-gradient(circle at 50% 30%, var(--raised), var(--panel));
+                    box-shadow: 0 0 0 calc(0.28vw + var(--voice) * 0.42vw) var(--accent), 0 0 0 calc(0.9vw + var(--voice) * 0.9vw) color-mix(in srgb, var(--accent) 22%, transparent);
+                    animation: slide-pop 0.42s cubic-bezier(0.25, 1.5, 0.45, 1) both; }
+.presenter.corner svg { width: 150%; height: auto; margin: -5% 0 0 -25%; }
 
+/* Upright, for the Short: the same slide in a 1080x1920 frame. Sizes follow the width. What
+   YouTube draws over a Short takes the bottom fifth and the right edge below the middle, so the
+   slide lives in the top two thirds and the captions sit just under it. */
 @media (orientation: portrait) {
-  .stage { flex-direction: column; align-items: stretch; gap: 2vh; }
-  .stage > .slide { flex: 1; }
-  .stage > .presenter { align-self: center; height: auto; width: 66vw; }
-  .presenter.corner { right: 8vw; bottom: 38.6vh; width: 30vw; }
+  body { font-size: 4.6vw; padding: 8vh 7vw 35vh; }
+  body::after { background-size: 5vw 5vw; }
+  .top { min-height: 14.6vh; }
+  .chip { font-size: 2.7vw; }
+  .kicker { font-size: 3vw; }
+  h1 { font-size: 12.4vw; max-width: none; }
+  h2 { font-size: 8.6vw; max-width: none; }
+  p { max-width: none; }
+  .lead { font-size: 6vw; }
+  .figure { font-size: 25vw; }
+  .figure-label { font-size: 4.4vw; max-width: none; }
+  .row { flex-direction: column; gap: 3vh; }
+  .rule { width: 24vw; }
+  .card, .tile { border-radius: 3vw; }
+  .tiles { grid-template-columns: repeat(2, 1fr); gap: 2.6vw; }
+  .tile { flex-direction: column; align-items: flex-start; gap: 1.2vh; padding: 1.8vh 3.2vw; font-size: 4.6vw; }
+  .tile svg { width: 9vw; height: 9vw; }
+  .step { font-size: 6.2vw; gap: 3.4vw; }
+  .button { font-size: 5vw; }
+  .foot { padding-top: 1.2vh; font-size: 2.2vw; }
+  .foot .source { text-align: right; }
+  .progress { height: 0.5vh; }
+
+  .captions { display: block; position: absolute; left: 6vw; right: 6vw; top: 67.5vh; z-index: 6; text-align: center; }
+  .caption { display: none; font-size: 8.4vw; line-height: 1.04; font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase; color: #ffffff;
+             -webkit-text-stroke: 1.7vw var(--page); paint-order: stroke fill; }
+  .caption.on { display: block; }
+  .caption .now { color: var(--accent); }
+
+  .presenter.corner { right: 7vw; top: 8.6vh; bottom: auto; width: 23vw; }
+  /* His own scene: the words on top, the captions in the middle, and he below them, as large as the frame takes. */
+  body:has(.stage) { padding-bottom: 0; }
+  body:has(.stage) .foot { display: none; }
+  body:has(.stage) .captions { top: 42.5vh; }
+  body:has(.stage) .top { min-height: 4.4vh; margin-bottom: 1.6vh; }
+  .stage { display: block; }
+  .stage > .slide { justify-content: flex-start; gap: 2vh; height: 28vh; }
+  .stage > .presenter { position: absolute; left: 50%; bottom: -1vh; height: 47vh; margin: 0 0 0 calc(-47vh * 600 / 720 / 2); }
 }

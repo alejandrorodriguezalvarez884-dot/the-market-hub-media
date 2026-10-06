@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- The hook: the presenter says school skipped this, and names three things nobody explained. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  .asks { display: flex; flex-direction: column; gap: 1.6vh; list-style: none; padding: 0; }
+  .asks li { display: flex; align-items: center; gap: 0.7em; font-size: 2.7vw; font-weight: 700; letter-spacing: -0.02em; color: var(--ink-strong); }
+  .asks li::before { content: "?"; flex: none; display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%;
+                     border: 0.14em solid var(--accent); color: var(--accent); font-size: 0.7em; font-weight: 800; }
+  @media (orientation: portrait) {
+    h1 { font-size: 10.6vw; }
+    .asks { gap: 0.9vh; }
+    .asks li { font-size: 5vw; }
+  }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip in" data-series>Money 101</span></header>
+<div class="stage">
+  <main class="slide">
+    <h1 class="in" data-say="nobody">Nobody taught you <span class="hl" data-say="school-0.2">this</span>.</h1>
+    <ul class="asks">
+      <li class="in" data-say="how interest">How interest works</li>
+      <li class="in" data-say="where">Where your paycheck goes</li>
+      <li class="in" data-say="why">Why prices keep rising</li>
+    </ul>
+  </main>
+  <div class="presenter" data-cues="0:wave how:explain"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">themarkethub.app</span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

@@ -123,6 +123,9 @@ def kit(script: Script, channel: Channel) -> str:
         f"Tags:\n{', '.join(script.tags)}",
         "Thumbnail: thumbnail.jpg\nCaptions: captions.srt\nAudience: not made for kids",
     ]
+    series = channel.series.get(script.series)
+    if series:
+        parts.append(f"Playlist: {series.name}" + (f"  {series.playlist}" if series.playlist else "  (make it in YouTube Studio the first time)"))
     if script.short:
         parts += [
             "=== SHORT: short.mp4 ===",

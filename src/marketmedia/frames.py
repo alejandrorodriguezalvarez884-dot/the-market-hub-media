@@ -6,23 +6,25 @@ or an SVG with a viewBox and no width or height. The same drawing is photographe
 scene is in the Short: as wide as the video (1920x1080) and upright (1080x1920), so it must read
 well both ways (theme/slide.css changes the sizes when the window is upright).
 
-A drawing may move. Its animations are not played and filmed: they are stopped and set to the
-time of each frame, one frame after another, so the result is the same every time and no frame
-is dropped. What can be set that way:
+A drawing moves, and it is not played and filmed: it is stopped and set to the time of each
+frame, one frame after another, so the result is the same every time and no frame is dropped.
+What can be set that way:
 
 - CSS animations and transitions and the Web Animations API (the classes of theme/slide.css are
-  these). They run once; give one of your own ``animation-fill-mode: both``.
-- A script of the page: it sets ``window.slideSeconds`` to how long it moves and
-  ``window.slideAt = (seconds) => {...}`` to draw itself at a given time (theme/slide.js does
-  this for the figures that count up).
-- The presenter (theme/slide.js): his mouth follows the scene's voice for as long as it lasts.
-  The page is handed how open the mouth is at each frame (``window.slideVoice``, from mouth.py)
-  and says, with ``window.slideKey(seconds)``, which of his few faces a frame shows: once the
-  rest of the slide is still, each face is photographed once and used for every frame it is in.
+  these). Give one of your own ``animation-fill-mode: both``.
+- A script of the page: ``window.slideAt = (seconds) => {...}`` draws it at a given time.
+  theme/slide.js does this for the figures that count up, the presenter, the line that says how
+  far into the film it is, the panel between scenes and the Short's captions.
 
-For each scene this leaves ``build/frames/<scene>/0000.jpg ...`` while something moves, and
-``build/frames/<scene>.png``, the slide once everything has come to rest. A page that loads
-something slowly may set window.slideReady to a promise; nothing is photographed before it settles.
+Before any of that the page is told what its scene is, ``window.slideScene`` (see ``told``), and
+``window.slideSetup()`` is called: how long the scene lasts, when each word of its narration is
+said (timing.py), its voice frame by frame (mouth.py), where it falls in its film and which
+series the video is of. So a slide can bring a thing in as the voice names it.
+
+For each scene this leaves ``build/frames/<scene>/0000.jpg ...``, one picture per frame for as
+long as the scene lasts, and ``build/frames/<scene>.png``, the slide as the voice ends: the one
+to look at. A page that loads something slowly may set window.slideReady to a promise; nothing
+is photographed before it settles.
 """
 
 from __future__ import annotations
@@ -32,14 +34,14 @@ import shutil
 from collections.abc import Callable
 from pathlib import Path
 
-from . import mouth
+from . import mouth, render, timing
 from .channel import ROOT, Channel
 from .script import Script
 from .videos import Video
 
 THUMBNAIL = {"width": 1280, "height": 720}
 THUMBNAIL_BYTES = 2 * 1024 * 1024  # YouTube's limit
-MOVING_MAX = 60.0                  # seconds of movement filmed in one scene, at most
+MOVING_MAX = 90.0                  # seconds of one scene that are filmed, at most
 
 # Stop every animation and say when the last one ends, in seconds.
 FREEZE = """() => {
@@ -69,28 +71,59 @@ def _theme_age() -> float:
 
 
 def count(seconds: float, fps: int) -> int:
-    """How many frames a movement of ``seconds`` takes."""
+    """How many frames a scene of ``seconds`` takes."""
     return round(min(seconds, MOVING_MAX) * fps)
+
+
+def told(script: Script, channel: Channel, cut: render.Cut, start: float, total: float, first: bool, last: bool,
+         short: bool, voice: dict | None) -> dict:
+    """What a page is told of its scene (window.slideScene)."""
+    said = timing.words(cut.scene.narration, cut.spoken, voice["levels"] if voice else None, channel.fps)
+    series = channel.series.get(script.series)
+    return {
+        "seconds": cut.seconds, "spoken": cut.spoken, "fps": channel.fps, "short": short,
+        "start": start, "total": total, "first": first, "last": last,   # where it falls in its film
+        "words": [{"word": w.word, "at": w.at, "end": w.end} for w in said],
+        "captions": timing.lines(said, cut.seconds) if short else [],
+        "voice": voice,
+        "series": {"name": series.name, "accent": series.accent} if series else None,
+        "episode": script.episode,
+    }
 
 
 def draw(video: Video, script: Script, channel: Channel, everything: bool = False,
          log: Callable[[str], None] = print) -> int:
-    """Draw the frames that are missing or older than their drawing. Returns how many scenes it drew."""
+    """Draw the frames that are missing or older than what they are made from. Returns how many
+    scenes it drew."""
     wide = {"width": channel.width, "height": channel.height}
     upright = {"width": channel.short_width, "height": channel.short_height}
-    # (the drawing's name, its still frame, the folder of its moving frames, the window)
-    wanted = [(s.name, video.frame(s.name), video.moving(s.name), wide) for s in script.scenes]
-    wanted += [(s.name, video.frame(s.name, True), video.moving(s.name, True), upright) for s in script.cut(short=True)]
-    wanted.append(("thumbnail", video.thumbnail, None, THUMBNAIL))
+    # (the drawing's name, its still frame, the folder of its frames, the window, what it is told)
+    wanted = []
+    voices: dict[str, dict] = {}
+    for short, viewport in ((False, wide), (True, upright)):
+        cuts = render.plan(video, script, channel, short)
+        total = sum(c.seconds for c in cuts)
+        start = 0.0
+        for n, cut in enumerate(cuts):
+            name = cut.scene.name
+            if cut.voice and name not in voices:
+                voices[name] = mouth.voice(cut.voice, channel.fps)
+            scene = told(script, channel, cut, start, total, n == 0, n == len(cuts) - 1, short, voices.get(name))
+            wanted.append((name, video.frame(name, short), video.moving(name, short), viewport, scene))
+            start += cut.seconds
+    series = channel.series.get(script.series)
+    wanted.append(("thumbnail", video.thumbnail, None, THUMBNAIL,   # it is told its series, for the colour and the name
+                   {"series": {"name": series.name, "accent": series.accent} if series else None, "episode": script.episode}))
 
-    theme = _theme_age()
+    # A change to the shared style, to the script or to the channel redraws every frame: a scene's
+    # frames say how far into the film it is, and carry the words of its captions.
+    shared = max(_theme_age(), _age(video.script), _age(ROOT / "channel.toml"))
     todo = []
-    for name, target, moving, viewport in wanted:
+    for name, target, moving, viewport, scene in wanted:
         source = video.drawing(name)
         voice = video.voice(name) if moving else None
-        # A new voice redraws the scene: the presenter speaks with it.
-        if source and (everything or max(_age(source), theme, _age(voice) if voice else 0.0) > _age(target)):
-            todo.append((source, target, moving, viewport, voice))
+        if source and (everything or max(_age(source), shared, _age(voice) if voice else 0.0) > _age(target)):
+            todo.append((source, target, moving, viewport, scene))
     if not todo:
         return 0
 
@@ -100,18 +133,14 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
         try:
             page = browser.new_page(viewport=wide, device_scale_factor=1)
             page.on("pageerror", lambda e: log(f"  page error: {e}"))
-            for source, target, moving, viewport, voice in todo:
+            for source, target, moving, viewport, scene in todo:
                 target.parent.mkdir(parents=True, exist_ok=True)
                 page.set_viewport_size(viewport)
                 page.goto(source.resolve().as_uri())
                 page.evaluate("async () => { await document.fonts?.ready; await window.slideReady; }")
+                if scene:
+                    page.evaluate("(scene) => { window.slideScene = scene; window.slideSetup?.(); }", scene)
                 seconds = page.evaluate(FREEZE)
-                # With a presenter and a voice, the scene moves for as long as he speaks.
-                speaks = 0.0
-                if voice and page.evaluate("() => typeof window.slideKey === 'function'"):
-                    levels = mouth.of(voice, channel.fps)
-                    page.evaluate("(voice) => { window.slideVoice = voice; }", {"fps": channel.fps, "levels": levels})
-                    speaks = len(levels) / channel.fps
                 where = target.relative_to(video.path).as_posix()
                 if moving is None:  # the thumbnail: the drawing at rest, as a JPEG YouTube takes
                     page.evaluate(SEEK, seconds * 1000)
@@ -122,29 +151,19 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
                     target.write_bytes(picture)
                     log(f"  {where}")
                     continue
+                for word in page.evaluate("() => window.slideMissing || []"):
+                    log(f"  {source.name}: waits for {word!r}, which its narration does not say")
                 shutil.rmtree(moving, ignore_errors=True)
-                whole = max(seconds, speaks)
-                frames = count(whole, channel.fps)
-                faces: dict[str, Path] = {}  # the presenter's faces already photographed
-                if frames:
-                    moving.mkdir(parents=True)
-                    # One more than the movement takes: the last picture is the slide at rest, which
-                    # is the one the film holds until the scene ends.
-                    for n in range(frames + 1):
-                        at = min(n / channel.fps, whole)
-                        picture = moving / f"{n:04d}.jpg"
-                        face = page.evaluate("(s) => window.slideKey(s)", at) if speaks and at > seconds else None
-                        if face in faces:
-                            shutil.copyfile(faces[face], picture)
-                            continue
-                        page.evaluate(SEEK, at * 1000)
-                        page.screenshot(path=str(picture), type="jpeg", quality=95)
-                        if face:
-                            faces[face] = picture
-                page.evaluate(SEEK, whole * 1000)
+                moving.mkdir(parents=True)
+                # One more than the scene takes: the film never runs out of pictures.
+                for n in range(count(scene["seconds"], channel.fps) + 1):
+                    page.evaluate(SEEK, min(n / channel.fps, scene["seconds"]) * 1000)
+                    page.screenshot(path=str(moving / f"{n:04d}.jpg"), type="jpeg", quality=92)
+                # The one to look at: the slide as the voice ends, before the next scene covers it.
+                page.evaluate(SEEK, scene["spoken"] * 1000)
                 page.screenshot(path=str(target), type="png")
-                log(f"  {where}" + (f"  moves for {seconds:.1f}s" if seconds else "")
-                    + (f"  speaks for {speaks:.1f}s" if speaks else ""))
+                log(f"  {where}  {scene['seconds']:.1f}s" + (f", moving for {seconds:.1f}s" if seconds else "")
+                    + ("" if scene["voice"] else ", no voice yet"))
         finally:
             browser.close()
     return len(todo)

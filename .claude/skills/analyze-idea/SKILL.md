@@ -18,7 +18,9 @@ Work from the root of the `the-market-hub-media` repo (in the workspace it is th
 - `make status` lists every video and how far along it is. Read the briefs of the recent ones
   (`videos/*/brief.md`): do not propose a video that makes the same point as one of them.
 - `channel.toml` says what a video is: four to six minutes, in English, with a Short of thirty
-  seconds to a minute cut from its own scenes.
+  seconds to a minute cut from its own scenes. It also lists the channel's series: say in the
+  brief which one the idea belongs to and, in a series that teaches (Money 101), keep the angle
+  to how the thing works and what changes with it, never what the viewer ought to do.
 
 ## 2. Open the video's folder
 

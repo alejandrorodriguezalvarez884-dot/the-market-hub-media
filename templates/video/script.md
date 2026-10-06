@@ -3,6 +3,8 @@ title: {{title}}
 description: TODO Two or three sentences for the video's page on YouTube.
 tags: TODO, TODO
 tickers:
+series:
+episode:
 short: 01-hook, 03-point, 04-close
 short_title:
 sources:

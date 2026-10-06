@@ -12,6 +12,16 @@ ROOT = Path(os.environ.get("MEDIA_ROOT") or Path(__file__).resolve().parents[2])
 
 
 @dataclass(frozen=True)
+class Series:
+    """A run of videos on one subject, with a look of its own: a playlist on YouTube."""
+    slug: str
+    name: str
+    tagline: str
+    accent: str      # its colour on every slide
+    playlist: str    # the playlist's address on YouTube, once it exists
+
+
+@dataclass(frozen=True)
 class Channel:
     name: str
     language: str
@@ -21,6 +31,7 @@ class Channel:
     height: int
     fps: int
     minutes: tuple[float, float]
+    trailer_seconds: tuple[float, float]
     words_per_minute: int
     gap_seconds: float
     # The Short
@@ -37,6 +48,7 @@ class Channel:
     made_for_kids: bool
     synthetic_media: bool
     disclaimer: str
+    series: dict[str, Series]
 
 
 def _range(value, default: tuple[float, float]) -> tuple[float, float]:
@@ -55,6 +67,7 @@ def load(path: Path | None = None) -> Channel:
         height=int(video.get("height", 1080)),
         fps=int(video.get("fps", 30)),
         minutes=_range(video.get("minutes"), (4, 6)),
+        trailer_seconds=_range(data.get("trailer", {}).get("seconds"), (30, 90)),
         words_per_minute=int(video.get("words_per_minute", 150)),
         gap_seconds=float(video.get("gap_seconds", 0.4)),
         short_width=int(short.get("width", 1080)),
@@ -68,4 +81,6 @@ def load(path: Path | None = None) -> Channel:
         made_for_kids=bool(youtube.get("made_for_kids", False)),
         synthetic_media=bool(youtube.get("synthetic_media", False)),
         disclaimer=" ".join(youtube.get("disclaimer", "").split()),
+        series={slug: Series(slug, s.get("name", slug), s.get("tagline", ""), s.get("accent", ""), s.get("playlist", ""))
+                for slug, s in data.get("series", {}).items()},
     )

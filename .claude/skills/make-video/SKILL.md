@@ -7,7 +7,9 @@ description: Make a video for The Market Hub's YouTube channel, and the Short cu
 
 You make one video of The Market Hub's YouTube channel, from its brief to two films the user can
 watch: the video (horizontal, four to six minutes) and its Short (upright, thirty seconds to a
-minute, cut from the video's own scenes). Publishing them is another skill (`publish-video`) and
+minute, cut from the video's own scenes). A trailer (`kind: trailer` in its script: a video
+that presents the channel or a series) is made the same way, but runs thirty to ninety seconds,
+states no figures and needs no sources. Publishing them is another skill (`publish-video`) and
 another decision: this one never publishes anything.
 
 Work from the root of the `the-market-hub-media` repo. Read `CLAUDE.md` there first: its rules are
@@ -22,14 +24,18 @@ a video at the top of `src/marketmedia/videos.py`. `channel.toml` has the length
 
 `script.md`: the data on top, then the scenes. Write for the ear, not for the page.
 
-- **Structure.** A hook in the first fifteen seconds (the fact or the question, not a greeting);
+- **Series.** The data on top names the video's series (`series:`, one of `channel.toml`'s) and
+  its number in it (`episode:`). The series gives every slide its colour and its name.
+- **Structure.** A hook in the first ten seconds (the fact or the question, not a greeting);
   a title card; three to five parts, each one idea; a close that says what the viewer now knows
   and what to watch next. One scene per picture: when what is on screen should change, a new
-  scene starts. A scene runs 8 to 25 seconds; a picture held longer loses people.
+  scene starts. A scene runs 4 to 15 seconds; a picture held longer loses people.
 - **Length.** Four to six minutes: about 800 to 1,150 words at the voice's pace (some 200 a
   minute; `words_per_minute` in `channel.toml`). `make check` refuses a video outside it.
-- **Voice.** A person who has read the documents and explains them to a friend who is clever and
-  not in finance. Short sentences. One figure per sentence, rounded the way one would say it
+- **Voice.** A person who has read the documents and explains them to a friend in their twenties
+  who is clever and not in finance: direct, a little dry, never talking down, and with no slang
+  put on to sound young. Short sentences. A list is said as a list, each thing its own
+  sentence: the voice stops at every full stop, and the slide brings each thing in on its stop. One figure per sentence, rounded the way one would say it
   aloud ("almost a third", "about 4 billion dollars"). No jargon left unexplained. Say the
   number and then what it means. The words are read by a synthetic voice exactly as written:
   write out what must be said ("percent", "dollars", "third quarter"), and avoid symbols,
@@ -69,18 +75,29 @@ One drawing per scene, `slides/<scene-name>.html` (or `.svg`), drawn by you as c
 service, no model on the network, no picture taken from anywhere.
 
 - Link the shared style (`../../../theme/slide.css`) and read it first: it has the palette, the
-  type and a few layouts (`.slide`, `.kicker`, `.figure`, `.row`, `.foot`). What is particular to
-  a slide goes in a `<style>` of its own. Nothing is loaded from the network; system fonts only.
+  type and the layouts (`.top` with the series' `.chip`, `.slide`, `.kicker`, `.lead`,
+  `.figure`, `.row`, `.card`, `.tiles`, `.steps`, `.foot`). What is particular to a slide goes
+  in a `<style>` of its own. Nothing is loaded from the network; system fonts only. The
+  trailer of Money 101 (`videos/2026-10-06-money-101-trailer/`) is the format to follow.
+- **The look is for people in their twenties, not for children**: large, short headlines, one
+  colour that stands out (`--accent`, the series' colour: `.accent`, `.mark`, `.hl`), a lot of
+  dark space. No emoji, no clip art, no exclamation marks. A small drawing is an inline SVG
+  drawn in strokes of the accent.
 - **One idea per slide, and few words**: twelve at most outside a chart. The narration carries
   the sentence; the slide carries the figure, the comparison or the drawing.
-- **A slide moves.** Nothing is on screen before the voice gets to it: the title comes in, then
-  each bar rises, the line is drawn, the figure counts up, in the order the narration names
-  them. Use the classes of the shared style (`.in`, `.fade`, `.grow`, `.wide`, `.draw`) with
-  `style="--at: 2.5s"` for when each starts, counted from the start of the scene, and
-  `theme/slide.js` for a figure that counts up (`data-count`). Read the narration aloud to place
-  the times: at the voice's pace, ten words are about three seconds. Movement explains; it does
-  not decorate: nothing loops, bounces or spins, and everything has come to rest well before
-  the scene ends. How a drawing can move is at the top of `src/marketmedia/frames.py`.
+- **A slide moves, and on the voice.** Nothing is on screen before the voice gets to it. Give
+  each thing the word it comes in on, `data-say="inflation"`, with one of the movements of the
+  shared style (`.in`, `.fade`, `.pop`, `.grow`, `.wide`, `.draw`, and `.hl` for a word that
+  gets marked): it starts when that word is said. `data-say` takes a phrase ("plain english"),
+  the second time a word is said ("three#2"), a shift in seconds ("school-0.2") or plain
+  seconds ("2.5"); the top of `theme/slide.js` has all of it, and a figure that counts up
+  (`data-count`). When each word is said is worked out from the voice's sound
+  (`src/marketmedia/timing.py`), so nothing has to be placed by ear. `make frames` says when a
+  slide waits for a word its narration does not have. Movement explains; it does not decorate:
+  nothing loops or spins, and everything has come to rest before the scene ends.
+- Over every slide the film draws, by itself, the line at the top that says how far into the
+  film it is, the panel that crosses the frame between two scenes and, in the Short, the
+  captions. Do not draw them.
 - **Charts are drawn as inline SVG from the figures in the brief**, with their axis, their unit
   and their date. Colours that name a series come from `--series-1..4`. Green and red only for
   a figure that went up or down, never as a verdict, and no arrows that point where a price
@@ -89,25 +106,34 @@ service, no model on the network, no picture taken from anywhere.
 - **A slide of the Short is photographed twice**: 1920x1080 for the video and 1080x1920 for the
   Short. Size things with `vw`, `vh` and `%`, never with fixed pixels, and use
   `@media (orientation: portrait)` (as the shared style does) to stack what sits side by side
-  and to enlarge a chart. Keep the top tenth and the bottom third of the upright frame clear
-  (the shared style's padding does): the Short's captions are drawn there, a few words at a
-  time, above what YouTube draws over a Short.
-- **The presenter hosts the video.** He is the channel's drawn host (`theme/slide.js` draws him
-  into `<div class="presenter"></div>`; his mouth follows the scene's voice and he blinks). He
-  opens and closes every video in a scene of his own (the `.stage` layout of the template's
-  `01-hook` and `04-close`: the words on the left, he on the right) and he is in the first
-  scene of the Short. In every other scene that has words he stands small in the corner
-  (`<div class="presenter corner"></div>`, as in the template's `03-point`): the user wants him
-  on screen all the time. The drawing leaves him that corner free: the bottom right of the wide
-  frame and, upright, the right side just above the captions' band. Every slide with him loads
-  `theme/slide.js`. Never redraw him inside a slide and never replace him with a picture of a
-  person.
+  and to enlarge a chart. Upright, the slide lives in the top two thirds: the captions are
+  drawn just under it, a few words at a time, and YouTube draws its own things over the bottom
+  fifth. In a scene of the presenter's the words take the top quarter, the captions the middle
+  and he the lower half. A slide that fits wide very often does not fit upright: look.
+- **The presenter hosts the video.** He is the channel's drawn host (`theme/presenter.js` draws
+  him into `<div class="presenter"></div>`): half a body, with hands; his mouth follows the
+  scene's voice, he blinks, and he glances at the slide. He opens and closes every video in a
+  scene of his own (the `.stage` layout of the template's `01-hook` and `04-close`: the words
+  on the left, he on the right), takes any other scene that is him talking to the viewer
+  rather than a figure or a chart, and is in the first scene of the Short. In every other scene
+  that has words he is a face in a ring in the corner (`<div class="presenter corner"></div>`,
+  as in the template's `03-point`): the user wants him on screen all the time. The drawing
+  leaves him that corner free: the bottom right of the wide frame and, upright, the top right.
+- **In his own scenes he uses his hands**, and the slide says how: `data-cues="0:wave
+  how:explain three#2:three"`, each a moment (a word of the narration, as in `data-say`, with
+  `_` for a phrase, or seconds) and a pose. The poses are at the top of `theme/presenter.js`:
+  `rest`, `wave`, `explain` (both palms), `open` (one palm), `point` (at the words beside him),
+  `one`, `two`, `three`, `thumb`, `shrug`. A gesture goes with what is said: he counts what is
+  counted, points at what has just come in, and rests in between. Every slide with him loads
+  `theme/presenter.js` and then `theme/slide.js`. Never redraw him inside a slide and never
+  replace him with a picture of a person.
 - No real logos, no faces of real people, no brand's look. A company is told by its name in
   plain type and by what it does.
 - Start each file, after the doctype, with a comment that says what the slide shows.
 
 Then the thumbnail, `thumbnail.html`: three to five words that can be read at the size of a
-stamp, and one strong shape. It does not promise what the video does not give.
+stamp, one of them marked, and the presenter (a pose from before the picture is taken:
+`data-cues="-2:wave"`). It does not promise what the video does not give.
 
 ## 4. Check, render, look
 
@@ -120,10 +146,10 @@ make render VIDEO=<name>     # draws the frames, then makes the video, the Short
 `build/thumbnail.jpg`. Text that is cut or runs off the frame, a chart whose labels overlap, an
 upright slide with everything crammed in a corner or reaching into the captions' band, a slide
 that says something the narration does not: fix the drawing and render again. Two passes is normal. Those pictures are each slide
-at rest; to see one half way through its movement, open a few of
-`build/frames/<scene>/*.jpg` (one picture per frame, thirty a second). Then read the timings
-`make render` printed: a scene far outside 8 to 25 seconds wants splitting or joining, and one
-that moves for longer than it lasts has its movement cut.
+as its voice ends; to see one half way through, open a few of
+`build/frames/<scene>/*.jpg` (one picture per frame, thirty a second, for the whole scene).
+Then read the timings `make render` printed: a scene far outside 4 to 15 seconds wants
+splitting or joining.
 
 ## 5. Give it its voice
 
@@ -132,9 +158,9 @@ user has decided it is made here, without asking each time. It is paid by the ch
 monthly free allowance, so do it when the script is settled and the frames are right, not
 before.
 
-Once each scene has its voice it lasts what the voice lasts, which is rarely what was assumed:
-listen to where the voice names each thing (or work it out from the scene's length and its
-words) and move the `--at` of each element to match.
+Once each scene has its voice it lasts what the voice lasts, which is rarely what was assumed.
+What comes in on a word (`data-say`, the presenter's cues) follows the voice by itself; only
+what was placed in plain seconds has to be moved by hand.
 
 ```bash
 make voice VIDEO=<name> DRY=1    # how many scenes and characters it would send; spends nothing
@@ -146,8 +172,8 @@ If `make voice` fails for lack of credentials or because the service is not enab
 answered and stop: do not look for another way in. After the second render, run `make check`
 again: the real voice may run faster or slower than the estimate and take the video or the Short
 outside its length. If it does, trim or add words and repeat (only the changed scenes are spoken
-again). The second render also redraws the presenter's scenes: his mouth follows the voice
-that now exists.
+again). The second render redraws every scene: the presenter's mouth, the captions and the
+moment each thing comes in all follow the voice that now exists. Look at the frames again.
 
 ## 6. Commit, and tell the user
 

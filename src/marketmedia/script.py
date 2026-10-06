@@ -5,6 +5,8 @@
     description: Two or three sentences for the video's page on YouTube.
     tags: buybacks, earnings per share
     tickers: AAPL, MSFT
+    series: money-101
+    episode: 3
     short: 01-hook, 05-the-figure, 09-close
     short_title: Profit flat, earnings per share up
     sources:
@@ -26,6 +28,10 @@ in a "seconds:" line.
 "short:" names the scenes that, in that order, make the Short: a cut of the video that stands on
 its own, drawn again upright. "short_title:" is its title, when it is not the video's.
 
+"series:" is the series the video belongs to (one of channel.toml's) and "episode:" its number in
+it. "kind: trailer" is for a video that presents the channel or a series instead of explaining
+something: it is short (channel.toml's [trailer]) and, having no figures, needs no sources.
+
 ``load`` reads one, and refuses it when it cannot be read as a script. ``problems`` says what
 stops a script that can be read from being published.
 """
@@ -41,6 +47,7 @@ HEADING = re.compile(r"##\s+(\S.*?)\s*$")
 # YouTube's own limits.
 TITLE_MAX = 100
 TAGS_MAX = 500
+KINDS = ("", "trailer")
 # A video argues and explains; it does not tell a viewer what to do with their money.
 ADVICE = re.compile(
     r"\b(you should (buy|sell|hold)|we recommend|(buy|sell|hold) rating|strong buy|price target of|our (price )?target"
@@ -75,6 +82,9 @@ class Script:
     scenes: list[Scene]
     short: list[str] = field(default_factory=list)  # the scenes of the Short, in its order
     short_title: str = ""
+    series: str = ""             # the slug of its series in channel.toml
+    episode: int | None = None
+    kind: str = ""               # "" for a video, "trailer" for one that presents a series
 
     def cut(self, short: bool = False) -> list[Scene]:
         """The scenes of the video, or those of its Short."""
@@ -167,6 +177,9 @@ def parse(text: str, name: str = "script.md") -> Script:
         scenes=_scenes(body, name),
         short=_list(data.get("short")),
         short_title=_text(data.get("short_title")),
+        series=_text(data.get("series")),
+        episode=int(_text(data.get("episode"))) if _text(data.get("episode")).isdigit() else None,
+        kind=_text(data.get("kind")).lower(),
     )
 
 
@@ -190,7 +203,9 @@ def problems(script: Script) -> list[str]:
             found.append(f"the {what} has < or >, which YouTube refuses")
     if len(",".join(script.tags)) > TAGS_MAX:
         found.append(f"the tags add up to more than {TAGS_MAX} characters")
-    if len(script.sources) < 2:
+    if script.kind not in KINDS:
+        found.append(f"'kind: {script.kind}' is not a kind of video; leave it out, or 'trailer'")
+    if len(script.sources) < 2 and script.kind != "trailer":
         found.append("fewer than two sources: every figure, date and quotation needs one")
     for label, address in script.sources:
         if not label or not re.match(r"https?://\S+$", address):

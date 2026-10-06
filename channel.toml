@@ -33,3 +33,15 @@ synthetic_media = false              # YouTube's "altered or synthetic content" 
 disclaimer = """
 This video is for information and education only. It is not investment advice, and nothing in it \
 is a recommendation to buy, sell or hold anything."""
+
+# A video that presents the channel or a series, instead of explaining something (kind: trailer).
+[trailer]
+seconds = [30, 90]
+
+# The series: each is a subject, a playlist on YouTube and a colour on every slide of its videos.
+# A script names its series with "series: <the name in brackets>".
+[series.money-101]
+name = "Money 101"
+tagline = "How money really works. One idea at a time."
+accent = "#c6f24e"
+playlist = ""                        # the playlist's address on YouTube, once it exists

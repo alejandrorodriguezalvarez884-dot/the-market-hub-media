@@ -69,15 +69,20 @@ make test
    figures count up as the voice names them. `make frames` photographs each with the Chrome on
    this machine, frame by frame while it moves, at 1920x1080, and the scenes of the Short at
    1080x1920 as well.
-   The channel's host is one of those drawings (`theme/slide.js`): a presenter whose mouth
-   follows the voice of the scene.
+   A thing comes in when the voice says its word (`data-say="inflation"`): when each word is
+   said is worked out from the sound (`timing.py`).
+   The channel's host is one of those drawings (`theme/presenter.js`): a presenter with a body
+   and hands, whose mouth follows the voice of the scene and who waves, points and counts on
+   his fingers when the slide tells him to.
+   A video belongs to a series (`series:` in its script, `[series.*]` in `channel.toml`): a
+   subject, a playlist and a colour on every slide.
 4. **Narration** (`voice/01-name.wav`): one sound file per scene, spoken by Google Cloud
    Text-to-Speech. A scene with no file is held in silence for the time its words would take,
    so a film can be watched and timed before a word is spoken.
 5. **Films** (`build/video.mp4`, `build/short.mp4`): each frame held for as long as its
    narration lasts, joined with the ffmpeg that comes with the `imageio-ffmpeg` package. The
    video's captions are a file beside it (`captions.srt`); the Short's are drawn into the
-   picture, a few words at a time.
+   picture by the slide itself, a few words at a time, the one being said in the series' colour.
 6. **Publishing**: `build/youtube.txt` has the title, the tags and a description that carries
    the sources and a notice that it is not advice. `published.json` records where it is.
 

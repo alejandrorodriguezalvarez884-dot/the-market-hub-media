@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- The problem: money decisions come every day, here as three everyday questions, and most are guessed. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  h2 { font-size: 5.6vw; max-width: none; }
+  .lead { font-size: 3.8vw; }
+  .asked { display: flex; gap: 1.4vw; }
+  .asked .card { flex: 1; padding: 3.4vh 2vw 4vh; font-size: 3vw; font-weight: 750; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink-strong); }
+  .asked .card small { display: block; margin-bottom: 1.2vh; font-family: var(--mono); font-size: 0.48em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; gap: 1.5vh; }
+    h2 { font-size: 8vw; }
+    h2 .accent { display: block; }
+    .lead { font-size: 6vw; }
+    .asked { flex-direction: column; gap: 0.9vh; }
+    .asked .card { font-size: 4.6vw; padding: 0.9vh 4vw 1.1vh; }
+    .asked .card small { margin-bottom: 0.3vh; }
+  }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip" data-series>Money 101</span></header>
+<main class="slide">
+  <h2 class="in" data-say="you make">Money decisions. <span class="accent">Every day.</span></h2>
+  <div class="asked">
+    <div class="card pop" data-say="money"><small>Monday</small>Rent or buy?</div>
+    <div class="card pop" data-say="decisions"><small>Wednesday</small>Save or pay off debt?</div>
+    <div class="card pop" data-say="every"><small>Friday</small>Fixed or variable rate?</div>
+  </div>
+  <p class="lead in" data-say="mostly">Mostly by <span class="hl" data-say="guessing">guessing</span>.</p>
+</main>
+<div class="presenter corner"></div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">themarkethub.app</span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

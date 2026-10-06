@@ -24,3 +24,9 @@ def test_the_mouth_opens_with_the_voice_and_closes_in_the_pauses():
     assert levels[45] == 0.0            # a pause
     assert 0.4 < levels[75] < 0.6       # speaking half as loud
     assert 0 < levels[30] < 1           # the mouth does not snap shut from one frame to the next
+
+
+def test_a_hiss_is_sharp_and_a_vowel_is_not():
+    hiss = array.array("h", (6000 if n % 2 else -6000 for n in range(16000))).tobytes()   # crosses zero at every sample
+    assert set(mouth.sharpness(hiss, 16000, 30)) == {1.0}
+    assert set(mouth.sharpness(_sound(1, 8000), 16000, 30)) == {0.0}                       # a low tone

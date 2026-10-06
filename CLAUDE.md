@@ -31,9 +31,10 @@ Reglas que no se negocian:
   logotipos, ni caras de personas reales. Cada diapositiva y cada miniatura se dibujan aquí, como
   código (HTML o SVG), y se convierten en imagen con el Chrome de esta máquina. No se usa ningún
   servicio ni modelo de generación de imágenes.
-- **El presentador es un dibujo hecho aquí** (`theme/slide.js`), que mueve la boca con la voz. No
-  es la cara de nadie. Sale en todas las escenas: grande al abrir y al cerrar, pequeño en una
-  esquina en las demás. El usuario quería un avatar hiperrealista y lo descartó por el coste
+- **El presentador es un dibujo hecho aquí** (`theme/presenter.js`): medio cuerpo, con manos, que
+  mueve la boca con la voz y gesticula (saluda, explica, señala, cuenta con los dedos). No es la
+  cara de nadie. Sale en todas las escenas: grande en las suyas (abrir, cerrar y las que
+  presenta él) y como una cara en un círculo, en la esquina, en las demás. El usuario quería un avatar hiperrealista y lo descartó por el coste
   (2026-10-06): no se sustituye por un avatar realista, por un servicio de avatares ni por vídeo
   de una persona real sin que él lo decida.
 - **Publicar es decisión del usuario, vídeo a vídeo.** Hoy publica él a mano, en YouTube Studio:
@@ -50,6 +51,23 @@ Reglas que no se negocian:
   lanza él y se identifica en su navegador.
 - **Un vídeo publicado no cambia de carpeta.** El slug (el nombre de la carpeta sin la fecha) no
   se toca. Una corrección se dice en la descripción del vídeo.
+
+## El formato y las series
+
+El canal se dirige a **gente joven, no a niños** (decisión del usuario, 2026-10-06): titulares
+grandes y cortos, un color que destaca, escenas breves, cada cosa en pantalla cuando la voz la
+nombra, y un tono directo que no trata al espectador de tonto. Nada de emojis, de jerga forzada
+ni de prisa sin motivo.
+
+El contenido va **por temáticas**: cada serie (`[series.*]` en `channel.toml`) es un tema, una
+lista de reproducción de YouTube y un color en todas las diapositivas de sus vídeos. Un guion
+dice su serie con `series:` y su número con `episode:`. La primera es **Money 101**, de enseñar
+finanzas personales. En una serie de enseñar la regla de no aconsejar pesa todavía más: se
+explica cómo funciona algo (el interés compuesto, la inflación, una deuda) y qué cambia según
+lo que se haga, no qué debe hacer quien lo ve.
+
+`kind: trailer` es un vídeo que presenta el canal o una serie: dura lo que dice `[trailer]` y,
+al no llevar cifras, no necesita fuentes.
 
 ## La voz
 
