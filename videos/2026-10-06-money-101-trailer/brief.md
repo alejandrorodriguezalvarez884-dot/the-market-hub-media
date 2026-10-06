@@ -45,9 +45,15 @@ thing works and what changes with it, never what to do).
 5. 05-rules: three rules, counted on the presenter's fingers: sources, no hype, no advice.
 6. 06-close: start from zero; subscribe.
 
+7. Redone on 2026-10-06, after the user asked for the channel to be more colourful and didactic
+   and less about money as such: every scene has a tone of its own, the six subjects each have
+   a colour, and a new scene, 05-how, says how the series teaches: first something you can
+   picture (a pond, a snowball, a stack of blocks), then the numbers. The scenes are now
+   01-hook, 02-guessing, 03-series, 04-topics, 05-how, 06-rules, 07-close.
+
 ## The Short
 
-All six scenes, in order: the trailer is short enough to be its own Short.
+All seven scenes, in order: the trailer is short enough to be its own Short.
 
 ## Open questions for the user
 
