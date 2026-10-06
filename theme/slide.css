@@ -1,0 +1,72 @@
+/* The look every slide shares: Market Hub's dark theme, sized for a 1920x1080 frame.
+   A slide links this file and adds what is its own in a <style> of its own.
+   Green and red are only for a figure that went up or down, never for a verdict. */
+
+:root {
+  --page: #0b0c0d;
+  --panel: #101213;
+  --raised: #191b1d;
+  --line: #222528;
+  --line-strong: #3a3e42;
+  --ink: #c9c7c1;
+  --ink-strong: #f2f0ea;
+  --muted: #8c8b86;
+  --faint: #5f5f5b;
+  --up: #35c98f;
+  --down: #ff6b57;
+  --warn: #e0b341;
+  /* Colours that name a series in a chart, in the order to use them. */
+  --series-1: #7aa2f7;
+  --series-2: #e0b341;
+  --series-3: #c792ea;
+  --series-4: #5fd3c4;
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+html, body { width: 100vw; height: 100vh; overflow: hidden; }
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 2.5vw;
+  line-height: 1.3;
+  display: flex;
+  flex-direction: column;
+  padding: 6vh 6vw 4.5vh;
+}
+
+/* The slide itself: what is between the top of the frame and the foot. */
+.slide { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3.5vh; min-height: 0; }
+.slide.top { justify-content: flex-start; }
+
+.kicker { font-family: var(--mono); font-size: 1.25vw; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: 5.2vw; line-height: 1.06; font-weight: 600; color: var(--ink-strong); letter-spacing: -0.02em; max-width: 18ch; }
+h2 { font-size: 3.4vw; line-height: 1.12; font-weight: 600; color: var(--ink-strong); letter-spacing: -0.015em; max-width: 26ch; }
+p { max-width: 34ch; }
+.muted { color: var(--muted); }
+.up { color: var(--up); }
+.down { color: var(--down); }
+
+/* One figure, as large as the frame allows, with what it measures under it. */
+.figure { font-family: var(--mono); font-size: 11vw; line-height: 1; font-weight: 500; color: var(--ink-strong); letter-spacing: -0.04em; }
+.figure-label { font-size: 2vw; color: var(--muted); max-width: 40ch; }
+
+/* Two or three things side by side. */
+.row { display: flex; gap: 4vw; align-items: flex-start; }
+.row > * { flex: 1; min-width: 0; }
+.rule { border: 0; border-top: 1px solid var(--line-strong); }
+
+/* The foot of every slide: the channel on the left, where the figures come from on the right. */
+.foot { display: flex; justify-content: space-between; align-items: baseline; gap: 4vw; padding-top: 2.2vh;
+        border-top: 1px solid var(--line); font-family: var(--mono); font-size: 1.05vw; letter-spacing: 0.06em; color: var(--faint); }
+.foot .brand { text-transform: uppercase; color: var(--muted); }
+.foot .source { text-align: right; }
+
+/* The thumbnail: fewer, larger words. */
+body.thumbnail { padding: 7vh 6vw; }
+body.thumbnail h1 { font-size: 9vw; max-width: 12ch; }
+body.thumbnail .kicker { font-size: 2.4vw; }

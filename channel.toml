@@ -1,0 +1,21 @@
+# The channel: what every video shares.
+
+name = "The Market Hub"
+language = "en"                      # the language of the narration and of every text on screen
+site = "https://themarkethub.app"
+
+[video]
+width = 1920
+height = 1080
+fps = 30
+words_per_minute = 150               # the pace assumed for a scene whose narration is not recorded yet
+gap_seconds = 0.4                    # silence left after each scene
+
+[youtube]
+category = "27"                      # Education
+privacy = "private"                  # what an upload starts as; made public by hand, in YouTube Studio
+made_for_kids = false
+synthetic_media = false              # YouTube's "altered or synthetic content" declaration
+disclaimer = """
+This video is for information and education only. It is not investment advice, and nothing in it \
+is a recommendation to buy, sell or hold anything."""

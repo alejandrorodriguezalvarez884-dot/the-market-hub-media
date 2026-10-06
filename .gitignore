@@ -1,0 +1,23 @@
+# Secrets: the OAuth client of the channel and the token it was given
+.env
+*.key
+.secrets/
+
+# What a video is made into (frames, sound, the film itself): made again with `make render`
+videos/*/build/
+# The narration of each scene: big files, kept outside git
+videos/*/voice/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
