@@ -27,7 +27,7 @@ rate = 1.0                           # its pace: 1.0 is the voice's own, about 2
 
 [youtube]
 category = "27"                      # Education
-privacy = "private"                  # what `make upload` asks for when PRIVACY is not said: private, unlisted or public
+privacy = "public"                   # what `make upload` asks for when PRIVACY is not said: private, unlisted or public
 made_for_kids = false
 synthetic_media = false              # YouTube's "altered or synthetic content" declaration
 disclaimer = """

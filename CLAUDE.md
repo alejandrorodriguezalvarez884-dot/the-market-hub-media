@@ -42,7 +42,8 @@ Reglas que no se negocian:
   vídeo de X y súbelo" vale para ese vídeo y para nada más. Sin esas palabras no se sube nada:
   aprobar un brief o un guion, o pedir solo el vídeo, no es pedir la publicación. Se sube con
   `make upload` (la API de YouTube; `make auth` la deja lista, una vez, y lo lanza él), con la
-  visibilidad que él diga y, si no dice ninguna, la de `channel.toml`. Mientras YouTube no haya
+  visibilidad que él diga y, si no dice ninguna, en público (`[youtube] privacy` en
+  `channel.toml`; decisión suya, 2026-10-07). Mientras YouTube no haya
   auditado el proyecto de la API, lo que se sube por ella queda en privado, y se le dice. A mano
   sigue pudiéndose: `make kit` deja el texto que pegar en YouTube Studio y `make published`
   apunta la dirección.

@@ -12,9 +12,9 @@ def test_the_description_carries_the_sources_and_the_notice(video, channel):
     assert text.endswith(channel.site)
 
 
-def test_an_upload_starts_private(video, channel):
+def test_an_upload_asks_for_the_channels_privacy(video, channel):
     body = youtube.body(scripts.load(video.script), channel)
-    assert body["status"]["privacyStatus"] == "private"
+    assert body["status"]["privacyStatus"] == channel.privacy == "public"
     assert body["status"]["selfDeclaredMadeForKids"] is False
     assert body["snippet"]["title"] == "What a buyback does to earnings per share"
     assert body["snippet"]["tags"] == ["buybacks", "earnings per share"]
