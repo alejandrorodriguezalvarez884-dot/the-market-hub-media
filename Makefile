@@ -10,7 +10,10 @@
 #   make published VIDEO=... URL=... [SHORT=...]   remember where it was published
 #
 # VIDEO is the folder's name in videos/, or a part of it that only one video has.
-# For after YouTube's audit of the API project: make auth, make upload VIDEO=...
+#   make auth                   sign in to YouTube, once, for uploads through the API
+#   make upload VIDEO=... [PRIVACY=public|unlisted|private]   upload the video and its Short
+#
+# Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
@@ -59,5 +62,5 @@ published: ## Remember where VIDEO=... was published: URL=... and, for its Short
 auth: ## Sign in to YouTube, once, for uploads through the API (needs .secrets/client_secret.json)
 	$(RUN) auth
 
-upload: ## Upload VIDEO=... through the API (PRIVACY=private|unlisted|public; private by default)
+upload: ## Upload VIDEO=... and its Short through the API (PRIVACY=private|unlisted|public; channel.toml's if not said)
 	$(RUN) upload $(VIDEO) $(if $(PRIVACY),--privacy $(PRIVACY))

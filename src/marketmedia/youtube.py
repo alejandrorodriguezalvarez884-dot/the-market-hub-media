@@ -1,11 +1,16 @@
 """Publishing a video on the channel.
 
-Today it is published by hand: ``kit`` writes what to paste into YouTube Studio, and ``by_hand``
-remembers where the video ended up. YouTube keeps private whatever an API project uploads until
-the project passes its audit, so the upload through the YouTube Data API (``upload``) is for
-after that. For it, the channel's owner signs in once (``make auth``) with an OAuth client of
-their own Google Cloud project, kept in .secrets/client_secret.json; the token it gives is kept
-beside it. Neither is ever in git. Uploading is free: it spends the API's daily quota, not money.
+Two ways. By hand: ``kit`` writes what to paste into YouTube Studio, and ``by_hand`` remembers
+where the video ended up. Through the YouTube Data API: ``upload`` sends a film (the video or its
+Short) and, for the video, its thumbnail, its captions and its place in the playlist of its
+series. For it, the channel's owner signs in once (``make auth``) with an OAuth client of their
+own Google Cloud project, kept in .secrets/client_secret.json; the token it gives is kept beside
+it. Neither is ever in git. Uploading is free: it spends the API's daily quota, not money.
+
+YouTube keeps private whatever an API project uploads until the project passes its audit
+(https://developers.google.com/youtube/v3/docs/videos/insert), so until then an upload is there
+but nobody else can see it. What the API cannot set stays by hand in YouTube Studio: the end
+screen, and the Short's related video.
 """
 
 from __future__ import annotations
@@ -19,7 +24,8 @@ from pathlib import Path
 from .channel import ROOT, Channel
 from .script import Script
 
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
+# Uploading a film, and (force-ssl) its captions and its place in a playlist.
+SCOPES = ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.force-ssl"]
 DESCRIPTION_MAX = 5000  # YouTube's own limit
 CHAPTER_MIN = 10        # seconds: YouTube ignores chapters when one is shorter
 
@@ -64,12 +70,12 @@ def description(script: Script, channel: Channel, chapters: str = "") -> str:
     return "\n\n".join(parts)
 
 
-def body(script: Script, channel: Channel, privacy: str | None = None) -> dict:
-    """The video as the API takes it."""
+def body(script: Script, channel: Channel, privacy: str | None = None, short: bool = False, chapters: str = "") -> dict:
+    """A film as the API takes it: the video, with its chapters, or its Short, with its own title."""
     return {
         "snippet": {
-            "title": script.title,
-            "description": description(script, channel),
+            "title": (script.short_title or script.title) if short else script.title,
+            "description": description(script, channel, "" if short else chapters),
             "tags": script.tags,
             "categoryId": channel.category,
             "defaultLanguage": channel.language,
@@ -95,13 +101,17 @@ def sign_in() -> Path:
     return token
 
 
-def _service():
+def service():
+    """The API, signed in as the channel's owner."""
     from google.auth.transport.requests import Request
     from google.oauth2.credentials import Credentials
     from googleapiclient.discovery import build
     _, token = _secrets()
     if not token.is_file():
         raise FileNotFoundError("not signed in to YouTube: run 'make auth'")
+    granted = set(json.loads(token.read_text(encoding="utf-8")).get("scopes") or [])
+    if not set(SCOPES) <= granted:
+        raise PermissionError("the sign-in to YouTube does not cover captions and playlists: run 'make auth' again")
     credentials = Credentials.from_authorized_user_file(str(token), SCOPES)
     if not credentials.valid:
         credentials.refresh(Request())
@@ -109,29 +119,56 @@ def _service():
     return build("youtube", "v3", credentials=credentials, cache_discovery=False)
 
 
-def upload(film: Path, thumbnail: Path | None, script: Script, channel: Channel, privacy: str | None = None) -> dict:
-    """Upload the film and its thumbnail. Returns what to remember of it (published.json)."""
+def playlist_id(address: str) -> str:
+    """A playlist's id, from its address on YouTube (channel.toml keeps the address) or from the id itself."""
+    found = re.search(r"[?&]list=([\w\-]+)", address or "")
+    if found:
+        return found.group(1)
+    return address if re.fullmatch(r"[\w\-]{12,}", address or "") else ""
+
+
+def _why(exc: Exception) -> str:
+    """What went wrong with one step of an upload, in a line, with nothing secret in it."""
+    return f"{type(exc).__name__}: {getattr(exc, 'reason', None) or str(exc)}"[:300]
+
+
+def upload(api, film: Path, script: Script, channel: Channel, *, privacy: str | None = None, short: bool = False,
+           chapters: str = "", thumbnail: Path | None = None, captions: Path | None = None, playlist: str = "") -> dict:
+    """Upload a film: the video with its thumbnail, its captions and its place in ``playlist`` (an
+    id), or the Short. ``api`` is ``service()``. Returns what to remember of it. A step after the
+    film that fails does not lose the film: the record says which, and why."""
     from googleapiclient.http import MediaFileUpload
-    service = _service()
-    request = service.videos().insert(part="snippet,status", body=body(script, channel, privacy),
-                                      media_body=MediaFileUpload(str(film), chunksize=-1, resumable=True))
+    asked = privacy or channel.privacy
+    request = api.videos().insert(part="snippet,status", body=body(script, channel, asked, short, chapters),
+                                  media_body=MediaFileUpload(str(film), chunksize=-1, resumable=True))
     response = None
     while response is None:
         _, response = request.next_chunk()
     record = {
         "id": response["id"],
-        "url": f"https://www.youtube.com/watch?v={response['id']}",
-        "title": script.title,
-        "privacy": response.get("status", {}).get("privacyStatus", privacy or channel.privacy),
+        "url": f"https://www.youtube.com/{'shorts/' if short else 'watch?v='}{response['id']}",
+        "privacy": response.get("status", {}).get("privacyStatus", asked),
+        "asked": asked,
         "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "thumbnail": False,
     }
-    if thumbnail and thumbnail.is_file():
+    steps = {
+        "thumbnail": thumbnail and thumbnail.is_file() and (lambda: api.thumbnails().set(
+            videoId=response["id"], media_body=MediaFileUpload(str(thumbnail))).execute()),
+        "captions": captions and captions.is_file() and (lambda: api.captions().insert(
+            part="snippet", body={"snippet": {"videoId": response["id"], "language": channel.language, "name": ""}},
+            media_body=MediaFileUpload(str(captions), mimetype="application/octet-stream")).execute()),
+        "playlist": playlist and (lambda: api.playlistItems().insert(
+            part="snippet", body={"snippet": {"playlistId": playlist, "resourceId": {"kind": "youtube#video", "videoId": response["id"]}}}).execute()),
+    }
+    for name, step in steps.items():
+        if not step:
+            continue
         try:
-            service.thumbnails().set(videoId=response["id"], media_body=MediaFileUpload(str(thumbnail))).execute()
-            record["thumbnail"] = True
-        except Exception as exc:  # noqa: BLE001 - the video is up: say the thumbnail is not, do not lose the record
-            record["thumbnail_error"] = type(exc).__name__
+            step()
+            record[name] = True
+        except Exception as exc:  # noqa: BLE001 - the film is up: say what is not, do not lose the record
+            record[name] = False
+            record[f"{name}_error"] = _why(exc)
     return record
 
 

@@ -1,16 +1,17 @@
 ---
 name: make-video
-description: Make a video for The Market Hub's YouTube channel, and the Short cut from it, from a brief the user has approved - write the script, draw the slides and the thumbnail, check it, give it its voice and render both films, ready for the user to watch. It never publishes. Use when the user approves a brief or says something like "haz el vídeo", "escribe el guion", "monta el vídeo de X" or "rehaz las diapositivas". The argument is the video (its folder's name or a part of it) and, optionally, the step to start from - script, slides, voice or render.
+description: Make a video for The Market Hub's YouTube channel, and the Short cut from it, from a brief the user has approved - write the script, draw the slides and the thumbnail, check it, give it its voice and render both films, ready for the user to watch. It uploads them to YouTube only when the user asked for that in the same request ("haz el vídeo de X y súbelo"). Use when the user approves a brief or says something like "haz el vídeo", "escribe el guion", "monta el vídeo de X" or "rehaz las diapositivas". The argument is the video (its folder's name or a part of it) and, optionally, the step to start from - script, slides, voice or render.
 ---
 
 # Make a video
 
 You make one video of The Market Hub's YouTube channel, from its brief to two films the user can
 watch: the video (horizontal, four to six minutes) and its Short (upright, thirty seconds to a
-minute, cut from the video's own scenes). A trailer (`kind: trailer` in its script: a video
+minute, cut from the video's own scenes). If, and only if, the user asked in this same request
+for the video to be uploaded when it is done, the last step uploads both to YouTube. A trailer (`kind: trailer` in its script: a video
 that presents the channel or a series) is made the same way, but runs thirty to ninety seconds,
-states no figures and needs no sources. Publishing them is another skill (`publish-video`) and
-another decision: this one never publishes anything.
+states no figures and needs no sources. Publishing is the user's decision, video by video:
+without their word for this video, this skill stops at the films and uploads nothing.
 
 Work from the root of the `the-market-hub-media` repo. Read `CLAUDE.md` there first: its rules are
 not negotiable. Then read the video's `brief.md`. If its verdict is not **make it**, or it still
@@ -198,12 +199,42 @@ outside its length. If it does, trim or add words and repeat (only the changed s
 again). The second render redraws every scene: the presenter's mouth, the captions and the
 moment each thing comes in all follow the voice that now exists. Look at the frames again.
 
-## 6. Commit, and tell the user
+## 6. Upload it, if the user asked for that
+
+Only when the request that started this video said to upload it ("y súbelo", "súbelo a YouTube
+cuando esté"). A request for the video alone, an approved brief, or an upload asked for another
+video are not that: skip this step.
+
+Before uploading, the last `make check` must pass, the frames must have been looked at after
+the render with the voice, and nothing may be left that you were not sure of in the facts: if
+something is, do not upload; say what, and let the user decide.
+
+```bash
+make upload VIDEO=<name> PRIVACY=<public|unlisted|private>   # the visibility the user said; leave PRIVACY out if they said none
+```
+
+It uploads the video (with its chapters, thumbnail, captions and its place in the playlist of
+its series) and then its Short, and writes `published.json`. Read what it prints and pass it on:
+
+- If it says YouTube kept a film private though another visibility was asked for, the API
+  project has not passed YouTube's audit: say so plainly, and that until then the way to have it
+  public is by hand (`publish-video`).
+- If it fails for lack of the sign-in (`make auth`) or of the OAuth client, say what it answered
+  and stop: `make auth` is the user's to run, and never ask them for a password, a token or a
+  code. The films stay ready; `make upload` can be run later.
+- A thumbnail, captions or a playlist it could not set: say which, with its reason.
+
+What the API cannot set is the user's to do in YouTube Studio: the end screen over the outro
+(`make kit` says from which second) and the Short's related video. Then, as `publish-video`
+says, commit `published.json` and put the video on the portal's Media page.
+
+## 7. Commit, and tell the user
 
 Commit the script, the slides and the thumbnail (the build and the voice are not in git) with a
 message that names the video, and push. Update "Dónde estamos" in `docs/HANDOFF.md`.
 
 Tell the user, in Spanish and briefly: where the two films are (`videos/<name>/build/video.mp4`
 and `short.mp4`), how long each runs, how many characters were sent to the voice service, the
-title and the description they would be published with, and anything you were not sure of. Then
-stop. Publishing is theirs to ask for.
+title and the description they were, or would be, published with, anything you were not sure
+of and, if it was uploaded, the two addresses and the visibility YouTube gave each. Then stop.
+If it was not uploaded, publishing is theirs to ask for.

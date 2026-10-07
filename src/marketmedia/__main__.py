@@ -9,7 +9,7 @@
     python -m marketmedia kit <video>                    what to paste into YouTube Studio
     python -m marketmedia published <video> <url> [--short <url>]   remember where it was published
     python -m marketmedia auth                           sign in to YouTube, once (for uploads through the API)
-    python -m marketmedia upload <video> [--privacy p]   upload through the API (private unless said otherwise)
+    python -m marketmedia upload <video> [--privacy p]   upload the video and its Short through the API (channel.toml's privacy unless said)
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -140,16 +140,41 @@ def _auth(args, channel) -> int:
 
 
 def _upload(args, channel) -> int:
+    """The video and then its Short. What is up is written down at once, so an upload that stops
+    half way is taken up where it stopped."""
     video = videos.find(args.video)
-    if video.record() and not args.again:
-        print(f"{video.name} is already on YouTube: {video.record()['url']}  (--again to upload it once more)")
+    script = scripts.load(video.script)
+    record = {} if args.again else (video.record() or {})
+    todo = [short for short in (False, True) if not record.get("short_url" if short else "url") and (not short or script.short)]
+    if not todo:
+        print(f"{video.name} is already on YouTube: {record['url']}  (--again to upload it once more)")
         return 1
     if _unfit(video, channel):
         return 1
-    script = scripts.load(video.script)
-    record = youtube.upload(video.film(), video.thumbnail, script, channel, args.privacy)
-    youtube.remember(video.published, record)
-    print(f"{record['url']}  ({record['privacy']})" + ("" if record["thumbnail"] else "  thumbnail NOT set"))
+    if True in todo and not video.film(short=True).is_file():
+        print("The Short is missing: run 'make render' first.")
+        return 1
+    api = youtube.service()
+    series = channel.series.get(script.series)
+    for short in todo:
+        if short:
+            part = youtube.upload(api, video.film(short=True), script, channel, privacy=args.privacy, short=True)
+            record.update(short_url=part["url"], short=part)
+        else:
+            part = youtube.upload(api, video.film(), script, channel, privacy=args.privacy,
+                                  chapters=youtube.chapters(script, render.plan(video, script, channel)),
+                                  thumbnail=video.thumbnail, captions=video.captions(),
+                                  playlist=youtube.playlist_id(series.playlist) if series else "")
+            record.update(part, title=script.title, by="api")
+        youtube.remember(video.published, record)
+        print(f"{'Short' if short else 'Video'}: {part['url']}  ({part['privacy']})")
+        if part["privacy"] != part["asked"]:
+            print(f"  asked for {part['asked']}: YouTube keeps it {part['privacy']} (an API project that has not passed its audit)")
+        for name in ("thumbnail", "captions", "playlist"):
+            if part.get(name) is False:
+                print(f"  {name} NOT set: {part[name + '_error']}")
+        if not short and series and not youtube.playlist_id(series.playlist):
+            print(f"  not added to a playlist: channel.toml has no address for the playlist of {series.name}")
     return 0
 
 
@@ -181,7 +206,7 @@ def main(argv: list[str] | None = None) -> int:
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload}[args.command]
     try:
         return run(args, channels.load())
-    except (LookupError, ValueError, FileNotFoundError, RuntimeError, scripts.Invalid) as exc:
+    except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 

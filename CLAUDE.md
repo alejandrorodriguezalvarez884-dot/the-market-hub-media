@@ -7,9 +7,9 @@ toma el usuario, y cada una manda sobre su paso:
 
 - [`analyze-idea`](.claude/skills/analyze-idea/SKILL.md): estudia una idea y escribe su brief.
 - [`make-video`](.claude/skills/make-video/SKILL.md): del brief aprobado al vídeo y su Short,
-  montados y con voz.
-- [`publish-video`](.claude/skills/publish-video/SKILL.md): deja todo listo para publicarlo a
-  mano en YouTube Studio y apunta dónde quedó.
+  montados y con voz; y subidos a YouTube si el usuario lo pidió en esa misma petición.
+- [`publish-video`](.claude/skills/publish-video/SKILL.md): publica un vídeo ya montado: lo sube
+  por la API o deja todo listo para subirlo a mano en YouTube Studio, y apunta dónde quedó.
 
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
@@ -37,10 +37,15 @@ Reglas que no se negocian:
   presenta él) y como una cara en un círculo, en la esquina, en las demás. El usuario quería un avatar hiperrealista y lo descartó por el coste
   (2026-10-06): no se sustituye por un avatar realista, por un servicio de avatares ni por vídeo
   de una persona real sin que él lo decida.
-- **Publicar es decisión del usuario, vídeo a vídeo.** Hoy publica él a mano, en YouTube Studio:
-  `make kit` le deja el texto que pegar y `make published` apunta la dirección. Aprobar un brief
-  o un guion no es aprobar la publicación. La subida por la API (`make auth`, `make upload`) es
-  para cuando YouTube audite el proyecto, y solo si él la pide.
+- **Publicar es decisión del usuario, vídeo a vídeo, y la da al pedirlo.** Desde el 2026-10-07
+  quiere que un vídeo se suba a YouTube al terminar de hacerlo *cuando él lo pida*: "haz el
+  vídeo de X y súbelo" vale para ese vídeo y para nada más. Sin esas palabras no se sube nada:
+  aprobar un brief o un guion, o pedir solo el vídeo, no es pedir la publicación. Se sube con
+  `make upload` (la API de YouTube; `make auth` la deja lista, una vez, y lo lanza él), con la
+  visibilidad que él diga y, si no dice ninguna, la de `channel.toml`. Mientras YouTube no haya
+  auditado el proyecto de la API, lo que se sube por ella queda en privado, y se le dice. A mano
+  sigue pudiéndose: `make kit` deja el texto que pegar en YouTube Studio y `make published`
+  apunta la dirección.
 - **No se gasta sin preguntar.** El único servicio de pago decidido es la voz (abajo). Cualquier
   otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.

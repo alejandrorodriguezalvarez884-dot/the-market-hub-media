@@ -27,7 +27,7 @@ rate = 1.0                           # its pace: 1.0 is the voice's own, about 2
 
 [youtube]
 category = "27"                      # Education
-privacy = "private"                  # what an upload through the API starts as
+privacy = "private"                  # what `make upload` asks for when PRIVACY is not said: private, unlisted or public
 made_for_kids = false
 synthetic_media = false              # YouTube's "altered or synthetic content" declaration
 disclaimer = """
@@ -44,7 +44,7 @@ seconds = [30, 90]
 name = "Money 101"
 tagline = "How money really works. One idea at a time."
 accent = "#c6f24e"
-playlist = ""                        # the playlist's address on YouTube, once it exists
+playlist = ""                        # the playlist's address on YouTube (…/playlist?list=PL…): `make upload` adds the video to it
 
 # What every video opens and closes with (not a Short, not a trailer). Each is drawn once, in
 # channel/intro.html and channel/outro.html, and said once, into channel/voice/.

@@ -1,14 +1,15 @@
 ---
 name: publish-video
-description: Get a finished video of The Market Hub's channel, and its Short, ready to publish on YouTube - check them, write what to paste into YouTube Studio, and record where they ended up once the user has published them. Use when the user asks to publish a specific video, with something like "publica el vídeo de X", "prepara la subida" or "ya lo he subido, esta es la dirección". The argument is the video (its folder's name or a part of it) and, once it is published, its address.
+description: Publish a finished video of The Market Hub's channel, and its Short, on YouTube - check them, then upload them through the API or write what to paste into YouTube Studio, and record where they ended up. Use when the user asks to publish a specific video, with something like "publica el vídeo de X", "prepara la subida" or "ya lo he subido, esta es la dirección". The argument is the video (its folder's name or a part of it) and, once it is published, its address.
 ---
 
 # Publish a video
 
-For now the user publishes by hand, in YouTube Studio: YouTube keeps private whatever an API
-project uploads until the project passes its audit. So this skill prepares everything to paste,
-and afterwards records where the video is. It is done only when the user asks for it, for the
-video they name.
+There are two ways, and the user says which: uploading through the API ("súbelo", `make
+upload`), or by hand in YouTube Studio, for which this skill prepares everything to paste and
+afterwards records where the video is. YouTube keeps private whatever an API project uploads
+until the project passes its audit: while that is so, say it before uploading that way. Either
+is done only when the user asks for it, for the video they name.
 
 Work from the root of the `the-market-hub-media` repo. Read `CLAUDE.md` there first.
 
@@ -69,9 +70,22 @@ video's cover and a frame of the Short (one of `build/short-frames/*.png`, as a 
 as the Short's, run `make check` there, commit and push. Deploying the portal is the user's to
 ask for.
 
-## Later: uploading through the API
+## Uploading through the API
 
-`make auth` and `make upload VIDEO=<name>` upload the video through the YouTube Data API, as a
-private video. They are for after YouTube's audit of the API project (see the README). Do not
-use them unless the user asks for it by name; never ask the user for a password, a token or a
-code (`make auth` is theirs to run: it opens their browser).
+When the user asks for the video to be uploaded, after step 1:
+
+```bash
+make upload VIDEO=<name> PRIVACY=<public|unlisted|private>   # the visibility the user said; leave PRIVACY out if they said none
+```
+
+It uploads the video (chapters, thumbnail, captions, its place in its series' playlist) and then
+its Short, and writes `published.json`; one that stopped half way is taken up where it stopped.
+Pass on what it prints: the two addresses, the visibility YouTube gave each (private, whatever
+was asked, until the API project passes its audit: see the README), and anything it could not
+set. The end screen and the Short's related video are still the user's to set in YouTube Studio
+(`make kit` says from which second the end screen runs). Then commit `published.json` and put
+the video on the portal's Media page, as in step 3.
+
+If it fails for lack of the sign-in or of the OAuth client, say what it answered and stop: the
+set-up is in the README and `make auth` is the user's to run (it opens their browser). Never
+ask the user for a password, a token or a code.

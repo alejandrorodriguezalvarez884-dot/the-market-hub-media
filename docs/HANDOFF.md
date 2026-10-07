@@ -45,6 +45,8 @@ contenido hasta la publicación del vídeo (2026-10-06):
   es el nombre definitivo** de la serie. **Público general**, no solo de EE. UU. Los doce temas
   propuestos valen como primera lista de reproducción, la de básicos.
 - **Publicación: a mano primero** (YouTube Studio); la auditoría de la API se pide más adelante.
+- **Subida automática al crear el vídeo, cuando él lo pida** (2026-10-07). No cambia que publicar
+  es decisión suya vídeo a vídeo: la da en la misma petición ("haz el vídeo de X y súbelo").
 
 ## Dónde estamos
 
@@ -64,7 +66,7 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | **Escenas animadas** (2026-10-06): los elementos de una diapositiva entran, las barras suben, las líneas se dibujan y las cifras cuentan, en el momento que marca `--at` (clases `.in`, `.fade`, `.grow`, `.wide`, `.draw` de `theme/slide.css`; cifras con `theme/slide.js`). No se graba la pantalla: `frames.py` para las animaciones y las coloca en el instante de cada fotograma (30 por segundo), así sale igual siempre. Probado con un gráfico de prueba, en horizontal y en vertical | Ajustar los `--at` a la voz real se hace a ojo en la skill: no hay todavía marcas de tiempo por palabra |
 | **Presentador dibujado** (2026-10-06): un busto en colores planos, dibujado en `theme/slide.js` (`<div class="presenter"></div>`), que parpadea y mueve la boca con la voz de la escena (`mouth.py` lee el volumen del audio fotograma a fotograma; cinco bocas). Abre y cierra el vídeo en la disposición `.stage` y puede ir pequeño en una esquina (`.corner`). Probado con voz real en horizontal y en vertical | El usuario lo vio y lo dio por bueno como base. La plantilla ya lo lleva en la esquina de `03-point`; falta verlo sobre un gráfico de verdad, que tiene que dejarle sitio |
 | **Publicación a mano** (`make kit`, `make published`): el texto para pegar en YouTube Studio y el registro de la dirección | Probarlo con el primer vídeo |
-| Subida por la API (`make auth`, `make upload`): escrita, con tests del cuerpo de la petición | Para después de la auditoría de YouTube. **Sin probar contra YouTube** |
+| **Subir al crear, cuando el usuario lo pida** (2026-10-07: "quiero que se suba automáticamente a YouTube a la vez que se crea cuando te lo pida"). `make upload VIDEO=... [PRIVACY=...]` sube el vídeo (capítulos, miniatura, subtítulos y su sitio en la lista de la serie) y después el Short, apunta los dos en `published.json` y retoma una subida que se cortó. `make-video` tiene un paso 6 que lo lanza solo si la petición del vídeo decía subirlo; `publish-video` lo hace para un vídeo ya montado. Tests con una API de mentira | **Sin probar contra YouTube**: faltan tres cosas que son del usuario: el cliente OAuth en `.secrets/client_secret.json`, `make auth`, y la auditoría del proyecto (hasta pasarla, YouTube deja en privado lo que sube la API). Falta también la dirección de la lista Money 101 en `channel.toml` (`playlist`). Por decidir: la visibilidad por defecto (`[youtube] privacy`, hoy `private`) y si mientras tanto se sube con el Chrome del usuario por YouTube Studio |
 | Tres skills: `analyze-idea`, `make-video`, `publish-video` | Probarlas en una sesión nueva, con la primera idea |
 
 ## Cómo está hecho
@@ -155,6 +157,9 @@ dice. El tráiler y el episodio 1 ya están.
 1. El tráiler y el episodio 1 están publicados. El episodio 2, la inflación, está montado y
    espera a que el usuario lo vea: después, `/publish-video` y añadirlo a la página Media del
    portal.
+   Para que "haz el vídeo y súbelo" funcione de punta a punta faltan los pasos del usuario
+   (README, "Publishing"): el cliente OAuth, `make auth`, la auditoría de YouTube y la
+   dirección de la lista Money 101 en `channel.toml`.
 2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El siguiente es el
    episodio 3, qué cuesta de verdad una deuda (el episodio 2 lo anuncia al cerrar: "what
    borrowing really costs, once the snowball rolls against you"). Las preguntas pequeñas de edición (un inciso,

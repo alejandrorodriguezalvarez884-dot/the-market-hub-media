@@ -110,12 +110,24 @@ its words or the voice change, and `make voice DRY=1` says what it would send wi
 
 ## Publishing
 
-For now, by hand in YouTube Studio, from `make kit`. The reason: videos uploaded through an API
-project that has not passed YouTube's compliance audit are locked as private.
+Two ways, and either is done only when the owner asks for that video to be published.
 
-After that audit (a form, free of charge), `make upload` uploads through the YouTube Data API
-with an OAuth client of the owner's own Google Cloud project. It is free: an upload spends the
-API's daily quota, not money. Once:
+**By hand**, in YouTube Studio, from `make kit`.
+
+**Through the YouTube Data API**: `make upload VIDEO=... [PRIVACY=public|unlisted|private]` sends
+the video (with its chapters, its thumbnail, its captions and its place in the playlist of its
+series, when `channel.toml` has the playlist's address) and then its Short, and writes where both
+are in `published.json`. An upload that stops half way is taken up where it stopped. What the API
+cannot set stays by hand: the end screen over the outro and the Short's related video. It is
+free: an upload spends the API's daily quota, not money.
+
+The catch is YouTube's: "All videos uploaded via the videos.insert endpoint from unverified API
+projects created after 28 July 2020 will be restricted to private viewing mode"
+(https://developers.google.com/youtube/v3/docs/videos/insert). Until the project passes its
+compliance audit (a form, free of charge, with no stated waiting time:
+https://support.google.com/youtube/contact/yt_api_form), what `make upload` sends is on the
+channel but locked as private, and `make upload` says so. The set-up, once, with an OAuth client
+of the owner's own Google Cloud project:
 
 1. In the Google Cloud console, enable **YouTube Data API v3** in a project.
 2. Set up the OAuth consent screen (External) and add the channel's Google account as a test
@@ -124,7 +136,8 @@ API's daily quota, not money. Once:
    `.secrets/client_secret.json` (the folder is not in git).
 4. `make auth`: it opens the browser to sign in with the channel's account and keeps the token
    in `.secrets/youtube-token.json`. While the consent screen is in "Testing", the sign-in lasts
-   seven days.
+   seven days: publish the app ("In production") for one that lasts.
+5. Ask for the audit, with the form above. Until it is passed, uploads stay private.
 
 `MEDIA_BROWSER` chooses another browser channel than `chrome` for the frames; `YOUTUBE_CLIENT_SECRET`
 and `YOUTUBE_TOKEN` move the two files.
