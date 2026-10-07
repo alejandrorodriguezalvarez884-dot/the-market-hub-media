@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- A debt at a fixed rate: 5 percent interest minus 5 percent inflation is a real cost of zero. Lenders build expected inflation into the rate. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .sum { font-size: 9.4vw; gap: 0.3em; }
+  .labels { display: flex; gap: 2.6vw; max-width: none; font-family: var(--mono); font-size: 1.25vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .labels span:nth-child(1) { width: 15vw; }
+  .labels span:nth-child(2) { width: 20vw; }
+  .lead { max-width: none; }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <p class="kicker in" data-say="debt">A debt at a fixed rate</p>
+  <p class="sum"><span class="in" data-say="five">5%</span><span class="in" data-say="five#2" style="color: var(--coral)">&minus; 5%</span><span class="accent in" data-say="nothing">= 0%</span></p>
+  <p class="labels"><span class="fade" data-say="five">interest</span><span class="fade" data-say="five#2">inflation</span><span class="fade" data-say="nothing">what it costs, in real terms</span></p>
+  <p class="lead in" data-say="lenders">Lenders know. <span class="hl" data-say="build">Expected inflation is in the rate.</span></p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: International Monetary Fund, Back to Basics: Inflation</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

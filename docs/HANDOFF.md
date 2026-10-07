@@ -1,6 +1,6 @@
 # Estado del proyecto y cómo continuar
 
-Última actualización: 2026-10-06. Este documento basta para retomar el trabajo en otra sesión,
+Última actualización: 2026-10-07. Este documento basta para retomar el trabajo en otra sesión,
 sin el historial de la conversación.
 
 ## Qué se pidió
@@ -55,6 +55,7 @@ contenido hasta la publicación del vídeo (2026-10-06):
 | **Temas de Money 101 aprobados** (abajo, "La serie Money 101"), para público general | |
 | **Intro y cierre comunes** (2026-10-06, pedidos por el usuario al ver el episodio 1): `channel/intro.html` (el nombre del canal, "Money, markets and companies, explained", y la serie y el episodio del vídeo; 3,8 s) y `channel/outro.html` (gracias, el hueco del vídeo siguiente y el del botón de suscribirse; 12 s, para la pantalla final de YouTube). Los pone el montaje en cada vídeo (`render.scenes`); el Short y los tráileres no los llevan. `[intro] after` permite poner la intro después del gancho en vez de al principio. Capítulos en la descripción (`chapters:` en el guion) y un `youtube.txt` más completo | Que el usuario los vea. La intro va al principio porque así la pidió; con `after = 2` iría tras el gancho |
 | **Episodio 1, interés compuesto, rehecho** (`videos/2026-10-06-compound-interest/`) con la corrección del usuario: 26 escenas más intro y cierre, vídeo de 4:16 y Short de 0:41 (el acertijo: escenas 01, 02, 03 y 05). Abre con el acertijo del nenúfar que se duplica cada día, sigue con bloques frente a bola de nieve, y el dinero (dólares, 8 % de ejemplo) llega en la escena 11. Cada parte tiene su tono de color. `make check` en verde y `make kit` hecho. Estilo común: tonos (`tone-*`), `--pop`, paleta viva, `.art` para dibujos | **Publicado por el usuario el 2026-10-06**: https://youtu.be/VXJU88A1oJw y, como Short, https://www.youtube.com/shorts/B0TP-VL4Ov4 (`published.json`). Su carpeta ya no cambia de nombre y una corrección se dice en la descripción |
+| **Episodio 2, la inflación** (`videos/2026-10-07-inflation/`, 2026-10-07): 26 escenas más intro y cierre, vídeo de 4:33 y Short de 0:44 (el acertijo: escenas 01 a 05), con voz (4.135 caracteres). Abre con un billete de 100 dólares que entra en un cajón en 2000 y sale hoy: compra la mitad de la cesta (IPC de EE. UU., BLS). Sigue con la ola y la marea (un precio frente a todos), la cesta de unas 700 cosas, el 2 % de los bancos centrales y la regla del 72 (un cubito de hielo que se derrite), la cinta de correr (nominal y real: sueldo, ahorro, deuda a tipo fijo) y por qué el objetivo no es cero (deflación; Zimbabue en 2008). `make check` en verde. El usuario pidió el vídeo entero de una vez ("genera el segundo vídeo de la lista"), así que el brief no pasó por él antes del guion: las decisiones están al final de `brief.md` (dólares, 2 % como tipo de ejemplo, una escena de hiperinflación) | **Que el usuario lo vea**, y si le vale, `/publish-video`. Quien lo montó no puede oír la voz. Fuera del vídeo por no poder leerse la fuente: la tabla de hiperinflaciones de Hanke y Krus (Cato) y la nota de la OCDE de diciembre de 2022. Cierra anunciando el episodio 3: la deuda |
 | **La base** (2026-10-06): formato de vídeo (una carpeta en `videos/` con brief, guion, un dibujo por escena y miniatura), plantilla (`templates/video/`), estilo común de las diapositivas (`theme/slide.css`, el tema oscuro de Market Hub, en horizontal y en vertical) y `channel.toml` | Hecho el tráiler (arriba) |
 | Código en `src/marketmedia/`: guion y sus reglas (`script.py`), carpeta de vídeo (`videos.py`), comprobación (`check.py`), fotogramas con el Chrome local (`frames.py`), voz (`voice.py`), montaje y subtítulos (`render.py`), publicación (`youtube.py`), la boca del presentador (`mouth.py`), cuándo se dice cada palabra (`timing.py`), línea de comandos (`__main__.py`). Tests sin red | |
 | **Vídeo y Short** (2026-10-06): la línea `short:` del guion nombra las escenas del Short; `make render` saca `video.mp4` (1920x1080) y `short.mp4` (1080x1920). `make check` exige 4 a 6 minutos y 30 a 60 segundos. Probado con un vídeo de prueba de 9 escenas (4:26 y 0:53), luego borrado | Verlo con un vídeo de verdad, con gráficos: que una diapositiva con un gráfico se lea bien también en vertical |
@@ -151,11 +152,12 @@ dice. El tráiler y el episodio 1 ya están.
 
 ## Siguientes pasos
 
-1. El tráiler y el episodio 1 están publicados. Lo siguiente es el episodio 2, la inflación:
-   `/analyze-idea`, brief y `/make-video`.
-2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El siguiente es la
-   inflación (el episodio 1 la anuncia al cerrar: "the same snowball, rolling against the cash
-   in your pocket"). Las preguntas pequeñas de edición (un inciso,
+1. El tráiler y el episodio 1 están publicados. El episodio 2, la inflación, está montado y
+   espera a que el usuario lo vea: después, `/publish-video` y añadirlo a la página Media del
+   portal.
+2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El siguiente es el
+   episodio 3, qué cuesta de verdad una deuda (el episodio 2 lo anuncia al cerrar: "what
+   borrowing really costs, once the snowball rolls against you"). Las preguntas pequeñas de edición (un inciso,
    qué escenas hacen el Short) las decide quien hace el vídeo: el usuario no quiere que se le
    pregunten.
 3. `/publish-video` del tráiler y de cada episodio: publicar a mano, cuando él lo pida.

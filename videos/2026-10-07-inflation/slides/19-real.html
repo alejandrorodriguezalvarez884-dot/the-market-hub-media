@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- Two words: nominal is the number, real is what the number buys. A price, a salary and a balance are nominal. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .bill, .basket { display: block; overflow: visible; height: 15vh; }
+  .words { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; }
+  .words .card { display: flex; flex-direction: column; align-items: flex-start; gap: 1.2vh; }
+  .word { font-size: 5vw; line-height: 1; font-weight: 800; letter-spacing: -0.04em; color: var(--ink-strong); margin-top: 1vh; }
+  .words .lead { font-size: 2.4vw; color: var(--muted); }
+  .slide > .lead { max-width: none; }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <div class="words">
+    <div class="card in" data-say="nominal"><svg class="bill" viewBox="0 0 240 110"><rect x="3" y="3" width="234" height="104" rx="12" fill="var(--mint)" stroke="#12966a" stroke-width="5"/><rect x="15" y="15" width="210" height="80" rx="6" fill="none" stroke="#12966a" stroke-width="2.5" stroke-dasharray="5 6"/><circle cx="120" cy="55" r="31" fill="#12966a" opacity="0.25"/><text x="120" y="69" font-size="40" text-anchor="middle" style="fill: #0b4f39">100</text><text x="36" y="43" font-size="20" text-anchor="middle" style="fill: #0b4f39">$</text><text x="204" y="83" font-size="20" text-anchor="middle" style="fill: #0b4f39">$</text></svg><p class="word">Nominal</p><p class="lead">the number</p></div>
+    <div class="card in" data-say="real"><svg class="basket" viewBox="0 0 420 262"><path d="M95 72 Q210 -24 325 72" fill="none" stroke="var(--sun)" stroke-width="9" stroke-linecap="round"/><rect x="8" y="70" width="404" height="184" rx="30" fill="rgba(255,255,255,0.1)" stroke="var(--sun)" stroke-width="6"/><g transform="translate(62 124)"><circle r="27" fill="var(--coral)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><path d="M0 -27 q3 -12 14 -14" stroke="var(--mint)" stroke-width="5" stroke-linecap="round" fill="none"/></g><g transform="translate(136 124)"><rect x="-25" y="-25" width="50" height="52" rx="8" fill="var(--sun)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><rect x="-25" y="-9" width="50" height="13" fill="rgba(255,255,255,0.5)"/></g><g transform="translate(210 124)"><rect x="-8" y="-33" width="16" height="22" rx="4" fill="var(--pink)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><rect x="-18" y="-15" width="36" height="43" rx="9" fill="var(--pink)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/></g><g transform="translate(284 124)"><circle r="27" fill="var(--sky)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><path d="M0 -27 q3 -12 14 -14" stroke="var(--mint)" stroke-width="5" stroke-linecap="round" fill="none"/></g><g transform="translate(358 124)"><rect x="-25" y="-25" width="50" height="52" rx="8" fill="var(--violet)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><rect x="-25" y="-9" width="50" height="13" fill="rgba(255,255,255,0.5)"/></g><g transform="translate(62 202)"><rect x="-8" y="-33" width="16" height="22" rx="4" fill="var(--coral)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><rect x="-18" y="-15" width="36" height="43" rx="9" fill="var(--coral)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/></g><g transform="translate(136 202)"><circle r="27" fill="var(--sun)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><path d="M0 -27 q3 -12 14 -14" stroke="var(--mint)" stroke-width="5" stroke-linecap="round" fill="none"/></g><g transform="translate(210 202)"><rect x="-25" y="-25" width="50" height="52" rx="8" fill="var(--pink)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><rect x="-25" y="-9" width="50" height="13" fill="rgba(255,255,255,0.5)"/></g><g transform="translate(284 202)"><rect x="-8" y="-33" width="16" height="22" rx="4" fill="var(--sky)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><rect x="-18" y="-15" width="36" height="43" rx="9" fill="var(--sky)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/></g><g transform="translate(358 202)"><circle r="27" fill="var(--violet)" stroke="rgba(15,12,46,0.35)" stroke-width="3"/><path d="M0 -27 q3 -12 14 -14" stroke="var(--mint)" stroke-width="5" stroke-linecap="round" fill="none"/></g></svg><p class="word accent">Real</p><p class="lead">what the number buys</p></div>
+  </div>
+  <p class="lead in" data-say="most">A price. A salary. A balance. <span class="hl" data-say="nominal#2">All nominal.</span></p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

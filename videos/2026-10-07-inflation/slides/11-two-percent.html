@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Central banks do not aim for zero: the Federal Reserve, the European Central Bank and the Bank of England all aim for 2 percent a year. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .banks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4vw; }
+  .banks .card { display: flex; flex-direction: column; gap: 0.8vh; border-top: 0.8vh solid var(--pop); }
+  .banks .card:nth-child(2) { border-top-color: var(--sky); }
+  .banks .card:nth-child(3) { border-top-color: var(--pink); }
+  .banks b { font-size: 2.1vw; font-weight: 800; letter-spacing: -0.025em; color: var(--ink-strong); white-space: nowrap; }
+  .banks span { font-family: var(--mono); font-size: 1.1vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .target { display: flex; align-items: center; gap: 3vw; }
+  .target .figure { color: var(--pop); }
+  .target .figure-label { font-size: 2.6vw; line-height: 1.15; color: var(--ink-strong); font-weight: 600; }
+</style>
+</head>
+<body class="tone-forest">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <p class="kicker in" data-say="central">Central banks don't aim for zero</p>
+  <div class="banks">
+    <div class="card pop" data-say="federal"><b>Federal Reserve</b><span>United States</span></div>
+    <div class="card pop" data-say="european"><b>European Central Bank</b><span>Euro area</span></div>
+    <div class="card pop" data-say="england-0.4"><b>Bank of England</b><span>United Kingdom</span></div>
+  </div>
+  <div class="target">
+    <p class="figure pop" data-say="two percent">2%</p>
+    <p class="figure-label fade" data-say="two percent+0.4">a year: the target<br>of all three</p>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Sources: Federal Reserve, European Central Bank, Bank of England</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

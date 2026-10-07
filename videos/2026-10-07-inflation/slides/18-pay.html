@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- Pay up 2 percent and prices up 5: a bigger payslip that buys about 3 percent less. The walker slides back. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .run { animation: run 7s cubic-bezier(0.2, 0.6, 0.3, 1) both; animation-delay: var(--at, 0s); }
+  @keyframes run { to { transform: translateX(-434px); } }
+
+  .slide { gap: 1.4vh; padding-top: 2.6vh; }
+  .lead { max-width: none; }
+  .back { animation: back 1.6s cubic-bezier(0.4, 0, 0.3, 1) both; animation-delay: var(--at, 0s); }
+  @keyframes back { to { transform: translateX(-170px); } }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <p class="kicker in">One year</p>
+<svg class="art" viewBox="0 0 1000 440">
+    <defs><clipPath id="belt"><rect x="130" y="318" width="740" height="52" rx="26"/></clipPath></defs>
+    <path d="M180 372 L160 408 M820 372 L840 408" stroke="var(--line-strong)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M846 330 L884 170" stroke="var(--snow)" stroke-width="9" stroke-linecap="round"/>
+    <rect x="842" y="134" width="96" height="46" rx="10" fill="#2b0a1c" stroke="var(--snow)" stroke-width="5"/>
+    <rect x="130" y="318" width="740" height="52" rx="26" fill="#2b0a1c" stroke="var(--snow)" stroke-width="5"/>
+    <g clip-path="url(#belt)"><g class="run" data-say="0.2"><path d="M150 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M212 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M274 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M336 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M398 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M460 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M522 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M584 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M646 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M708 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M770 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M832 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M894 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M956 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M1018 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M1080 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M1142 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M1204 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M1266 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M1328 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M1390 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/><path d="M1452 322 l-20 44" stroke="rgba(255,255,255,0.4)" stroke-width="7" stroke-linecap="round"/></g></g>
+    <g class="back" data-say="still"><g stroke="var(--sun)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M478 150 L468 232"/><path d="M468 232 L500 270 L486 312"/><path d="M468 232 L440 268 L420 306"/><path d="M476 170 L512 198 L536 184"/><path d="M476 170 L446 196 L436 224"/></g><circle cx="482" cy="116" r="26" fill="var(--sun)"/></g>
+    
+    <g class="pop" data-say="five"><path d="M760 420 H300 M320 404 L300 420 L320 436" stroke="var(--coral)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="776" y="431" font-size="32" style="fill: var(--coral)">PRICES +5%</text></g>
+    <g class="pop" data-say="two"><path d="M560 150 H744 M724 134 L744 150 L724 166" stroke="var(--mint)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="560" y="124" font-size="32" style="fill: var(--mint)">PAY +2%</text></g>
+  </svg>
+  <p class="lead in" data-say="payslip">A bigger payslip. <span class="hl" data-say="three">It buys about 3% less.</span></p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Our arithmetic: 1.02 divided by 1.05 is 0.97. An example, not a forecast</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

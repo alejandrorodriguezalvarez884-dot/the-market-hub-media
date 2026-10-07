@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- The riddle: a hundred-dollar bill goes into a drawer in 2000 and comes out today. What does it buy now? -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .scene { display: block; overflow: visible; width: 36vw; }
+  .drop { animation: drop 0.7s cubic-bezier(0.5, 0, 0.9, 0.6) both; animation-delay: var(--at, 0s); }
+  .rise { animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) both; animation-delay: var(--at, 0s); }
+  @keyframes drop { to { transform: translateY(122px); } }
+  @keyframes rise { to { transform: translateY(-122px); } }
+  .out { animation: gone 0.3s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+
+  @media (orientation: portrait) {
+    .scene { width: 62vw; }
+    h2 { font-size: 7.2vw; }
+    .lead { font-size: 5.6vw; }
+    .stage > .slide { gap: 1.2vh; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<div class="stage">
+<main class="slide">
+    <svg class="scene" viewBox="0 0 520 250">
+      <defs><clipPath id="slot"><rect x="0" y="-60" width="520" height="190"/></clipPath></defs>
+      <rect x="50" y="128" width="320" height="116" rx="14" fill="#b9773f" stroke="#7a4a22" stroke-width="5"/>
+      <rect x="68" y="128" width="284" height="14" rx="4" fill="#3a2413"/>
+      <rect x="70" y="154" width="280" height="72" rx="10" fill="#d9995a" stroke="#7a4a22" stroke-width="4"/>
+      <circle cx="210" cy="190" r="10" fill="var(--snow)" stroke="#7a4a22" stroke-width="3"/>
+      <g clip-path="url(#slot)"><g class="rise" data-say="today"><g class="drop" data-say="drawer"><g transform="translate(90 12)"><g class="pop" data-say="hundred"><rect x="3" y="3" width="234" height="104" rx="12" fill="var(--mint)" stroke="#12966a" stroke-width="5"/><rect x="15" y="15" width="210" height="80" rx="6" fill="none" stroke="#12966a" stroke-width="2.5" stroke-dasharray="5 6"/><circle cx="120" cy="55" r="31" fill="#12966a" opacity="0.25"/><text x="120" y="69" font-size="40" text-anchor="middle" style="fill: #0b4f39">100</text><text x="36" y="43" font-size="20" text-anchor="middle" style="fill: #0b4f39">$</text><text x="204" y="83" font-size="20" text-anchor="middle" style="fill: #0b4f39">$</text></g></g></g></g></g>
+      <g class="out" data-say="today"><text class="pop" data-say="two thousand" x="446" y="82" font-size="46" text-anchor="middle" style="fill: var(--pop)">2000</text></g>
+      <text class="pop" data-say="today+0.3" x="446" y="80" font-size="36" text-anchor="middle" style="fill: var(--pop)">TODAY</text>
+    </svg>
+    <h2 class="in" data-say="same">Same bill. <span class="hl" data-say="same#2" style="white-space: nowrap">Same number.</span></h2>
+    <p class="lead in" data-say="how much">What does it buy today <span class="mark">?</span></p>
+</main>
+<div class="presenter" data-cues="0:open today:point same:explain how_much:shrug"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- The thumbnail: the episode's name, the bill that buys half the basket, and the presenter. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  body.thumbnail { padding-bottom: 0; }
+  body.thumbnail h1 { font-size: 11.5vw; max-width: none; }
+  .bill { display: block; width: 23vw; overflow: visible; }
+  .row { align-items: center; gap: 2.4vw; }
+  .row > * { flex: none; }
+  .lead { font-size: 8vw; font-weight: 800; letter-spacing: -0.04em; white-space: nowrap; color: var(--pop); }
+</style>
+</head>
+<body class="thumbnail tone-ocean">
+<div class="stage">
+  <main class="slide">
+    <span class="chip solid" style="align-self: flex-start" data-series>Money 101</span>
+    <h1><span class="mark">Inflation</span></h1>
+    <div class="row"><svg class="bill" viewBox="0 0 240 110"><rect x="3" y="3" width="234" height="104" rx="12" fill="var(--mint)" stroke="#12966a" stroke-width="5"/><rect x="15" y="15" width="210" height="80" rx="6" fill="none" stroke="#12966a" stroke-width="2.5" stroke-dasharray="5 6"/><circle cx="120" cy="55" r="31" fill="#12966a" opacity="0.25"/><text x="120" y="69" font-size="40" text-anchor="middle" style="fill: #0b4f39">100</text><text x="36" y="43" font-size="20" text-anchor="middle" style="fill: #0b4f39">$</text><text x="204" y="83" font-size="20" text-anchor="middle" style="fill: #0b4f39">$</text></svg><p class="lead">&divide;2</p></div>
+  </main>
+  <div class="presenter" data-cues="-2:open"></div>
+</div>
+<script src="../../theme/presenter.js"></script>
+<script src="../../theme/slide.js"></script>
+</body>
+</html>

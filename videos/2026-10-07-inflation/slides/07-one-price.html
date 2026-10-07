@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- One price going up is not inflation: one wave lifts one boat, coffee, and the others stay. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  h2 { max-width: none; }
+  .slide { gap: 1.6vh; padding-top: 2.6vh; }
+  .art { overflow: hidden; }
+  .lift { animation: lift 0.9s cubic-bezier(0.3, 0, 0.3, 1) both; animation-delay: var(--at, 0s); }
+  @keyframes lift { to { transform: translateY(-64px); } }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <p class="kicker in">One price going up</p>
+  <h2 class="in" data-say="not">is <span class="hl" data-say="not">not</span> inflation</h2>
+  <svg class="art" viewBox="0 0 1000 440">
+    <path class="grow" data-say="coffee#2-0.2" d="M250 334 Q370 196 490 334 Z" fill="#2f7fd0" stroke="var(--sky)" stroke-width="6"/>
+    <path d="M-20 330 Q12 318 45 330 Q77 342 110 330 Q142 318 175 330 Q207 342 240 330 Q272 318 305 330 Q337 342 370 330 Q402 318 435 330 Q467 342 500 330 Q532 318 565 330 Q597 342 630 330 Q662 318 695 330 Q727 342 760 330 Q792 318 825 330 Q857 342 890 330 Q922 318 955 330 Q987 342 1020 330 V640 H-20 Z" fill="#2f7fd0" stroke="var(--sky)" stroke-width="6"/>
+    <g transform="translate(130 312)"><path d="M0 4 V-92" stroke="var(--snow)" stroke-width="6" stroke-linecap="round"/><path d="M6 -88 L6 -10 L58 -10 Z" fill="var(--snow)"/><path d="M-6 -70 L-6 -10 L-44 -10 Z" fill="var(--sun)"/><path d="M-62 0 H62 L46 28 H-46 Z" fill="var(--sun)" stroke="rgba(15,12,46,0.35)" stroke-width="3" stroke-linejoin="round"/><text x="0" y="-108" font-size="30" text-anchor="middle">RENT</text></g>
+    <g transform="translate(370 312)"><g class="lift" data-say="coffee#2-0.2"><path d="M0 4 V-92" stroke="var(--snow)" stroke-width="6" stroke-linecap="round"/><path d="M6 -88 L6 -10 L58 -10 Z" fill="var(--snow)"/><path d="M-6 -70 L-6 -10 L-44 -10 Z" fill="var(--coral)"/><path d="M-62 0 H62 L46 28 H-46 Z" fill="var(--coral)" stroke="rgba(15,12,46,0.35)" stroke-width="3" stroke-linejoin="round"/><text x="0" y="-108" font-size="30" text-anchor="middle">COFFEE</text></g></g>
+    <g transform="translate(610 312)"><path d="M0 4 V-92" stroke="var(--snow)" stroke-width="6" stroke-linecap="round"/><path d="M6 -88 L6 -10 L58 -10 Z" fill="var(--snow)"/><path d="M-6 -70 L-6 -10 L-44 -10 Z" fill="var(--mint)"/><path d="M-62 0 H62 L46 28 H-46 Z" fill="var(--mint)" stroke="rgba(15,12,46,0.35)" stroke-width="3" stroke-linejoin="round"/><text x="0" y="-108" font-size="30" text-anchor="middle">HAIRCUTS</text></g>
+    <g transform="translate(850 312)"><path d="M0 4 V-92" stroke="var(--snow)" stroke-width="6" stroke-linecap="round"/><path d="M6 -88 L6 -10 L58 -10 Z" fill="var(--snow)"/><path d="M-6 -70 L-6 -10 L-44 -10 Z" fill="var(--sky)"/><path d="M-62 0 H62 L46 28 H-46 Z" fill="var(--sky)" stroke="rgba(15,12,46,0.35)" stroke-width="3" stroke-linejoin="round"/><text x="0" y="-108" font-size="30" text-anchor="middle">BUS</text></g>
+    <text class="pop" data-say="one wave" x="985" y="70" font-size="42" text-anchor="end" style="fill: var(--pop)">One wave. One boat.</text>
+  </svg>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

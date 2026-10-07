@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- Deflation is worse: when prices fall people wait, companies sell less and the economy slows. Two percent is a safety margin. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .slide { gap: 2.6vh; }
+  .chain { display: flex; align-items: center; gap: 0.9vw; }
+  .chain p { padding: 0.55em 0.7em; border-radius: 0.6em; background: var(--raised); border: 1px solid var(--line-strong); font-size: 1.85vw; font-weight: 800;
+             letter-spacing: -0.025em; color: var(--ink-strong); white-space: nowrap; }
+  .chain p:first-child { background: var(--sky); color: var(--on-accent); border-color: var(--sky); }
+  .chain i { font-style: normal; font-size: 2.4vw; font-weight: 800; color: var(--pop); }
+  .gauge { display: block; overflow: visible; width: 100%; }
+  .gauge .tick { font-family: var(--mono); font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+  .lead { max-width: none; }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <p class="kicker in" data-say="deflation">Deflation: when prices fall</p>
+  <div class="chain">
+    <p class="pop" data-say="prices">Prices fall</p><i class="fade" data-say="people">&rarr;</i>
+    <p class="pop" data-say="people">People wait</p><i class="fade" data-say="companies">&rarr;</i>
+    <p class="pop" data-say="companies">Companies sell less</p><i class="fade" data-say="economy">&rarr;</i>
+    <p class="pop" data-say="economy">The economy slows</p>
+  </div>
+  <svg class="gauge fade" data-say="two percent-0.3" viewBox="0 0 1000 150">
+    <rect x="40" y="52" width="250" height="44" rx="10" fill="var(--sky)" opacity="0.75"/>
+    <rect x="290" y="52" width="210" height="44" fill="var(--mint)"/>
+    <rect x="500" y="52" width="460" height="44" rx="10" fill="rgba(255,255,255,0.14)"/>
+    <path d="M290 40 V108" stroke="var(--snow)" stroke-width="4"/>
+    <text class="tick" x="290" y="136" font-size="22" text-anchor="middle">0%</text>
+    <text x="165" y="83" font-size="22" text-anchor="middle" style="fill: var(--on-accent)">FALLING PRICES</text>
+    <text class="pop" data-say="safety" x="395" y="83" font-size="22" text-anchor="middle" style="fill: var(--on-accent)">MARGIN</text>
+    <g class="pop" data-say="two percent"><path d="M500 22 V108" stroke="var(--sun)" stroke-width="7" stroke-linecap="round"/><text x="514" y="36" font-size="30" style="fill: var(--sun)">2% target</text>
+    <text class="tick" x="500" y="136" font-size="22" text-anchor="middle">2%</text></g>
+  </svg>
+  <p class="lead in" data-say="safety">2% is a <span class="hl" data-say="safety">safety margin</span> away from that.</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Sources: International Monetary Fund; European Central Bank</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

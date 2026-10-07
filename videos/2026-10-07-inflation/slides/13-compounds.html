@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- Each year's rise is on last year's prices: by the rule of 72, at 2 percent prices double in about 36 years. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .again { display: flex; align-items: center; gap: 2.4vw; }
+  .again .lead { max-width: none; }
+  .ball { flex: none; width: 10vw; overflow: visible; }
+  .sum { font-size: 10vw; }
+</style>
+</head>
+<body class="tone-forest">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <div class="again">
+    <p class="lead in" data-say="next">Year 2: 2% of <span class="accent">$102</span>, not of $100</p>
+    <svg class="ball pop" data-say="snowball" viewBox="0 0 150 100"><path d="M4 30 L146 92 L4 92 Z" fill="rgba(255,255,255,0.12)"/><path d="M4 30 L146 92" stroke="var(--snow)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="26" r="9" fill="none" stroke="var(--snow)" stroke-width="3" stroke-dasharray="3 6"/><circle cx="92" cy="38" r="30" fill="var(--snow)"/><circle cx="82" cy="27" r="8" fill="#ffffff"/></svg>
+  </div>
+  <p class="kicker in" data-say="rule">The rule of 72</p>
+  <p class="sum"><span class="in" data-say="seventy-two#2">72</span><span class="in" data-say="divided">&divide; 2</span><span class="accent in" data-say="thirty-six">= 36</span></p>
+  <p class="figure-label fade" data-say="thirty-six+0.3">years for prices to double, at 2% a year</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Rule of 72: Investor.gov (U.S. SEC). The exact figure is 35 years</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

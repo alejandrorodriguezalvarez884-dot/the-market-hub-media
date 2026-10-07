@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- What the bill in the drawer buys at 2 percent a year: 82 after ten years, 67 after twenty, 49 after thirty-six. An ice cube melting. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .slide { gap: 1.8vh; padding-top: 2.6vh; }
+  .lead { max-width: none; }
+  .art .tick { font-family: var(--mono); font-weight: 600; letter-spacing: 0.08em; fill: var(--muted); }
+</style>
+</head>
+<body class="tone-forest">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <p class="kicker in">What $100 in a drawer buys, at 2% a year</p>
+  <svg class="art" viewBox="0 0 1000 370">
+    <path d="M30 304 H970" stroke="var(--line-strong)" stroke-width="3"/>
+    <g class="pop"><rect x="62" y="100" width="156" height="200" rx="18" fill="#bfe9ff" stroke="var(--snow)" stroke-width="5"/><path d="M88 122 h44" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/><text x="140" y="78" font-size="50" text-anchor="middle">$100</text><text class="tick" x="140" y="352" font-size="21" text-anchor="middle">TODAY</text></g><g class="pop" data-say="ten"><ellipse cx="380" cy="304" rx="104" ry="11" fill="var(--sky)" opacity="0.45"/><rect x="302" y="136" width="156" height="164" rx="18" fill="#bfe9ff" stroke="var(--snow)" stroke-width="5"/><path d="M328 158 h44" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/><text x="380" y="114" font-size="50" text-anchor="middle">$82</text><text class="tick" x="380" y="352" font-size="21" text-anchor="middle">10 YEARS</text></g><g class="pop" data-say="twenty"><ellipse cx="620" cy="304" rx="122" ry="11" fill="var(--sky)" opacity="0.45"/><rect x="542" y="166" width="156" height="134" rx="18" fill="#bfe9ff" stroke="var(--snow)" stroke-width="5"/><path d="M568 188 h44" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/><text x="620" y="144" font-size="50" text-anchor="middle">$67</text><text class="tick" x="620" y="352" font-size="21" text-anchor="middle">20 YEARS</text></g><g class="pop" data-say="thirty-six"><ellipse cx="860" cy="304" rx="140" ry="11" fill="var(--sky)" opacity="0.45"/><rect x="782" y="202" width="156" height="98" rx="18" fill="#bfe9ff" stroke="var(--snow)" stroke-width="5"/><path d="M808 224 h44" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/><text x="860" y="180" font-size="50" text-anchor="middle">$49</text><text class="tick" x="860" y="352" font-size="21" text-anchor="middle">36 YEARS</text></g>
+  </svg>
+  <p class="lead in" data-say="never">You never see it melt. <span class="hl" data-say="smaller">You find it smaller.</span></p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Our arithmetic: 100 divided by 1.02 once a year. An example, not a forecast</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

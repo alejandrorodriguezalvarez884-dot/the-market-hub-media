@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- The basket is an average: if rent is half of what you spend and rent is rising, your inflation is higher than the official one. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .shares { display: flex; flex-direction: column; gap: 3.4vh; }
+  .share { display: flex; flex-direction: column; gap: 1.2vh; }
+  .share > span { font-family: var(--mono); font-size: 1.2vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .share > div { display: flex; height: 11vh; border-radius: 1vw; overflow: hidden; }
+  .share i { display: flex; align-items: center; padding: 0 1vw; min-width: 0; font-style: normal; font-size: 1.9vw; font-weight: 800; letter-spacing: -0.02em;
+             white-space: nowrap; color: var(--on-accent); border-right: 0.25vw solid var(--page-2); }
+  .share i:last-child { border-right: 0; }
+  .share i b { display: inline-block; margin-left: 0.5em; }
+  .lead { max-width: none; }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 02</span></header>
+<main class="slide room">
+  <p class="kicker in">The basket is an average</p>
+  <div class="shares">
+    <div class="share in" data-say="average"><span>The average basket</span>
+      <div><i style="flex: 26; background: var(--sky)">Housing</i><i style="flex: 22; background: var(--sun)">Food</i><i style="flex: 18; background: var(--pink)">Transport</i><i style="flex: 34; background: var(--violet)">Everything else</i></div></div>
+    <div class="share in" data-say="yours"><span>Yours</span>
+      <div><i class="rent" style="flex: 50; background: var(--coral)">Rent: half <b class="pop" data-say="rising">&#9650;</b></i><i style="flex: 20; background: var(--sun)">Food</i><i style="flex: 10; background: var(--pink)"></i><i style="flex: 20; background: var(--violet)">Else</i></div></div>
+  </div>
+  <p class="lead in" data-say="your inflation">Your inflation &ne; <span class="hl" data-say="official">the official one</span></p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">An illustration: the shares are made up to show the idea. How the basket is weighted: European Central Bank</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>
