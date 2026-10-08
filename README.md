@@ -54,6 +54,7 @@ make voice VIDEO=buy-back     # speak the scenes that need it (DRY=1: only say w
 make render VIDEO=buy-back    # the frames, the video, the Short and their captions
 make kit VIDEO=buy-back       # what to paste into YouTube Studio
 make published VIDEO=buy-back URL=https://www.youtube.com/watch?v=...
+make instagram VIDEO=buy-back # publish the Short as a reel on Instagram (CHECK=1: only say whose the token is)
 make test
 ```
 
@@ -139,5 +140,43 @@ of the owner's own Google Cloud project:
    seven days: publish the app ("In production") for one that lasts.
 5. Ask for the audit, with the form above. Until it is passed, uploads stay private.
 
+## Instagram
+
+`make instagram VIDEO=...` publishes the Short as a reel on the channel's account (`[instagram]
+handle` in `channel.toml`), with a caption made from the script: the Short's title, the
+description, where the whole video is, the sources, the notice and a few of the tags as
+hashtags. The reel's cover is the first scene as it stands when its narration ends. Where the
+reel is goes into `published.json` (`instagram_url`), beside the video's addresses. Like any
+publishing, it is done only when the owner asks for that video.
+
+It goes through the Instagram API with Instagram Login, which is free and, for an app that only
+publishes on its owner's own account, needs no review by Meta
+(https://developers.facebook.com/docs/instagram-platform/overview). The set-up, once:
+
+1. The Instagram account must be a professional one (Creator or Business): in the Instagram app,
+   "Account type and tools", "Switch to professional account".
+2. At https://developers.facebook.com, create an app with the use case "Manage messaging and
+   content on Instagram".
+3. In the app's dashboard, under Instagram, "API setup with Instagram login": add the account,
+   then "Generate token" beside it.
+4. Save the token, and nothing else, as `.secrets/instagram-token.txt` (the folder is not in
+   git). It lasts sixty days, and `make instagram` renews it whenever it is more than a week
+   old; after two months with no reel it has to be generated again.
+5. `make instagram CHECK=1` says which account the token is for, and publishes nothing.
+
+Instagram takes no file from this API: it fetches the film from an address anybody can reach.
+So `make instagram` parks the Short in a Google Cloud Storage bucket (`[instagram] bucket`) under
+a name nobody can guess, and takes it away once the reel is published, with the same Google
+Cloud session as the voice. The bucket is made once, in the owner's project, and it is theirs to
+agree to: it lets anybody who has a file's address read that file, and nobody list what is in it.
+
+```bash
+gcloud storage buckets create gs://<name> --location=us-central1 --uniform-bucket-level-access --no-public-access-prevention
+gcloud storage buckets add-iam-policy-binding gs://<name> --member=allUsers --role=roles/storage.legacyObjectReader
+```
+
+A Short is some tens of megabytes held for a few minutes: within Cloud Storage's free allowance
+in that region (Google's pricing page, October 2026), and cents if it were not.
+
 `MEDIA_BROWSER` chooses another browser channel than `chrome` for the frames; `YOUTUBE_CLIENT_SECRET`
-and `YOUTUBE_TOKEN` move the two files.
+and `YOUTUBE_TOKEN` move the two files, and `INSTAGRAM_TOKEN` the one of Instagram.

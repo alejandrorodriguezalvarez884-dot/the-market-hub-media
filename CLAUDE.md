@@ -46,7 +46,9 @@ Reglas que no se negocian:
   `channel.toml`; decisión suya, 2026-10-07). Mientras YouTube no haya
   auditado el proyecto de la API, lo que se sube por ella queda en privado, y se le dice. A mano
   sigue pudiéndose: `make kit` deja el texto que pegar en YouTube Studio y `make published`
-  apunta la dirección.
+  apunta la dirección. **Instagram** (cuenta `the_market_hub_app`, desde el 2026-10-08) va igual:
+  el Short se publica como reel con `make instagram`, solo cuando él lo pida para ese vídeo. El
+  token de Instagram lo genera y lo guarda él en `.secrets/`; no se le pide en el chat.
 - **No se gasta sin preguntar.** El único servicio de pago decidido es la voz (abajo). Cualquier
   otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.

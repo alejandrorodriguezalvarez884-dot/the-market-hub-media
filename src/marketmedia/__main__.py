@@ -10,6 +10,8 @@
     python -m marketmedia published <video> <url> [--short <url>]   remember where it was published
     python -m marketmedia auth                           sign in to YouTube, once (for uploads through the API)
     python -m marketmedia upload <video> [--privacy p]   upload the video and its Short through the API (channel.toml's privacy unless said)
+    python -m marketmedia instagram <video>              publish the Short as a reel on Instagram
+    python -m marketmedia instagram --check              say which account the Instagram token is for, and publish nothing
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -20,7 +22,7 @@ import argparse
 import sys
 
 from . import channel as channels
-from . import check, frames, render, videos, voice, youtube
+from . import check, frames, instagram, render, videos, voice, youtube
 from . import script as scripts
 
 
@@ -47,7 +49,7 @@ def _status(args, channel) -> int:
                 line += " script cannot be read"
         record = video.record()
         if record:
-            line += f"  {record['url']}"
+            line += f"  {record.get('url') or record.get('instagram_url', '')}"
         print(line)
     return 0
 
@@ -178,6 +180,44 @@ def _upload(args, channel) -> int:
     return 0
 
 
+def _instagram(args, channel) -> int:
+    """The Short, as a reel on the channel's Instagram account. With --check, only who the token
+    is for and where a film would be parked: nothing is published."""
+    if args.check:
+        who = instagram.account(instagram.token())
+        print(f"The token is for @{who.get('username')} ({who.get('account_type', 'unknown kind')})")
+        if channel.instagram_handle and who.get("username") != channel.instagram_handle:
+            print(f"  channel.toml names another account: @{channel.instagram_handle}")
+        print(f"Bucket: {channel.instagram_bucket or 'none yet ([instagram] bucket in channel.toml)'}")
+        return 0
+    if not args.video:
+        raise ValueError("which video? (or --check)")
+    video = videos.find(args.video)
+    script = scripts.load(video.script)
+    record = video.record() or {}
+    if record.get("instagram") and not args.again:
+        print(f"{video.name} is already on Instagram: {record.get('instagram_url') or record['instagram']['id']}  (--again to publish it once more)")
+        return 1
+    if not script.short:
+        print("This video has no Short, and the Short is what goes to Instagram.")
+        return 1
+    if _unfit(video, channel):
+        return 1
+    if not video.film(short=True).is_file():
+        print("The Short is missing: run 'make render' first.")
+        return 1
+    cuts = render.plan(video, script, channel, short=True)
+    # The cover: the first scene as it stands when its narration ends, with everything on it.
+    part = instagram.publish(video.film(short=True), instagram.caption(script, channel, record.get("url", "")),
+                             channel.instagram_bucket, cover_ms=int(cuts[0].spoken * 1000) if cuts else 0)
+    record.update(instagram_url=part["url"], instagram=part)
+    youtube.remember(video.published, record)
+    print(f"Reel: {part['url'] or part['id']}")
+    if part.get("url_error"):
+        print(f"  it is published, but its address could not be read: {part['url_error']}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="marketmedia", description="The Market Hub's YouTube channel.")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -201,9 +241,13 @@ def main(argv: list[str] | None = None) -> int:
     uploading.add_argument("video")
     uploading.add_argument("--privacy", choices=["private", "unlisted", "public"])
     uploading.add_argument("--again", action="store_true")
+    reel = commands.add_parser("instagram")
+    reel.add_argument("video", nargs="?")
+    reel.add_argument("--check", action="store_true", help="say which account the token is for, and publish nothing")
+    reel.add_argument("--again", action="store_true")
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
-           "kit": _kit, "published": _published, "auth": _auth, "upload": _upload}[args.command]
+           "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid) as exc:

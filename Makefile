@@ -12,12 +12,14 @@
 # VIDEO is the folder's name in videos/, or a part of it that only one video has.
 #   make auth                   sign in to YouTube, once, for uploads through the API
 #   make upload VIDEO=... [PRIVACY=public|unlisted|private]   upload the video and its Short
+#   make instagram VIDEO=...    publish the Short as a reel on Instagram
+#   make instagram CHECK=1      say which account the Instagram token is for, and publish nothing
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload
+.PHONY: help install test new status check frames voice render kit published auth upload instagram
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
@@ -64,3 +66,6 @@ auth: ## Sign in to YouTube, once, for uploads through the API (needs .secrets/c
 
 upload: ## Upload VIDEO=... and its Short through the API (PRIVACY=private|unlisted|public; channel.toml's if not said)
 	$(RUN) upload $(VIDEO) $(if $(PRIVACY),--privacy $(PRIVACY))
+
+instagram: ## Publish the Short of VIDEO=... as a reel on Instagram (CHECK=1: only say whose the token is)
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) instagram $(VIDEO) $(if $(CHECK),--check)

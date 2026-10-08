@@ -86,6 +86,23 @@ set. The end screen and the Short's related video are still the user's to set in
 (`make kit` says from which second the end screen runs). Then commit `published.json` and put
 the video on the portal's Media page, as in step 3.
 
+## The reel on Instagram
+
+When the user asks for the video to go to Instagram too, after step 1:
+
+```bash
+make instagram VIDEO=<name>
+```
+
+It publishes the Short as a reel on the channel's account and adds its address to
+`published.json` (`instagram_url`). Pass on what it prints, commit `published.json`, and add the
+reel to the portal's Media page: in `site/src/lib/media.ts` of `market-hub-landing`, a line in
+`INSTAGRAM.reels` (newest first) with the reel's code, the Short's title, its length and the
+Short's cover, which is already in `site/public/media/` if the Short is on the page. If it fails
+for lack of the token or of the bucket, say what it answered and stop: the set-up is in the
+README ("Instagram"); the token is the user's to generate and to save, and a bucket is theirs
+to agree to.
+
 If it fails for lack of the sign-in or of the OAuth client, say what it answered and stop: the
 set-up is in the README and `make auth` is the user's to run (it opens their browser). Never
 ask the user for a password, a token or a code.

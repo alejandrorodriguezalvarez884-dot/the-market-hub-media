@@ -34,6 +34,12 @@ disclaimer = """
 This video is for information and education only. It is not investment advice, and nothing in it \
 is a recommendation to buy, sell or hold anything."""
 
+# Instagram: the Short goes up as a reel (`make instagram`). Instagram fetches the film from an
+# address anybody can reach, so it is parked in this bucket while it is published, and taken away after.
+[instagram]
+handle = "the_market_hub_app"
+bucket = ""                          # a Google Cloud Storage bucket anybody can read from; empty until the owner agrees to one
+
 # A video that presents the channel or a series, instead of explaining something (kind: trailer).
 [trailer]
 seconds = [30, 90]
