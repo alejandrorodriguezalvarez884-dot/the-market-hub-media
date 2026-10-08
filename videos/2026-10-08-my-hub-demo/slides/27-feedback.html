@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- What to report back: the presenter counts the kinds of thing worth telling. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  .steps { gap: 1.6vh; }
+  .step { font-size: 2.7vw; }
+  .note { font-size: 2.2vw; }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip">My Hub · Demo</span></header>
+<div class="stage">
+  <main class="slide">
+    <h2 class="in">Then <span class="hl" data-say="tell">tell me</span> what you found</h2>
+    <div class="steps">
+      <div class="step in" data-say="broke"><span class="n">1</span>It broke</div>
+      <div class="step in" data-say="slow"><span class="n">2</span>It was slow</div>
+      <div class="step in" data-say="number"><span class="n">3</span>A number looked wrong</div>
+      <div class="step in" data-say="understand"><span class="n">4</span>I did not get it</div>
+    </div>
+    <p class="lead muted note in" data-say="phone">Phone or computer: both help.</p>
+  </main>
+  <div class="presenter" data-cues="0:explain broke:one slow:two number:three understand:shrug phone:thumb"></div>
+</div>
+<footer class="foot"><span class="brand">Market Hub</span><span class="source">themarkethub.app</span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

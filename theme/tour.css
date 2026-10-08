@@ -1,0 +1,62 @@
+/* A tour of the site itself (kind: demo). A slide of a tour links this file after slide.css and
+   loads theme/tour.js after slide.js. It shows one of the site's own screens in a window and moves
+   in on the part the voice is talking about; beside it, a few words and what to try.
+
+     <body class="tour tone-ocean">
+     <header class="top"><span class="chip">My Hub</span><span class="part">2 of 7 · Overview</span></header>
+     <main class="slide tour-row">
+       <figure class="screen">
+         <div class="bar"><i></i><i></i><i></i><span>themarkethub.app/dashboard</span></div>
+         <div class="view">
+           <div class="shot" data-cam="0:60,50,1.26 figures:60,26,1.6"><img src="shots/overview.jpg" alt="">
+             <i class="spot" data-say="figures" data-off="sentences" style="--x:21; --y:19; --w:77; --h:14"></i>
+           </div>
+         </div>
+       </figure>
+       <aside class="notes"> <p class="kicker">Overview</p> <h2>…</h2> <ul class="points"><li class="in" data-say="…">…</li></ul> </aside>
+     </main>
+
+   The screens are photographs of the site (videos/<video>/slides/shots/), as wide as its window.
+   theme/tour.js says how data-cam and .spot are written. */
+
+body.tour { padding: 3.4vh 3vw 2.6vh; }
+body.tour .top { justify-content: space-between; }
+/* Which part of the tour this is. */
+.part { font-family: var(--mono); font-size: 1.05vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+.tour-row { flex-direction: row; align-items: stretch; justify-content: flex-start; gap: 2.2vw; }
+
+/* The window the screen is seen through. */
+.screen { flex: none; align-self: center; width: 66vw; margin: 0; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 1vw;
+          background: #0b0d10; box-shadow: 0 2.4vh 6vh rgba(0, 0, 0, 0.5); }
+.screen .bar { display: flex; align-items: center; gap: 0.5vw; height: 3.2vh; padding: 0 1vw; background: #171a1f; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.screen .bar i { width: 0.72vw; height: 0.72vw; border-radius: 50%; background: rgba(255, 255, 255, 0.22); }
+.screen .bar span { margin-left: 1vw; font-family: var(--mono); font-size: 0.95vw; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.62); }
+.view { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+/* A screen: it fills the window, and theme/tour.js moves it (data-cam). A second one over the
+   first comes in with .fade and data-say. */
+.shot { position: absolute; inset: 0; transform-origin: 0 0; }
+.shot img { display: block; width: 100%; height: 100%; }
+/* A part of the screen marked while the voice talks about it: placed in percent of the screen. */
+.spot { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); width: calc(var(--w) * 1%); height: calc(var(--h) * 1%);
+        border: 0.2vw solid var(--pop); border-radius: 0.6vw; opacity: 0;
+        box-shadow: 0 0 0 0.4vw color-mix(in srgb, var(--pop) 22%, transparent), 0 0 2.6vw color-mix(in srgb, var(--pop) 40%, transparent); }
+
+/* Beside the window: what this is, in a few words, and what to try. */
+.notes { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2.2vh; padding-top: 4vh; }
+.notes .kicker { font-size: 1.2vw; }
+.notes h2 { font-size: 3.1vw; max-width: none; }
+.points { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.5vh; }
+.points li { padding-left: 1.1vw; border-left: 0.3vw solid var(--pop); font-size: 1.7vw; line-height: 1.2; font-weight: 650; letter-spacing: -0.01em; color: var(--ink-strong); }
+/* What the viewer is asked to do on this screen. */
+.try { margin-top: 0.6vh; padding: 1.5vh 1.1vw; border-radius: 1vw; background: var(--pop); color: var(--on-accent);
+       font-size: 1.6vw; line-height: 1.18; font-weight: 800; letter-spacing: -0.01em; max-width: none; }
+.try b { display: block; margin-bottom: 0.4vh; font-family: var(--mono); font-size: 0.95vw; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+body.tour .presenter.corner { right: 3vw; bottom: 8.5vh; width: 10.5vw; }
+body.tour .foot { padding-top: 1.4vh; }
+
+/* The phone app: its screens, each in a phone. */
+.phones { display: flex; align-items: center; justify-content: center; gap: 2.6vw; flex: none; }
+.phone { flex: none; height: 74vh; aspect-ratio: 390 / 844; overflow: hidden; border: 0.5vw solid #20242a; border-radius: 2.6vw; background: #0b0d10;
+         box-shadow: 0 2.4vh 6vh rgba(0, 0, 0, 0.5), 0 0 0 1px var(--line-strong); }
+.phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }

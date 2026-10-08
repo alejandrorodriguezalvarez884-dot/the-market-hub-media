@@ -50,6 +50,7 @@ class Channel:
     fps: int
     minutes: tuple[float, float]
     trailer_seconds: tuple[float, float]
+    demo_seconds: tuple[float, float]
     words_per_minute: int
     gap_seconds: float
     # The Short
@@ -95,6 +96,7 @@ def load(path: Path | None = None) -> Channel:
         fps=int(video.get("fps", 30)),
         minutes=_range(video.get("minutes"), (4, 6)),
         trailer_seconds=_range(data.get("trailer", {}).get("seconds"), (30, 90)),
+        demo_seconds=_range(data.get("demo", {}).get("seconds"), (120, 600)),
         words_per_minute=int(video.get("words_per_minute", 150)),
         gap_seconds=float(video.get("gap_seconds", 0.4)),
         short_width=int(short.get("width", 1080)),

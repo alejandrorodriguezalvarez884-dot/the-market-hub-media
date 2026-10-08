@@ -99,6 +99,14 @@ cambio en la intro o el cierre cambia todos los vídeos que se monten después.
 `kind: trailer` es un vídeo que presenta el canal o una serie: dura lo que dice `[trailer]` y,
 al no llevar cifras, no necesita fuentes.
 
+`kind: demo` es un vídeo que recorre la propia web, pantalla a pantalla, para quien la va a probar
+(el primero, `videos/2026-10-08-my-hub-demo/`). Sus imágenes son fotografías de la web
+(`slides/shots/`), que una diapositiva enseña en una ventana y recorre con la voz (`theme/tour.css`
+y `theme/tour.js`). Se sacan con el `capture/` del propio vídeo, de un portal en este equipo con
+una cuenta de demostración y sin claves de modelos: **nunca de la cuenta de una persona, y sin
+gastar**. No lleva intro, cierre ni Short, no necesita fuentes y dura lo que dice `[demo]`. No es
+un episodio: lo comparte el usuario a mano y no se sube al canal salvo que él lo pida.
+
 ## La voz
 
 La narración la dice **Google Cloud Text-to-Speech** (decisión del usuario, 2026-10-06), con una

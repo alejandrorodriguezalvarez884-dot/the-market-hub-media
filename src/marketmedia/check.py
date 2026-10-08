@@ -66,10 +66,10 @@ def problems(video: Video, channel: Channel) -> list[str]:
     # How long each runs: with the narration that is made, and the channel's pace for the rest.
     if script.scenes:
         seconds = sum(c.seconds for c in render.plan(video, script, channel))
-        trailer = script.kind == "trailer"
-        low, high = channel.trailer_seconds if trailer else (m * 60 for m in channel.minutes)
+        kind = script.kind if script.kind in ("trailer", "demo") else ""
+        low, high = {"trailer": channel.trailer_seconds, "demo": channel.demo_seconds}.get(kind) or (m * 60 for m in channel.minutes)
         if not low <= seconds <= high:
-            found.append(f"the trailer runs {_clock(seconds)}; a trailer runs {_clock(low)} to {_clock(high)}" if trailer else
+            found.append(f"the {kind} runs {_clock(seconds)}; a {kind} runs {_clock(low)} to {_clock(high)}" if kind else
                          f"the video runs {_clock(seconds)}; the channel's videos run {_clock(low)} to {_clock(high)}")
     if script.cut(short=True):
         seconds = sum(c.seconds for c in render.plan(video, script, channel, short=True))

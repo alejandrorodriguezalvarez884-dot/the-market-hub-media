@@ -10,7 +10,9 @@ watch: the video (horizontal, four to six minutes) and its Short (upright, thirt
 minute, cut from the video's own scenes). If, and only if, the user asked in this same request
 for the video to be uploaded when it is done, the last step uploads both to YouTube. A trailer (`kind: trailer` in its script: a video
 that presents the channel or a series) is made the same way, but runs thirty to ninety seconds,
-states no figures and needs no sources. Publishing is the user's decision, video by video:
+states no figures and needs no sources. A demo (`kind: demo`: a walk through the site itself, for
+the people who are going to try it) is made the same way too, with what is its own in "A demo",
+at the end. Publishing is the user's decision, video by video:
 without their word for this video, this skill stops at the films and uploads nothing.
 
 Work from the root of the `the-market-hub-media` repo. Read `CLAUDE.md` there first: its rules are
@@ -238,3 +240,26 @@ and `short.mp4`), how long each runs, how many characters were sent to the voice
 title and the description they were, or would be, published with, anything you were not sure
 of and, if it was uploaded, the two addresses and the visibility YouTube gave each. Then stop.
 If it was not uploaded, publishing is theirs to ask for.
+
+## A demo
+
+`kind: demo` is a tour of the site for the people who are going to try it
+(`videos/2026-10-08-my-hub-demo/` is the one to follow). What differs:
+
+- **Its pictures are the site's own screens**, photographed, not drawn: `slides/shots/*.jpg`. They
+  are taken by the video's `capture/` (`seed.py` makes demo accounts on a portal running on this
+  machine, `shoot.py` photographs it at twice the size of its window), from the code that is
+  deployed, with real prices and **no key of a model in the environment**: nothing is paid for,
+  and what a paid model would write is not shown as if it had. Never photograph a real person's
+  account. The brief says where every picture comes from and what was left out.
+- **A slide shows a screen in a window and moves in on what the voice names**: `theme/tour.css`
+  has the layout (the window, the notes beside it, a "Try it" box) and `theme/tour.js` the camera
+  (`data-cam`) and the marks (`.spot`), both placed in percent of the screen and timed by words
+  of the narration. Check every mark over its screen before rendering: a mark a little off reads
+  as a mistake of the site.
+- It has no intro, no outro, no Short (unless it names one) and no sources; `[demo]` in
+  `channel.toml` has its length. It says what the site does and what to try; like every video, it
+  never advises.
+- It is the owner's to share by hand. It is not uploaded to the channel unless he asks for that.
+- Drawing every frame of a screen is slow (a scene of fifteen seconds takes a minute or two):
+  give it its voice first, look at a few frames of each scene, and render once.
