@@ -58,7 +58,6 @@
     window.slideMissing.push(text);   // frames.py says so: a slide waiting for a word nobody says
     return 0;
   };
-  window.slideWhen = when;   // for what a slide adds of its own (theme/tour.js)
 
   // --- Figures that count up ---------------------------------------------------------------------
   let figures = [];

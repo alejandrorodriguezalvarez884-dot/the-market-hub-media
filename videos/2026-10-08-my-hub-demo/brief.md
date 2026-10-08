@@ -1,73 +1,81 @@
-# My Hub, the tour
+# Market Hub, el recorrido (demo)
 
-**Verdict: make it.** Asked for by the owner on 2026-10-08: a demo video, in English, to share with
-a group of people who are going to test the deployed site. It explains everything My Hub does
-today, tells them what to try, and asks for twelve testers for the phone app.
+Lo pidió el usuario el 2026-10-08: un vídeo demo para compartir que explique toda la
+funcionalidad de la versión desplegada, con el foco en My Hub, y que guíe a un grupo de personas
+a probarla.
 
-It is not an episode of a series and it is not for the channel's playlists: it is sent by hand to
-the testers. So it is a `kind: demo` (no intro or outro of the channel, no Short, no sources), and
-nothing here uploads it anywhere.
+**No es un vídeo del canal.** La primera versión se hizo con el formato del canal (en inglés, el
+presentador dibujado, capturas dentro de diapositivas) y el usuario la rechazó entera ese mismo
+día. Lo que pidió entonces, y lo que es esta demo:
 
-## What it covers
+- **en español**;
+- **sin el presentador**, y **solo la app en pantalla**;
+- **primero lo público y luego My Hub**;
+- **como una persona compartiendo pantalla, sin cortes y enseñándolo todo**.
 
-My Hub as it is deployed on 2026-10-08 (`market-hub-landing` at `a87baf9`), in the order of its menu:
+Después dijo que **la app de móvil no hace falta de momento**: la demo no la enseña ni pide
+testers para ella (se llegó a grabar esa toma; se quitó).
 
-1. Getting in: sign-in with Google or with an email and a password (ten characters at least; there
-   is no "forgot my password"), then Portfolio (positions with shares and an optional average
-   cost; the watchlist).
-2. Overview: the four figures, the portfolio read back in sentences, the holdings against the
-   indices by period (today's holdings held through the period, not the real past return: trades
-   are not recorded), the positions.
-3. Analysis: by sector, country, volatility and size; next to four indices; how it moves and how
-   its weight is spread; today, position by position; every position in a table that sorts.
-4. Watchlist: the wall of charts and its controls; the chips, and looking at any other stock;
-   Readings (one sentence and nine gauges per stock); Map, and the reading that opens from it.
-5. Community: sharing (off until turned on; what others see and what nobody sees), the board,
-   and the monthly competition (3 to 10 single stocks, 5 % to 50 % each, entries for November open
-   until October 31).
-6. The tools: Fundamentals, Earnings, Peers and Playground, a scene each.
-7. Account and data.
+## Qué enseña, en orden (9 minutos y medio)
 
-Then what to test (five things), what to report, and the favour: the phone app.
+1. **Lo público** (la web desplegada, https://themarkethub.app): la portada, Today, Markets, la
+   ficha de una empresa desde el buscador, News y un artículo, Opinion y un artículo con sus
+   comentarios, y Media.
+2. **Entrar** (Google, o email y contraseña de diez caracteres; no hay recuperación de contraseña)
+   y **Portfolio**: se añade una posición y una acción a la watchlist, y se guarda.
+3. **Overview**: las cuatro cifras, la cartera en frases, el gráfico frente a los índices (lo que
+   se tiene hoy mantenido durante el periodo, no la rentabilidad real: no se guardan operaciones)
+   y las posiciones.
+4. **Analysis**: las cuatro agrupaciones, frente a los índices, cómo se mueve y cómo reparte el
+   peso, hoy posición por posición, y la tabla que se ordena.
+5. **Watchlist**: el muro de gráficos y sus controles, las fichas, mirar otra acción, Readings, y
+   Map con la lectura que se abre desde la tabla.
+6. **Community**: compartir la cartera (se hace en pantalla), el tablero, y la competición
+   mensual: se monta y se envía una cartera para noviembre.
+7. **Las herramientas**: Fundamentals (una empresa, sus pestañas y la comparación), Earnings,
+   Peers y Playground.
+8. **Account and data**, y lo que se le pide a quien lo ve: probarlo todo y contar lo que falle,
+   lo que vaya lento, lo que no cuadre y lo que no se entienda.
 
-## The phone app and its testers
+## Cómo está hecho
 
-- The app is `market-hub-mobile` (Expo): My Hub for Android and iPhone, in development.
-- Google Play asks a personal developer account made after 2023-11-13 for **12 testers opted in
-  to a closed test for 14 days in a row** before the app can go to production
-  (`market-hub-mobile/store/google-play/LISTING.md`, step 7).
-- What a tester has to send: their name, whether the phone is an Android or an iPhone, and the
-  email of the Google account on that phone (the one of the Play Store): a closed test invites
-  people by that email. For an iPhone, the email of the Apple account, which is what TestFlight
-  invites. **The owner did not say which details to ask for ("la que sea"): these are the
-  agent's choice.** He also did not say how he wants to be reached: the video says "send me a
-  message", which works because he sends the video himself.
+- `guion.md` es lo que dice la voz, por tramos. La voz es la del canal en español
+  (`es-ES-Chirp3-HD-Schedar`, Google Cloud Text-to-Speech, dentro de su tramo gratuito).
+- `record.py` es lo que hace la pantalla en cada tramo: maneja un Chrome de verdad (1280 × 720,
+  grabado a 1920 × 1080) con un puntero que se mueve, pulsa, escribe y hace scroll. Cada tramo se
+  dice primero, y la pantalla se acompasa a lo que dura.
+- **Diez tomas, unidas donde cambia la página**: una toma acaba con el puntero pulsando un enlace
+  y la siguiente empieza con esa página abriéndose, así que se ve como una sola sesión. Son varias
+  porque cada herramienta es un servicio aparte y este equipo deja arrancar dos a la vez, y para
+  poder repetir solo la parte que salga mal.
+- **Lo público es la web desplegada.** Se corta la petición que refresca las noticias, que gasta
+  el crédito del modelo, y el contador de visitas.
+- **Lo que pide sesión es un portal en este equipo** con el mismo código que el desplegado
+  (`market-hub-landing` en `a87baf9`), precios reales de Yahoo, y la cuenta de demostración de
+  `capture/seed.py` ("Sam Demo") con otras seis que comparten cartera, para que el tablero no
+  salga vacío; la voz dice que son de demostración y que el real está casi vacío. Las
+  configuraciones `*-demo-windows` de `.claude/launch.json` del workspace lo arrancan.
 
-## Where the pictures come from
+## Lo que el vídeo no enseña como es en producción
 
-Every screen is a photograph of the site itself, taken on this machine from the same code that is
-deployed, with a demo account and real prices (Yahoo Finance, close of 2026-10-07):
+Se grabó **sin claves de modelos**, para no gastar:
 
-- `capture/seed.py` makes the demo account ("Sam Demo", ten positions and six followed stocks) and
-  six more that share a portfolio and have an entry for November, so the board is not empty. The
-  video says they are demo accounts and that the real board is almost empty.
-- `capture/shoot.py` takes the screenshots into `slides/shots/`. The top of each file says how.
-- The portal runs with no key of a model (`hub-demo-windows` in the workspace's
-  `.claude/launch.json`), so nothing was paid for: the sentences of Overview and of the readings
-  are the ones the code writes. The deployed site shows the model's where it answers.
-- Earnings Radar reads a release with a paid model, so no company was opened in it: its scene
-  shows the home page and the market trends. Playground ran with its stand-in composer
-  (`PLAYGROUND_SCRIPTED=1`), not the model.
-- The phone's screens are the app's browser view (`make web` in `market-hub-mobile`), signed in as
-  the same demo account.
+- Las frases de Overview y de las lecturas de Watchlist son las que escribe el código; en
+  producción, donde el modelo contesta, salen las suyas.
+- **Earnings no lee ningún comunicado** (lo hace un modelo de pago): se escribe la empresa, se
+  señala el botón y se pasa a Market trends.
+- **Playground** va con su compositor de pega (`PLAYGROUND_SCRIPTED=1`): por eso lo que se le
+  escribe lleva los tickers en mayúsculas.
+- En Fundamentals se señala el botón de la lectura con IA, sin pulsarlo.
 
-On the screens there are things that are not ours, as on the site: Google's sign-in button and
-the attribution mark of TradingView's chart library. The channel's rule against other people's
-logos is about what a video draws; here they are part of the page being shown.
+En pantalla hay cosas que no son nuestras, como en la web: el botón de Google, los logotipos de
+empresas del mapa de TradingView y, en Media, las carátulas de los vídeos del canal (con el
+presentador).
 
-## Decisions taken while making it (the owner was not asked)
+## Decisiones tomadas al hacerlo (el usuario no las ha visto)
 
-- First person ("I am building…", "send me a message"): the video is the owner's own message to
-  people he sends it to, said by the channel's voice and its drawn presenter.
-- The look is the channel's (its tones, its presenter in the corner), one tone per part.
-- About six minutes. It tells; it never advises (one scene says so of the readings).
+- La interfaz se queda en inglés: lo que pidió en español es la demo, o sea la voz.
+- Habla en primera persona ("te lo enseño", "cuéntame qué has encontrado") y no da una dirección
+  de contacto: lo envía él.
+- Dura 9:37. Quien lo montó no puede oírlo: cómo pronuncia la voz española los nombres en inglés
+  (Overview, Watchlist, Playground…) lo juzga el usuario.

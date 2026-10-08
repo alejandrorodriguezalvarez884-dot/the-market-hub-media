@@ -1,4 +1,4 @@
-"""Fills a portal running on this machine with the demo accounts the screenshots are taken from.
+"""Fills a portal running on this machine with the demo accounts the demo is recorded with (record.py).
 
     python seed.py [http://127.0.0.1:8088] [the portal's data folder]
 
@@ -25,9 +25,7 @@ from datetime import datetime, timezone
 from http.cookiejar import CookieJar
 from pathlib import Path
 
-API = (sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8088").rstrip("/")
-if not API.startswith(("http://127.0.0.1:", "http://localhost:")):
-    sys.exit(f"seed: {API} is not a portal on this machine")
+API = "http://127.0.0.1:8088"   # main() takes another from the command line
 
 # Local accounts, good for nothing but a developer's machine.
 PASSWORD = "market hub local demo"
@@ -95,6 +93,10 @@ def news(folder: Path, public: str = "https://themarkethub.app") -> None:
 
 
 def main() -> None:
+    global API
+    API = (sys.argv[1] if len(sys.argv) > 1 else API).rstrip("/")
+    if not API.startswith(("http://127.0.0.1:", "http://localhost:")):
+        sys.exit(f"seed: {API} is not a portal on this machine")
     if len(sys.argv) > 2:
         news(Path(sys.argv[2]))
     members: dict[str, Portal] = {}

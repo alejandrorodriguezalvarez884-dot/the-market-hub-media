@@ -16,7 +16,6 @@ def test_a_video_opens_with_the_intro_and_closes_with_the_outro(video, channel):
     # The Short has neither, and neither has a trailer.
     assert [s.name for s in render.scenes(script, with_both, short=True)] == ["01-hook", "03-point"]
     assert [s.name for s in render.scenes(replace(script, kind="trailer"), with_both)] == ["01-hook", "02-title", "03-point"]
-    assert [s.name for s in render.scenes(replace(script, kind="demo"), with_both)] == ["01-hook", "02-title", "03-point"]
 
 
 def test_the_intro_can_come_after_the_hook(video, channel):

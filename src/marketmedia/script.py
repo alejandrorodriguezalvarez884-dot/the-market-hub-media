@@ -34,10 +34,6 @@ description of the video gets them with their times, for YouTube to cut the vide
 "series:" is the series the video belongs to (one of channel.toml's) and "episode:" its number in
 it. "kind: trailer" is for a video that presents the channel or a series instead of explaining
 something: it is short (channel.toml's [trailer]) and, having no figures, needs no sources.
-"kind: demo" is for a video that walks through the site itself, screen by screen, for the people
-who are going to try it: its pictures are the site's own screens, so it needs no sources either,
-it has its own length (channel.toml's [demo]) and it may go without a Short. Neither kind gets the
-channel's intro and outro.
 
 ``load`` reads one, and refuses it when it cannot be read as a script. ``problems`` says what
 stops a script that can be read from being published.
@@ -54,8 +50,7 @@ HEADING = re.compile(r"##\s+(\S.*?)\s*$")
 # YouTube's own limits.
 TITLE_MAX = 100
 TAGS_MAX = 500
-KINDS = ("", "trailer", "demo")
-UNSOURCED = ("trailer", "demo")   # the kinds that state no figures of their own
+KINDS = ("", "trailer")
 # A video argues and explains; it does not tell a viewer what to do with their money.
 ADVICE = re.compile(
     r"\b(you should (buy|sell|hold)|we recommend|(buy|sell|hold) rating|strong buy|price target of|our (price )?target"
@@ -92,7 +87,7 @@ class Script:
     short_title: str = ""
     series: str = ""             # the slug of its series in channel.toml
     episode: int | None = None
-    kind: str = ""               # "" for a video, "trailer" for one that presents a series, "demo" for a tour of the site
+    kind: str = ""               # "" for a video, "trailer" for one that presents a series
     chapters: tuple[tuple[str, str], ...] = ()   # (the scene it starts at, its title)
 
     def cut(self, short: bool = False) -> list[Scene]:
@@ -218,8 +213,8 @@ def problems(script: Script) -> list[str]:
     if len(",".join(script.tags)) > TAGS_MAX:
         found.append(f"the tags add up to more than {TAGS_MAX} characters")
     if script.kind not in KINDS:
-        found.append(f"'kind: {script.kind}' is not a kind of video; leave it out, or 'trailer' or 'demo'")
-    if len(script.sources) < 2 and script.kind not in UNSOURCED:
+        found.append(f"'kind: {script.kind}' is not a kind of video; leave it out, or 'trailer'")
+    if len(script.sources) < 2 and script.kind != "trailer":
         found.append("fewer than two sources: every figure, date and quotation needs one")
     for label, address in script.sources:
         if not label or not re.match(r"https?://\S+$", address):
@@ -244,7 +239,7 @@ def problems(script: Script) -> list[str]:
     for scene, title in script.chapters:
         if scene not in names or not title:
             found.append(f"a chapter is not 'a scene of the script | its title': {scene!r}")
-    if not script.short and script.kind != "demo":
+    if not script.short:
         found.append("no 'short:' line: name the scenes that make the Short")
     for name in script.short:
         if name not in names:

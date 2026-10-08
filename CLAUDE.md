@@ -99,13 +99,21 @@ cambio en la intro o el cierre cambia todos los vídeos que se monten después.
 `kind: trailer` es un vídeo que presenta el canal o una serie: dura lo que dice `[trailer]` y,
 al no llevar cifras, no necesita fuentes.
 
-`kind: demo` es un vídeo que recorre la propia web, pantalla a pantalla, para quien la va a probar
-(el primero, `videos/2026-10-08-my-hub-demo/`). Sus imágenes son fotografías de la web
-(`slides/shots/`), que una diapositiva enseña en una ventana y recorre con la voz (`theme/tour.css`
-y `theme/tour.js`). Se sacan con el `capture/` del propio vídeo, de un portal en este equipo con
-una cuenta de demostración y sin claves de modelos: **nunca de la cuenta de una persona, y sin
-gastar**. No lleva intro, cierre ni Short, no necesita fuentes y dura lo que dice `[demo]`. No es
-un episodio: lo comparte el usuario a mano y no se sube al canal salvo que él lo pida.
+## Una demo de la app no es un vídeo del canal
+
+Una demo de Market Hub (para enseñar el producto o guiar a quien lo va a probar) **no usa este
+formato**: ni presentador, ni diapositivas, ni inglés. Es una **grabación de pantalla de la propia
+app, narrada en español**, como alguien que comparte su pantalla, sin cortes: primero lo público
+y después My Hub. Lo decidió el usuario el 2026-10-08, al rechazar una primera demo hecha con
+diapositivas y el presentador ("no quiero que salga el monigote… que solo se vea la app").
+
+La que hay está en `videos/2026-10-08-my-hub-demo/` y es el ejemplo a seguir: `guion.md` (lo que
+dice la voz, tramo a tramo), `record.py` (lo que hace la pantalla en cada tramo: un Chrome de
+verdad con su puntero, grabado por tomas que se unen donde cambia la página) y `capture/seed.py`
+(las cuentas de demostración). Lo público se graba de la web desplegada; lo que pide sesión, de un
+portal en este equipo con el mismo código, **una cuenta de demostración (nunca la de una persona)
+y sin claves de modelos**, para no gastar. No pasa por `make check` ni por `make render`, y no se
+sube al canal: la comparte el usuario a mano.
 
 ## La voz
 

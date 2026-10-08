@@ -82,19 +82,6 @@ def test_a_trailer_is_short_and_needs_no_sources(video, channel):
     assert check.problems(video, replace(channel, trailer_seconds=(30, 90))) == ["the trailer runs 0:10; a trailer runs 0:30 to 1:30"]
 
 
-def test_a_demo_needs_no_sources_and_no_short_and_has_its_own_length(video, channel):
-    text = video.script.read_text(encoding="utf-8")
-    top, body = text.split("sources:")[0], text.split("---", 2)[2]
-    top = "".join(line for line in top.splitlines(keepends=True) if not line.startswith("short"))
-    video.script.write_text(top + "kind: demo\n---" + body, encoding="utf-8")
-    assert scripts.load(video.script).short == []
-    assert check.problems(video, replace(channel, demo_seconds=(5, 480))) == []
-    assert check.problems(video, replace(channel, demo_seconds=(120, 480))) == ["the demo runs 0:10; a demo runs 2:00 to 8:00"]
-    # A video that is not a demo still has to name its Short.
-    video.script.write_text(top + "kind: trailer\n---" + body, encoding="utf-8")
-    assert any("short:" in problem for problem in check.problems(video, replace(channel, trailer_seconds=(5, 90))))
-
-
 def test_a_series_must_be_one_of_the_channels(video, channel):
     text = video.script.read_text(encoding="utf-8")
     video.script.write_text(text.replace("tickers: aapl", "tickers: aapl\nseries: no-such-series\nepisode: 2"), encoding="utf-8")

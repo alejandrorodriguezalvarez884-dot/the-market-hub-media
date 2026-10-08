@@ -38,11 +38,6 @@ is a recommendation to buy, sell or hold anything."""
 [trailer]
 seconds = [30, 90]
 
-# A video that walks through the site itself, screen by screen, for the people who are going to
-# try it (kind: demo). Its pictures are the site's own screens; it has no Short unless it names one.
-[demo]
-seconds = [120, 480]
-
 # The series: each is a subject, a playlist on YouTube and a colour on every slide of its videos.
 # A script names its series with "series: <the name in brackets>".
 [series.money-101]
