@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Market Hub, the teaser</title>
+<!-- 1080 by 1920. Nothing is loaded from the network: the pages are the photographs of
+     `python reel.py shots`, the type is the system's. Every movement is an animation of the page,
+     so reel.py can stop them all and put them at the moment of each frame.
+
+     What Instagram lays over a reel (its header, and the caption and buttons at the bottom) is
+     kept clear: the words sit between 270 and 1500 pixels from the top. -->
+<style>
+  :root { --page: #0b0c0d; --panel: #101213; --line: #222528; --line-strong: #3a3e42; --ink: #c9c7c1; --strong: #f2f0ea;
+          --muted: #8c8b86; --up: #35c98f; --down: #ff6b57;
+          --sans: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--page); color: var(--strong); font-family: var(--sans); }
+  .scene { position: absolute; inset: 0; opacity: 0; perspective: 1700px; overflow: hidden; }
+  .glow { position: absolute; left: -200px; right: -200px; top: 500px; height: 1300px;
+          background: radial-gradient(closest-side, rgb(242 240 234 / 0.09), transparent); }
+
+  /* The logo, stretched across the frame: the bar, the line of zero, and the dot, which is how
+     far into the film this is. */
+  .rule { position: absolute; left: 64px; top: 228px; width: 952px; height: 2px; background: var(--line-strong); }
+  .rule::before { content: ""; position: absolute; left: 0; top: -13px; width: 3px; height: 28px; background: var(--strong); }
+  .rule i { position: absolute; left: 0; top: -8px; width: 18px; height: 18px; border-radius: 50%; background: var(--strong); }
+
+  .tag { position: absolute; left: 64px; top: 268px; font: 600 28px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .tag b { color: var(--strong); font-weight: 600; }
+  .head { position: absolute; left: 60px; top: 330px; width: 960px; font-weight: 700; font-size: 124px; line-height: 1.05; letter-spacing: -0.028em; }
+  .head .l { display: block; overflow: hidden; width: max-content; padding: 0 12px 10px 0; }
+  .head .l i { display: block; font-style: normal; }
+  .head .pop { overflow: visible; padding: 0; margin-top: 8px; }
+  .head .pop i { background: var(--strong); color: var(--page); padding: 0 24px 10px 18px; margin-left: -6px; }
+
+  .card { position: absolute; left: 60px; width: 960px; height: 1500px; border-radius: 40px; overflow: hidden; background: var(--page);
+          border: 2px solid var(--line-strong); box-shadow: 0 50px 140px rgb(0 0 0 / 0.75); transform-origin: 50% 25%; }
+  .card img { display: block; width: 960px; }
+  .card::after { content: ""; position: absolute; inset: 0; border-radius: 38px; box-shadow: inset 0 0 0 1px rgb(242 240 234 / 0.05); }
+
+  /* The opening: the logo, three lines, and Today's ruler behind them (left is down, right is up). */
+  .mark { position: absolute; }
+  .mark path { fill: none; stroke: var(--strong); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1; }
+  .mark circle { fill: var(--strong); transform-box: fill-box; transform-origin: center; }
+  .rows { position: absolute; left: 140px; top: 1110px; width: 800px; }
+  .rows div { position: relative; height: 62px; }
+  .rows div::before { content: ""; position: absolute; left: 0; right: 0; top: 30px; height: 2px; background: var(--line); }
+  .rows div::after { content: ""; position: absolute; left: 399px; top: 18px; width: 2px; height: 26px; background: var(--line-strong); }
+  .rows b { position: absolute; top: 29px; height: 4px; transform-origin: var(--from) 50%; }
+  .rows u { position: absolute; top: 22px; width: 18px; height: 18px; border-radius: 50%; margin-left: -9px; }
+
+  /* The close */
+  .close { text-align: center; }
+  .close .name { position: absolute; left: 0; right: 0; top: 590px; font-weight: 700; font-size: 164px; letter-spacing: -0.04em; line-height: 1; }
+  .close .say { position: absolute; left: 0; right: 0; top: 850px; font-weight: 600; font-size: 74px; line-height: 1.2; letter-spacing: -0.025em; color: var(--ink); }
+  .close .say span { display: block; }
+  .close .say span:last-child { color: var(--strong); }
+  .close .site { position: absolute; left: 0; right: 0; top: 1205px; }
+  .close .site i { display: inline-block; font: 600 66px/1 var(--mono); font-style: normal; letter-spacing: -0.02em; background: var(--strong); color: var(--page); padding: 30px 40px 34px; }
+  .close .note { position: absolute; left: 0; right: 0; top: 1395px; font: 500 32px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+</style>
+<body>
+<script src="timeline.js"></script>
+<script>
+const REEL = window.REEL, TOTAL = REEL.total, SHOT = 960 / 390;   // a page is 390 CSS pixels wide and its card 960
+const OUT = "cubic-bezier(0.16, 1, 0.3, 1)", IN = "cubic-bezier(0.7, 0, 0.84, 0)", BOTH = "cubic-bezier(0.45, 0, 0.1, 1)";
+const MARK = '<path pathLength="1" d="M10 6v20"/><path pathLength="1" d="M10 16h10"/><circle cx="22.5" cy="16" r="3.75"/>';
+
+const make = (parent, tag, cls, html) => { const el = document.createElement(tag); if (cls) el.className = cls; if (html != null) el.innerHTML = html; parent.appendChild(el); return el; };
+
+// One animation as long as the film: `keys` are [seconds, the styles then, how it eases to the next].
+// Before its first key an element is as at that key, and after its last, as at the last.
+const track = (el, keys) => {
+  const frames = keys.map(([t, styles, easing]) => ({ ...styles, offset: Math.min(1, Math.max(0, t / TOTAL)), easing: easing ?? "linear" }));
+  if (frames[0].offset > 0) frames.unshift({ ...frames[0], offset: 0, easing: "linear" });
+  if (frames.at(-1).offset < 1) frames.push({ ...frames.at(-1), offset: 1 });
+  el.animate(frames, { duration: TOTAL * 1000, fill: "both" });
+};
+const shown = (el, from, to) => track(el, [[0, { opacity: 0 }], [from - 0.0005, { opacity: 0 }], [from, { opacity: 1 }], [to - 0.0005, { opacity: 1 }], [to, { opacity: 0 }]]);
+const rise = (el, at, by = 0.32) => track(el, [[at, { transform: "translateY(112%)" }, OUT], [at + by, { transform: "translateY(0)" }]]);
+const wipe = (el, at, by = 0.2) => track(el, [[at, { clipPath: "inset(0 100% 0 0)" }, OUT], [at + by, { clipPath: "inset(0 0% 0 0)" }]]);
+const leave = (el, end) => track(el, [[end - 0.16, { opacity: 1, transform: "translateY(0)" }, IN], [end, { opacity: 0, transform: "translateY(-60px)" }]]);
+
+const mark = (scene, x, y, size, at) => {
+  const svg = make(scene, "div", "mark", `<svg width="${size}" height="${size}" viewBox="4 2 26 28">${MARK}</svg>`);
+  svg.style.cssText = `left:${x}px;top:${y}px`;
+  const [bar, line] = svg.querySelectorAll("path"), dot = svg.querySelector("circle");
+  track(bar, [[at, { strokeDashoffset: 1 }, OUT], [at + 0.25, { strokeDashoffset: 0 }]]);
+  track(line, [[at + 0.12, { strokeDashoffset: 1 }, OUT], [at + 0.4, { strokeDashoffset: 0 }]]);
+  track(dot, [[at + 0.3, { transform: "scale(0)" }, "cubic-bezier(0.34, 1.7, 0.64, 1)"], [at + 0.55, { transform: "scale(1)" }]]);
+  return svg;
+};
+
+// The words of a scene: a line every beat, the last one with the hit.
+const words = (scene, lines, at, end, size) => {
+  const head = make(scene, "div", "head");
+  if (size) head.style.fontSize = `${size}px`;
+  lines.forEach((text, n) => {
+    const last = n === lines.length - 1;
+    const line = make(head, "span", last ? "l pop" : "l"), inner = make(line, "i", "", text);
+    (last ? wipe : rise)(inner, at + 0.5 * n + (n ? 0 : 0.04));
+  });
+  // A line too long for the frame makes them all smaller.
+  const widest = Math.max(...[...head.children].map((line) => line.getBoundingClientRect().width));
+  if (widest > 960) head.style.fontSize = `${Math.floor(parseFloat(getComputedStyle(head).fontSize) * 960 / widest)}px`;
+  leave(head, end);
+  return head;
+};
+
+const images = [];
+REEL.scenes.forEach((s, n) => {
+  const scene = make(document.body, "div", `scene ${s.name}`);
+  shown(scene, s.at, s.end);
+
+  if (s.name === "open") {
+    mark(scene, 60, 300, 150, 0.02);
+    const head = words(scene, s.lines, s.at + 0.5, s.end, 150);
+    head.style.top = "478px";
+    // Today's ruler: a row is a market, and its dot is its day.
+    const rows = make(scene, "div", "rows");
+    [0.52, -0.31, 0.78, 0.2, -0.64, 0.41, -0.12, 0.9].forEach((move, k) => {
+      const row = make(rows, "div"), colour = move > 0 ? "var(--up)" : "var(--down)", long = Math.abs(move) * 390, at = 0.45 + 0.09 * k;
+      const bar = make(row, "b"), dot = make(row, "u");
+      bar.style.cssText = `left:${move > 0 ? 400 : 400 - long}px;width:${long}px;background:${colour};--from:${move > 0 ? "0%" : "100%"}`;
+      dot.style.cssText = `left:400px;background:${colour}`;
+      track(bar, [[at, { transform: "scaleX(0)" }, OUT], [at + 0.7, { transform: "scaleX(1)" }]]);
+      track(dot, [[at, { transform: "translateX(0)" }, OUT], [at + 0.7, { transform: `translateX(${move * 390}px)` }]]);
+    });
+    track(rows, [[0.4, { opacity: 0 }], [0.7, { opacity: 0.9 }], [s.end - 0.16, { opacity: 0.9 }, IN], [s.end, { opacity: 0 }]]);
+    return;
+  }
+
+  if (s.name === "close") {
+    scene.classList.add("close");
+    make(scene, "div", "glow").style.top = "150px";
+    mark(scene, 430, 330, 220, s.at + 0.02);
+    const name = make(scene, "div", "name", "Market Hub");
+    track(name, [[s.at + 0.25, { opacity: 0, transform: "translateY(50px) scale(0.94)" }, OUT], [s.at + 0.7, { opacity: 1, transform: "translateY(0) scale(1)" }]]);
+    const say = make(scene, "div", "say");
+    ["All the information.", "All the power.", "In your hands."].forEach((text, k) => {
+      const line = make(say, "span", "", text), at = s.at + 1 + 0.5 * k;
+      track(line, [[at, { opacity: 0, transform: "translateY(36px)" }, OUT], [at + 0.35, { opacity: 1, transform: "translateY(0)" }]]);
+    });
+    const site = make(scene, "div", "site", "<i>themarkethub.app</i>");
+    wipe(site.firstChild, s.at + 2.5, 0.25);
+    const note = make(scene, "div", "note", "Free · No investment advice");
+    track(note, [[s.at + 2.8, { opacity: 0 }, OUT], [s.at + 3.2, { opacity: 1 }]]);
+    return;
+  }
+
+  make(scene, "div", "glow");
+  const tag = make(scene, "div", "tag", `<b>${String(n).padStart(2, "0")}</b> / ${s.tag}`);
+  track(tag, [[s.at, { opacity: 0 }, OUT], [s.at + 0.25, { opacity: 1 }], [s.end - 0.16, { opacity: 1 }, IN], [s.end, { opacity: 0 }]]);
+  const head = words(scene, s.lines, s.at, s.end);
+
+  const card = make(scene, "div", "card"), img = make(card, "img");
+  img.src = `build/shots/${s.shot}.png`;
+  images.push(img.decode());
+  card.style.top = `${Math.round(head.offsetTop + head.offsetHeight + 64)}px`;
+  const lean = n % 2 ? -1 : 1;    // the cards lean one way and then the other
+  const pose = (y, x, turn, scale) => ({ transform: `translateY(${y}px) rotateX(${x}deg) rotateY(${turn * lean}deg) scale(${scale})` });
+  track(card, [[s.at, pose(1300, 22, 14, 0.9), OUT], [s.at + 0.55, pose(0, 7, 5, 1)], [s.end - 0.18, pose(-24, 2, 1.5, 1.02), IN], [s.end, pose(-1500, -10, -4, 1.02)]]);
+  track(img, s.scroll.map(([t, y], k) => [s.at + t, { transform: `translateY(${-y * SHOT}px)` }, k === s.scroll.length - 2 ? "linear" : BOTH]));
+});
+
+// The line of zero and its dot, over every scene but the last.
+const last = REEL.scenes.at(-1);
+const rule = make(document.body, "div", "rule", "<i></i>");
+rule.style.transformOrigin = "0 50%";
+track(rule, [[0.1, { opacity: 0, transform: "scaleX(0)" }, OUT], [0.6, { opacity: 1, transform: "scaleX(1)" }], [last.at - 0.16, { opacity: 1 }, IN], [last.at, { opacity: 0 }]]);
+track(rule.firstChild, [[0.3, { transform: "translateX(0)" }], [last.at, { transform: "translateX(934px)" }]]);
+
+window.slideSeconds = TOTAL;
+window.reelReady = Promise.all(images);
+</script>
+</body>
+</html>
