@@ -53,7 +53,8 @@ Reglas que no se negocian:
   **"Súbelo" vale para los dos** (decisión suya, 2026-10-13): pedir que un vídeo se suba es pedir
   YouTube y, después, el reel en Instagram; si nombra solo uno ("súbelo a YouTube"), va solo ese.
   El reel sale cuando el vídeo ya está en público en YouTube, porque su pie lleva esa dirección:
-  si YouTube lo dejó en privado, el reel espera y se le dice. El
+  si YouTube lo dejó en privado, el reel espera y se le dice. Un
+  story (`make story`, una imagen dibujada aquí en `stories/`) se publica igual: solo el que él pida. El
   token de Instagram lo genera y lo guarda él en `.secrets/`; no se le pide en el chat.
 - **No se gasta sin preguntar.** El único servicio de pago decidido es la voz (abajo). Cualquier
   otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.

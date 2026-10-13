@@ -112,6 +112,29 @@ def test_a_reel_whose_address_cannot_be_read_is_still_remembered(short):
     assert record["id"] == "reel" and record["url"] == "" and "no reel" in record["url_error"]
 
 
+def test_a_story_is_a_picture_with_no_caption_and_leaves_the_bucket(tmp_path):
+    picture = tmp_path / "story.jpg"
+    picture.write_bytes(b"x")
+    api, bucket = Api(reads=["FINISHED"]), Bucket()
+    record = instagram.story(picture, "a-bucket", key="k", call=api, park=bucket, wait=lambda seconds: None)
+    assert [path for _, path, _ in api.asked] == ["me", "178/media", "container", "178/media_publish"]
+    assert api.asked[1][2] == {"media_type": "STORIES", "image_url": "https://storage.example/a-bucket/x.mp4"}
+    assert record["id"] == "reel" and bucket.parked == [("story.jpg", "a-bucket")] and bucket.removed == 1
+
+
+def test_a_story_instagram_refuses_leaves_the_bucket_and_one_that_is_no_jpeg_is_not_sent(tmp_path):
+    picture = tmp_path / "story.jpg"
+    picture.write_bytes(b"x")
+    api, bucket = Api(fails={"media"}), Bucket()
+    with pytest.raises(RuntimeError, match="no media"):
+        instagram.story(picture, "a-bucket", key="k", call=api, park=bucket)
+    assert bucket.removed == 1
+    api = Api()
+    with pytest.raises(ValueError, match="not a JPEG"):
+        instagram.story(tmp_path / "story.png", "a-bucket", key="k", call=api, park=Bucket())
+    assert api.asked == []
+
+
 def test_nothing_is_sent_without_a_bucket(short):
     api = Api()
     with pytest.raises(ValueError, match="bucket"):

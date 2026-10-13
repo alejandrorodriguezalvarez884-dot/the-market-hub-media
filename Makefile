@@ -14,12 +14,13 @@
 #   make upload VIDEO=... [PRIVACY=public|unlisted|private]   upload the video and its Short
 #   make instagram VIDEO=...    publish the Short as a reel on Instagram
 #   make instagram CHECK=1      say which account the Instagram token is for, and publish nothing
+#   make story STORY=...        publish a picture (a page or a JPEG) as a story on Instagram (DRAW=1: only draw it)
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
@@ -69,3 +70,7 @@ upload: ## Upload VIDEO=... and its Short through the API (PRIVACY=private|unlis
 
 instagram: ## Publish the Short of VIDEO=... as a reel on Instagram (CHECK=1: only say whose the token is)
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) instagram $(VIDEO) $(if $(CHECK),--check)
+
+story: ## Publish STORY=... (a page drawn for 1080x1920, or a JPEG) as a story on Instagram (DRAW=1: only draw it)
+	@[ -n "$(STORY)" ] || { echo 'Which one? make story STORY=stories/<name>/story.html'; exit 1; }
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) story "$(STORY)" $(if $(DRAW),--draw)

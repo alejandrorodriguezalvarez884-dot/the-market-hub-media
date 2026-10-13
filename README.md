@@ -178,6 +178,11 @@ gcloud storage buckets create gs://<name> --location=us-central1 --uniform-bucke
 gcloud storage buckets add-iam-policy-binding gs://<name> --member=allUsers --role=roles/storage.legacyObjectReader
 ```
 
+`make story STORY=stories/<name>/story.html` publishes a picture as a story on the same account: a
+page drawn for 1080x1920 is photographed first into a JPEG beside it (`DRAW=1` stops there, to
+look at it), and a JPEG is sent as it is. It goes through the same bucket, has no caption and is
+seen for a day. The API cannot take a story down: that is done in the Instagram app.
+
 A Short is some tens of megabytes held for a few minutes: within Cloud Storage's free allowance
 in that region (Google's pricing page, October 2026), and cents if it were not.
 

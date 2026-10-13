@@ -12,6 +12,7 @@
     python -m marketmedia upload <video> [--privacy p]   upload the video and its Short through the API (channel.toml's privacy unless said)
     python -m marketmedia instagram <video>              publish the Short as a reel on Instagram
     python -m marketmedia instagram --check              say which account the Instagram token is for, and publish nothing
+    python -m marketmedia story <page.html|picture.jpg>  publish a picture as a story on Instagram (--draw: only draw it)
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -20,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 
 from . import channel as channels
 from . import check, frames, instagram, render, videos, voice, youtube
@@ -218,6 +220,21 @@ def _instagram(args, channel) -> int:
     return 0
 
 
+def _story(args, channel) -> int:
+    """A picture, as a story on the channel's Instagram account. A page is photographed first,
+    into a JPEG beside it; with --draw that is all, and nothing is published."""
+    source = Path(args.story)
+    if not source.is_file():
+        raise FileNotFoundError(f"there is no {source}")
+    picture = instagram.draw(source) if source.suffix.lower() in (".html", ".htm") else source
+    if args.draw:
+        print(picture)
+        return 0
+    part = instagram.story(picture, channel.instagram_bucket)
+    print(f"Story: {part['id']} on @{channel.instagram_handle}, for a day")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="marketmedia", description="The Market Hub's YouTube channel.")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -245,9 +262,13 @@ def main(argv: list[str] | None = None) -> int:
     reel.add_argument("video", nargs="?")
     reel.add_argument("--check", action="store_true", help="say which account the token is for, and publish nothing")
     reel.add_argument("--again", action="store_true")
+    telling = commands.add_parser("story")
+    telling.add_argument("story")
+    telling.add_argument("--draw", action="store_true", help="draw the page's picture, and publish nothing")
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
-           "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram}[args.command]
+           "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
+           "story": _story}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid) as exc:

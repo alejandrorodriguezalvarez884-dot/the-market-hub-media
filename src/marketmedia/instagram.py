@@ -1,4 +1,4 @@
-"""The Short on Instagram, as a reel on the channel's account.
+"""The Short on Instagram, as a reel on the channel's account; and a picture, as a story.
 
 Through the Instagram API with Instagram Login (graph.instagram.com). The account's owner makes
 a Meta app once, generates a token for the account in the app's dashboard and saves it in
@@ -10,12 +10,14 @@ app that publishes on its owner's own account needs no review by Meta
 Instagram does not take a file from this API: it fetches the film from an address anybody can
 reach (https://developers.facebook.com/docs/instagram-platform/content-publishing). So the film
 is parked in a Google Cloud Storage bucket of the owner's project for the minutes the publishing
-takes, under a name nobody can guess, and taken away afterwards.
+takes, under a name nobody can guess, and taken away afterwards. A story's picture goes the same
+way.
 """
 
 from __future__ import annotations
 
 import json
+import mimetypes
 import os
 import re
 import secrets
@@ -35,6 +37,8 @@ CAPTION_MAX = 2200     # Instagram's own limit
 HASHTAGS = 5           # of a script's tags: Instagram reads a few, and takes thirty at most
 RENEW_DAYS = 7         # a token older than this is renewed before it is used
 EVERY, TRIES = 15, 40  # how often Instagram is asked whether it has read the film, and how many times
+STORY = {"width": 1080, "height": 1920}  # a story fills an upright phone
+STORY_BYTES = 8_000_000                   # Instagram takes a JPEG of up to 8 MB
 
 Call = Callable[..., dict]
 Park = Callable[[Path, str], tuple[str, Callable[[], None]]]
@@ -127,7 +131,8 @@ def park(film: Path, bucket: str) -> tuple[str, Callable[[], None]]:
     name = f"{secrets.token_urlsafe(24)}{film.suffix}"
     # no-store: Google would otherwise keep serving a public file for an hour after it is taken away
     sent = session.put(f"https://storage.googleapis.com/{bucket}/{name}", data=film.read_bytes(),
-                       headers={"Content-Type": "video/mp4", "Cache-Control": "no-store"}, timeout=600)
+                       headers={"Content-Type": mimetypes.guess_type(film.name)[0] or "video/mp4", "Cache-Control": "no-store"},
+                       timeout=600)
     if sent.status_code != 200:
         raise RuntimeError(f"the bucket {bucket} answered {sent.status_code}: {sent.text[:200]}")
 
@@ -146,6 +151,29 @@ def park(film: Path, bucket: str) -> tuple[str, Callable[[], None]]:
     return address, remove
 
 
+def _post(me: str, key: str, call: Call, wait: Callable[[float], None], **what) -> str:
+    """Hand Instagram a film or a picture by its address, wait until it has read it whole, and
+    publish it. Returns the id of what was published."""
+    container = call("POST", f"{me}/media", key, **what)["id"]
+    for _ in range(TRIES):
+        state = call("GET", container, key, fields="status_code,status")
+        if state.get("status_code") == "FINISHED":
+            break
+        if state.get("status_code") in ("ERROR", "EXPIRED"):
+            raise RuntimeError(f"Instagram could not take the film: {state.get('status') or state['status_code']}")
+        wait(EVERY)
+    else:
+        raise RuntimeError(f"Instagram was still reading the film after {EVERY * TRIES // 60} minutes: nothing was published")
+    return call("POST", f"{me}/media_publish", key, creation_id=container)["id"]
+
+
+def _clear(remove: Callable[[], None], bucket: str, log: Callable[[str], None]) -> None:
+    try:
+        remove()
+    except Exception as exc:  # noqa: BLE001 - what was published matters more: say the file is still there
+        log(f"  the film is still in the bucket {bucket}: {type(exc).__name__}: {exc}")
+
+
 def publish(film: Path, words: str, bucket: str, *, cover_ms: int = 0, key: str | None = None, call: Call = _call,
             park: Park = park, wait: Callable[[float], None] = time.sleep, log: Callable[[str], None] = print) -> dict:
     """Publish a film as a reel, with ``words`` under it and the frame at ``cover_ms`` as its
@@ -157,23 +185,10 @@ def publish(film: Path, words: str, bucket: str, *, cover_ms: int = 0, key: str 
     me = account(key, call)["user_id"]
     address, remove = park(film, bucket)
     try:
-        container = call("POST", f"{me}/media", key, media_type="REELS", video_url=address, caption=words,
-                         share_to_feed=True, thumb_offset=cover_ms)["id"]
-        for _ in range(TRIES):
-            state = call("GET", container, key, fields="status_code,status")
-            if state.get("status_code") == "FINISHED":
-                break
-            if state.get("status_code") in ("ERROR", "EXPIRED"):
-                raise RuntimeError(f"Instagram could not take the film: {state.get('status') or state['status_code']}")
-            wait(EVERY)
-        else:
-            raise RuntimeError(f"Instagram was still reading the film after {EVERY * TRIES // 60} minutes: nothing was published")
-        media = call("POST", f"{me}/media_publish", key, creation_id=container)["id"]
+        media = _post(me, key, call, wait, media_type="REELS", video_url=address, caption=words,
+                      share_to_feed=True, thumb_offset=cover_ms)
     finally:
-        try:
-            remove()
-        except Exception as exc:  # noqa: BLE001 - the reel matters more: say the film is still there
-            log(f"  the film is still in the bucket {bucket}: {type(exc).__name__}: {exc}")
+        _clear(remove, bucket, log)
     record = {"id": media, "url": "", "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     try:
         where = call("GET", media, key, fields="permalink,shortcode")
@@ -181,3 +196,42 @@ def publish(film: Path, words: str, bucket: str, *, cover_ms: int = 0, key: str 
     except RuntimeError as exc:  # the reel is up: do not lose the record for want of its address
         record["url_error"] = str(exc)
     return record
+
+
+def draw(page: Path) -> Path:
+    """Photograph a story's page (HTML, drawn for 1080x1920) with the Chrome on this machine, as
+    the JPEG Instagram takes, beside it."""
+    from playwright.sync_api import sync_playwright
+    target = page.with_suffix(".jpg")
+    with sync_playwright() as p:
+        browser = p.chromium.launch(channel=os.environ.get("MEDIA_BROWSER", "chrome"), headless=True)
+        try:
+            tab = browser.new_page(viewport=STORY, device_scale_factor=1)
+            tab.goto(page.resolve().as_uri())
+            tab.evaluate("async () => { await document.fonts?.ready; }")
+            for quality in (95, 90, 80):
+                picture = tab.screenshot(type="jpeg", quality=quality)
+                if len(picture) <= STORY_BYTES:
+                    break
+            target.write_bytes(picture)
+        finally:
+            browser.close()
+    return target
+
+
+def story(picture: Path, bucket: str, *, key: str | None = None, call: Call = _call, park: Park = park,
+          wait: Callable[[float], None] = time.sleep, log: Callable[[str], None] = print) -> dict:
+    """Publish a picture as a story: it is seen for a day and has no caption. Returns what to
+    remember of it. The picture leaves the bucket either way."""
+    if picture.suffix.lower() not in (".jpg", ".jpeg"):
+        raise ValueError(f"{picture.name} is not a JPEG, and that is what Instagram takes for a story")
+    if not bucket:
+        raise ValueError("channel.toml names no bucket ([instagram] bucket), and Instagram has to fetch the picture from one")
+    key = key or token(call)
+    me = account(key, call)["user_id"]
+    address, remove = park(picture, bucket)
+    try:
+        media = _post(me, key, call, wait, media_type="STORIES", image_url=address)
+    finally:
+        _clear(remove, bucket, log)
+    return {"id": media, "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
