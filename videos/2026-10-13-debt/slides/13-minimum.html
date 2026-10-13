@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- How most cards work out the minimum: the month's interest plus 1 percent of what is owed. The first bill is 85 dollars: 55 of interest and 30 off the debt. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .parts { display: flex; align-items: center; gap: 1.2vw; max-width: none; font-size: 2.7vw; font-weight: 800; letter-spacing: -0.02em; color: var(--ink-strong); }
+  .parts span { padding: 0.3em 0.7em; border: 0.22vw solid var(--line-strong); border-radius: 0.5em; white-space: nowrap; }
+  .parts i { font-style: normal; color: var(--muted); }
+  .bill { max-width: none; font-size: 3.4vw; font-weight: 800; letter-spacing: -0.03em; color: var(--ink-strong); }
+  .bill b { display: inline-block; font-size: 1.7em; letter-spacing: -0.045em; color: var(--pop); }
+  .split { display: flex; gap: 0.5vw; }
+  .split p { max-width: none; padding: 2.2vh 1.4vw; border-radius: 1vw; color: var(--on-accent); font-size: 2.2vw; font-weight: 700; white-space: nowrap; }
+  .split b { font-size: 1.5em; font-weight: 800; letter-spacing: -0.03em; }
+</style>
+</head>
+<body class="tone-forest">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<main class="slide room">
+<p class="kicker in">How most cards work out the minimum</p>
+  <p class="parts"><span class="in" data-say="interest">This month's interest</span><i class="in" data-say="plus">+</i><span class="in" data-say="one">1% of what you owe</span></p>
+  <p class="bill in" data-say="first">The first bill: <b class="pop" data-say="eighty-five">$85</b></p>
+  <div class="split">
+    <p class="wide" data-say="fifty-five" style="flex: 55; background: var(--sun)"><b>$55</b> interest</p>
+    <p class="wide" data-say="thirty" style="flex: 30; background: var(--mint)"><b>$30</b> off the debt</p>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">The rule: CFPB, The Consumer Credit Card Market (Dec 2025); most common floor, $40. Our arithmetic</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

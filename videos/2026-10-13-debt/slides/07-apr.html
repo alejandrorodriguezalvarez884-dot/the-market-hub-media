@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- The rent comes as one number, the annual percentage rate: a year of borrowing per hundred owed, interest and fees in one figure. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .letters { display: flex; gap: 2vw; }
+  .letters p { display: flex; flex-direction: column; align-items: center; gap: 1vh; max-width: none; }
+  .letters b { display: grid; place-items: center; width: 11vw; height: 11vw; border-radius: 1.6vw; background: var(--pop); color: var(--on-accent); font-size: 8vw; font-weight: 800; letter-spacing: -0.04em; }
+  .letters span { font-family: var(--mono); font-size: 1.3vw; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .parts { display: flex; align-items: center; gap: 1.2vw; max-width: none; font-size: 2.4vw; font-weight: 800; letter-spacing: -0.02em; color: var(--ink-strong); }
+  .parts span { padding: 0.3em 0.7em; border: 0.22vw solid var(--line-strong); border-radius: 0.5em; }
+  .parts .one { border-color: var(--sun); background: var(--sun); color: var(--on-accent); }
+  .parts i { font-style: normal; color: var(--muted); }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<main class="slide room">
+<p class="kicker in">The rent, as one number</p>
+  <div class="letters">
+    <p class="pop" data-say="annual"><b>A</b><span>Annual</span></p>
+    <p class="pop" data-say="percentage"><b>P</b><span>Percentage</span></p>
+    <p class="pop" data-say="rate"><b>R</b><span>Rate</span></p>
+  </div>
+  <p class="lead in" data-say="year">A year of borrowing, per <span class="hl" data-say="hundred">$100</span> owed.</p>
+  <p class="parts"><span class="in" data-say="interest">Interest</span><i class="in" data-say="fees">+</i><span class="in" data-say="fees">Fees</span><i class="in" data-say="rolled">=</i><span class="one in" data-say="rolled">One figure</span></p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Sources: Consumer Financial Protection Bureau; Your Europe (European Union)</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

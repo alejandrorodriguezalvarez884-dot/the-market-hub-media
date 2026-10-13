@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- The card charges 22 percent a year, about the United States' average. One year, three, five? -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .rate { display: flex; align-items: flex-end; gap: 2.4vw; }
+  .rate .figure-label { padding-bottom: 1.6vh; font-size: 2.4vw; line-height: 1.2; }
+  .choices { display: flex; gap: 2vw; max-width: none; }
+  .choices span { padding: 0.1em 0.5em; border: 0.3vw solid var(--pop); border-radius: 0.4em; font-size: 4.2vw; font-weight: 800; letter-spacing: -0.03em; color: var(--ink-strong); white-space: nowrap; }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; gap: 1.4vh; }
+    .rate { flex-direction: column; align-items: flex-start; gap: 0.4vh; }
+    .rate .figure { font-size: 20vw; }
+    .rate .figure-label { font-size: 4.4vw; padding-bottom: 0; }
+    .choices { gap: 3vw; }
+    .choices span { font-size: 7.4vw; border-width: 0.6vw; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<main class="slide room">
+<p class="kicker in">The card charges</p>
+  <div class="rate">
+    <p class="figure pop" data-say="twenty-two">22%</p>
+    <p class="figure-label in" data-say="year">a year<br><span class="in" data-say="average">about the U.S. average</span></p>
+  </div>
+  <p class="lead in" data-say="guess">Take a guess.</p>
+  <p class="choices"><span class="pop" data-say="one">1 year?</span><span class="pop" data-say="three">3?</span><span class="pop" data-say="five">5?</span></p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: Federal Reserve, G.19, Aug 2026: 22.36%</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

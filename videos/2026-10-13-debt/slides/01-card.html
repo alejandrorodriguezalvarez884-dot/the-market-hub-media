@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- The riddle: three thousand dollars on a card, the card put away, and the minimum paid every month. How long until nothing is owed? -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .scene { display: block; overflow: visible; width: 36vw; }
+  .scene .tick { font-family: var(--mono); font-weight: 700; letter-spacing: 0.08em; }
+  .away { animation: away 0.6s ease both; animation-delay: var(--at, 0s); }
+  @keyframes away { to { opacity: 0.45; transform: translateY(14px); } }
+  .lead { max-width: none; }
+  @media (orientation: portrait) {
+    .scene { width: 52vw; }
+    h2 { font-size: 6.4vw; }
+    .lead { font-size: 5vw; }
+    .stage > .slide { gap: 1.2vh; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<div class="stage">
+<main class="slide">
+<svg class="scene" viewBox="0 0 520 250">
+      <g class="away" data-say="away"><g class="pop" transform="translate(6 34)"><rect x="4" y="4" width="292" height="184" rx="20" fill="var(--violet)" stroke="rgba(15,12,46,0.4)" stroke-width="5"/><rect x="4" y="40" width="292" height="34" fill="rgba(15,12,46,0.55)"/><rect x="30" y="96" width="52" height="38" rx="8" fill="var(--sun)" stroke="rgba(15,12,46,0.4)" stroke-width="3"/><g fill="rgba(255,255,255,0.75)"><rect x="30" y="152" width="46" height="10" rx="5"/><rect x="88" y="152" width="46" height="10" rx="5"/><rect x="146" y="152" width="46" height="10" rx="5"/><rect x="204" y="152" width="46" height="10" rx="5"/></g></g></g>
+      <g class="pop" data-say="three"><rect x="150" y="2" width="180" height="62" rx="14" fill="var(--pop)"/><text x="240" y="47" font-size="40" text-anchor="middle" style="fill: var(--on-accent)">$3,000</text></g>
+      <g class="pop" data-say="bill"><rect x="346" y="40" width="166" height="204" rx="12" fill="var(--snow)"/><path d="M366 74 H470 M366 100 H450 M366 126 H476" stroke="rgba(15,12,46,0.3)" stroke-width="9" stroke-linecap="round"/><text class="tick" x="366" y="172" font-size="17" style="fill: #3a3566">MINIMUM DUE</text></g>
+      <g class="pop" data-say="minimum"><rect x="360" y="184" width="138" height="46" rx="10" fill="var(--coral)"/><text x="429" y="217" font-size="26" text-anchor="middle" style="fill: var(--on-accent)">PAY THIS</text></g>
+    </svg>
+    <h2 class="in" data-say="every">Pay the <span class="hl" data-say="minimum">minimum</span>. Every month.</h2>
+    <p class="lead in" data-say="how long">How long until you owe <span class="mark">nothing?</span></p>
+</main>
+<div class="presenter" data-cues="0:open away:rest bill:point minimum:one how_long:shrug"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

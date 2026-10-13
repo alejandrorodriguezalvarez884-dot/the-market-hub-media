@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- The thumbnail: the episode's name, the card and the eleven years, and the presenter. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  body.thumbnail { padding-bottom: 0; }
+  body.thumbnail h1 { font-size: 13vw; max-width: none; }
+  .plastic { display: block; width: 15vw; overflow: visible; }
+  .row { align-items: center; gap: 2.4vw; }
+  .row > * { flex: none; }
+  .lead { font-size: 6.2vw; font-weight: 800; letter-spacing: -0.04em; white-space: nowrap; color: var(--pop); }
+</style>
+</head>
+<body class="thumbnail tone-ember">
+<div class="stage">
+  <main class="slide">
+    <span class="chip solid" style="align-self: flex-start" data-series>Money 101</span>
+    <h1><span class="mark">Debt</span></h1>
+    <div class="row"><svg class="plastic" viewBox="0 0 300 192"><rect x="4" y="4" width="292" height="184" rx="20" fill="var(--violet)" stroke="rgba(15,12,46,0.4)" stroke-width="5"/><rect x="4" y="40" width="292" height="34" fill="rgba(15,12,46,0.55)"/><rect x="30" y="96" width="52" height="38" rx="8" fill="var(--sun)" stroke="rgba(15,12,46,0.4)" stroke-width="3"/><g fill="rgba(255,255,255,0.75)"><rect x="30" y="152" width="46" height="10" rx="5"/><rect x="88" y="152" width="46" height="10" rx="5"/><rect x="146" y="152" width="46" height="10" rx="5"/><rect x="204" y="152" width="46" height="10" rx="5"/></g></svg><p class="lead">11 years</p></div>
+  </main>
+  <div class="presenter" data-cues="-2:one"></div>
+</div>
+<script src="../../theme/presenter.js"></script>
+<script src="../../theme/slide.js"></script>
+</body>
+</html>

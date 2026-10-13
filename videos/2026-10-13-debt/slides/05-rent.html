@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- What a debt costs is the price of the time: a debt is rented money, and interest is the rent. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .lead s { text-decoration-thickness: 0.12em; text-decoration-color: var(--pop); }
+  .time { display: flex; align-items: center; gap: 2vw; }
+  .clock { flex: none; width: 7vw; height: 7vw; }
+  .time h2 { max-width: none; }
+  .pairs { gap: 2vw; }
+  .pairs .card { display: flex; flex-direction: column; gap: 1vh; }
+  .word { max-width: none; font-size: 3.6vw; line-height: 1.05; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong); white-space: nowrap; }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; gap: 2vh; }
+    .lead { font-size: 5.4vw; }
+    .clock { width: 14vw; height: 14vw; }
+    .time h2 { font-size: 7.4vw; }
+    .pairs { gap: 1.4vh; }
+    .pairs .card { padding: 1.4vh 4vw; gap: 0.4vh; }
+    .word { font-size: 8vw; }
+  }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<main class="slide room">
+<p class="lead muted in" data-say="not">Not the price of <s>the thing</s>.</p>
+  <div class="time">
+    <svg class="clock pop" data-say="time" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="var(--snow)" stroke="var(--pop)" stroke-width="9"/><path d="M60 60 V26 M60 60 L84 72" stroke="var(--on-accent)" stroke-width="9" stroke-linecap="round"/><circle cx="60" cy="60" r="7" fill="var(--on-accent)"/></svg>
+    <h2 class="in" data-say="price#2">The price of the <span class="hl" data-say="time">time</span>.</h2>
+  </div>
+  <div class="row pairs">
+    <div class="card in" data-say="rented"><p class="kicker">A debt</p><p class="word">Rented money</p></div>
+    <div class="card in" data-say="interest"><p class="kicker">Interest</p><p class="word">The rent</p></div>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

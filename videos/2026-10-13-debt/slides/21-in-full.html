@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- On most cards, a balance paid whole by the due date pays no interest on purchases: the tap never opens. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .pour { transform-box: fill-box; transform-origin: top; animation: pour 0.5s ease-in both; animation-delay: var(--at, 0s); }
+  @keyframes pour { from { transform: scaleY(0); } }
+  .lead { max-width: none; }
+  .slide { gap: 1.6vh; }
+  .empty { transform-box: fill-box; transform-origin: bottom; animation: empty 1.4s ease-in-out both; animation-delay: var(--at, 0s); }
+  @keyframes empty { to { transform: scaleY(0); } }
+  .slide { padding-top: 2.4vh; }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<main class="slide room">
+<p class="kicker in">On most cards &middot; the whole balance, by the due date, every month</p>
+  <svg class="art" viewBox="0 0 1000 440">
+    <defs><clipPath id="inside"><path d="M200 148 L238 362 Q240 372 250 372 L750 372 Q760 372 762 362 L800 148 Z"/></clipPath></defs><path d="M290 380 L276 414 M710 380 L724 414" stroke="var(--line-strong)" stroke-width="12" stroke-linecap="round"/><path d="M190 140 L230 360 Q232 380 252 380 L748 380 Q768 380 770 360 L810 140 Z" fill="rgba(255,255,255,0.1)"/><g clip-path="url(#inside)"><g class="empty" data-say="whole"><rect x="190" y="190" width="620" height="182" fill="var(--sky)"/><rect x="190" y="190" width="620" height="12" fill="#bfe9ff"/></g></g><path d="M190 140 L230 360 Q232 380 252 380 L748 380 Q768 380 770 360 L810 140" fill="none" stroke="var(--snow)" stroke-width="9" stroke-linejoin="round"/><path d="M166 140 H834" stroke="var(--snow)" stroke-width="16" stroke-linecap="round"/>
+    <rect x="948" y="14" width="18" height="62" rx="6" fill="var(--snow)"/><path d="M952 44 L716 44 Q700 44 700 60 L700 84" fill="none" stroke="var(--snow)" stroke-width="18" stroke-linecap="round"/><rect x="842" y="14" width="20" height="22" fill="var(--snow)"/><path d="M822 12 H882" stroke="var(--sun)" stroke-width="12" stroke-linecap="round"/><g class="pop" data-say="never"><circle cx="700" cy="106" r="24" fill="var(--coral)"/><path d="M689 95 L711 117 M711 95 L689 117" stroke="var(--on-accent)" stroke-width="7" stroke-linecap="round"/></g>
+    <g class="pop" data-say="no"><rect x="318" y="214" width="364" height="96" rx="18" fill="var(--mint)"/><text x="500" y="279" font-size="54" text-anchor="middle" style="fill: var(--on-accent)">$0 interest</text></g>
+    <text class="tick in" data-say="bought" x="500" y="346" font-size="24" text-anchor="middle">ON WHAT YOU BOUGHT</text>
+  </svg>
+  <p class="lead in" data-say="tap">The tap <span class="hl" data-say="never">never opens</span>.</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: Consumer Financial Protection Bureau. On most cards</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

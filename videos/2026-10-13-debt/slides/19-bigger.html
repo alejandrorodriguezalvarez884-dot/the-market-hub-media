@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- At 150 dollars a month the same debt is paid off in just over two years, with under 800 dollars of interest. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .pay { max-width: none; font-size: 6.4vw; line-height: 1; font-weight: 800; letter-spacing: -0.045em; color: var(--ink-strong); white-space: nowrap; }
+  .pay small { font-size: 0.42em; font-weight: 700; letter-spacing: -0.02em; color: var(--muted); }
+  .facts { display: flex; gap: 2vw; }
+  .facts .card { flex: none; display: flex; flex-direction: column; gap: 0.8vh; min-width: 22vw; }
+  .facts b { font-size: 3.6vw; line-height: 1.05; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong); white-space: nowrap; }
+  .hbars { gap: 1.2vh; }
+  .hbar i { height: 3.4vh; }
+  .hbar b { font-size: 2vw; }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<main class="slide room">
+<p class="kicker in">Same debt &middot; same 22% &middot; a bigger bucket</p>
+  <p class="pay pop" data-say="hundred">$150 <small>every month</small></p>
+  <div class="facts">
+    <div class="card in" data-say="two"><p class="kicker">Paid off in</p><b>just over 2 years</b></div>
+    <div class="card in" data-say="eight"><p class="kicker">Interest</p><b>under $800</b></div>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Our arithmetic: $3,000 at 22% a year, $150 every month: 26 months, $771 of interest</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- After five years and sixty payments, more than half is still owed: 1,641 of the 3,000 dollars. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .pour { transform-box: fill-box; transform-origin: top; animation: pour 0.5s ease-in both; animation-delay: var(--at, 0s); }
+  @keyframes pour { from { transform: scaleY(0); } }
+  .lead { max-width: none; }
+  .slide { gap: 1.6vh; }
+  .sink { transform-box: fill-box; transform-origin: bottom; animation: sink 2.2s ease-in-out both; animation-delay: var(--at, 0s); }
+  @keyframes sink { to { transform: scaleY(0.547); } }
+</style>
+</head>
+<body class="tone-forest">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<main class="slide room">
+<svg class="art" viewBox="0 0 1000 440">
+    <defs><clipPath id="inside"><path d="M200 148 L238 362 Q240 372 250 372 L750 372 Q760 372 762 362 L800 148 Z"/></clipPath></defs><path d="M290 380 L276 414 M710 380 L724 414" stroke="var(--line-strong)" stroke-width="12" stroke-linecap="round"/><path d="M190 140 L230 360 Q232 380 252 380 L748 380 Q768 380 770 360 L810 140 Z" fill="rgba(255,255,255,0.1)"/><g clip-path="url(#inside)"><g class="sink" data-say="five"><rect x="190" y="190" width="620" height="182" fill="var(--sky)"/><rect x="190" y="190" width="620" height="12" fill="#bfe9ff"/></g></g><path d="M190 140 L230 360 Q232 380 252 380 L748 380 Q768 380 770 360 L810 140" fill="none" stroke="var(--snow)" stroke-width="9" stroke-linejoin="round"/><path d="M166 140 H834" stroke="var(--snow)" stroke-width="16" stroke-linecap="round"/>
+    <path d="M150 190 H850" stroke="var(--sun)" stroke-width="5" stroke-dasharray="14 12"/>
+    <text x="864" y="182" font-size="28" style="fill: var(--sun)">START</text><text x="864" y="214" font-size="28" style="fill: var(--sun)">$3,000</text>
+    <g class="pop" data-say="sixteen"><rect x="330" y="282" width="340" height="76" rx="16" fill="var(--on-accent)"/><text x="500" y="335" font-size="42" text-anchor="middle">$1,641 owed</text></g>
+    <g class="pop" data-say="sixty"><text class="tick" x="150" y="60" font-size="26">5 YEARS</text><text class="tick" x="150" y="96" font-size="26">60 PAYMENTS</text></g>
+  </svg>
+  <p class="lead in" data-say="more"><span class="hl" data-say="more">More than half</span> is still there.</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Our arithmetic: $3,000 at 22% a year, paying only the minimum</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

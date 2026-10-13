@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- At 22 percent, a hundred owed for a year costs 22, and three thousand costs 660, every year it stays owed. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .costs { display: flex; flex-direction: column; gap: 2.6vh; }
+  .cost { display: flex; align-items: center; gap: 1.6vw; max-width: none; font-size: 4.2vw; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong); white-space: nowrap; }
+  .cost span { padding: 0.18em 0.5em; border: 0.26vw solid var(--line-strong); border-radius: 0.4em; }
+  .cost i { font-style: normal; font-size: 2.4vw; font-weight: 600; color: var(--muted); }
+  .cost b { padding: 0.18em 0.5em; border-radius: 0.4em; background: var(--pop); color: var(--on-accent); font-weight: 800; }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 03</span></header>
+<main class="slide room">
+<p class="kicker in">At 22% a year</p>
+  <div class="costs">
+    <p class="cost in" data-say="hundred"><span>$100 owed</span><i>costs</i><b class="pop" data-say="twenty-two#2">$22 a year</b></p>
+    <p class="cost in" data-say="three"><span>$3,000 owed</span><i>costs</i><b class="pop" data-say="six">$660 a year</b></p>
+  </div>
+  <p class="lead in" data-say="every">Every year it <span class="hl" data-say="stays">stays there</span>.</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Our arithmetic. 22% is an example, near the U.S. average for cards</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>
