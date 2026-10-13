@@ -188,8 +188,7 @@ seen for a day. The API cannot take a story down: that is done in the Instagram 
 picture, an album): it reads the account's latest posts and leaves a card for each, with its
 cover, in the portal's Firestore (`src/marketmedia/posts.py`; `TO=<folder>` for a portal on this
 machine). The portal holds no token and asks Instagram nothing. `make instagram` runs it after a
-reel goes up, and the workspace's daily maintenance runs it too, for what was posted from the
-phone. Instagram's API gives a reel's first frame and never its cover, so the cover is taken from
+reel goes up; after a post made any other way (from the phone), it is run by hand. Instagram's API gives a reel's first frame and never its cover, so the cover is taken from
 the film at the moment recorded when the reel was published (`cover_ms` in its `published.json`;
 `channel/instagram-covers.json` for a reel with no folder).
 
