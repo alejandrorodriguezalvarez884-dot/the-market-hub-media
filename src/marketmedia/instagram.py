@@ -125,9 +125,9 @@ def park(film: Path, bucket: str) -> tuple[str, Callable[[], None]]:
                                          quota_project_id=os.environ.get("GOOGLE_CLOUD_PROJECT") or None)
     session = AuthorizedSession(credentials)
     name = f"{secrets.token_urlsafe(24)}{film.suffix}"
-    sent = session.post(f"https://storage.googleapis.com/upload/storage/v1/b/{bucket}/o",
-                        params={"uploadType": "media", "name": name}, data=film.read_bytes(),
-                        headers={"Content-Type": "video/mp4"}, timeout=600)
+    # no-store: Google would otherwise keep serving a public file for an hour after it is taken away
+    sent = session.put(f"https://storage.googleapis.com/{bucket}/{name}", data=film.read_bytes(),
+                       headers={"Content-Type": "video/mp4", "Cache-Control": "no-store"}, timeout=600)
     if sent.status_code != 200:
         raise RuntimeError(f"the bucket {bucket} answered {sent.status_code}: {sent.text[:200]}")
 
