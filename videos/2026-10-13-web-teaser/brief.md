@@ -72,21 +72,10 @@ saturar (pico 0,89), los golpes en los cortes, y unos 7 dB menos de energía por
 que en total. Si no convence, la imagen no depende de él: se cambia `sound.js`, o se sube el reel
 desde el móvil con un audio de la biblioteca de Instagram.
 
-## Para publicarlo
+## Publicado
 
-No está publicado: lo decide el usuario. Cuando lo pida, va con `marketmedia.instagram.publish`
-(como el primer post de la cuenta), con `cover_ms=2200` para la carátula y este pie, o el que él
-quiera:
-
-> The whole market, on one page.
->
-> Today's moves on one scale. Every market. Any US-listed company and its numbers. The news,
-> sorted. Opinion that argues. A private page for your own portfolio, and AI tools that read the
-> reports.
->
-> Free at themarkethub.app
->
-> Market Hub describes. It never tells you what to buy or sell, and nothing here is investment
-> advice. The portfolio in the video is a demo account.
->
-> #stockmarket #investing #stocks #finance #markets
+El usuario lo pidió el 2026-10-13 ("súbelo a Instagram"): es un reel en la cuenta
+`the_market_hub_app`, https://www.instagram.com/reel/DecgX7djfrr/ (`instagram.json`; no se llama `published.json` porque `make check` lo tomaría por un vídeo del canal sin guion), subido con
+`marketmedia.instagram.publish` (como el primer post de la cuenta), con la carátula en el
+fotograma de los 2,2 segundos y el pie de `caption.txt`. No está en YouTube ni en la página
+Media del portal, que lista los Shorts del canal.
