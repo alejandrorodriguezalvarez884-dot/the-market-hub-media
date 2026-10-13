@@ -189,7 +189,8 @@ def publish(film: Path, words: str, bucket: str, *, cover_ms: int = 0, key: str 
                       share_to_feed=True, thumb_offset=cover_ms)
     finally:
         _clear(remove, bucket, log)
-    record = {"id": media, "url": "", "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    # cover_ms is kept: Instagram's API gives a reel's first frame, never its cover (posts.py).
+    record = {"id": media, "url": "", "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "cover_ms": cover_ms}
     try:
         where = call("GET", media, key, fields="permalink,shortcode")
         record.update(url=where.get("permalink", ""), code=where.get("shortcode", ""))

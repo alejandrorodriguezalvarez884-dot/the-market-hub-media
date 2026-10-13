@@ -55,6 +55,7 @@ make render VIDEO=buy-back    # the frames, the video, the Short and their capti
 make kit VIDEO=buy-back       # what to paste into YouTube Studio
 make published VIDEO=buy-back URL=https://www.youtube.com/watch?v=...
 make instagram VIDEO=buy-back # publish the Short as a reel on Instagram (CHECK=1: only say whose the token is)
+make posts                    # tell the portal's Media page what the account last posted on Instagram
 make test
 ```
 
@@ -182,6 +183,15 @@ gcloud storage buckets add-iam-policy-binding gs://<name> --member=allUsers --ro
 page drawn for 1080x1920 is photographed first into a JPEG beside it (`DRAW=1` stops there, to
 look at it), and a JPEG is sent as it is. It goes through the same bucket, has no caption and is
 seen for a day. The API cannot take a story down: that is done in the Instagram app.
+
+`make posts` tells the portal's Media page what the account last posted, whatever it is (a reel, a
+picture, an album): it reads the account's latest posts and leaves a card for each, with its
+cover, in the portal's Firestore (`src/marketmedia/posts.py`; `TO=<folder>` for a portal on this
+machine). The portal holds no token and asks Instagram nothing. `make instagram` runs it after a
+reel goes up, and the workspace's daily maintenance runs it too, for what was posted from the
+phone. Instagram's API gives a reel's first frame and never its cover, so the cover is taken from
+the film at the moment recorded when the reel was published (`cover_ms` in its `published.json`;
+`channel/instagram-covers.json` for a reel with no folder).
 
 A Short is some tens of megabytes held for a few minutes: within Cloud Storage's free allowance
 in that region (Google's pricing page, October 2026), and cents if it were not.

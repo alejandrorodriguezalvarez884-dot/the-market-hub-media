@@ -84,6 +84,7 @@ def test_sources_that_do_not_fit_are_given_by_their_names(video, channel):
 def test_a_reel_is_published_once_instagram_has_read_the_film(short):
     api, bucket = Api(), Bucket()
     record = _publish(short, api, bucket, cover_ms=4200)
+    assert record["cover_ms"] == 4200                          # kept: Instagram's API never says where a reel's cover is
     assert [path for _, path, _ in api.asked] == ["me", "178/media", "container", "container", "178/media_publish", "reel"]
     sent = api.asked[1][2]
     assert sent == {"media_type": "REELS", "video_url": "https://storage.example/a-bucket/x.mp4", "caption": "words",
@@ -181,9 +182,12 @@ def test_the_command_publishes_the_short_once_and_keeps_what_youtube_has(short, 
         return {"id": "reel", "url": "https://www.instagram.com/reel/Cabc123/", "code": "Cabc123"}
 
     monkeypatch.setattr(cli.instagram, "publish", publish)
+    told = []
+    monkeypatch.setattr(cli, "_posts", lambda args, channel: told.append(args.to) or 0)
     args = Namespace(video="buyback", check=False, again=False)
 
     assert cli._instagram(args, replace(channel, instagram_bucket="a-bucket")) == 0
+    assert told == [None]                                       # the portal's Media page is told of the reel
     film, words, bucket, cover_ms = sent[0]
     assert film == "short.mp4" and bucket == "a-bucket" and cover_ms > 0
     assert "https://youtu.be/abc123XYZ_-" in words
@@ -192,3 +196,20 @@ def test_the_command_publishes_the_short_once_and_keeps_what_youtube_has(short, 
 
     assert cli._instagram(args, channel) == 1                   # it is up: nothing is sent again
     assert "already on Instagram" in capsys.readouterr().out and len(sent) == 1
+
+
+def test_a_reel_is_up_even_when_the_portal_cannot_be_told(short, channel, monkeypatch, capsys):
+    from argparse import Namespace
+
+    from marketmedia import __main__ as cli
+    monkeypatch.setattr(cli.videos, "find", lambda name: short)
+    monkeypatch.setattr(cli, "_unfit", lambda video, channel: False)
+    monkeypatch.setattr(cli.instagram, "publish", lambda film, words, bucket, cover_ms=0: {"id": "reel", "url": "https://www.instagram.com/reel/Cabc123/", "code": "Cabc123", "cover_ms": cover_ms})
+
+    def refused(args, channel):
+        raise SystemExit("error: no Google Cloud project.")
+
+    monkeypatch.setattr(cli, "_posts", refused)
+    assert cli._instagram(Namespace(video="buyback", check=False, again=False), replace(channel, instagram_bucket="a-bucket")) == 0
+    assert "run 'make posts'" in capsys.readouterr().out
+    assert short.record()["instagram"]["cover_ms"] > 0          # where its cover is, for the portal

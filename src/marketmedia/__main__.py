@@ -13,6 +13,8 @@
     python -m marketmedia instagram <video>              publish the Short as a reel on Instagram
     python -m marketmedia instagram --check              say which account the Instagram token is for, and publish nothing
     python -m marketmedia story <page.html|picture.jpg>  publish a picture as a story on Instagram (--draw: only draw it)
+    python -m marketmedia posts [--to DIR]               read the account's latest posts on Instagram and leave them where the
+                                                         portal's Media page reads them (its Firestore, or a local portal's folder)
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -24,7 +26,7 @@ import sys
 from pathlib import Path
 
 from . import channel as channels
-from . import check, frames, instagram, render, videos, voice, youtube
+from . import check, frames, instagram, posts, render, videos, voice, youtube
 from . import script as scripts
 
 
@@ -217,6 +219,21 @@ def _instagram(args, channel) -> int:
     print(f"Reel: {part['url'] or part['id']}")
     if part.get("url_error"):
         print(f"  it is published, but its address could not be read: {part['url_error']}")
+    # The portal's Media page shows the account's latest posts: it is told of this one now.
+    try:
+        _posts(argparse.Namespace(to=None), channel)
+    except (Exception, SystemExit) as exc:  # noqa: BLE001 - the reel is up: `make posts` tells the portal later
+        print(f"  the portal was not told of it ({type(exc).__name__}: {exc}): run 'make posts'")
+    return 0
+
+
+def _posts(args, channel) -> int:
+    """The account's latest posts on Instagram, left where the portal's Media page reads them."""
+    store = posts.Folder(Path(args.to)) if args.to else posts.Firestore()
+    front = posts.sync(instagram.token(), store)
+    for post in front["posts"]:
+        print(f"  {post['posted_utc'][:16]}  {post['kind']:<6} {post['code']:<12} {post['text'][:70]}")
+    print(f"{len(front['posts'])} posts of @{front['handle']}, each with its cover, in {'the folder ' + args.to if args.to else 'the portal'}.")
     return 0
 
 
@@ -265,10 +282,11 @@ def main(argv: list[str] | None = None) -> int:
     telling = commands.add_parser("story")
     telling.add_argument("story")
     telling.add_argument("--draw", action="store_true", help="draw the page's picture, and publish nothing")
+    commands.add_parser("posts").add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
-           "story": _story}[args.command]
+           "story": _story, "posts": _posts}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid) as exc:
