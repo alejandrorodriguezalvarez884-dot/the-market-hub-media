@@ -1,6 +1,6 @@
 ---
 name: make-video
-description: Make a video for The Market Hub's YouTube channel, and the Short cut from it, from a brief the user has approved - write the script, draw the slides and the thumbnail, check it, give it its voice and render both films, ready for the user to watch. It uploads them to YouTube only when the user asked for that in the same request ("haz el vídeo de X y súbelo"). Use when the user approves a brief or says something like "haz el vídeo", "escribe el guion", "monta el vídeo de X" or "rehaz las diapositivas". The argument is the video (its folder's name or a part of it) and, optionally, the step to start from - script, slides, voice or render.
+description: Make a video for The Market Hub's YouTube channel, and the Short cut from it, from a brief the user has approved - write the script, draw the slides and the thumbnail, check it, give it its voice and render both films, ready for the user to watch. It uploads them, to YouTube and then the Short to Instagram as a reel, only when the user asked for that in the same request ("haz el vídeo de X y súbelo"). Use when the user approves a brief or says something like "haz el vídeo", "escribe el guion", "monta el vídeo de X" or "rehaz las diapositivas". The argument is the video (its folder's name or a part of it) and, optionally, the step to start from - script, slides, voice or render.
 ---
 
 # Make a video
@@ -8,7 +8,8 @@ description: Make a video for The Market Hub's YouTube channel, and the Short cu
 You make one video of The Market Hub's YouTube channel, from its brief to two films the user can
 watch: the video (horizontal, four to six minutes) and its Short (upright, thirty seconds to a
 minute, cut from the video's own scenes). If, and only if, the user asked in this same request
-for the video to be uploaded when it is done, the last step uploads both to YouTube. A trailer (`kind: trailer` in its script: a video
+for the video to be uploaded when it is done, the last step uploads both to YouTube and then
+publishes the Short as a reel on Instagram. A trailer (`kind: trailer` in its script: a video
 that presents the channel or a series) is made the same way, but runs thirty to ninety seconds,
 states no figures and needs no sources. Publishing is the user's decision, video by video:
 without their word for this video, this skill stops at the films and uploads nothing.
@@ -201,9 +202,10 @@ moment each thing comes in all follow the voice that now exists. Look at the fra
 
 ## 6. Upload it, if the user asked for that
 
-Only when the request that started this video said to upload it ("y súbelo", "súbelo a YouTube
-cuando esté"). A request for the video alone, an approved brief, or an upload asked for another
-video are not that: skip this step.
+Only when the request that started this video said to upload it ("y súbelo", "súbelo cuando
+esté"). A request for the video alone, an approved brief, or an upload asked for another
+video are not that: skip this step. "Súbelo" means both YouTube and Instagram (the user,
+2026-10-13); when they name only one ("súbelo a YouTube", "solo a Instagram"), do only that one.
 
 Before uploading, the last `make check` must pass, the frames must have been looked at after
 the render with the voice, and nothing may be left that you were not sure of in the facts: if
@@ -225,8 +227,23 @@ its series) and then its Short, and writes `published.json`. Read what it prints
 - A thumbnail, captions or a playlist it could not set: say which, with its reason.
 
 What the API cannot set is the user's to do in YouTube Studio: the end screen over the outro
-(`make kit` says from which second) and the Short's related video. Then, as `publish-video`
-says, commit `published.json` and put the video on the portal's Media page.
+(`make kit` says from which second) and the Short's related video.
+
+Then the reel, once the video is public on YouTube:
+
+```bash
+make instagram VIDEO=<name>
+```
+
+It publishes the Short as a reel on the channel's Instagram account, with a caption that gives
+the video's address on YouTube, and adds the reel's address to `published.json`. So it waits
+for that address to work: if YouTube kept the video private, or the upload failed, do not
+publish the reel; say so, and that `make instagram` can be run once the video is public. If it
+fails for lack of the token or of the bucket, say what it answered and stop (`publish-video`,
+"The reel on Instagram").
+
+Then, as `publish-video` says, commit `published.json` and put the video, its Short and its
+reel on the portal's Media page.
 
 ## 7. Commit, and tell the user
 
@@ -236,5 +253,6 @@ message that names the video, and push. Update "Dónde estamos" in `docs/HANDOFF
 Tell the user, in Spanish and briefly: where the two films are (`videos/<name>/build/video.mp4`
 and `short.mp4`), how long each runs, how many characters were sent to the voice service, the
 title and the description they were, or would be, published with, anything you were not sure
-of and, if it was uploaded, the two addresses and the visibility YouTube gave each. Then stop.
+of and, if it was uploaded, the two addresses and the visibility YouTube gave each, and the
+reel's address or why it is waiting. Then stop.
 If it was not uploaded, publishing is theirs to ask for.

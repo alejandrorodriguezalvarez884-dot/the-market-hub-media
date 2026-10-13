@@ -1,6 +1,6 @@
 ---
 name: publish-video
-description: Publish a finished video of The Market Hub's channel, and its Short, on YouTube - check them, then upload them through the API or write what to paste into YouTube Studio, and record where they ended up. Use when the user asks to publish a specific video, with something like "publica el vídeo de X", "prepara la subida" or "ya lo he subido, esta es la dirección". The argument is the video (its folder's name or a part of it) and, once it is published, its address.
+description: Publish a finished video of The Market Hub's channel, and its Short, on YouTube, and the Short as a reel on Instagram - check them, then upload them through the API or write what to paste into YouTube Studio, record where they ended up and publish the reel. Use when the user asks to publish a specific video, with something like "publica el vídeo de X", "prepara la subida" or "ya lo he subido, esta es la dirección". The argument is the video (its folder's name or a part of it) and, once it is published, its address.
 ---
 
 # Publish a video
@@ -9,7 +9,10 @@ There are two ways, and the user says which: uploading through the API ("súbelo
 upload`), or by hand in YouTube Studio, for which this skill prepares everything to paste and
 afterwards records where the video is. YouTube keeps private whatever an API project uploads
 until the project passes its audit: while that is so, say it before uploading that way. Either
-is done only when the user asks for it, for the video they name.
+is done only when the user asks for it, for the video they name. Asking for a video to be
+published is asking for Instagram too (the user, 2026-10-13: "súbelo" means both): once the
+video is public on YouTube, its Short goes up as a reel ("The reel on Instagram", below), unless
+they named YouTube alone.
 
 Work from the root of the `the-market-hub-media` repo. Read `CLAUDE.md` there first.
 
@@ -88,14 +91,19 @@ the video on the portal's Media page, as in step 3.
 
 ## The reel on Instagram
 
-When the user asks for the video to go to Instagram too, after step 1:
+Part of publishing a video, unless the user named YouTube alone; and on its own when they ask
+only for the reel. It goes after the video is public on YouTube and its address is in
+`published.json` (step 3, or `make upload`), because the reel's caption gives that address: if
+YouTube kept the video private, the reel waits, and you say so.
 
 ```bash
 make instagram VIDEO=<name>
 ```
 
 It publishes the Short as a reel on the channel's account and adds its address to
-`published.json` (`instagram_url`). Pass on what it prints, commit `published.json`, and add the
+`published.json` (`instagram_url`). It refuses a film older than its script: if git rewrote an
+unchanged script (a pull does), check with `git diff` that the script and the slides are those
+of the render before giving the script back its date; otherwise `make render` first. Pass on what it prints, commit `published.json`, and add the
 reel to the portal's Media page: in `site/src/lib/media.ts` of `market-hub-landing`, a line in
 `INSTAGRAM.reels` (newest first) with the reel's code, the Short's title, its length and the
 Short's cover, which is already in `site/public/media/` if the Short is on the page. If it fails

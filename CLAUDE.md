@@ -7,9 +7,11 @@ toma el usuario, y cada una manda sobre su paso:
 
 - [`analyze-idea`](.claude/skills/analyze-idea/SKILL.md): estudia una idea y escribe su brief.
 - [`make-video`](.claude/skills/make-video/SKILL.md): del brief aprobado al vídeo y su Short,
-  montados y con voz; y subidos a YouTube si el usuario lo pidió en esa misma petición.
+  montados y con voz; y subidos a YouTube y a Instagram si el usuario lo pidió en esa misma
+  petición.
 - [`publish-video`](.claude/skills/publish-video/SKILL.md): publica un vídeo ya montado: lo sube
-  por la API o deja todo listo para subirlo a mano en YouTube Studio, y apunta dónde quedó.
+  por la API o deja todo listo para subirlo a mano en YouTube Studio, apunta dónde quedó y
+  publica su Short como reel en Instagram.
 
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
@@ -47,7 +49,11 @@ Reglas que no se negocian:
   auditado el proyecto de la API, lo que se sube por ella queda en privado, y se le dice. A mano
   sigue pudiéndose: `make kit` deja el texto que pegar en YouTube Studio y `make published`
   apunta la dirección. **Instagram** (cuenta `the_market_hub_app`, desde el 2026-10-08) va igual:
-  el Short se publica como reel con `make instagram`, solo cuando él lo pida para ese vídeo. El
+  el Short se publica como reel con `make instagram`, solo cuando él lo pida para ese vídeo.
+  **"Súbelo" vale para los dos** (decisión suya, 2026-10-13): pedir que un vídeo se suba es pedir
+  YouTube y, después, el reel en Instagram; si nombra solo uno ("súbelo a YouTube"), va solo ese.
+  El reel sale cuando el vídeo ya está en público en YouTube, porque su pie lleva esa dirección:
+  si YouTube lo dejó en privado, el reel espera y se le dice. El
   token de Instagram lo genera y lo guarda él en `.secrets/`; no se le pide en el chat.
 - **No se gasta sin preguntar.** El único servicio de pago decidido es la voz (abajo). Cualquier
   otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.

@@ -157,12 +157,15 @@ publishes on its owner's own account, needs no review by Meta
    "Account type and tools", "Switch to professional account".
 2. At https://developers.facebook.com, create an app with the use case "Manage messaging and
    content on Instagram".
-3. In the app's dashboard, under Instagram, "API setup with Instagram login": add the account,
-   then "Generate token" beside it.
-4. Save the token, and nothing else, as `.secrets/instagram-token.txt` (the folder is not in
+3. In the app's dashboard, "App roles", "Roles", "Add People": give the account the role
+   "Instagram Tester". Then, signed in to Instagram as that account, accept it: Settings, "Apps
+   and websites", "Tester invites".
+4. Back in the dashboard, under the Instagram use case, "API setup with Instagram login",
+   "Generate access tokens": the account is listed now; "Generate token" beside it.
+5. Save the token, and nothing else, as `.secrets/instagram-token.txt` (the folder is not in
    git). It lasts sixty days, and `make instagram` renews it whenever it is more than a week
    old; after two months with no reel it has to be generated again.
-5. `make instagram CHECK=1` says which account the token is for, and publishes nothing.
+6. `make instagram CHECK=1` says which account the token is for, and publishes nothing.
 
 Instagram takes no file from this API: it fetches the film from an address anybody can reach.
 So `make instagram` parks the Short in a Google Cloud Storage bucket (`[instagram] bucket`) under
