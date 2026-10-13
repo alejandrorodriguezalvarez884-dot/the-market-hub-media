@@ -38,7 +38,7 @@ is a recommendation to buy, sell or hold anything."""
 # address anybody can reach, so it is parked in this bucket while it is published, and taken away after.
 [instagram]
 handle = "the_market_hub_app"
-bucket = ""                          # a Google Cloud Storage bucket anybody can read from; empty until the owner agrees to one
+bucket = "arctic-robot-474306-g3-market-hub-reels"   # a Google Cloud Storage bucket anybody can read from (the owner agreed, 2026-10-13)
 
 # A video that presents the channel or a series, instead of explaining something (kind: trailer).
 [trailer]
