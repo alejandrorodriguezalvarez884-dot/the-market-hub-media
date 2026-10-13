@@ -131,7 +131,7 @@ def _kit(args, channel) -> int:
 
 def _published(args, channel) -> int:
     video = videos.find(args.video)
-    youtube.remember(video.published, youtube.by_hand(args.url, args.short))
+    youtube.remember(video.published, youtube.by_hand(args.url, args.short, video.record()))
     print(f"{video.name}: {args.url}")
     return 0
 

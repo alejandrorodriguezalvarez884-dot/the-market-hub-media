@@ -34,6 +34,16 @@ def test_the_kit_is_what_to_paste_for_the_video_and_its_short(video, channel):
     assert "not investment advice" in video_part and "not investment advice" in short_part
 
 
+def test_the_shorts_address_added_later_keeps_what_was_remembered_of_the_video():
+    first = youtube.by_hand("https://youtu.be/abc123XYZ_-")
+    first.update(published_utc="2026-10-13T10:21:16+00:00", instagram_url="https://www.instagram.com/reel/Abc/")
+    later = youtube.by_hand("https://youtu.be/abc123XYZ_-", "https://youtube.com/shorts/abc123XYZ_-", first)
+    assert later["instagram_url"] == "https://www.instagram.com/reel/Abc/" and later["published_utc"] == "2026-10-13T10:21:16+00:00"
+    assert later["short_url"] == "https://youtube.com/shorts/abc123XYZ_-"
+    # Another video's address starts the record again.
+    assert "instagram_url" not in youtube.by_hand("https://youtu.be/zzz999XYZ_-", None, first)
+
+
 def test_a_video_published_by_hand_is_remembered_by_its_address():
     record = youtube.by_hand("https://www.youtube.com/watch?v=abc123XYZ_-", "https://youtube.com/shorts/abc123XYZ_-")
     assert record["by"] == "hand" and record["short_url"].endswith("/shorts/abc123XYZ_-")

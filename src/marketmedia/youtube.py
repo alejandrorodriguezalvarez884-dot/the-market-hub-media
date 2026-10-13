@@ -208,12 +208,16 @@ def kit(script: Script, channel: Channel, cuts: list | None = None) -> str:
 ADDRESS = re.compile(r"https://(www\.)?(youtube\.com/(watch\?v=|shorts/)|youtu\.be/)[\w\-]{6,}\S*")
 
 
-def by_hand(url: str, short_url: str | None = None) -> dict:
-    """What to remember of a video its owner published in YouTube Studio."""
+def by_hand(url: str, short_url: str | None = None, known: dict | None = None) -> dict:
+    """What to remember of a video its owner published in YouTube Studio. ``known`` is what was
+    already remembered of it: the Short's address often comes after the video's, and after the
+    reel, so neither the reel nor the day the video went up is forgotten for it."""
     for address in filter(None, (url, short_url)):
         if not ADDRESS.fullmatch(address):
             raise ValueError(f"not the address of a YouTube video: {address}")
     record = {"url": url, "by": "hand", "published_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    if known and known.get("url") == url:
+        record = {**known, "url": url}
     if short_url:
         record["short_url"] = short_url
     return record
