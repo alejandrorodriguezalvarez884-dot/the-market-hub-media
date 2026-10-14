@@ -102,7 +102,13 @@ the posts after the first show on the profile's Replies tab (`https://x.com/<han
 not on the first post's page. Record each with its own `make xposted`.
 
 To change text already in a box, delete it with Backspace: selecting all (ctrl+a) does nothing in
-X's editor from the built-in browser.
+X's editor from the built-in browser. If a box goes wrong, close the editor and choose Discard
+(nothing has been posted), then start again.
+
+A long link typed after the text lands in place of the post's first line (seen with an opinion
+article's address, 2026-10-14). Type the link first, in the empty box, then press ctrl+Home and
+type the text before it, ending with its blank line. Then look at the box, not only its text:
+X's `innerText` shows extra line breaks that are not there.
 
 ## 5. Record it
 
