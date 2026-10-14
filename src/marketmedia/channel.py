@@ -72,6 +72,8 @@ class Channel:
     # Instagram
     instagram_handle: str = ""
     instagram_bucket: str = ""   # where a film is parked while Instagram fetches it
+    # X
+    x_handle: str = ""
 
 
 def _range(value, default: tuple[float, float]) -> tuple[float, float]:
@@ -88,7 +90,7 @@ def _shared(data: dict, name: str, scene: str) -> Shared | None:
 
 def load(path: Path | None = None) -> Channel:
     data = tomllib.loads((path or ROOT / "channel.toml").read_text(encoding="utf-8"))
-    video, short, voice, youtube, instagram = (data.get(k, {}) for k in ("video", "short", "voice", "youtube", "instagram"))
+    video, short, voice, youtube, instagram, x = (data.get(k, {}) for k in ("video", "short", "voice", "youtube", "instagram", "x"))
     return Channel(
         name=data["name"],
         language=data.get("language", "en"),
@@ -117,4 +119,5 @@ def load(path: Path | None = None) -> Channel:
         outro=_shared(data, "outro", "99-outro"),
         instagram_handle=instagram.get("handle", ""),
         instagram_bucket=instagram.get("bucket", ""),
+        x_handle=x.get("handle", ""),
     )

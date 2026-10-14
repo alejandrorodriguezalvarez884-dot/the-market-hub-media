@@ -13,6 +13,13 @@ toma el usuario, y cada una manda sobre su paso:
   por la API o deja todo listo para subirlo a mano en YouTube Studio, apunta dónde quedó y
   publica su Short como reel en Instagram.
 
+Y aparte de los vídeos, [`post-x`](.claude/skills/post-x/SKILL.md): escribe un post para la cuenta
+de X de Market Hub (en inglés; el día del mercado, un vídeo, un artículo de opinión, la app) en
+`x/`, lo comprueba (`make xcheck`), lo pone en X **en el navegador de Claude** y lo apunta
+(`make xposted`), que deja los últimos en la página Media del portal. **Sin la API de X**, que se
+paga por post (decisión del usuario, 2026-10-14). **Cada post se publica solo tras un sí del
+usuario a su texto exacto**, en el chat; pedir "haz un post" no es ese sí.
+
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
 y la misma voz, dibujadas de nuevo en vertical). El canal es **en inglés**.

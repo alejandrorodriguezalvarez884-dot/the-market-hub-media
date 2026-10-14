@@ -15,6 +15,9 @@
     python -m marketmedia story <page.html|picture.jpg>  publish a picture as a story on Instagram (--draw: only draw it)
     python -m marketmedia posts [--to DIR]               read the account's latest posts on Instagram and leave them where the
                                                          portal's Media page reads them (its Firestore, or a local portal's folder)
+    python -m marketmedia xcheck [post]                  what stops a post in x/ from going on X (every one not yet on it)
+    python -m marketmedia xposted <post> <url> [--to DIR]  write down where a post went on X, and tell the portal
+    python -m marketmedia xfront [--to DIR]              leave the latest posts on X where the portal's Media page reads them
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -26,7 +29,7 @@ import sys
 from pathlib import Path
 
 from . import channel as channels
-from . import check, frames, instagram, posts, render, videos, voice, youtube
+from . import check, frames, instagram, posts, render, videos, voice, xposts, youtube
 from . import script as scripts
 
 
@@ -252,6 +255,41 @@ def _story(args, channel) -> int:
     return 0
 
 
+def _xcheck(args, channel) -> int:
+    """What stops a post from going on X: the one named, or every one not yet on it."""
+    chosen = [xposts.find(args.post)] if args.post else [p for p in xposts.every() if not p.url]
+    stopped = 0
+    for post in chosen:
+        found = xposts.problems(post, channel.x_handle)
+        stopped += bool(found)
+        print(f"{post.name}: {xposts.length(post.text)}/{xposts.LENGTH_MAX}" + ("" if found else "  ready"))
+        for problem in found:
+            print(f"  - {problem}")
+    if not chosen:
+        print("No post in x/ is waiting to go on X.")
+    return 1 if stopped else 0
+
+
+def _xfront(args, channel) -> int:
+    """The latest posts on X, left where the portal's Media page reads them."""
+    store = xposts.Folder(Path(args.to)) if args.to else xposts.Firestore()
+    front = xposts.front(xposts.every(), channel.x_handle)
+    store.publish(front)
+    print(f"{len(front['posts'])} posts of @{channel.x_handle or '?'} in {'the folder ' + args.to if args.to else 'the portal'}.")
+    return 0
+
+
+def _xposted(args, channel) -> int:
+    """Write down where a post went on X, and tell the portal."""
+    post = xposts.posted(xposts.find(args.post), args.url, channel.x_handle)
+    print(f"x/{post.path.name}: {post.url}")
+    try:
+        return _xfront(args, channel)
+    except (Exception, SystemExit) as exc:  # noqa: BLE001 - the post is on X: `make xfront` tells the portal later
+        print(f"  the portal was not told of it ({type(exc).__name__}: {exc}): run 'make xfront'")
+        return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="marketmedia", description="The Market Hub's YouTube channel.")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -283,13 +321,19 @@ def main(argv: list[str] | None = None) -> int:
     telling.add_argument("story")
     telling.add_argument("--draw", action="store_true", help="draw the page's picture, and publish nothing")
     commands.add_parser("posts").add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
+    commands.add_parser("xcheck").add_argument("post", nargs="?")
+    recording = commands.add_parser("xposted")
+    recording.add_argument("post")
+    recording.add_argument("url")
+    recording.add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
+    commands.add_parser("xfront").add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
-           "story": _story, "posts": _posts}[args.command]
+           "story": _story, "posts": _posts, "xcheck": _xcheck, "xposted": _xposted, "xfront": _xfront}[args.command]
     try:
         return run(args, channels.load())
-    except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid) as exc:
+    except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 

@@ -16,12 +16,15 @@
 #   make instagram CHECK=1      say which account the Instagram token is for, and publish nothing
 #   make story STORY=...        publish a picture (a page or a JPEG) as a story on Instagram (DRAW=1: only draw it)
 #   make posts [TO=...]         tell the portal's Media page what the account last posted on Instagram
+#   make xcheck [POST=...]      what stops a post in x/ from going on X (every one not yet on it)
+#   make xposted POST=... URL=...  write down where a post went on X (put there by hand), and tell the portal
+#   make xfront [TO=...]        tell the portal's Media page what the account last posted on X
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story posts
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story posts xcheck xposted xfront
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
@@ -78,3 +81,13 @@ story: ## Publish STORY=... (a page drawn for 1080x1920, or a JPEG) as a story o
 
 posts: ## Read the account's latest Instagram posts and leave them where the portal's Media page reads them (TO=<folder>: a local portal's)
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) posts $(if $(TO),--to "$(TO)")
+
+xcheck: ## What stops a post in x/ from going on X (POST=...; every one not yet on it if not said)
+	$(RUN) xcheck $(POST)
+
+xposted: ## Write down where POST=... went on X (URL=https://x.com/<account>/status/<number>), and tell the portal (TO=<folder>: a local portal's)
+	@[ -n "$(POST)" ] && [ -n "$(URL)" ] || { echo 'Which post and where? make xposted POST=... URL=https://x.com/...'; exit 1; }
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) xposted "$(POST)" "$(URL)" $(if $(TO),--to "$(TO)")
+
+xfront: ## Leave the account's latest posts on X where the portal's Media page reads them (TO=<folder>: a local portal's)
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) xfront $(if $(TO),--to "$(TO)")
