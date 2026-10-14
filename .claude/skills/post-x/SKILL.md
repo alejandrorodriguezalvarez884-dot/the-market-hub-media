@@ -91,6 +91,19 @@ Read the `built-in-browser` skill first. In Claude's built-in browser:
 4. Open the account's profile, find the new post and copy its address
    (`https://x.com/<handle>/status/<number>`).
 
+### A thread
+
+A thread is one file per post, numbered in order: `x/<date>-<slug>-1.md`, `-2.md` and so on,
+each with its own sources and each checked on its own. Show the user the whole thread and get the
+yes to all of it. In the editor, after typing the first post, the "Add post" button opens the
+next box (`tweetTextarea_1`, `_2`…) with the cursor in it; check that every box holds its file's
+text exactly and that no empty box is left, and the button then reads "Post all". The addresses of
+the posts after the first show on the profile's Replies tab (`https://x.com/<handle>/with_replies`),
+not on the first post's page. Record each with its own `make xposted`.
+
+To change text already in a box, delete it with Backspace: selecting all (ctrl+a) does nothing in
+X's editor from the built-in browser.
+
 ## 5. Record it
 
 ```bash
