@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Market Hub on X: the header</title>
+<!-- The header of the account on X (@the_market_hub_), 1500 by 500. The launch film's idea in one
+     still: many made-up prices run in from the left, a beam reads them, and past it they are one
+     line with its dot, the logo's line. The words sit on the right; the bottom left is left quiet,
+     because X puts the profile picture over it, and nothing sits in the top or bottom 80 pixels,
+     which a phone crops. The lines are a seeded random walk: no market's prices. -->
+<style>
+  :root { --page: #0b0c0d; --line: #222528; --ink: #c9c7c1; --strong: #f2f0ea; --muted: #8c8b86; --up: #35c98f; --down: #ff6b57;
+          --sans: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace; }
+  html, body { margin: 0; width: 1500px; height: 500px; overflow: hidden; background: var(--page); }
+  .glow { position: absolute; left: 600px; top: -150px; width: 900px; height: 800px;
+          background: radial-gradient(closest-side, rgb(242 240 234 / 0.07), transparent); }
+  svg { position: absolute; inset: 0; }
+  .words { position: absolute; right: 70px; top: 120px; text-align: right; color: var(--strong); font-family: var(--sans); }
+  .words .say { font-weight: 700; font-size: 66px; line-height: 1.02; letter-spacing: -0.03em; }
+  .words .say span { display: block; }
+  .words .say span:last-child { display: inline-block; background: var(--strong); color: var(--page); padding: 2px 16px 8px 12px; margin-top: 8px; }
+  .words .site { margin-top: 26px; font: 500 22px/1 var(--mono); letter-spacing: 0.06em; color: var(--muted); }
+</style>
+<body>
+<div class="glow"></div>
+<svg id="art" width="1500" height="500"></svg>
+<div class="words">
+  <div class="say"><span>The market,</span><span>read by AI.</span></div>
+  <div class="site">themarkethub.app</div>
+</div>
+<script>
+let seed = 20261014;
+const random = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296) * 2 - 1;
+const BEAM = 640, MID = 250, END = 860;
+const art = document.getElementById("art");
+const colours = ["#35c98f", "#ff6b57", "#c9c7c1", "#35c98f", "#ff6b57", "#8c8b86"];
+let lines = "";
+for (let k = 0; k < 26; k++) {
+  // A walk from the left edge to the beam, pulled towards the middle as it nears it.
+  let y = MID + random() * 150, v = 0, d = `M-10 ${y.toFixed(1)}`;
+  for (let x = 0; x <= BEAM; x += 8) {
+    const near = x / BEAM;
+    v = 0.7 * v + random() * (14 + (k % 5) * 3) * (1 - near * 0.9) - 0.06 * (y - MID);
+    y = y + v;
+    y = MID + (y - MID) * (1 - near ** 6);
+    y = Math.max(95, Math.min(405, y));
+    d += `L${x} ${y.toFixed(1)}`;
+  }
+  const alpha = (0.22 + 0.05 * (k % 7)).toFixed(2);
+  lines += `<path d="${d}L${BEAM} ${MID}" fill="none" stroke="${colours[k % colours.length]}" stroke-opacity="${alpha}" stroke-width="${k % 3 ? 2 : 3}" stroke-linejoin="round"/>`;
+}
+art.innerHTML = `
+  <defs>
+    <linearGradient id="fade" x1="0" x2="1"><stop offset="0" stop-color="#0b0c0d" stop-opacity="1"/><stop offset="0.22" stop-color="#0b0c0d" stop-opacity="0"/></linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="10"/></filter><filter id="wide" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+  </defs>
+  ${lines}
+  <rect x="0" y="0" width="${BEAM}" height="500" fill="url(#fade)"/>
+  <ellipse cx="${BEAM - 70}" cy="${MID}" rx="110" ry="150" fill="#f2f0ea" opacity="0.05" filter="url(#wide)"/>
+  <rect x="${BEAM - 5}" y="90" width="10" height="320" fill="#f2f0ea" opacity="0.5" filter="url(#soft)"/>
+  <rect x="${BEAM - 1.5}" y="90" width="3" height="320" fill="#f2f0ea"/>
+  <path d="M${BEAM} ${MID} L${END} ${MID}" stroke="#f2f0ea" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="${END}" cy="${MID}" r="22" fill="#f2f0ea" opacity="0.12"/>
+  <circle cx="${END}" cy="${MID}" r="11" fill="#f2f0ea"/>
+`;
+</script>
+</body>
+</html>
