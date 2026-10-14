@@ -213,3 +213,36 @@ def test_a_reel_is_up_even_when_the_portal_cannot_be_told(short, channel, monkey
     assert cli._instagram(Namespace(video="buyback", check=False, again=False), replace(channel, instagram_bucket="a-bucket")) == 0
     assert "run 'make posts'" in capsys.readouterr().out
     assert short.record()["instagram"]["cover_ms"] > 0          # where its cover is, for the portal
+
+
+def test_a_carousel_publishes_each_picture_as_a_child_then_the_post_and_leaves_the_bucket(tmp_path):
+    pictures = [tmp_path / f"{n}.jpg" for n in (1, 2, 3)]
+    for picture in pictures:
+        picture.write_bytes(b"x")
+    api, bucket = Api(reads=["FINISHED"] * 4), Bucket()
+    record = instagram.carousel(pictures, "words", "a-bucket", key="k", call=api, park=bucket, wait=lambda seconds: None)
+    made = [params for method, path, params in api.asked if method == "POST" and path.endswith("/media")]
+    assert [m.get("is_carousel_item") for m in made] == [True, True, True, None]
+    assert made[-1]["media_type"] == "CAROUSEL" and made[-1]["caption"] == "words"
+    assert made[-1]["children"] == "container,container,container"
+    assert record["id"] == "reel" and record["pictures"] == 3 and record["code"] == "Cabc123"
+    assert len(bucket.parked) == 3 and bucket.removed == 3
+
+
+def test_a_carousel_instagram_refuses_publishes_nothing_and_leaves_the_bucket(tmp_path):
+    pictures = [tmp_path / f"{n}.jpg" for n in (1, 2)]
+    for picture in pictures:
+        picture.write_bytes(b"x")
+    api, bucket = Api(reads=["FINISHED", "ERROR"]), Bucket()
+    with pytest.raises(RuntimeError):
+        instagram.carousel(pictures, "words", "a-bucket", key="k", call=api, park=bucket, wait=lambda seconds: None)
+    assert not any(path.endswith("media_publish") for _, path, _ in api.asked) and bucket.removed == 2
+
+
+def test_a_carousel_of_one_picture_or_of_no_jpegs_is_not_sent(tmp_path):
+    one = tmp_path / "1.jpg"
+    one.write_bytes(b"x")
+    with pytest.raises(ValueError):
+        instagram.carousel([one], "words", "a-bucket", key="k", call=Api(), park=Bucket())
+    with pytest.raises(ValueError):
+        instagram.carousel([one, tmp_path / "2.png"], "words", "a-bucket", key="k", call=Api(), park=Bucket())

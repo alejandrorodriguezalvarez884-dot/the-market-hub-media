@@ -1,0 +1,15 @@
+Who's really like who?
+
+Peer Map, now in My Hub, is a map of the 1,500 largest US companies by what they say they do. An open AI model read the Business section of each one's annual report (the 10-K, from SEC EDGAR): companies that describe their business in similar words sit close together, whatever industry they are filed under.
+
+- Search any company and get its closest matches, ranked by similarity.
+- Lines join it to its nearest neighbours on the map.
+- Every dot is coloured by how its price has moved: day, week, month, year to date or one year (Yahoo Finance).
+
+Close on the map means a similar description, nothing more. It is not a signal, and a neighbour is not a suggestion.
+
+Sign in at themarkethub.app, then My Hub > Peers.
+
+Market Hub describes. It never tells you what to buy or sell, and nothing here is investment advice.
+
+#stockmarket #investing #ai #datavisualization #stocks

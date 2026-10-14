@@ -1,0 +1,21 @@
+Market research, supercharged by AI.
+
+Five tools are now live inside My Hub, the private side of Market Hub. One login, every tool a click away:
+
+Fundamentals Lab: any US-listed company's statements, valuation, forward multiples and technicals on one page, with Claude reading the numbers and saying what they show.
+
+Earnings Radar: an AI model reads a company's latest results release from SEC EDGAR and answers the same questions for every company: guidance, tone, what changed.
+
+Peer Map: the 1,500 largest US companies, each placed next to the ones whose annual reports describe the most similar business, coloured by how their price has moved.
+
+PlayGround: ask in plain English and AI builds your board of charts and tables with live market data.
+
+Options Lab: every call and put of a US stock read in detail, and strategies of up to 8 legs with their payoff, breakevens and greeks.
+
+The AI reads and describes; every figure is computed by code from the sources. One tool at a time in the next posts.
+
+Sign in at themarkethub.app and open My Hub.
+
+Market Hub describes. It never tells you what to buy or sell, and nothing here is investment advice.
+
+#stockmarket #investing #ai #fintech #stocks

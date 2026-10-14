@@ -1,0 +1,16 @@
+Options. Finally readable.
+
+Options Lab, now in My Hub, reads the option chain of any US-listed stock or fund:
+
+- Every call and put: implied volatility, the greeks, breakeven and the odds the prices imply.
+- Each expiration at a glance: expected move, one-sigma range, 25-delta skew, put/call open interest and volume, max pain.
+- The volatility smile, open interest by strike and the term structure across every expiration.
+- Strategies of up to 8 legs (calls, puts and shares), from a template or leg by leg: payoff at expiration and before it, breakevens, max profit and loss, greeks and the probability of profit. Save them and follow them from your account.
+
+Every figure is computed in code with Black-Scholes-Merton from Yahoo Finance prices. The probabilities are the ones option prices imply, not a forecast. The screenshots show NVIDIA on October 14, 2026; the iron condor is only an example of what the tool draws.
+
+Sign in at themarkethub.app, then My Hub > Options.
+
+Market Hub describes. It never tells you what to buy or sell, and nothing here is investment advice.
+
+#stockmarket #investing #options #fintech #stocks

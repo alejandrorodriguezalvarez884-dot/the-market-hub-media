@@ -1,4 +1,5 @@
-"""The Short on Instagram, as a reel on the channel's account; and a picture, as a story.
+"""The Short on Instagram, as a reel on the channel's account; a picture, as a story; and a few
+pictures, as a carousel post in the feed.
 
 Through the Instagram API with Instagram Login (graph.instagram.com). The account's owner makes
 a Meta app once, generates a token for the account in the app's dashboard and saves it in
@@ -39,6 +40,8 @@ RENEW_DAYS = 7         # a token older than this is renewed before it is used
 EVERY, TRIES = 15, 40  # how often Instagram is asked whether it has read the film, and how many times
 STORY = {"width": 1080, "height": 1920}  # a story fills an upright phone
 STORY_BYTES = 8_000_000                   # Instagram takes a JPEG of up to 8 MB
+SLIDE = {"width": 1080, "height": 1350}   # a carousel's picture: 4:5, the tallest the feed shows whole
+SLIDES = (2, 10)                          # how few and how many pictures a carousel takes
 
 Call = Callable[..., dict]
 Park = Callable[[Path, str], tuple[str, Callable[[], None]]]
@@ -151,20 +154,24 @@ def park(film: Path, bucket: str) -> tuple[str, Callable[[], None]]:
     return address, remove
 
 
-def _post(me: str, key: str, call: Call, wait: Callable[[float], None], **what) -> str:
-    """Hand Instagram a film or a picture by its address, wait until it has read it whole, and
-    publish it. Returns the id of what was published."""
+def _container(me: str, key: str, call: Call, wait: Callable[[float], None], **what) -> str:
+    """Hand Instagram a film, a picture or a carousel and wait until it has read it whole.
+    Returns the container's id, ready to publish."""
     container = call("POST", f"{me}/media", key, **what)["id"]
     for _ in range(TRIES):
         state = call("GET", container, key, fields="status_code,status")
         if state.get("status_code") == "FINISHED":
-            break
+            return container
         if state.get("status_code") in ("ERROR", "EXPIRED"):
-            raise RuntimeError(f"Instagram could not take the film: {state.get('status') or state['status_code']}")
+            raise RuntimeError(f"Instagram could not take it: {state.get('status') or state['status_code']}")
         wait(EVERY)
-    else:
-        raise RuntimeError(f"Instagram was still reading the film after {EVERY * TRIES // 60} minutes: nothing was published")
-    return call("POST", f"{me}/media_publish", key, creation_id=container)["id"]
+    raise RuntimeError(f"Instagram was still reading it after {EVERY * TRIES // 60} minutes: nothing was published")
+
+
+def _post(me: str, key: str, call: Call, wait: Callable[[float], None], **what) -> str:
+    """Hand Instagram a film or a picture by its address, wait until it has read it whole, and
+    publish it. Returns the id of what was published."""
+    return call("POST", f"{me}/media_publish", key, creation_id=_container(me, key, call, wait, **what))["id"]
 
 
 def _clear(remove: Callable[[], None], bucket: str, log: Callable[[str], None]) -> None:
@@ -199,15 +206,15 @@ def publish(film: Path, words: str, bucket: str, *, cover_ms: int = 0, key: str 
     return record
 
 
-def draw(page: Path) -> Path:
-    """Photograph a story's page (HTML, drawn for 1080x1920) with the Chrome on this machine, as
-    the JPEG Instagram takes, beside it."""
+def draw(page: Path, size: dict = STORY) -> Path:
+    """Photograph a page drawn for ``size`` (a story's 1080x1920 unless said) with the Chrome on
+    this machine, as the JPEG Instagram takes, beside it."""
     from playwright.sync_api import sync_playwright
     target = page.with_suffix(".jpg")
     with sync_playwright() as p:
         browser = p.chromium.launch(channel=os.environ.get("MEDIA_BROWSER", "chrome"), headless=True)
         try:
-            tab = browser.new_page(viewport=STORY, device_scale_factor=1)
+            tab = browser.new_page(viewport=size, device_scale_factor=1)
             tab.goto(page.resolve().as_uri())
             tab.evaluate("async () => { await document.fonts?.ready; }")
             for quality in (95, 90, 80):
@@ -236,3 +243,39 @@ def story(picture: Path, bucket: str, *, key: str | None = None, call: Call = _c
     finally:
         _clear(remove, bucket, log)
     return {"id": media, "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+
+
+def carousel(pictures: list[Path], words: str, bucket: str, *, key: str | None = None, call: Call = _call,
+             park: Park = park, wait: Callable[[float], None] = time.sleep, log: Callable[[str], None] = print) -> dict:
+    """Publish a few pictures as one post in the feed, swiped one after another, with ``words``
+    under it. Returns what to remember of it. Nothing is published unless Instagram has read every
+    picture; the pictures leave the bucket either way."""
+    if not SLIDES[0] <= len(pictures) <= SLIDES[1]:
+        raise ValueError(f"a carousel takes {SLIDES[0]} to {SLIDES[1]} pictures, not {len(pictures)}")
+    for picture in pictures:
+        if picture.suffix.lower() not in (".jpg", ".jpeg"):
+            raise ValueError(f"{picture.name} is not a JPEG, and that is what Instagram takes for a carousel")
+    if len(words) > CAPTION_MAX:
+        raise ValueError(f"the caption is {len(words)} characters and Instagram takes {CAPTION_MAX}")
+    if not bucket:
+        raise ValueError("channel.toml names no bucket ([instagram] bucket), and Instagram has to fetch the pictures from one")
+    key = key or token(call)
+    me = account(key, call)["user_id"]
+    removals: list[Callable[[], None]] = []
+    try:
+        children = []
+        for picture in pictures:
+            address, remove = park(picture, bucket)
+            removals.append(remove)
+            children.append(_container(me, key, call, wait, image_url=address, is_carousel_item=True))
+        media = _post(me, key, call, wait, media_type="CAROUSEL", children=",".join(children), caption=words)
+    finally:
+        for remove in removals:
+            _clear(remove, bucket, log)
+    record = {"id": media, "url": "", "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "pictures": len(pictures)}
+    try:
+        where = call("GET", media, key, fields="permalink,shortcode")
+        record.update(url=where.get("permalink", ""), code=where.get("shortcode", ""))
+    except RuntimeError as exc:  # the post is up: do not lose the record for want of its address
+        record["url_error"] = str(exc)
+    return record

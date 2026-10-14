@@ -1,0 +1,19 @@
+Results, read in seconds.
+
+Earnings Radar, now in My Hub. Type any company that reports to the SEC: its latest results release is fetched from EDGAR and read on the spot by an AI decision model, which answers the same fixed questions for every company, with a probability for each answer:
+
+- A one-line verdict of what the release says.
+- Guidance: raised, lowered, reaffirmed or new.
+- How strong the quarter is described, and how management sees the coming periods.
+- What changed against the previous release.
+- Topics: margin pressure, weakening demand, tariffs, AI, supply chain, restructuring.
+
+Each company's page goes back release by release to 2021, and Market trends adds the same reading up over 2,238 releases from 99 large US companies.
+
+It reads the text only. Names and dates are masked, so the model judges the words and not the company. It is a description of what a release says, not a forecast of anything.
+
+Sign in at themarkethub.app, then My Hub > Earnings.
+
+Market Hub describes. It never tells you what to buy or sell, and nothing here is investment advice.
+
+#stockmarket #investing #ai #earnings #stocks

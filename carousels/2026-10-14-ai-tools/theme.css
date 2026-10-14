@@ -1,0 +1,63 @@
+/* The slides of the carousels that present Market Hub's tools on Instagram: 1080 by 1350, drawn
+   in the portal's dark theme with each tool's own colour of light (--accent) behind it. */
+:root { --page: #0a0b0d; --line: #24272c; --ink: #c9c7c1; --ink-strong: #f4f2ec; --muted: #8f8e89; --up: #35c98f;
+        --sans: "Inter", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --mono: "Cascadia Mono", "Consolas", ui-monospace, "SF Mono", Menlo, monospace;
+        --accent: #35c98f; --accent-2: #4f8cff; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; background: var(--page); color: var(--ink-strong); font-family: var(--sans); }
+body { position: relative; display: flex; flex-direction: column; padding: 64px 72px 60px; }
+
+/* Light: two glows of the tool's colours and a faint grid, so the page is never flat. */
+.glow { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.glow::before, .glow::after { content: ""; position: absolute; border-radius: 50%; filter: blur(30px); }
+.glow::before { width: 1100px; height: 900px; right: -420px; top: -380px; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 75%, transparent), transparent); opacity: 0.55; }
+.glow::after { width: 1000px; height: 900px; left: -460px; bottom: -420px; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent-2) 75%, transparent), transparent); opacity: 0.45; }
+.grid { position: absolute; inset: 0; z-index: -1; opacity: 0.35;
+        background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+        background-size: 54px 54px; mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 78%); }
+
+header { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 14px; font-size: 32px; font-weight: 650; letter-spacing: -0.01em; color: var(--ink-strong); }
+.brand svg { width: 38px; height: 38px; }
+.pill { display: flex; align-items: center; gap: 12px; padding: 12px 22px; border: 1.5px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+        border-radius: 999px; font-family: var(--mono); font-size: 21px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink);
+        background: rgba(10, 11, 13, 0.6); }
+.pill i { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 24px var(--accent); }
+
+.kicker { margin-top: 56px; font-family: var(--mono); font-size: 25px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+h1 { margin-top: 18px; font-size: 92px; font-weight: 760; letter-spacing: -0.045em; line-height: 0.98; }
+h1.big { font-size: 104px; }
+h1 em { font-style: normal; background: linear-gradient(100deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sub { margin-top: 26px; max-width: 900px; font-size: 35px; line-height: 1.28; color: var(--ink); }
+
+/* The picture: a part of a page of the tool, cut out and framed (theme.js sizes it). */
+.stage { position: relative; flex: 1; min-height: 0; margin-top: 44px; display: flex; align-items: center; justify-content: center; }
+.shot { position: relative; overflow: hidden; border-radius: 22px; border: 1.5px solid #2c3036; background: var(--page);
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255,255,255,0.03), 0 0 90px color-mix(in srgb, var(--accent) 22%, transparent); }
+.shot img { position: absolute; display: block; max-width: none; }
+.shot.tilt { transform: perspective(2200px) rotateX(9deg) rotateY(-12deg) rotateZ(1.5deg); }
+.stage.stack { display: block; }
+.stage.stack .shot { position: absolute; }
+
+footer { margin-top: 40px; display: flex; align-items: center; justify-content: space-between; font-size: 27px; color: var(--muted); }
+footer b { color: var(--ink-strong); font-weight: 600; }
+.swipe { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 22px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); }
+.swipe span { font-size: 34px; color: var(--accent); }
+
+/* The list of the tools (the first post and every last slide). */
+.tools { margin-top: 46px; display: grid; gap: 18px; }
+.tool { display: grid; grid-template-columns: 22px 1fr; column-gap: 26px; align-items: baseline; padding: 26px 30px; border-radius: 22px;
+        border: 1.5px solid var(--line); background: linear-gradient(100deg, rgba(255,255,255,0.045), rgba(255,255,255,0.01)); }
+.tool i { width: 18px; height: 18px; border-radius: 50%; background: var(--c); box-shadow: 0 0 18px var(--c); align-self: center; }
+.tool b { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; }
+.tool span { grid-column: 2; margin-top: 6px; font-size: 27px; color: var(--ink); }
+
+.cta { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.button { display: inline-flex; align-items: center; gap: 18px; padding: 26px 40px; border-radius: 18px; background: var(--ink-strong); color: #0a0b0d;
+          font-size: 38px; font-weight: 700; letter-spacing: -0.01em; box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 40%, transparent); }
+.small { font-size: 24px; color: var(--muted); }
+.tools.compact { margin-top: 34px; gap: 14px; }
+.tools.compact .tool { padding: 18px 28px; }
+.tools.compact .tool b { font-size: 34px; }
+.tools.compact .tool span { font-size: 25px; margin-top: 2px; }

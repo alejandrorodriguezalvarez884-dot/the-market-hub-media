@@ -1,0 +1,16 @@
+Just ask. Get the chart.
+
+PlayGround, now in My Hub, is a market board you build by chatting. Ask in plain English, like "compare NVDA, AMD, AVGO and TSM over a year" or "NVDA over six months with the 50 and 200 day averages", and Claude picks the views and the tickers. Then arrange the board your way.
+
+- Price: one instrument, candles or a line, with its averages.
+- Compare: several, as lines from the same start.
+- One scale: many, each a mark at its move.
+- Table: rows of tickers with the figures you choose.
+
+Claude chooses what to show; every number comes from the market data (Yahoo Finance), never from the model. Nothing is saved: the board lives while the page is open.
+
+Sign in at themarkethub.app, then My Hub > Playground.
+
+Market Hub describes. It never tells you what to buy or sell, and nothing here is investment advice.
+
+#stockmarket #investing #ai #charts #stocks

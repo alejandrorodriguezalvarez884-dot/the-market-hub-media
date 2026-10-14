@@ -1,0 +1,19 @@
+Any company. Decoded.
+
+Fundamentals Lab, now in My Hub, puts a US-listed company's numbers on one page:
+
+- Overview: revenue, profit, free cash flow, margins, returns, and how the stock has done against the S&P 500.
+- Fundamentals: the statements, year by year.
+- Valuation & forward: today's multiples, the same multiples through time, and the analysts' consensus for the coming years at today's price.
+- Technical: moving averages, RSI, MACD, Bollinger bands, drawdown, beta and key price levels.
+- Compare: up to five companies side by side, with the highest and lowest of each row marked.
+
+And the AI reading: Claude reads the figures computed on the page and writes what they show. It comments on the numbers; it never invents them and never calls a stock cheap or expensive.
+
+Data from company filings (SEC EDGAR) and Yahoo Finance. The screenshots show NVIDIA on October 14, 2026.
+
+Sign in at themarkethub.app, then My Hub > Fundamentals.
+
+Market Hub describes. It never tells you what to buy or sell, and nothing here is investment advice.
+
+#stockmarket #investing #ai #fundamentals #stocks

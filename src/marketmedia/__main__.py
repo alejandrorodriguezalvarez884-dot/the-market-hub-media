@@ -13,6 +13,7 @@
     python -m marketmedia instagram <video>              publish the Short as a reel on Instagram
     python -m marketmedia instagram --check              say which account the Instagram token is for, and publish nothing
     python -m marketmedia story <page.html|picture.jpg>  publish a picture as a story on Instagram (--draw: only draw it)
+    python -m marketmedia carousel <folder>              publish a folder's slides as one post in the Instagram feed (--draw: only draw them)
     python -m marketmedia posts [--to DIR]               read the account's latest posts on Instagram and leave them where the
                                                          portal's Media page reads them (its Firestore, or a local portal's folder)
     python -m marketmedia xcheck [post]                  what stops a post in x/ from going on X (every one not yet on it)
@@ -255,6 +256,37 @@ def _story(args, channel) -> int:
     return 0
 
 
+def _carousel(args, channel) -> int:
+    """A folder's slides (its *.html pages, drawn for 1080x1350, in the order of their names) as
+    one post in the feed of the channel's Instagram account, with its caption.txt under it. The
+    pages are photographed first, into JPEGs beside them; with --draw that is all, and nothing is
+    published. Where it went is written down in the folder's instagram.json."""
+    import json
+    folder = Path(args.folder)
+    pages = sorted(folder.glob("*.html"))
+    if not pages:
+        raise FileNotFoundError(f"no slides (*.html) in {folder}")
+    record_file = folder / "instagram.json"
+    if record_file.is_file() and not args.again and not args.draw:
+        print(f"{folder.name} is already on Instagram: {json.loads(record_file.read_text(encoding='utf-8')).get('url')}  (--again to publish it once more)")
+        return 1
+    pictures = [instagram.draw(page, instagram.SLIDE) for page in pages]
+    if args.draw:
+        print("\n".join(str(p) for p in pictures))
+        return 0
+    words = (folder / "caption.txt").read_text(encoding="utf-8").strip()
+    part = instagram.carousel(pictures, words, channel.instagram_bucket)
+    record_file.write_text(json.dumps(part, indent=2) + "\n", encoding="utf-8", newline="\n")
+    print(f"Carousel: {part['url'] or part['id']} on @{channel.instagram_handle}, {len(pictures)} pictures")
+    if part.get("url_error"):
+        print(f"  it is published, but its address could not be read: {part['url_error']}")
+    try:
+        _posts(argparse.Namespace(to=None), channel)
+    except (Exception, SystemExit) as exc:  # noqa: BLE001 - the post is up: `make posts` tells the portal later
+        print(f"  the portal was not told of it ({type(exc).__name__}: {exc}): run 'make posts'")
+    return 0
+
+
 def _xcheck(args, channel) -> int:
     """What stops a post from going on X: the one named, or every one not yet on it."""
     chosen = [xposts.find(args.post)] if args.post else [p for p in xposts.every() if not p.url]
@@ -320,6 +352,10 @@ def main(argv: list[str] | None = None) -> int:
     telling = commands.add_parser("story")
     telling.add_argument("story")
     telling.add_argument("--draw", action="store_true", help="draw the page's picture, and publish nothing")
+    swiping = commands.add_parser("carousel")
+    swiping.add_argument("folder")
+    swiping.add_argument("--draw", action="store_true", help="draw the slides' pictures, and publish nothing")
+    swiping.add_argument("--again", action="store_true")
     commands.add_parser("posts").add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
     commands.add_parser("xcheck").add_argument("post", nargs="?")
     recording = commands.add_parser("xposted")
@@ -330,7 +366,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
-           "story": _story, "posts": _posts, "xcheck": _xcheck, "xposted": _xposted, "xfront": _xfront}[args.command]
+           "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xposted": _xposted, "xfront": _xfront}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:
