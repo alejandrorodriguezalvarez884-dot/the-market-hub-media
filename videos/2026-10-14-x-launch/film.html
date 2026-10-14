@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Market Hub on X, the launch film</title>
+<!-- 1080 by 1080. Nothing of the app is shown, and nothing is loaded from the network: words, lines
+     drawn here and the logo. Every movement is an animation of the page, so film.py can stop them
+     all and put them at the moment of each frame. The lines are made up (a seeded random walk):
+     they stand for prices in general and are no market's. -->
+<style>
+  :root { --page: #0b0c0d; --line: #222528; --line-strong: #3a3e42; --ink: #c9c7c1; --strong: #f2f0ea;
+          --muted: #8c8b86; --up: #35c98f; --down: #ff6b57;
+          --sans: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace; }
+  html, body { margin: 0; width: 1080px; height: 1080px; overflow: hidden; background: var(--page); color: var(--strong); font-family: var(--sans); }
+  .scene { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+  .glow { position: absolute; left: -200px; right: -200px; top: 300px; height: 1000px;
+          background: radial-gradient(closest-side, rgb(242 240 234 / 0.08), transparent); }
+
+  /* The logo, stretched across the frame: the bar, the line of zero, and the dot, which is how
+     far into the film this is. */
+  .rule { position: absolute; left: 72px; top: 110px; width: 936px; height: 2px; background: var(--line-strong); }
+  .rule::before { content: ""; position: absolute; left: 0; top: -12px; width: 3px; height: 26px; background: var(--strong); }
+  .rule i { position: absolute; left: 0; top: -7px; width: 16px; height: 16px; border-radius: 50%; background: var(--strong); }
+
+  .head { position: absolute; left: 68px; top: 180px; width: 944px; font-weight: 700; font-size: 118px; line-height: 1.05; letter-spacing: -0.028em; }
+  .head .l { display: block; overflow: hidden; width: max-content; padding: 0 12px 10px 0; }
+  .head .l i { display: block; font-style: normal; }
+  .head .pop { overflow: visible; padding: 0; margin-top: 8px; }
+  .head .pop i { background: var(--strong); color: var(--page); padding: 0 22px 10px 16px; margin-left: -6px; }
+
+  /* The lines behind the words: many and restless, then one. */
+  .field { position: absolute; left: 0; top: 640px; width: 2160px; height: 360px; transform-origin: 0 50%; }
+  .field svg { display: block; overflow: visible; }
+  .thread { position: absolute; left: 0; top: 640px; width: 1080px; height: 360px; }
+  .thread svg { display: block; overflow: visible; }
+  .thread path { fill: none; stroke: var(--strong); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+  .thread .dot { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--strong);
+                 box-shadow: 0 0 0 10px rgb(242 240 234 / 0.12), 0 0 40px rgb(242 240 234 / 0.5); }
+
+  .mark { position: absolute; }
+  .mark path { fill: none; stroke: var(--strong); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1; }
+  .mark circle { fill: var(--strong); transform-box: fill-box; transform-origin: center; }
+
+  /* The close */
+  .close { text-align: center; }
+  .close .name { position: absolute; left: 0; right: 0; top: 330px; font-weight: 700; font-size: 148px; letter-spacing: -0.04em; line-height: 1; }
+  .close .say { position: absolute; left: 0; right: 0; top: 520px; font-weight: 600; font-size: 64px; line-height: 1.2; letter-spacing: -0.025em; color: var(--ink); }
+  .close .say span { display: block; }
+  .close .say span:last-child { color: var(--strong); }
+  .close .site { position: absolute; left: 0; right: 0; top: 800px; }
+  .close .site i { display: inline-block; font: 600 56px/1 var(--mono); font-style: normal; letter-spacing: -0.02em; background: var(--strong); color: var(--page); padding: 26px 36px 30px; }
+  .close .note { position: absolute; left: 0; right: 0; top: 960px; font: 500 28px/1 var(--mono); letter-spacing: 0.04em; color: var(--muted); }
+</style>
+<body>
+<script src="timeline.js"></script>
+<script>
+const REEL = window.REEL, TOTAL = REEL.total, SCENES = REEL.scenes;
+const OUT = "cubic-bezier(0.16, 1, 0.3, 1)", IN = "cubic-bezier(0.7, 0, 0.84, 0)", BOTH = "cubic-bezier(0.45, 0, 0.1, 1)";
+const MARK = '<path pathLength="1" d="M10 6v20"/><path pathLength="1" d="M10 16h10"/><circle cx="22.5" cy="16" r="3.75"/>';
+const scene = (name) => SCENES.find((s) => s.name === name);
+
+const make = (parent, tag, cls, html) => { const el = document.createElement(tag); if (cls) el.className = cls; if (html != null) el.innerHTML = html; parent.appendChild(el); return el; };
+
+// One animation as long as the film: `keys` are [seconds, the styles then, how it eases to the next].
+// Before its first key an element is as at that key, and after its last, as at the last.
+const track = (el, keys) => {
+  const frames = keys.map(([t, styles, easing]) => ({ ...styles, offset: Math.min(1, Math.max(0, t / TOTAL)), easing: easing ?? "linear" }));
+  if (frames[0].offset > 0) frames.unshift({ ...frames[0], offset: 0, easing: "linear" });
+  if (frames.at(-1).offset < 1) frames.push({ ...frames.at(-1), offset: 1 });
+  el.animate(frames, { duration: TOTAL * 1000, fill: "both" });
+};
+const shown = (el, from, to) => track(el, [[0, { opacity: 0 }], [from - 0.0005, { opacity: 0 }], [from, { opacity: 1 }], [to - 0.0005, { opacity: 1 }], [to, { opacity: 0 }]]);
+const rise = (el, at, by = 0.32) => track(el, [[at, { transform: "translateY(112%)" }, OUT], [at + by, { transform: "translateY(0)" }]]);
+const wipe = (el, at, by = 0.2) => track(el, [[at, { clipPath: "inset(0 100% 0 0)" }, OUT], [at + by, { clipPath: "inset(0 0% 0 0)" }]]);
+const leave = (el, end) => track(el, [[end - 0.16, { opacity: 1, transform: "translateY(0)" }, IN], [end, { opacity: 0, transform: "translateY(-60px)" }]]);
+
+const mark = (parent, x, y, size, at) => {
+  const svg = make(parent, "div", "mark", `<svg width="${size}" height="${size}" viewBox="4 2 26 28">${MARK}</svg>`);
+  svg.style.cssText = `left:${x}px;top:${y}px`;
+  const [bar, line] = svg.querySelectorAll("path"), dot = svg.querySelector("circle");
+  track(bar, [[at, { strokeDashoffset: 1 }, OUT], [at + 0.25, { strokeDashoffset: 0 }]]);
+  track(line, [[at + 0.12, { strokeDashoffset: 1 }, OUT], [at + 0.4, { strokeDashoffset: 0 }]]);
+  track(dot, [[at + 0.3, { transform: "scale(0)" }, "cubic-bezier(0.34, 1.7, 0.64, 1)"], [at + 0.55, { transform: "scale(1)" }]]);
+  return svg;
+};
+
+// The words of a scene: a line every beat, the last one with the hit.
+const words = (parent, s) => {
+  const head = make(parent, "div", "head");
+  s.lines.forEach((text, n) => {
+    const last = n === s.lines.length - 1;
+    const line = make(head, "span", last ? "l pop" : "l"), inner = make(line, "i", "", text);
+    (last ? wipe : rise)(inner, s.at + 0.5 * n + (n ? 0 : 0.04));
+  });
+  // A line too long for the frame makes them all smaller.
+  const widest = Math.max(...[...head.children].map((line) => line.getBoundingClientRect().width));
+  if (widest > 944) head.style.fontSize = `${Math.floor(parseFloat(getComputedStyle(head).fontSize) * 944 / widest)}px`;
+  leave(head, s.end);
+};
+
+// A made-up price: a random walk from the same seed every time, so a film made twice is the same.
+let seed = 20261014;
+const random = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296) * 2 - 1;
+const walk = (width, steps, swing, pull) => {
+  let y = 0, v = 0;
+  const points = [];
+  for (let k = 0; k <= steps; k++) {
+    v = 0.7 * v + random() * swing - pull * y;
+    y = Math.max(-170, Math.min(170, y + v));
+    points.push([(k * width) / steps, 180 + y]);
+  }
+  return points;
+};
+const path = (points) => "M" + points.map(([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`).join("L");
+
+SCENES.forEach((s) => {
+  const el = make(document.body, "div", `scene ${s.name}`);
+  shown(el, s.at, s.end);
+  if (s.name === "close") {
+    el.classList.add("close");
+    make(el, "div", "glow").style.top = "-100px";
+    mark(el, 450, 130, 180, s.at + 0.02);
+    const name = make(el, "div", "name", "Market Hub");
+    track(name, [[s.at + 0.25, { opacity: 0, transform: "translateY(40px) scale(0.94)" }, OUT], [s.at + 0.7, { opacity: 1, transform: "translateY(0) scale(1)" }]]);
+    const say = make(el, "div", "say");
+    ["The whole market.", "On one page.", "Now on X."].forEach((text, k) => {
+      const line = make(say, "span", "", text), at = s.at + 1 + 0.5 * k;
+      track(line, [[at, { opacity: 0, transform: "translateY(32px)" }, OUT], [at + 0.35, { opacity: 1, transform: "translateY(0)" }]]);
+    });
+    const site = make(el, "div", "site", "<i>themarkethub.app</i>");
+    wipe(site.firstChild, s.at + 2.5, 0.25);
+    const note = make(el, "div", "note", "@the_market_hub_ · No investment advice");
+    track(note, [[s.at + 2.8, { opacity: 0 }, OUT], [s.at + 3.2, { opacity: 1 }]]);
+    return;
+  }
+  make(el, "div", "glow");
+  words(el, s);
+});
+
+// The storm: many prices at once, running past, restless, and then pulled into one line. It lives
+// across the scenes whose field is "storm" or "gather", over them.
+const storm = SCENES.filter((s) => s.field === "storm" || s.field === "gather");
+const from = storm[0].at, gathered = storm.at(-1).end, tight = scene("tabs");
+const field = make(document.body, "div", "field");
+const colours = ["var(--up)", "var(--down)", "var(--ink)", "var(--up)", "var(--down)", "var(--muted)"];
+field.innerHTML = `<svg width="2160" height="360">${Array.from({ length: 24 }, (_, k) => {
+  const width = k % 3 ? 2.5 : 3.5, alpha = 0.28 + 0.05 * (k % 7);
+  return `<path d="${path(walk(2160, 120, 20 + (k % 5) * 5, 0.13))}" fill="none" stroke="${colours[k % colours.length]}" stroke-opacity="${alpha.toFixed(2)}" stroke-width="${width}" stroke-linejoin="round"/>`;
+}).join("")}</svg>`;
+track(field, [
+  [from, { opacity: 0, transform: "translateX(0) scaleY(0.6)" }, OUT],
+  [from + 0.3, { opacity: 1, transform: "translateX(-90px) scaleY(1)" }],
+  [tight.at, { opacity: 1, transform: "translateX(-500px) scaleY(1)" }, OUT],
+  [tight.at + 0.4, { opacity: 1, transform: "translateX(-620px) scaleY(1.35)" }],
+  [tight.end, { opacity: 1, transform: "translateX(-860px) scaleY(1.25)" }, BOTH],
+  [gathered - 0.15, { opacity: 0.9, transform: "translateX(-1060px) scaleY(0.012)" }],
+  [gathered, { opacity: 0, transform: "translateX(-1080px) scaleY(0.012)" }],
+]);
+track(field.firstChild, [[from, { transform: "translateY(0)" }], ...Array.from({ length: 18 }, (_, k) => {
+  const t = tight.at + (k * (tight.end - tight.at)) / 18;      // the frame shakes while it is "ten tabs"
+  return [t, { transform: `translateY(${(k % 2 ? -1 : 1) * (6 + (k % 3) * 4)}px)` }];
+}), [tight.end, { transform: "translateY(0)" }]]);
+
+// The thread: one price, drawn as it goes, at the opening; and one calm line with its dot after the storm.
+for (const s of SCENES.filter((s) => s.field === "thread")) {
+  const thread = make(document.body, "div", "thread");
+  shown(thread, s.at, s.end);
+  const calm = s.at > 0;
+  const points = calm ? [[60, 180], [1020, 180]] : walk(960, 60, 30, 0.04).map(([x, y]) => [60 + x, y]);
+  thread.innerHTML = `<svg width="1080" height="360"><path pathLength="1" d="${path(points)}"/></svg>`;
+  track(thread.querySelector("path"), [[s.at + 0.1, { strokeDashoffset: 1 }, calm ? OUT : "linear"], [s.at + (calm ? 0.6 : 2.6), { strokeDashoffset: 0 }]]);
+  const dot = make(thread, "div", "dot");
+  if (calm) {
+    track(dot, [[s.at + 0.2, { left: "60px", top: "180px", transform: "scale(0)" }, OUT], [s.at + 0.6, { left: "60px", top: "180px", transform: "scale(1)" }, BOTH],
+                [s.end - 0.2, { left: "1020px", top: "180px", transform: "scale(1)" }]]);
+  } else {
+    // The dot rides the end of the line as it is drawn.
+    const keys = points.map(([x, y], k) => [s.at + 0.1 + (2.5 * k) / (points.length - 1), { left: `${x}px`, top: `${y}px` }]);
+    track(dot, keys);
+  }
+  track(thread, [[s.end - 0.16, { transform: "translateY(0)" }, IN], [s.end, { transform: "translateY(-30px)" }]]);
+}
+
+// The line of zero and its dot, over every scene but the last.
+const last = SCENES.at(-1);
+const rule = make(document.body, "div", "rule", "<i></i>");
+rule.style.transformOrigin = "0 50%";
+track(rule, [[0.1, { opacity: 0, transform: "scaleX(0)" }, OUT], [0.6, { opacity: 1, transform: "scaleX(1)" }], [last.at - 0.16, { opacity: 1 }, IN], [last.at, { opacity: 0 }]]);
+track(rule.firstChild, [[0.3, { transform: "translateX(0)" }], [last.at, { transform: "translateX(920px)" }]]);
+
+window.slideSeconds = TOTAL;
+window.reelReady = Promise.resolve();
+</script>
+</body>
+</html>
