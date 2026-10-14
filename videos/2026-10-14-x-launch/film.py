@@ -31,7 +31,7 @@ SIZE = {"width": 1080, "height": 1080}
 FPS = 30
 RATE = 48000
 PEAK = 0.89
-COVER_AT = 15.9   # the close, whole: the logo, the name, the three lines and the address
+COVER_AT = 18.6   # the close, whole: the logo, the name, the three lines and the address
 BUILD = HERE / "build"
 
 
