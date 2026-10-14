@@ -41,9 +41,9 @@ handle = "the_market_hub_app"
 bucket = "arctic-robot-474306-g3-market-hub-reels"   # a Google Cloud Storage bucket anybody can read from (the owner agreed, 2026-10-13)
 
 # X: each post is a file in x/ (skill post-x), put on X by hand in the browser and recorded with
-# `make xposted`. Empty until the owner has made the account.
+# `make xposted`. The account was made by the owner on 2026-10-14.
 [x]
-handle = ""
+handle = "the_market_hub_"
 
 # A video that presents the channel or a series, instead of explaining something (kind: trailer).
 [trailer]
