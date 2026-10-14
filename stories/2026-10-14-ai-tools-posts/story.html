@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<!-- An Instagram story, 1080 by 1920: the six carousels that present the tools of My Hub are on
+     the feed (2026-10-14). The pictures are the covers of those carousels
+     (carousels/2026-10-14-ai-tools/), drawn here. The top and the bottom 250 px are left empty:
+     Instagram lays the account's name and the reply box over them.
+
+       make story STORY=stories/2026-10-14-ai-tools-posts/story.html DRAW=1   # story.jpg, to look at
+       make story STORY=stories/2026-10-14-ai-tools-posts/story.html          # and published -->
+<style>
+  :root { --page: #0a0b0d; --line: #24272c; --ink: #c9c7c1; --ink-strong: #f4f2ec; --muted: #8f8e89;
+          --sans: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+          --mono: "Cascadia Mono", Consolas, ui-monospace, "SF Mono", Menlo, monospace; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--page); color: var(--ink-strong); font-family: var(--sans); }
+  body { position: relative; display: flex; flex-direction: column; align-items: center; padding: 280px 70px 290px; text-align: center; }
+  .glow { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+  .glow i { position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.5; }
+  .glow i:nth-child(1) { width: 1100px; height: 1000px; right: -520px; top: 80px; background: radial-gradient(closest-side, #35c98f, transparent); }
+  .glow i:nth-child(2) { width: 1100px; height: 1000px; left: -560px; top: 760px; background: radial-gradient(closest-side, #a78bfa, transparent); }
+  .glow i:nth-child(3) { width: 900px; height: 800px; right: -380px; bottom: -200px; background: radial-gradient(closest-side, #ff6b8a, transparent); opacity: 0.35; }
+  .brand { display: flex; align-items: center; gap: 16px; font-size: 42px; font-weight: 650; }
+  .brand svg { width: 44px; height: 44px; }
+  .pill { margin-top: 70px; display: inline-flex; align-items: center; gap: 16px; padding: 16px 30px; border-radius: 999px; border: 2px solid rgba(53, 201, 143, 0.55);
+          font-family: var(--mono); font-size: 27px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); background: rgba(10, 11, 13, 0.6); }
+  .pill i { width: 16px; height: 16px; border-radius: 50%; background: #35c98f; box-shadow: 0 0 0 8px rgba(53, 201, 143, 0.22), 0 0 28px #35c98f; }
+  h1 { margin-top: 40px; font-size: 118px; font-weight: 760; letter-spacing: -0.045em; line-height: 0.98; }
+  h1 em { font-style: normal; background: linear-gradient(100deg, #35c98f, #4f8cff 55%, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .grid { margin-top: 70px; display: grid; grid-template-columns: repeat(3, 286px); gap: 26px; }
+  .grid img { width: 286px; height: 357px; border-radius: 18px; border: 2px solid #2c3036; display: block;
+              box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7); }
+  .grid img:nth-child(odd) { transform: rotate(-2.5deg); }
+  .grid img:nth-child(even) { transform: rotate(2.5deg) translateY(14px); }
+  .go { margin-top: 84px; font-size: 52px; font-weight: 650; letter-spacing: -0.02em; }
+  .go span { color: #35c98f; }
+  .site { margin-top: 18px; font-size: 32px; color: var(--muted); }
+</style>
+<body>
+  <div class="glow"><i></i><i></i><i></i></div>
+  <div class="brand">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 2v16M4 10h8"/><circle cx="14.5" cy="10" r="2.75" fill="currentColor" stroke="none"/></svg>
+    <span>Market Hub</span>
+  </div>
+  <p class="pill"><i></i>6 new posts</p>
+  <h1>Meet the <em>new tools</em> of My Hub.</h1>
+  <div class="grid">
+    <img src="../../carousels/2026-10-14-ai-tools/01-ai-tools-in-my-hub/1.jpg">
+    <img src="../../carousels/2026-10-14-ai-tools/02-fundamentals-lab/1.jpg">
+    <img src="../../carousels/2026-10-14-ai-tools/03-earnings-radar/1.jpg">
+    <img src="../../carousels/2026-10-14-ai-tools/04-peer-map/1.jpg">
+    <img src="../../carousels/2026-10-14-ai-tools/05-playground/1.jpg">
+    <img src="../../carousels/2026-10-14-ai-tools/06-options-lab/1.jpg">
+  </div>
+  <p class="go">On our profile now <span>&rarr;</span></p>
+  <p class="site">themarkethub.app</p>
+</body>
