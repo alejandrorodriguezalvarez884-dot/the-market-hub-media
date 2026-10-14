@@ -99,7 +99,15 @@ yes to all of it. In the editor, after typing the first post, the "Add post" but
 next box (`tweetTextarea_1`, `_2`…) with the cursor in it; check that every box holds its file's
 text exactly and that no empty box is left, and the button then reads "Post all". The addresses of
 the posts after the first show on the profile's Replies tab (`https://x.com/<handle>/with_replies`),
-not on the first post's page. Record each with its own `make xposted`.
+not on the first post's page; past the fourth, open the fourth post's own page and scroll down, and
+the rest of the thread loads under it. Record each with its own `make xposted`.
+
+In a long thread there can be two "Add post" buttons at once: the one under an earlier post
+inserts the new box in the middle of the thread. Take a fresh screenshot and press the (+) of the
+box you just typed in (scroll down first if it is below the screen), then check that the cursor
+is in the new last box (`tweetTextarea_<n>`) before typing. Open the editor at
+`https://x.com/compose/post` as a whole page; if it opens as a dialog over the timeline and the
+pane changes size, a click can close it.
 
 To change text already in a box, delete it with Backspace: selecting all (ctrl+a) does nothing in
 X's editor from the built-in browser. If a box goes wrong, close the editor and choose Discard
