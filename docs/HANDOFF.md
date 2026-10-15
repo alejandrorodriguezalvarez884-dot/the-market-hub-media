@@ -131,12 +131,16 @@ contenido hasta la publicación del vídeo (2026-10-06):
 ## La serie Money 101 (aprobada el 2026-10-06)
 
 Enseñar finanzas personales, una idea por vídeo, para público general: la lista de básicos.
-Color lima (`#c6f24e`). Temas, en este orden: (1) interés compuesto; (2) inflación; (3) qué cuesta de verdad
-una deuda (TAE, pago mínimo de una tarjeta); (4) adónde va una nómina (bruto y neto); (5) un
-presupuesto como reparto, no como dieta; (6) el colchón de emergencia y para qué sirve; (7)
-ahorrar frente a invertir: riesgo y plazo; (8) qué es un fondo indexado; (9) diversificar; (10)
-lo que se llevan las comisiones en treinta años; (11) cómo funciona una hipoteca: fijo y
-variable; (12) impuestos sobre lo que se gana invirtiendo. Al ser para público general, las
+Color lima (`#c6f24e`). **Diez episodios** (el usuario la redujo de doce a diez el 2026-10-15,
+"ajusta como sea"; se juntaron los temas que se explican con la misma idea). En este orden: (1)
+interés compuesto; (2) inflación; (3) qué cuesta de verdad una deuda (TAE, pago mínimo de una
+tarjeta); (4) adónde va una nómina (bruto y neto); (5) un presupuesto como reparto, no como
+dieta; (6) el colchón de emergencia y para qué sirve; (7) ahorrar frente a invertir: riesgo y
+plazo; (8) diversificar, y el fondo indexado como la forma de hacerlo de una vez (antes dos
+temas: qué es un fondo indexado, y diversificar); (9) cómo funciona una hipoteca: fijo y
+variable (el reparto de cada cuota entre interés y deuda, que el episodio 3 dejó para aquí);
+(10) lo que se queda por el camino al invertir: comisiones en treinta años e impuestos sobre lo
+que se gana (antes dos temas; cierra la serie). Del 1 al 4 están publicados. Al ser para público general, las
 fuentes son internacionales cuando las hay (OCDE, bancos centrales) y los temas que cambian de un
 país a otro (nómina, hipoteca, impuestos) se cuentan por su mecanismo, no por la norma de un
 país. Lo que hay que vigilar en cada brief: que "enseñar" no se vuelva "aconsejar".
