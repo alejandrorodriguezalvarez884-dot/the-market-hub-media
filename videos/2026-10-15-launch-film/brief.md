@@ -26,7 +26,7 @@ de la estética genérica de "IA" (ni brillos violetas, ni chispas, ni robots).
 | 0:03 | | Prices. Filings. Headlines. **Earnings.** | las pestañas se apilan, una por palabra (dibujadas, sin webs ni logos de nadie) |
 | 0:08 | | Too much **to read.** | la pila tiembla y se viene abajo |
 | 0:12 | El giro | So I built **one place.** | el logo de la web se dibuja: la barra, la línea, el punto |
-| 0:17 | | Market Hub. **Now live.** | |
+| 0:17 | | The Market Hub. **Now live.** | |
 | 0:22 | 1 · El mercado | The whole market. **Every company.** | grabación: Today (la regla), Markets, la ficha de una empresa, News; cortes rápidos dentro de una ventana que flota |
 | 0:38 | 2 · La IA | And now, **AI that reads it for you.** | rótulo de parte |
 | 0:42 | Fundamentals Lab | It reads the numbers. **And invents none.** | grabación: la ficha de una empresa, "Write the reading", el estado "Reading the numbers…" y la lectura que aparece; la cámara se acerca al titular y a "points to check" |
@@ -38,7 +38,7 @@ de la estética genérica de "IA" (ni brillos violetas, ni chispas, ni robots).
 | 1:52 | La comunidad | Every month. **One leaderboard.** | grabación: la competición, su clasificación y el gráfico frente al S&P 500 |
 | 2:00 | | November's competition **is open.** | |
 | 2:04 | La regla | It explains. **You decide.** | la línea del logo, quieta |
-| 2:09 | Cierre | Market Hub · Free · Live today · `themarkethub.app` · No investment advice | el logo; se queda quieto los últimos segundos (sitio para la pantalla final de YouTube) |
+| 2:09 | Cierre | The Market Hub · Free · Live today · `themarkethub.app` · No investment advice | el logo; se queda quieto los últimos segundos (sitio para la pantalla final de YouTube) |
 
 **Corte vertical (unos 50 s)**: la apertura acortada, las tres herramientas que más se ven trabajar
 (Fundamentals Lab, Earnings Radar, Playground), la competición y el cierre, dibujados de nuevo en

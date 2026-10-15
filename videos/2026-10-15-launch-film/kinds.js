@@ -97,7 +97,7 @@ function makeKinds() {
       scene.classList.add("title");
       const m = mark(scene, W / 2 - 70, UPRIGHT ? 520 : 200, 140, s.at + 0.05);
       track(m, [[s.end - 0.25, { opacity: 1 }], [s.end, { opacity: 0 }]]);
-      const name = make(scene, "div", "name", "Market Hub");
+      const name = make(scene, "div", "name", "The Market Hub");
       track(name, [[s.at + 0.1, { opacity: 0, transform: "translateY(40px) scale(0.96)", filter: "blur(0px)" }, OUT],
                    [s.at + 0.9, { opacity: 1, transform: "none", filter: "blur(0px)" }],
                    [s.end - 0.25, { opacity: 1, transform: "none", filter: "blur(0px)" }, IN], [s.end, { opacity: 0, transform: "none", filter: "blur(8px)" }]]);
@@ -155,7 +155,7 @@ function makeKinds() {
     close(scene, s) {
       scene.classList.add("close");
       mark(scene, W / 2 - 85, UPRIGHT ? 560 : 250, 170, s.at + 0.05);
-      const name = make(scene, "div", "name", "Market Hub");
+      const name = make(scene, "div", "name", "The Market Hub");
       track(name, [[s.at + 0.2, { opacity: 0, transform: "translateY(40px) scale(0.96)" }, OUT], [s.at + 0.9, { opacity: 1, transform: "none" }]]);
       const say = make(scene, "div", "say");
       ["Free.", "Live today."].forEach((text, k) => life(make(say, "span", "", text), s.at + 1.0 + 2 * BEAT * k, 0.4, "translateY(24px)"));

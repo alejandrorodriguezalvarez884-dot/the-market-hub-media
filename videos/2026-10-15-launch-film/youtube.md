@@ -6,12 +6,12 @@ words and drawings are code).
 
 ## Title
 
-Market Hub is live: AI that reads the market for you
+The Market Hub is live: AI that reads the market for you
 
 ## Description
 
 Every morning I opened five tabs to understand the market and my own portfolio. So I built one place
-that brings it together. Market Hub is live today, and it's free.
+that brings it together. The Market Hub is live today, and it's free.
 
 Inside My Hub, your private area:
 0:42 Fundamentals Lab: the AI reads a company's numbers and writes what they show, without inventing any
@@ -27,7 +27,7 @@ Try it: https://themarkethub.app
 Everything in the film is the site itself, recorded on October 15, 2026, with market data from
 Yahoo Finance as it was that day. The portfolio and the competition entry shown are a demo account.
 
-Market Hub explains; it never tells you what to buy or sell. This video is for information only. It
+The Market Hub explains; it never tells you what to buy or sell. This video is for information only. It
 is not investment advice, and nothing in it is a recommendation to buy, sell or hold anything.
 
 ## Tags
