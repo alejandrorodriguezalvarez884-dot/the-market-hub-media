@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<!-- An Instagram story, 1080 by 1920: the site is live (2026-10-15), the day the launch film went up
+     on YouTube and as a reel. Drawn as the site is (its page, its ink, its type, its mark). The
+     picture in the window is a frame of the film's own recording of the site (Fundamentals Lab's AI
+     reading of Microsoft, recorded that day; ../../videos/2026-10-15-launch-film/takes.py), nothing
+     of anyone else's. The top and the bottom 250 px are left empty: Instagram lays the account's
+     name and the reply box over them.
+
+       make story STORY=stories/2026-10-15-launch/story.html DRAW=1   # story.jpg, to look at
+       make story STORY=stories/2026-10-15-launch/story.html          # and published -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@500;600;700&display=block">
+<style>
+  :root { --page: #0b0c0d; --raised: #191b1d; --line: #222528; --line-strong: #3a3e42; --ink: #c9c7c1; --strong: #f2f0ea; --muted: #8c8b86; --up: #35c98f;
+          --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--page); color: var(--strong); font-family: var(--sans); }
+  body { position: relative; display: flex; flex-direction: column; align-items: center; padding: 300px 80px 300px; text-align: center; }
+  body::before { content: ""; position: absolute; left: 50%; top: 1240px; width: 1400px; height: 1000px; transform: translate(-50%, -50%);
+                 background: radial-gradient(closest-side, rgba(242, 240, 234, 0.08), transparent); z-index: -1; }
+  .brand { display: flex; align-items: center; gap: 18px; font-size: 42px; font-weight: 600; color: var(--ink); }
+  .brand svg { width: 48px; height: 48px; }
+  .status { margin-top: 90px; display: flex; align-items: center; gap: 26px; font-family: var(--mono); font-size: 29px; font-weight: 600;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .status i { width: 18px; height: 18px; border-radius: 50%; background: var(--up); box-shadow: 0 0 0 9px rgba(53, 201, 143, 0.18); }
+  h1 { margin-top: 36px; font-size: 118px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.02; }
+  h1 span { display: inline-block; margin-top: 18px; background: var(--strong); color: var(--page); padding: 0 26px 14px; }
+  .say { margin-top: 44px; font-size: 50px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink); line-height: 1.25; }
+  /* A frame of the film, in the window the film shows the site in. */
+  .win { flex: none; margin-top: 64px; width: 1000px; border-radius: 22px; overflow: hidden; border: 2px solid var(--line-strong); background: var(--page);
+         transform: rotate(-2.5deg); box-shadow: 0 60px 140px rgba(0, 0, 0, 0.8); text-align: left; }
+  .bar { position: relative; height: 54px; background: #121415; border-bottom: 1px solid var(--line); }
+  .bar .dots { position: absolute; left: 22px; top: 20px; display: flex; gap: 10px; }
+  .bar .dots i { width: 14px; height: 14px; border-radius: 50%; background: var(--line-strong); }
+  .bar .url { position: absolute; left: 50%; top: 11px; transform: translateX(-50%); height: 32px; padding: 0 22px; border-radius: 16px; background: var(--raised);
+              color: var(--muted); font: 500 19px/32px var(--mono); white-space: nowrap; }
+  .bar .url b { color: var(--ink); font-weight: 500; }
+  .win img { display: block; width: 1000px; height: 360px; object-fit: cover; object-position: 0 80%; }
+  .site { flex: none; margin-top: 76px; font: 600 46px/1 var(--mono); background: var(--strong); color: var(--page); padding: 22px 34px 24px; }
+  .note { margin-top: 30px; font: 500 26px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+</style>
+<body>
+  <div class="brand">
+    <svg viewBox="4 2 26 28" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M10 6v20"/><path d="M10 16h10"/><circle cx="22.5" cy="16" r="3.75" fill="currentColor" stroke="none"/></svg>
+    The Market Hub
+  </div>
+  <div class="status"><i></i>Live today</div>
+  <h1>The Market Hub<br><span>is live.</span></h1>
+  <p class="say">AI that reads the market for you.<br>Free.</p>
+  <div class="win">
+    <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url"><b>fundamentals.themarkethub.app</b>/stock/?t=MSFT</div></div>
+    <img src="reading.jpg" alt="Fundamentals Lab's AI reading of Microsoft's numbers">
+  </div>
+  <div class="site">themarkethub.app</div>
+  <p class="note">Link in bio · New reel on our profile</p>
+</body>
