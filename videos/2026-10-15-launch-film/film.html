@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Market Hub, the launch film</title>
+<!-- 1920 by 1080 (or, with ?v, 1080 by 1920: the upright cut). Every movement is an animation of the
+     page and every take a video seeked to its moment, so film.py puts the whole film at the moment of
+     each frame (window.seekTo) and photographs it. The takes are the site itself (takes.py); the type
+     and the colours are the site's own (IBM Plex, market-hub-landing/site/src/styles/global.css). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=block">
+<style>
+  :root { --page: #0b0c0d; --deep: #070808; --panel: #101213; --raised: #191b1d; --line: #222528; --line-strong: #3a3e42;
+          --ink: #c9c7c1; --strong: #f2f0ea; --muted: #8c8b86; --faint: #5f5f5b; --up: #35c98f; --down: #ff6b57; --warn: #e0b341;
+          --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+          --W: 1920px; --H: 1080px; }
+  html, body { margin: 0; width: var(--W); height: var(--H); overflow: hidden; background: var(--deep); color: var(--strong); font-family: var(--sans); }
+  body { background: radial-gradient(120% 90% at 50% 40%, #111314 0%, var(--deep) 70%); }
+  .scene { position: absolute; inset: 0; opacity: 0; overflow: hidden; perspective: 2400px; }
+  .grain { position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay; z-index: 50;
+           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* The logo, stretched across the top: the bar, the line of zero, and the dot, which is how far into the film this is. */
+  .rule { position: absolute; left: 96px; top: 70px; width: 1728px; height: 2px; background: var(--line-strong); z-index: 40; transform-origin: 0 50%; }
+  .rule::before { content: ""; position: absolute; left: 0; top: -12px; width: 3px; height: 26px; background: var(--strong); }
+  .rule i { position: absolute; left: 0; top: -7px; width: 16px; height: 16px; border-radius: 50%; background: var(--strong); }
+
+  .tag { position: absolute; left: 96px; top: 300px; font: 500 22px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .tag b { color: var(--strong); font-weight: 500; }
+  .head { position: absolute; left: 92px; top: 350px; width: 600px; font-weight: 600; font-size: 74px; line-height: 1.08; letter-spacing: -0.03em; }
+  .head .l { display: block; overflow: hidden; width: max-content; padding: 0 10px 8px 0; }
+  .head .l i { display: block; font-style: normal; }
+  .head .pop { overflow: visible; padding: 0; margin-top: 10px; }
+  .head .pop i { background: var(--strong); color: var(--page); padding: 0 20px 8px 16px; margin-left: -6px; }
+  .center .head { left: 0; right: 0; width: auto; text-align: center; }
+  .center .head .l { margin: 0 auto; }
+
+  /* The window the takes are shown in */
+  .win { position: absolute; left: 0; top: 0; width: 1260px; height: 749px; border-radius: 16px; overflow: hidden; background: var(--page);
+         border: 1.5px solid var(--line-strong); box-shadow: 0 60px 160px rgb(0 0 0 / 0.8), 0 0 0 1px rgb(242 240 234 / 0.04) inset;
+         transform-origin: 50% 50%; z-index: 10; }
+  .bar { position: absolute; left: 0; right: 0; top: 0; height: 40px; background: #121415; border-bottom: 1px solid var(--line); }
+  .bar .dots { position: absolute; left: 16px; top: 14px; display: flex; gap: 8px; }
+  .bar .dots i { width: 12px; height: 12px; border-radius: 50%; background: var(--line-strong); }
+  .bar .url { position: absolute; left: 50%; top: 8px; transform: translateX(-50%); height: 24px; min-width: 420px; padding: 0 16px; border-radius: 12px;
+              background: var(--raised); color: var(--muted); font: 400 14px/24px var(--mono); text-align: center; white-space: nowrap; }
+  .bar .url b { color: var(--ink); font-weight: 400; }
+  .bar .url svg { vertical-align: -2px; margin-right: 8px; }
+  .view { position: absolute; left: 0; top: 40px; width: 1260px; height: 709px; overflow: hidden; background: var(--page); }
+  .view video { position: absolute; left: 0; top: 0; width: 1260px; height: 709px; transform-origin: 0 0; }
+  .caption { position: absolute; left: 0; right: 0; bottom: 0; height: 360px; z-index: 20;
+             background: linear-gradient(to top, rgb(7 8 8 / 0.92) 10%, rgb(7 8 8 / 0)); }
+  .caption .head { top: auto; bottom: 84px; left: 92px; width: auto; font-size: 80px; }
+
+  /* The opening: a browser that fills with tabs */
+  .browser { position: absolute; left: 260px; top: 440px; width: 1400px; height: 560px; border-radius: 18px; border: 1.5px solid var(--line-strong);
+             background: var(--panel); overflow: hidden; box-shadow: 0 50px 140px rgb(0 0 0 / 0.7); }
+  .strip { position: absolute; left: 0; right: 0; top: 0; height: 56px; background: #0d0f10; border-bottom: 1px solid var(--line); }
+  .strip .dots { position: absolute; left: 20px; top: 21px; display: flex; gap: 9px; }
+  .strip .dots i { width: 13px; height: 13px; border-radius: 50%; background: var(--line-strong); }
+  .tab { position: absolute; top: 10px; height: 46px; border-radius: 10px 10px 0 0; background: var(--raised); border: 1px solid var(--line); border-bottom: 0;
+         overflow: hidden; white-space: nowrap; font: 500 17px/46px var(--sans); color: var(--ink); box-sizing: border-box; padding-left: 40px; }
+  .tab::before { content: ""; position: absolute; left: 14px; top: 15px; width: 16px; height: 16px; border-radius: 4px; background: var(--fav); }
+  .tab.on { background: var(--panel); color: var(--strong); }
+  .bigword { position: absolute; left: 0; right: 0; top: 200px; text-align: center; font-weight: 600; font-size: 150px; letter-spacing: -0.04em; }
+  .lines { position: absolute; left: 120px; right: 120px; top: 120px; }
+  .lines i { display: block; height: 14px; border-radius: 7px; background: var(--line); margin-bottom: 26px; }
+
+  /* The logo mark, drawn */
+  .mark { position: absolute; }
+  .mark path { fill: none; stroke: var(--strong); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 1; }
+  .mark circle { fill: var(--strong); transform-box: fill-box; transform-origin: center; }
+
+  .title .name { position: absolute; left: 0; right: 0; top: 380px; text-align: center; font-weight: 700; font-size: 210px; letter-spacing: -0.05em; line-height: 1; }
+  .title .live { position: absolute; left: 0; right: 0; top: 650px; text-align: center; }
+  .title .live i { display: inline-block; font-style: normal; font-weight: 600; font-size: 84px; letter-spacing: -0.03em; background: var(--strong); color: var(--page); padding: 4px 30px 14px; }
+
+  /* AI that reads: a page of lines that a light reads */
+  .doc { position: absolute; left: 820px; top: 270px; width: 960px; height: 600px; border-radius: 16px; border: 1.5px solid var(--line-strong); background: var(--panel); overflow: hidden; }
+  .doc .row { position: absolute; left: 70px; height: 16px; border-radius: 8px; background: var(--line-strong); }
+  .doc .lit { position: absolute; left: 70px; height: 16px; border-radius: 8px; background: var(--strong); transform-origin: 0 50%; }
+  .beam { position: absolute; top: -40px; bottom: -40px; width: 260px; margin-left: -130px;
+          background: linear-gradient(90deg, transparent, rgb(242 240 234 / 0.10) 40%, rgb(242 240 234 / 0.35) 50%, rgb(242 240 234 / 0.10) 60%, transparent); }
+
+  .rulebig { position: absolute; left: 260px; right: 260px; top: 720px; height: 2px; background: var(--line-strong); transform-origin: 0 50%; }
+  .rulebig::before { content: ""; position: absolute; left: 0; top: -20px; width: 3px; height: 42px; background: var(--strong); }
+  .rulebig i { position: absolute; left: 0; top: -12px; width: 26px; height: 26px; border-radius: 50%; background: var(--strong); margin-left: -13px; }
+  .rulebig u { position: absolute; left: 0; top: -12px; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--strong); margin-left: -15px; margin-top: -2px; }
+
+  .close { text-align: center; }
+  .close .name { position: absolute; left: 0; right: 0; top: 440px; font-weight: 700; font-size: 150px; letter-spacing: -0.045em; line-height: 1; }
+  .close .say { position: absolute; left: 0; right: 0; top: 625px; font-weight: 500; font-size: 52px; letter-spacing: -0.02em; color: var(--ink); }
+  .close .say span { display: inline-block; margin: 0 18px; }
+  .close .site { position: absolute; left: 0; right: 0; top: 735px; }
+  .close .site i { display: inline-block; font: 500 46px/1 var(--mono); font-style: normal; background: var(--strong); color: var(--page); padding: 22px 34px 24px; }
+  .close .note { position: absolute; left: 0; right: 0; top: 860px; font: 500 22px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .sub { position: absolute; left: 0; right: 0; font: 500 26px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-align: center; }
+
+  /* The upright cut */
+  .v { --W: 1080px; --H: 1920px; }
+  .v .rule { left: 64px; width: 952px; top: 250px; }
+  .v .tag { left: 64px; top: 300px; font-size: 24px; }
+  .v .head { left: 60px; top: 350px; width: 960px; font-size: 96px; }
+  .v .caption .head { left: 60px; font-size: 86px; bottom: 120px; }
+  .v .browser { left: 70px; top: 760px; width: 940px; height: 760px; }
+  .v .bigword { font-size: 120px; top: 300px; }
+  .v .title .name { top: 700px; font-size: 150px; }
+  .v .title .live { top: 900px; }
+  .v .doc { left: 70px; top: 900px; width: 940px; height: 640px; }
+  .v .rulebig { left: 90px; right: 90px; top: 1100px; }
+  .v .close .name { top: 760px; font-size: 140px; }
+  .v .close .say { top: 940px; font-size: 50px; }
+  .v .close .site { top: 1050px; }
+  .v .close .note { top: 1180px; }
+</style>
+<body>
+<div class="grain"></div>
+<script src="timeline.js"></script>
+<script src="kinds.js"></script>
+<script src="film.js"></script>
+</body>
+</html>
