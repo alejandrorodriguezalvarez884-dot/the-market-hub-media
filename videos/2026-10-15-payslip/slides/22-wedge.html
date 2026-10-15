@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- The gap between the labour cost and take-home pay is the tax wedge: across the OECD, on the average wage, about 35 of every 100 dollars the employer spent, in 2025. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .row { align-items: center; }
+  .stack { flex: none; width: 22vw; overflow: visible; }
+  .words { display: flex; flex-direction: column; gap: 1vh; }
+  .big { font-size: 12vw; line-height: 1; font-weight: 800; letter-spacing: -0.05em; color: var(--pop); font-variant-numeric: tabular-nums; }
+  .lead { max-width: none; }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<main class="slide room">
+<p class="kicker in">OECD average &middot; single worker, average wage, 2025</p>
+<div class="row">
+  <svg class="stack" viewBox="0 0 420 440">
+    <rect class="fade" style="--at: 0s" x="80" y="20" width="200" height="410" rx="8" fill="rgba(255,255,255,0.12)"/>
+    <rect class="grow" data-say="home" x="80" y="164" width="200" height="266" rx="8" fill="var(--mint)"/>
+    <text class="in" data-say="home" x="180" y="306" font-size="24" text-anchor="middle" style="fill: var(--on-accent)">You take home</text>
+    <rect class="grow" data-say="wedge" x="80" y="20" width="200" height="140" rx="8" fill="var(--coral)"/>
+    <text class="in" data-say="wedge" x="180" y="100" font-size="30" text-anchor="middle" style="fill: var(--on-accent)">Tax wedge</text>
+  </svg>
+  <div class="words">
+    <p class="big"><span data-count="35" data-say="thirty-five" data-prefix="$"></span></p>
+    <p class="lead in" data-say="thirty-five">of every $100 the employer spent</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: OECD, Taxing Wages 2026 (35.1% of labour costs)</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

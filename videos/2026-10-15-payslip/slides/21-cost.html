@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- So a job costs more than its gross pay: the gross pay plus the employer's own contributions. That is the labour cost. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .row { align-items: center; }
+  .stack { flex: none; width: 22vw; overflow: visible; }
+  .words { display: flex; flex-direction: column; gap: 3vh; }
+  .lead { max-width: none; }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="stack" viewBox="0 0 420 440">
+    <rect class="grow" data-say="gross" x="80" y="150" width="200" height="280" rx="8" fill="var(--sky)"/>
+    <text class="in" data-say="gross" x="180" y="300" font-size="34" text-anchor="middle" style="fill: var(--on-accent)">Gross pay</text>
+    <rect class="grow" data-say="plus" x="80" y="70" width="200" height="74" rx="8" fill="var(--coral)"/>
+    <text class="in" data-say="plus" x="180" y="116" font-size="24" text-anchor="middle" style="fill: var(--on-accent)">Employer&rsquo;s part</text>
+    <path class="fade" data-say="labour" d="M310 70 H340 V430 H310" fill="none" stroke="var(--snow)" stroke-width="6"/>
+  </svg>
+  <div class="words">
+    <h2 class="in" data-say="costs">A job costs more than its gross pay</h2>
+    <p class="lead in" data-say="labour">That&rsquo;s the <span class="hl" data-say="labour">labour cost</span>.</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Labour cost: gross wage plus employer contributions (OECD, Taxing Wages)</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

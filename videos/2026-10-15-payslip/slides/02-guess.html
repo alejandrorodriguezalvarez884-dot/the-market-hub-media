@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- The guess: the new bracket charges forty percent instead of twenty. More money, less, or the same? -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .rates { display: flex; align-items: baseline; gap: 2vw; }
+  .rates .big { font-size: 11vw; line-height: 1; font-weight: 800; letter-spacing: -0.05em; color: var(--pop); }
+  .rates .was { font-size: 3.2vw; font-weight: 700; color: var(--muted); }
+  .choices { display: flex; gap: 1.6vw; flex-wrap: wrap; }
+  .choice { padding: 1.4vh 2.2vw; border-radius: 99em; background: var(--raised); border: 1px solid var(--line-strong); font-size: 3.2vw; font-weight: 800; color: var(--ink-strong); }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; gap: 1.8vh; }
+    .rates { flex-direction: column; gap: 0.4vh; }
+    .rates .big { font-size: 19vw; }
+    .rates .was { font-size: 5.4vw; }
+    .lead { font-size: 5.4vw; }
+    .choices { gap: 2vw; flex-wrap: nowrap; }
+    .choice { font-size: 5vw; padding: 0.8vh 3.2vw; white-space: nowrap; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<main class="slide room">
+<p class="kicker in">The new bracket</p>
+  <div class="rates"><span class="big pop" data-say="forty">40%</span><span class="was in" data-say="twenty">instead of 20%</span></div>
+  <p class="lead in" data-say="guess">Take a guess.</p>
+  <div class="choices">
+    <span class="choice pop" data-say="more">More?</span>
+    <span class="choice pop" data-say="less">Less?</span>
+    <span class="choice pop" data-say="same">The same?</span>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">An example tax</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

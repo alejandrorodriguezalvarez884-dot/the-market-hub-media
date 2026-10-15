@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- The United States' tax office says it in one line: you pay the higher rate only on the part that's in the new tax bracket. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .box { align-self: flex-start; max-width: 60vw; padding: 3.4vh 2.4vw; border-radius: 1vw; background: var(--snow); color: #1b173f; }
+  .box .head { max-width: none; padding-bottom: 1.2vh; margin-bottom: 1.8vh; border-bottom: 0.3vh solid #1b173f; font-family: var(--mono); font-size: 1.4vw; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .box .said { max-width: none; font-size: 3.4vw; line-height: 1.16; font-weight: 700; letter-spacing: -0.02em; }
+  .box .hl { --pop: var(--sun); }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; gap: 2vh; }
+    .box { max-width: none; padding: 2vh 5vw; border-radius: 3vw; }
+    .box .head { font-size: 2.3vw; padding-bottom: 0.8vh; margin-bottom: 1.2vh; }
+    .box .said { font-size: 6vw; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<main class="slide room">
+<p class="kicker in">The tax office in the United States</p>
+  <div class="box in" data-say="line">
+    <p class="head">IRS &middot; Federal income tax rates and brackets</p>
+    <p class="said">&ldquo;You pay the higher rate <span class="hl" data-say="only">only on the part</span> that&rsquo;s in the new tax bracket.&rdquo;</p>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: IRS, Federal income tax rates and brackets</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

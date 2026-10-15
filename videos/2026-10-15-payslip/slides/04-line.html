@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Why: the higher rate only touches the part of the pay above the line. Everything below it is taxed exactly as before. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .slide { gap: 1.6vh; padding-bottom: 3.4vh; }
+  .art { flex: none; height: 56vh; }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; padding-bottom: 0; }
+    .art { flex: none; height: 30vh; }
+    .lead { font-size: 6vw; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<main class="slide room">
+<svg class="art" viewBox="0 0 1000 440">
+    <g class="fade" style="--at: 0s"><rect x="390" y="170" width="220" height="250" rx="6" fill="var(--sky)"/><text x="500" y="285" font-size="34" text-anchor="middle" style="fill: var(--on-accent)">Your pay</text><text x="500" y="325" font-size="26" text-anchor="middle" style="fill: var(--on-accent)">$40,000</text></g>
+    <rect class="grow" data-say="above" x="390" y="104" width="220" height="66" rx="6" fill="var(--coral)"/>
+    <path class="fade" data-say="line" d="M230 170 H770" stroke="var(--snow)" stroke-width="6" stroke-dasharray="18 14"/>
+    <text class="tick fade" data-say="line" x="230" y="156" font-size="24">THE LINE</text>
+    <text class="in" data-say="above" x="630" y="146" font-size="34" style="fill: var(--coral)">+$1,000 at 40%</text>
+    <text class="in" data-say="below" x="630" y="300" font-size="32">Taxed exactly</text>
+    <text class="in" data-say="below" x="630" y="340" font-size="32">as before</text>
+  </svg>
+  <p class="lead in" data-say="drag">Only the part <span class="hl" data-say="drag">above the line</span>.</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Our arithmetic, with an example tax</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

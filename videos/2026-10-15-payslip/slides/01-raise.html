@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- The riddle: a raise of a thousand dollars that pushes you into a higher tax bracket, and a friend who warns you might take home less. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .scene { display: block; overflow: visible; width: 36vw; }
+  .lead { max-width: none; }
+  @media (orientation: portrait) {
+    .scene { width: 52vw; }
+    h2 { font-size: 6.4vw; }
+    .lead { font-size: 5vw; }
+    .stage > .slide { gap: 1.2vh; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<div class="stage">
+<main class="slide">
+<svg class="scene" viewBox="0 0 520 250">
+      <g class="pop" data-say="thousand"><rect x="10" y="8" width="210" height="64" rx="14" fill="var(--pop)"/><text x="115" y="53" font-size="38" text-anchor="middle" style="fill: var(--on-accent)">+$1,000</text></g>
+      <g class="pop" data-say="bracket"><rect x="10" y="150" width="150" height="92" rx="10" fill="var(--sky)"/><text x="85" y="210" font-size="40" text-anchor="middle" style="fill: var(--on-accent)">20%</text><rect x="166" y="96" width="150" height="146" rx="10" fill="var(--coral)"/><text x="241" y="182" font-size="40" text-anchor="middle" style="fill: var(--on-accent)">40%</text></g>
+      <g class="pop" data-say="careful"><path d="M346 20 H506 Q516 20 516 30 V96 Q516 106 506 106 H420 L396 132 L400 106 H346 Q336 106 336 96 V30 Q336 20 346 20 Z" fill="var(--snow)"/><text x="426" y="75" font-size="32" text-anchor="middle" style="fill: #1b173f">Careful.</text></g>
+    </svg>
+    <h2 class="in" data-say="pushes">A raise. A <span class="hl" data-say="higher">higher bracket</span>.</h2>
+    <p class="lead in" data-say="question">Do you take home <span class="mark">less?</span></p>
+</main>
+<div class="presenter" data-cues="0:open thousand:point friend:explain careful:shrug question:open"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

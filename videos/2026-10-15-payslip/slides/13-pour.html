@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- Pay poured in from the left fills the first glass, then spills into the second, then into the third. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .slide { gap: 2.4vh; padding-bottom: 3.4vh; }
+  .art { flex: none; height: 52vh; }
+  .pour { transform-box: fill-box; transform-origin: top; animation: pour 0.5s ease-in both; animation-delay: var(--at, 0s); }
+  @keyframes pour { from { transform: scaleY(0); } }
+</style>
+</head>
+<body class="tone-forest">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<main class="slide room">
+<svg class="art" viewBox="0 0 1000 440">
+    <rect class="pour" data-say="poured" x="222" y="0" width="16" height="118" rx="6" fill="var(--sky)"/>
+    <defs><clipPath id="g0"><path d="M130 110 L152 380 Q154 388 164 388 L296 388 Q306 388 308 380 L330 110 Z"/></clipPath><clipPath id="g1"><path d="M400 110 L422 380 Q424 388 434 388 L566 388 Q576 388 578 380 L600 110 Z"/></clipPath><clipPath id="g2"><path d="M670 110 L692 380 Q694 388 704 388 L836 388 Q846 388 848 380 L870 110 Z"/></clipPath></defs><g><path d="M130 110 L152 380 Q154 388 164 388 L296 388 Q306 388 308 380 L330 110 Z" fill="rgba(255,255,255,0.08)"/><g clip-path="url(#g0)"><g class="grow" data-say="first"><rect x="120" y="134" width="220" height="266" fill="var(--sky)"/><rect x="120" y="134" width="220" height="10" fill="rgba(255,255,255,0.35)"/></g></g><path d="M130 110 L152 380 Q154 388 164 388 L296 388 Q306 388 308 380 L330 110" fill="none" stroke="var(--snow)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/></g><g><path d="M400 110 L422 380 Q424 388 434 388 L566 388 Q576 388 578 380 L600 110 Z" fill="rgba(255,255,255,0.08)"/><g clip-path="url(#g1)"><g class="grow" data-say="second"><rect x="390" y="134" width="220" height="266" fill="var(--sky)"/><rect x="390" y="134" width="220" height="10" fill="rgba(255,255,255,0.35)"/></g></g><path d="M400 110 L422 380 Q424 388 434 388 L566 388 Q576 388 578 380 L600 110" fill="none" stroke="var(--snow)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/></g><g><path d="M670 110 L692 380 Q694 388 704 388 L836 388 Q846 388 848 380 L870 110 Z" fill="rgba(255,255,255,0.08)"/><g clip-path="url(#g2)"><g class="grow" data-say="third"><rect x="660" y="300" width="220" height="100" fill="var(--sky)"/><rect x="660" y="300" width="220" height="10" fill="rgba(255,255,255,0.35)"/></g></g><path d="M670 110 L692 380 Q694 388 704 388 L836 388 Q846 388 848 380 L870 110" fill="none" stroke="var(--snow)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/></g>
+    <path class="draw" data-say="spills" pathLength="1" d="M332 104 Q370 30 430 112" fill="none" stroke="var(--sky)" stroke-width="12" stroke-linecap="round"/>
+    <path class="draw" data-say="then#2" pathLength="1" d="M602 104 Q640 30 700 112" fill="none" stroke="var(--sky)" stroke-width="12" stroke-linecap="round"/>
+  </svg>
+  <p class="lead in" data-say="poured">Your pay fills them <span class="hl" data-say="first">in order</span>.</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

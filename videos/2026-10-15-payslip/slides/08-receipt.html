@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- The payslip is the receipt between gross and net: line by line it says where the difference went, and mostly it went to two places. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .row { align-items: center; }
+  .slip { flex: none; width: 24vw; overflow: visible; }
+  .words { display: flex; flex-direction: column; gap: 3vh; }
+  .lead { max-width: none; }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="slip pop" data-say="receipt" viewBox="0 0 420 440">
+    <rect x="10" y="10" width="400" height="420" rx="18" fill="var(--snow)"/>
+    <text x="40" y="66" font-size="30" style="fill: #1b173f; font-family: var(--mono); letter-spacing: 0.12em">PAYSLIP</text>
+    <path d="M40 90 H380" stroke="#1b173f" stroke-width="3"/>
+    <g class="fade" data-say="line"><text x="40" y="142" font-size="26" style="fill: #1b173f">Gross pay</text><rect x="250" y="120" width="130" height="28" rx="6" fill="#3a3566"/></g>
+    <g class="fade" data-say="two"><rect x="28" y="168" width="364" height="112" rx="10" fill="var(--pink)"/><text x="40" y="212" font-size="26" style="fill: #1b173f">&minus; Income tax</text><rect x="280" y="192" width="100" height="26" rx="6" fill="#1b173f"/><text x="40" y="262" font-size="26" style="fill: #1b173f">&minus; Contributions</text><rect x="300" y="242" width="80" height="26" rx="6" fill="#1b173f"/></g>
+    <path class="fade" data-say="line" d="M40 312 H380" stroke="#1b173f" stroke-width="3" stroke-dasharray="8 8"/>
+    <g class="fade" data-say="line"><text x="40" y="370" font-size="30" style="fill: #1b173f">Net pay</text><rect x="240" y="344" width="140" height="34" rx="6" fill="var(--mint)"/></g>
+  </svg>
+  <div class="words">
+    <h2 class="in" data-say="receipt">The receipt between the two</h2>
+    <p class="lead in" data-say="two">The gap goes mostly <span class="hl" data-say="places">two places</span>.</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

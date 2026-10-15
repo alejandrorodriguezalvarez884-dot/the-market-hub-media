@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Every job has two numbers: gross pay, what you are paid on paper, and net pay, what lands in your account. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .card { display: flex; flex-direction: column; gap: 1.4vh; padding: 4vh 2.4vw; }
+  .card svg { width: 6vw; height: 6vw; }
+  .name { font-size: 4.4vw; font-weight: 800; letter-spacing: -0.04em; color: var(--ink-strong); line-height: 1.05; }
+  .what { font-size: 2.3vw; color: var(--muted); font-weight: 600; }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 04</span></header>
+<main class="slide room">
+<p class="kicker in">Every job has two numbers</p>
+  <div class="row">
+    <div class="card pop" data-say="gross"><svg viewBox="0 0 100 100"><rect x="20" y="8" width="60" height="84" rx="8" fill="var(--snow)"/><path d="M32 30 H68 M32 46 H68 M32 62 H56" stroke="#3a3566" stroke-width="7" stroke-linecap="round"/></svg><p class="name">Gross pay</p><p class="what in" data-say="paper">What you&rsquo;re paid on paper</p></div>
+    <div class="card pop" data-say="net"><svg viewBox="0 0 100 100"><rect x="26" y="6" width="48" height="88" rx="10" fill="var(--snow)"/><rect x="32" y="18" width="36" height="58" rx="4" fill="var(--mint)"/><text x="50" y="58" font-size="30" text-anchor="middle" style="fill: var(--on-accent)">$</text></svg><p class="name"><span class="mark">Net</span> pay</p><p class="what in" data-say="lands">What lands in your account</p></div>
+  </div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>
