@@ -84,11 +84,22 @@ Read the `built-in-browser` skill first. In Claude's built-in browser:
 1. Open `https://x.com/compose/post`. If X asks to sign in, stop and ask the user to sign in
    in the pane themselves; never type a password or a code. Check that the account shown is
    `@<handle>` of `[x] handle` in `channel.toml`.
-2. Type the text exactly as it is in the file (line breaks included) and look at the preview:
-   it must be the text the user approved, with the link card if it has a link.
-3. Press Post only now, once. If X shows a warning or asks for anything (a verification, a
+2. Click in the post box and, **before typing anything**, check that the cursor is in it:
+   `document.activeElement` must be the box (`data-testid="tweetTextarea_0"`, or `_1`, `_2`… in
+   a thread) and editable. The editor sometimes opens as a whole page and sometimes as a dialog
+   over the timeline, and a click aimed at one misses the other. Keys typed outside the box are
+   X's keyboard shortcuts (`l` likes, `t` and Enter repost, `r` replies), and on 2026-10-15 a
+   post's text typed on the timeline liked and reposted someone else's post. Check again before
+   each later `type` (after the link, after ctrl+Home). If something was typed outside the box,
+   stop and look at the account's likes, reposts, replies and bookmarks, and tell the user what
+   changed.
+3. Type the text exactly as it is in the file (line breaks included) and look at the preview:
+   it must be the text the user approved, with the link card if it has a link. A screenshot
+   taken right after typing can show the box before the text appears; read the box's text, or
+   take another one, before deciding something went wrong.
+4. Press Post only now, once. If X shows a warning or asks for anything (a verification, a
    confirmation, a new setting), stop and tell the user.
-4. Open the account's profile, find the new post and copy its address
+5. Open the account's profile, find the new post and copy its address
    (`https://x.com/<handle>/status/<number>`).
 
 ### A thread
