@@ -120,6 +120,11 @@ is in the new last box (`tweetTextarea_<n>`) before typing. Open the editor at
 `https://x.com/compose/post` as a whole page; if it opens as a dialog over the timeline and the
 pane changes size, a click can close it.
 
+On 2026-10-16, after several posts in a row, the editor at `https://x.com/compose/post` started
+writing every `type` twice, and Backspace then left text on screen that X counted as gone. If the
+box's text is ever doubled, discard, open `https://x.com/home` and click into the post box at the
+top of the timeline instead; type the last line first, then ctrl+Home and the rest, as with a link.
+
 To change text already in a box, delete it with Backspace: selecting all (ctrl+a) does nothing in
 X's editor from the built-in browser. If a box goes wrong, close the editor and choose Discard
 (nothing has been posted), then start again.
