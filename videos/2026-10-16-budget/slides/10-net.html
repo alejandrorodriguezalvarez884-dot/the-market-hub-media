@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- The pizza is net pay: not the number on the offer, but what lands in the account after tax and contributions. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .hbars { gap: 4vh; }
+  .hbar { grid-template-columns: 17vw 1fr; }
+  .hbar i { height: 9vh; }
+  .hbar > div { max-width: 52vw; }
+  .mini { flex: none; width: 9vh; height: 9vh; overflow: visible; }
+  .lead { color: var(--muted); font-size: 2.4vw; }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 05</span></header>
+<main class="slide room">
+<div class="hbars">
+  <div class="hbar"><span>Gross &middot; the offer</span><div><i class="wide quiet" data-say="offer" style="width: 100%"></i></div></div>
+  <div class="hbar"><span>Net &middot; what lands</span><div><i class="wide" data-say="lands" style="width: 75%"></i><svg class="mini pop" data-say="pizza" viewBox="0 0 500 500"><circle cx="250" cy="250" r="230" fill="#e89a4a"/><circle cx="250" cy="250" r="206" fill="var(--sun)"/><circle cx="327.6" cy="167.4" r="17.2" fill="var(--coral)"/><circle cx="318.6" cy="272.3" r="17.2" fill="var(--coral)"/><circle cx="289.5" cy="371.5" r="17.2" fill="var(--coral)"/><circle cx="193.6" cy="310.1" r="17.2" fill="var(--coral)"/><circle cx="132.4" cy="211.8" r="17.2" fill="var(--coral)"/><circle cx="220.2" cy="195.8" r="17.2" fill="var(--coral)"/><circle cx="406.7" cy="199.1" r="17.2" fill="var(--coral)"/><circle cx="240.5" cy="279.4" r="17.2" fill="var(--coral)"/><circle cx="92.2" cy="280.1" r="17.2" fill="var(--coral)"/><circle cx="265.9" cy="201.0" r="17.2" fill="var(--coral)"/></svg></div></div>
+</div>
+<h2 class="in" data-say="pizza">The pizza is your <span class="hl" data-say="net">net pay</span>.</h2>
+<p class="lead in" data-say="last">Gross and net: episode 4</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">After income tax and contributions</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

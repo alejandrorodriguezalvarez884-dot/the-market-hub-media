@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- The coffee is a sliver; the big slices decide the shape of the month. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .row { align-items: center; gap: 4vw; }
+  .pie { flex: none; width: 30vw; overflow: visible; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; }
+  .tag { display: flex; align-items: center; gap: 1vw; font-size: 2.8vw; font-weight: 750; color: var(--ink-strong); }
+  .tag i { width: 1.6vw; height: 1.6vw; border-radius: 50%; }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; padding-top: 1vh; }
+    .row { flex-direction: row; align-items: center; gap: 4vw; flex-wrap: wrap; }
+    .pie { width: 40vw; }
+    .col { gap: 1.6vh; }
+    .tag { font-size: 5.4vw; gap: 2vw; }
+    .tag i { width: 3.4vw; height: 3.4vw; }
+    h2 { font-size: 7vw; }
+    .col h2 { position: absolute; left: 7vw; right: 7vw; top: 45vh; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 05</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="pie" viewBox="0 0 500 500"><circle class="fade" data-say="0" cx="250" cy="250" r="230" fill="rgba(255,255,255,0.16)"/><path class="pop" data-say="big" d="M250 250 L250.0 20.0 A230 230 0 0 1 448.7 365.8 Z" fill="var(--coral)" stroke="var(--page-2)" stroke-width="4"/><path class="pop" data-say="sliver" d="M250 250 L448.7 365.8 A230 230 0 0 1 403.2 421.6 Z" fill="var(--pop)" stroke="var(--page-2)" stroke-width="4"/></svg>
+  <div class="col">
+    <p class="tag in" data-say="sliver"><i style="background: var(--pop)"></i>Eating out</p>
+    <p class="tag in" data-say="big"><i style="background: var(--coral)"></i>Housing</p>
+    <h2 class="in" data-say="decide">Big slices set the <span class="hl" data-say="shape">shape</span>.</h2>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: BLS, Consumer Expenditures in 2024</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

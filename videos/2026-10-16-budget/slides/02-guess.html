@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- The guess: of every hundred dollars, five, twelve or twenty-five on eating out? -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .choices { display: flex; gap: 2vw; flex-wrap: wrap; }
+  .choice { padding: 1.6vh 2.8vw; border-radius: 99em; background: var(--raised); border: 1px solid var(--line-strong); font-size: 5vw; font-weight: 800; color: var(--ink-strong); }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; gap: 3vh; padding-top: 4vh; }
+    .kicker { max-width: 62vw; }
+    .choices { gap: 3vw; flex-wrap: nowrap; }
+    .choice { font-size: 9vw; padding: 1vh 4vw; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 05</span></header>
+<main class="slide room">
+<p class="kicker in">Eating out &middot; of every $100 a US household spends</p>
+<h1 class="in" data-say="guess">Take a guess.</h1>
+<div class="choices">
+  <span class="choice pop" data-say="five">$5?</span>
+  <span class="choice pop" data-say="twelve">$12?</span>
+  <span class="choice pop" data-say="twenty-five">$25?</span>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Restaurants, takeaway and coffee included</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- The word budget sounds like a diet: cutting, guilt, a long list of no. That's not what it is. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .words { position: relative; display: flex; flex-direction: column; gap: 1vh; align-self: flex-start; padding: 1vh 2vw; }
+  .word { font-size: 5.4vw; font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; color: var(--muted); max-width: none; }
+  .no { color: var(--ink-strong); }
+  .w { position: relative; display: inline-block; }
+  .cross { position: absolute; left: -3%; right: -3%; top: 50%; height: 1.1vw; margin-top: -0.55vw; border-radius: 1vw; background: var(--pop); }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 05</span></header>
+<main class="slide room">
+<div class="words">
+  <p class="word pop" data-say="cutting"><span class="w">Cutting.<i class="cross wide" data-say="not"></i></span></p>
+  <p class="word pop" data-say="guilt"><span class="w">Guilt.<i class="cross wide" data-say="not+0.15"></i></span></p>
+  <p class="word pop" data-say="list"><span class="w">A list of <span class="no">no</span>.<i class="cross wide" data-say="not+0.3"></i></span></p>
+</div>
+<h2 class="in" data-say="less">Not about less. About <span class="hl" data-say="where">where</span>.</h2>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

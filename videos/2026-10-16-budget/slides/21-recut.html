@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- When the month happens a slice runs over (a repair): the pizza is cut again, and some of one slice moves to another. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .row { align-items: center; gap: 4vw; }
+  .pie { flex: none; width: 30vw; overflow: visible; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; }
+  .tag { display: flex; align-items: center; gap: 1vw; font-size: 2.8vw; font-weight: 700; color: var(--ink-strong); }
+  .tag i { width: 1.6vw; height: 1.6vw; border-radius: 50%; }
+  .turn { transform-origin: 250px 250px; animation: turn 1.1s cubic-bezier(0.3, 0.8, 0.3, 1) both; animation-delay: var(--at, 0s); }
+  @keyframes turn { to { transform: rotate(-30deg); } }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 05</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="pie" viewBox="0 0 500 500"><path d="M250 250 L55.8 373.2 A230 230 0 0 1 72.8 103.4 Z" fill="var(--pop)" stroke="var(--page-2)" stroke-width="5"/><path class="turn" data-say="moves" d="M250 250 L55.8 373.2 A230 230 0 0 1 72.8 103.4 Z" fill="var(--pink)" stroke="var(--page-2)" stroke-width="5"/><path d="M250 250 L250.0 20.0 A230 230 0 0 1 458.1 347.9 Z" fill="var(--coral)" stroke="var(--page-2)" stroke-width="5"/><path d="M250 250 L458.1 347.9 A230 230 0 0 1 250.0 480.0 Z" fill="var(--sky)" stroke="var(--page-2)" stroke-width="5"/><path d="M250 250 L250.0 480.0 A230 230 0 0 1 55.8 373.2 Z" fill="var(--mint)" stroke="var(--page-2)" stroke-width="5"/><path d="M250 250 L72.8 103.4 A230 230 0 0 1 250.0 20.0 Z" fill="var(--violet)" stroke="var(--page-2)" stroke-width="5"/></svg>
+  <div class="col">
+    <p class="tag in" data-say="repair"><i style="background: var(--pop)"></i>The repair</p>
+    <p class="tag in" data-say="moves"><i style="background: var(--pink)"></i>Going out</p>
+    <h2 class="in" data-say="cut">The pizza gets <span class="hl" data-say="again">cut again</span>.</h2>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

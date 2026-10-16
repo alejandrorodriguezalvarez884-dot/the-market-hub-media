@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- How the average US household shares out its spending: housing about a third, transportation 17 percent, food 13 (BLS, 2024). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .row { align-items: center; gap: 4vw; }
+  .pie { flex: none; width: 30vw; overflow: visible; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; }
+  .tag { display: flex; align-items: center; gap: 1vw; font-size: 2.8vw; font-weight: 700; color: var(--ink-strong); max-width: none; }
+  .tag i { flex: none; width: 1.6vw; height: 1.6vw; border-radius: 50%; }
+  .tag b { min-width: 5.6vw; font-weight: 800; }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 05</span></header>
+<main class="slide room">
+<p class="kicker in">Of all household spending &middot; US, 2024</p>
+<div class="row">
+  <svg class="pie" viewBox="0 0 500 500"><circle class="fade" data-say="0" cx="250" cy="250" r="230" fill="rgba(255,255,255,0.16)"/><path class="pop" data-say="housing" d="M250 250 L250.0 20.0 A230 230 0 0 1 448.7 365.8 Z" fill="var(--coral)" stroke="var(--page-2)" stroke-width="4"/><path class="pop" data-say="around" d="M250 250 L448.7 365.8 A230 230 0 0 1 244.2 479.9 Z" fill="var(--sky)" stroke="var(--page-2)" stroke-width="4"/><path class="pop" data-say="food" d="M250 250 L244.2 479.9 A230 230 0 0 1 79.4 404.3 Z" fill="var(--sun)" stroke="var(--page-2)" stroke-width="4"/></svg>
+  <div class="col"><p class="tag in" data-say="housing"><i style="background: var(--coral)"></i><b>33%</b>Housing</p><p class="tag in" data-say="around"><i style="background: var(--sky)"></i><b>17%</b>Getting around</p><p class="tag in" data-say="food"><i style="background: var(--sun)"></i><b>13%</b>Food</p><p class="tag in" data-say="food+0.8"><i style="background: rgba(255,255,255,0.3)"></i>Everything else</p></div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: BLS, Consumer Expenditures in 2024, Table B</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

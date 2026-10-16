@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- The riddle: everyone says your money goes on the five-dollar coffee. Of every hundred dollars a US household spends, how much goes on eating out? -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .scene { display: block; overflow: visible; width: 24vw; }
+  @media (orientation: portrait) {
+    .scene { width: 30vw; position: absolute; right: 7vw; top: 6vh; }
+    h2 { font-size: 7vw; }
+    .lead { font-size: 5.6vw; }
+    .stage > .slide { gap: 1.2vh; justify-content: flex-end; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 05</span></header>
+<div class="stage">
+<main class="slide">
+<svg class="scene" viewBox="0 -40 560 400">
+  <g>
+  <path class="draw" data-say="coffee" pathLength="1" d="M150 70 Q130 45 150 20 Q170 -5 150 -30" stroke="var(--snow)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path class="draw" data-say="coffee+0.2" pathLength="1" d="M200 70 Q180 45 200 20 Q220 -5 200 -30" stroke="var(--snow)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <rect x="78" y="88" width="194" height="34" rx="12" fill="var(--snow)"/>
+  <path d="M92 122 L118 330 Q120 344 134 344 L216 344 Q230 344 232 330 L258 122 Z" fill="#f4f7ff"/>
+  <path d="M104 186 L246 186 L236 266 L114 266 Z" fill="#a8683a"/>
+</g>
+  <g class="pop" data-say="five-dollar"><rect x="290" y="150" width="180" height="96" rx="18" fill="var(--pop)"/><text x="380" y="215" font-size="58" text-anchor="middle" style="fill: var(--on-accent)">$5</text></g>
+</svg>
+<h2 class="in" data-say="question">Of every <span class="hl" data-say="hundred">$100</span> spent&hellip;</h2>
+<p class="lead in" data-say="eating">How much is <span class="mark">eating out?</span></p>
+</main>
+<div class="presenter" data-cues="0:open coffee:point question:one eating:explain all:open"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

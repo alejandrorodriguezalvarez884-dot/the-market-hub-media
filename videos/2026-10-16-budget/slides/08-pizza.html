@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- A pizza shared between friends: somebody cuts it before anyone grabs. A budget cuts the pizza before the month eats it. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .row { align-items: center; gap: 4vw; }
+  .pz { flex: none; width: 30vw; overflow: visible; }
+  .col { display: flex; flex-direction: column; gap: 3vh; }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 05</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="pz pop" data-say="pizza" viewBox="0 0 500 500"><circle cx="250" cy="250" r="220" fill="#e89a4a"/><circle cx="250" cy="250" r="196" fill="var(--sun)"/><circle cx="323.8" cy="171.4" r="16.5" fill="var(--coral)"/><circle cx="315.2" cy="271.2" r="16.5" fill="var(--coral)"/><circle cx="287.6" cy="365.6" r="16.5" fill="var(--coral)"/><circle cx="196.3" cy="307.2" r="16.5" fill="var(--coral)"/><circle cx="138.2" cy="213.7" r="16.5" fill="var(--coral)"/><circle cx="221.7" cy="198.5" r="16.5" fill="var(--coral)"/><circle cx="399.1" cy="201.5" r="16.5" fill="var(--coral)"/><circle cx="240.9" cy="278.0" r="16.5" fill="var(--coral)"/><circle cx="99.8" cy="278.6" r="16.5" fill="var(--coral)"/><circle cx="265.1" cy="203.4" r="16.5" fill="var(--coral)"/><path class="draw" data-say="cuts" pathLength="1" d="M250 250 L250.0 24.0" stroke="var(--page-2)" stroke-width="10" stroke-linecap="round" fill="none"/><path class="draw" data-say="cuts+0.25" pathLength="1" d="M250 250 L464.9 180.2" stroke="var(--page-2)" stroke-width="10" stroke-linecap="round" fill="none"/><path class="draw" data-say="cuts+0.50" pathLength="1" d="M250 250 L319.8 464.9" stroke="var(--page-2)" stroke-width="10" stroke-linecap="round" fill="none"/><path class="draw" data-say="cuts+0.75" pathLength="1" d="M250 250 L95.3 414.7" stroke="var(--page-2)" stroke-width="10" stroke-linecap="round" fill="none"/><path class="draw" data-say="cuts+1.00" pathLength="1" d="M250 250 L35.1 180.2" stroke="var(--page-2)" stroke-width="10" stroke-linecap="round" fill="none"/></svg>
+  <div class="col">
+    <p class="lead in" data-say="knows">Everyone knows their slice.</p>
+    <h2 class="in" data-say="budget">Cut it <span class="hl" data-say="before#2">before</span> the month eats it.</h2>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>
