@@ -135,6 +135,11 @@ article's address, 2026-10-14). Type the link first, in the empty box, then pres
 type the text before it, ending with its blank line. Then look at the box, not only its text:
 X's `innerText` shows extra line breaks that are not there.
 
+On 2026-10-16 neither ctrl+Home nor cmd+Up moved the cursor in the box, and the text landed
+after the link. What worked: the left arrow pressed as many times as the link has characters
+(the `key` action's `repeat`). Check the caret is at 0 before typing the text (a range from the
+box's start to `getSelection()`'s anchor, its `toString().length`).
+
 ## 5. Record it
 
 ```bash
