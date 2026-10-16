@@ -122,8 +122,9 @@ pane changes size, a click can close it.
 
 On 2026-10-16, after several posts in a row, the editor at `https://x.com/compose/post` started
 writing every `type` twice, and Backspace then left text on screen that X counted as gone. If the
-box's text is ever doubled, discard, open `https://x.com/home` and click into the post box at the
-top of the timeline instead; type the last line first, then ctrl+Home and the rest, as with a link.
+box's text is ever doubled, discard and open the editor again. What worked both times: put the
+cursor in the box with a real click (not with a script's `focus()`), check `document.activeElement`,
+then type the last line (or the link) first, ctrl+Home and the rest.
 
 To change text already in a box, delete it with Backspace: selecting all (ctrl+a) does nothing in
 X's editor from the built-in browser. If a box goes wrong, close the editor and choose Discard
