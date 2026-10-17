@@ -55,7 +55,7 @@ seconds = [30, 90]
 name = "Money 101"
 tagline = "How money really works. One idea at a time."
 accent = "#c6f24e"
-playlist = ""                        # the playlist's address on YouTube (…/playlist?list=PL…): `make upload` adds the video to it
+playlist = "https://www.youtube.com/playlist?list=PLUm8zJ2905YQ"   # the playlist's address on YouTube (…/playlist?list=PL…): `make upload` adds the video to it
 
 # What every video opens and closes with (not a Short, not a trailer). Each is drawn once, in
 # channel/intro.html and channel/outro.html, and said once, into channel/voice/.

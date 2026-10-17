@@ -1,6 +1,6 @@
 # Estado del proyecto y cómo continuar
 
-Última actualización: 2026-10-17. Este documento basta para retomar el trabajo en otra sesión,
+Última actualización: 2026-10-17 (tarde). Este documento basta para retomar el trabajo en otra sesión,
 sin el historial de la conversación.
 
 ## Qué se pidió
@@ -172,10 +172,15 @@ dice. El tráiler y el episodio 1 ya están.
 
 ## Siguientes pasos
 
-1. El tráiler y los episodios 1 y 2 están publicados y en la página Media del portal.
-   Para que "haz el vídeo y súbelo" funcione de punta a punta faltan los pasos del usuario
-   (README, "Publishing"): `make auth`, la auditoría de YouTube y la dirección de la lista
-   Money 101 en `channel.toml`. El cliente OAuth ya está.
+1. **La subida por la API, al día el 2026-10-17**: `make auth` hecho (token del canal
+   `UCzS1RISW7hZOdYBXgbo8jsw` en `.secrets/youtube-token.json`; la cuenta del canal,
+   `the.market.hub.app@gmail.com`, tuvo que añadirse antes como usuaria de prueba del cliente
+   OAuth, que estaba sin ninguna) y la lista Money 101 en `channel.toml` (`PLUm8zJ2905YQ`). Así
+   `make upload` ya sube vídeo y Short con miniatura, subtítulos y lista, pero en privado hasta
+   pasar la auditoría: hasta entonces el usuario los pasa a público en YouTube Studio. Lo que
+   falta para enviarla (sus datos, el nombre "maket-hub" de la pantalla de consentimiento, dos
+   capturas) está al principio de `docs/youtube-audit.md`; las demás pruebas, en
+   `docs/youtube-audit/`.
 2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El episodio 6 (el
    colchón de emergencia) está publicado. El siguiente es el
    episodio 7, ahorrar frente a invertir: riesgo y plazo (el 6 lo anuncia al cerrar: "saving

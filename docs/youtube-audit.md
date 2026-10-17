@@ -10,16 +10,22 @@ Las respuestas van en inglés, como el formulario. `[TÚ]` es lo que solo sabe e
 
 ## Lo que falta antes de poder enviarlo
 
+Al día el 2026-10-17. Hecho: `make auth` (con la cuenta del canal, `the.market.hub.app@gmail.com`,
+añadida ese día como usuaria de prueba del cliente OAuth: sin eso Google bloqueaba el acceso);
+la lista Money 101 en `channel.toml`; la política de privacidad y las condiciones del portal,
+que ya hablan de la herramienta desde el 2026-10-13 (`market-hub-landing` 3031c32); y las
+capturas de `docs/youtube-audit/` (abajo, "Las pruebas").
+
 1. **Los datos personales** del usuario: nombre legal, dirección postal, país y el correo de
    contacto. Van a Google.
-2. **La política de privacidad tiene que hablar de esta herramienta.** El formulario pide
-   capturas de la política "showing YouTube sections, Google Privacy Policy link, deletion
-   policies". La del portal (https://themarkethub.app/privacy/) solo nombra a YouTube por los
-   vídeos incrustados. Hay que añadirle un apartado (abajo, propuesto) y desplegar el portal.
-3. **Unas condiciones de uso** ("Terms of Service Documentation", obligatorio, como imagen o
-   PDF). El portal no tiene página de condiciones. Abajo hay una propuesta de una página.
-4. **`make auth` hecho**, para poder capturar la pantalla de consentimiento de OAuth y una subida
-   de prueba (quedará en privado), que son las pruebas que pide para este caso de uso.
+2. **El nombre de la app en la pantalla de consentimiento** es "maket-hub", con una errata
+   (Google Cloud Console, Google Auth Platform, Branding, App name). Debe coincidir con el
+   "API Client Name" de abajo, "Market Hub Media". Lo guarda el usuario. Después, `make auth`
+   otra vez, para capturar la pantalla de consentimiento (no se hizo: se aceptó antes) y
+   repetir `oauth-revocation.jpg`, que enseña el nombre viejo.
+3. **Una subida de prueba** con `make upload`, para capturar la terminal con su salida: la
+   primera que se haga (el episodio 7) vale, y quedará en privado hasta la auditoría.
+4. **Enviar el formulario**, que es del usuario: lo que se declara va en su nombre.
 
 ## Sección 1. Request type
 
@@ -69,7 +75,7 @@ Las respuestas van en inglés, como el formulario. `[TÚ]` es lo que solo sabe e
 - Primary Access URL: **https://themarkethub.app/media/** (la página del portal que enseña el
   canal; la herramienta en sí no tiene web)
 - Privacy Policy URL: **https://themarkethub.app/privacy/**
-- Terms of Service URL: la de la página de condiciones, si se hace (punto 3 de arriba).
+- Terms of Service URL: **https://themarkethub.app/terms/**
 - Is your API Client publicly accessible? **No**
 - Demo Account Username / Password / Login URL: en blanco.
 - Special Instructions for Access:
@@ -107,14 +113,18 @@ Las respuestas van en inglés, como el formulario. `[TÚ]` es lo que solo sabe e
 
 ## Las pruebas que hay que adjuntar (imagen o PDF)
 
-| Lo que pide | De dónde sale |
-|---|---|
-| Privacy Policy Screenshots, "showing YouTube sections, Google Privacy Policy link, deletion policies" | Captura de https://themarkethub.app/privacy/ con el apartado nuevo ya desplegado |
-| Homepage Screenshot, "showing where Privacy Policy link is located" | Captura de https://themarkethub.app con el pie, donde está el enlace "Privacy" |
-| Terms of Service Documentation | La página de condiciones, en PDF |
-| Conditional evidence: OAuth flow (consent screen, scopes, revocation) y Upload interface | Capturas de la pantalla de consentimiento al hacer `make auth`, de `make upload` en la terminal con su salida, y de https://myaccount.google.com/permissions (donde se revoca) |
+En `docs/youtube-audit/`, sacadas el 2026-10-17 de la web desplegada:
 
-## Propuesta: apartado nuevo de la política de privacidad del portal
+| Lo que pide | Archivo |
+|---|---|
+| Privacy Policy Screenshots, "showing YouTube sections, Google Privacy Policy link, deletion policies" | `privacy-policy.png` (la página entera) |
+| Homepage Screenshot, "showing where Privacy Policy link is located" | `homepage-privacy-link.png` (el pie, con Privacy y Terms) |
+| Terms of Service Documentation | `terms.pdf` (y `terms.png`) |
+| Conditional evidence: OAuth revocation | `oauth-revocation.jpg` (myaccount.google.com, la app con sus permisos y "Delete all"); repetirla tras el cambio de nombre |
+| Conditional evidence: OAuth consent screen | Falta: al repetir `make auth` tras el cambio de nombre |
+| Conditional evidence: Upload interface | Falta: la terminal de la primera `make upload` |
+
+## Hecho: el apartado de la política de privacidad del portal (desplegado el 2026-10-13, con este texto)
 
 > **The YouTube channel.** The Market Hub's videos are uploaded to our own YouTube channel with
 > a tool of ours that uses YouTube API Services. Only the channel's owner uses it, signed in
@@ -126,13 +136,13 @@ Las respuestas van en inglés, como el formulario. `[TÚ]` es lo que solo sabe e
 > owner's computer is deleted with it. YouTube's own terms and Google's privacy policy apply to
 > what you watch there: https://www.youtube.com/t/terms and https://policies.google.com/privacy.
 
-## Propuesta: condiciones de uso (una página, https://themarkethub.app/terms/)
+## Hecho: condiciones de uso (https://themarkethub.app/terms/, desplegada el 2026-10-13)
 
 Lo mínimo que la política de desarrolladores de YouTube pide a un cliente de su API: decir que
 usa YouTube API Services, que quien lo usa acepta las condiciones de YouTube
 (https://www.youtube.com/t/terms), enlazar la política de privacidad de Google y dar un
 contacto. Más lo propio del portal: que nada de lo que publica es asesoramiento de inversión.
-Hay que redactarla y desplegarla; es un texto legal del sitio, así que la aprueba el usuario.
+Está escrita y desplegada con todo eso (apartados "Nothing here is advice" y "YouTube").
 
 ## Lo que no se sabe
 
