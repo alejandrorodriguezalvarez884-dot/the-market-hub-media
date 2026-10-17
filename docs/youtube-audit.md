@@ -22,18 +22,15 @@ Google del portal, así que no se usó un nombre solo de la herramienta) y se le
 principal, la política de privacidad y las condiciones del portal, que no tenía. `make auth` se
 repitió con el nombre nuevo.
 
-1. **Una subida de prueba con `make upload`**, para capturar la terminal con su salida. **No
-   con un episodio de verdad**: lo que sube un proyecto sin auditar queda bloqueado en privado
-   ("locked as private"), aunque se pida "public", y según quienes lo han sufrido no se puede
-   pasar a público desde Studio (referencia de `videos.insert`,
-   https://developers.google.com/youtube/v3/docs/videos). Así que se sube una prueba que
-   puede quedarse privada (por ejemplo, el Short del episodio 6, desde una carpeta de prueba
-   fuera de git: `--again` sobrescribiría el `published.json` del episodio) y los episodios se
-   siguen publicando a mano hasta pasar la auditoría. Se pensó primero en el episodio 7 y se
-   descartó por eso (2026-10-17).
-2. **Rellenar y enviar el formulario.** Lo rellena el agente en el navegador de la app con este
-   borrador; la casilla de aceptación y el botón de enviar son del usuario, porque lo que se
-   declara va en su nombre.
+1. **Hecho, 2026-10-17: la subida de prueba.** `make upload VIDEO=api-test PRIVACY=private`
+   desde una copia del episodio 6 fuera de git (con `published.json` ya apuntando al vídeo, para
+   subir solo el Short y no tocar la lista): https://www.youtube.com/shorts/fwxn-QPIKoA,
+   privado, título "Upload test, private (YouTube API)". La copia se borró; el Short sigue en
+   el canal, en privado, y el usuario puede borrarlo en Studio cuando quiera.
+2. **El formulario está rellenado** en el navegador de la app (2026-10-17), con la cuenta dueña
+   del proyecto. Cada campo de pruebas admite un solo archivo, y el navegador no deja a un
+   agente adjuntarlos: los adjunta el usuario (abajo, "Las pruebas"). También son suyas la
+   casilla de reconocimiento de la sección 4, las de la sección 7 y el botón de enviar.
 
 Los datos personales del usuario (nombre legal, dirección, correo de contacto) los dio el
 2026-10-17 y están en `.secrets/youtube-audit-contact.txt`, fuera de git: este repo es público.
@@ -122,18 +119,16 @@ Los datos personales del usuario (nombre legal, dirección, correo de contacto) 
 
 - youtube.search.list: no se usa.
 
-## Las pruebas que hay que adjuntar (imagen o PDF)
+## Las pruebas que hay que adjuntar (imagen o PDF, un archivo por campo, menos de 10 MB)
 
-En `docs/youtube-audit/`, sacadas el 2026-10-17 de la web desplegada:
+En `docs/youtube-audit/`, sacadas el 2026-10-17:
 
-| Lo que pide | Archivo |
+| Campo del formulario | Archivo |
 |---|---|
-| Privacy Policy Screenshots, "showing YouTube sections, Google Privacy Policy link, deletion policies" | `privacy-policy.png` (la página entera) |
-| Homepage Screenshot, "showing where Privacy Policy link is located" | `homepage-privacy-link.png` (el pie, con Privacy y Terms) |
-| Terms of Service Documentation | `terms.pdf` (y `terms.png`) |
-| Conditional evidence: OAuth consent screen | `oauth-consent.jpg` ("The Market Hub wants access"), `oauth-consent-scopes.jpg` (sus dos permisos de YouTube) y `oauth-unverified-warning.jpg` (el aviso de app en pruebas) |
-| Conditional evidence: OAuth revocation | `oauth-revocation.jpg` (myaccount.google.com: la app, sus permisos y "Delete all") |
-| Conditional evidence: Upload interface | Falta: la terminal de la primera `make upload` |
+| Privacy Policy Screenshots | `privacy-policy.png` (la página entera) |
+| Homepage Screenshot | `homepage-privacy-link.png` (el pie, con Privacy y Terms) |
+| Terms of Service Documentation | `terms.pdf` |
+| Conditional evidence (OAuth y subida) | `oauth-and-upload-evidence.pdf`: junta `oauth-consent.jpg`, `oauth-consent-scopes.jpg`, `oauth-unverified-warning.jpg`, `oauth-revocation.jpg` y `upload-terminal.png` (la salida real de la subida de prueba) |
 
 ## Hecho: el apartado de la política de privacidad del portal (desplegado el 2026-10-13, con este texto)
 
