@@ -176,14 +176,16 @@ dice. El tráiler y el episodio 1 ya están.
    `UCzS1RISW7hZOdYBXgbo8jsw` en `.secrets/youtube-token.json`; la cuenta del canal,
    `the.market.hub.app@gmail.com`, tuvo que añadirse antes como usuaria de prueba del cliente
    OAuth, que estaba sin ninguna) y la lista Money 101 en `channel.toml` (`PLUm8zJ2905YQ`). Así
-   `make upload` ya sube vídeo y Short con miniatura, subtítulos y lista, pero en privado hasta
-   pasar la auditoría: hasta entonces el usuario los pasa a público en YouTube Studio. La app
+   `make upload` ya sube vídeo y Short con miniatura, subtítulos y lista, pero bloqueados en
+   privado hasta pasar la auditoría: hasta entonces no se usa para publicar. La app
    de la pantalla de consentimiento se llama ya "The Market Hub" (antes "maket-hub"; es la del
    proyecto, que también da el login de Google del portal) y enlaza la privacidad y las
-   condiciones del portal. Para enviar la auditoría solo falta la captura de la primera
-   `make upload`: **el episodio 7 se sube por la API** (decisión del usuario, 2026-10-17), se
-   captura la terminal y se rellena el formulario en el navegador de la app; aceptar y enviar
-   son del usuario (`docs/youtube-audit.md`). Sus datos de contacto están en
+   condiciones del portal. Para enviar la auditoría solo falta la captura de una subida de
+   prueba con `make upload`, y no con un episodio: lo que sube un proyecto sin auditar queda
+   **bloqueado en privado** y no se puede pasar a público desde Studio, así que los episodios
+   (el 7 incluido) se siguen publicando a mano hasta pasar la auditoría. Tras la prueba se
+   rellena el formulario en el navegador de la app; aceptar y enviar son del usuario
+   (`docs/youtube-audit.md`). Sus datos de contacto están en
    `.secrets/youtube-audit-contact.txt`, fuera de git (el repo es público); las demás pruebas,
    en `docs/youtube-audit/`.
 2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El episodio 6 (el

@@ -22,9 +22,15 @@ Google del portal, así que no se usó un nombre solo de la herramienta) y se le
 principal, la política de privacidad y las condiciones del portal, que no tenía. `make auth` se
 repitió con el nombre nuevo.
 
-1. **Una subida con `make upload`**, para capturar la terminal con su salida: la del episodio 7
-   (decisión del usuario, 2026-10-17). Quedará en privado hasta la auditoría; el usuario lo
-   pasa a público en YouTube Studio.
+1. **Una subida de prueba con `make upload`**, para capturar la terminal con su salida. **No
+   con un episodio de verdad**: lo que sube un proyecto sin auditar queda bloqueado en privado
+   ("locked as private"), aunque se pida "public", y según quienes lo han sufrido no se puede
+   pasar a público desde Studio (referencia de `videos.insert`,
+   https://developers.google.com/youtube/v3/docs/videos). Así que se sube una prueba que
+   puede quedarse privada (por ejemplo, el Short del episodio 6, desde una carpeta de prueba
+   fuera de git: `--again` sobrescribiría el `published.json` del episodio) y los episodios se
+   siguen publicando a mano hasta pasar la auditoría. Se pensó primero en el episodio 7 y se
+   descartó por eso (2026-10-17).
 2. **Rellenar y enviar el formulario.** Lo rellena el agente en el navegador de la app con este
    borrador; la casilla de aceptación y el botón de enviar son del usuario, porque lo que se
    declara va en su nombre.
