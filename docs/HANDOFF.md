@@ -177,9 +177,11 @@ dice. El tráiler y el episodio 1 ya están.
    `the.market.hub.app@gmail.com`, tuvo que añadirse antes como usuaria de prueba del cliente
    OAuth, que estaba sin ninguna) y la lista Money 101 en `channel.toml` (`PLUm8zJ2905YQ`). Así
    `make upload` ya sube vídeo y Short con miniatura, subtítulos y lista, pero en privado hasta
-   pasar la auditoría: hasta entonces el usuario los pasa a público en YouTube Studio. Lo que
-   falta para enviarla (sus datos, el nombre "maket-hub" de la pantalla de consentimiento, dos
-   capturas) está al principio de `docs/youtube-audit.md`; las demás pruebas, en
+   pasar la auditoría: hasta entonces el usuario los pasa a público en YouTube Studio. La app
+   de la pantalla de consentimiento se llama ya "The Market Hub" (antes "maket-hub"; es la del
+   proyecto, que también da el login de Google del portal) y enlaza la privacidad y las
+   condiciones del portal. Para enviar la auditoría faltan los datos del usuario y la captura
+   de la primera `make upload` (`docs/youtube-audit.md`); las demás pruebas están en
    `docs/youtube-audit/`.
 2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El episodio 6 (el
    colchón de emergencia) está publicado. El siguiente es el

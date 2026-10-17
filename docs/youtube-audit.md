@@ -16,16 +16,17 @@ la lista Money 101 en `channel.toml`; la política de privacidad y las condicion
 que ya hablan de la herramienta desde el 2026-10-13 (`market-hub-landing` 3031c32); y las
 capturas de `docs/youtube-audit/` (abajo, "Las pruebas").
 
+Y, el mismo día, la pantalla de consentimiento de OAuth (Google Auth Platform, Branding): el
+nombre de la app pasó de "maket-hub" a **"The Market Hub"** (el mismo proyecto da el login de
+Google del portal, así que no se usó un nombre solo de la herramienta) y se le pusieron la página
+principal, la política de privacidad y las condiciones del portal, que no tenía. `make auth` se
+repitió con el nombre nuevo.
+
 1. **Los datos personales** del usuario: nombre legal, dirección postal, país y el correo de
    contacto. Van a Google.
-2. **El nombre de la app en la pantalla de consentimiento** es "maket-hub", con una errata
-   (Google Cloud Console, Google Auth Platform, Branding, App name). Debe coincidir con el
-   "API Client Name" de abajo, "Market Hub Media". Lo guarda el usuario. Después, `make auth`
-   otra vez, para capturar la pantalla de consentimiento (no se hizo: se aceptó antes) y
-   repetir `oauth-revocation.jpg`, que enseña el nombre viejo.
-3. **Una subida de prueba** con `make upload`, para capturar la terminal con su salida: la
+2. **Una subida de prueba** con `make upload`, para capturar la terminal con su salida: la
    primera que se haga (el episodio 7) vale, y quedará en privado hasta la auditoría.
-4. **Enviar el formulario**, que es del usuario: lo que se declara va en su nombre.
+3. **Enviar el formulario**, que es del usuario: lo que se declara va en su nombre.
 
 ## Sección 1. Request type
 
@@ -70,7 +71,7 @@ capturas de `docs/youtube-audit/` (abajo, "Las pruebas").
 
 ## Sección 4. API client overview and access information
 
-- API Client Name: **Market Hub Media**
+- API Client Name: **The Market Hub** (el nombre de la pantalla de consentimiento)
 - Does this API Client name contain the word "YouTube"? **No**
 - Primary Access URL: **https://themarkethub.app/media/** (la página del portal que enseña el
   canal; la herramienta en sí no tiene web)
@@ -120,8 +121,8 @@ En `docs/youtube-audit/`, sacadas el 2026-10-17 de la web desplegada:
 | Privacy Policy Screenshots, "showing YouTube sections, Google Privacy Policy link, deletion policies" | `privacy-policy.png` (la página entera) |
 | Homepage Screenshot, "showing where Privacy Policy link is located" | `homepage-privacy-link.png` (el pie, con Privacy y Terms) |
 | Terms of Service Documentation | `terms.pdf` (y `terms.png`) |
-| Conditional evidence: OAuth revocation | `oauth-revocation.jpg` (myaccount.google.com, la app con sus permisos y "Delete all"); repetirla tras el cambio de nombre |
-| Conditional evidence: OAuth consent screen | Falta: al repetir `make auth` tras el cambio de nombre |
+| Conditional evidence: OAuth consent screen | `oauth-consent.jpg` ("The Market Hub wants access"), `oauth-consent-scopes.jpg` (sus dos permisos de YouTube) y `oauth-unverified-warning.jpg` (el aviso de app en pruebas) |
+| Conditional evidence: OAuth revocation | `oauth-revocation.jpg` (myaccount.google.com: la app, sus permisos y "Delete all") |
 | Conditional evidence: Upload interface | Falta: la terminal de la primera `make upload` |
 
 ## Hecho: el apartado de la política de privacidad del portal (desplegado el 2026-10-13, con este texto)
