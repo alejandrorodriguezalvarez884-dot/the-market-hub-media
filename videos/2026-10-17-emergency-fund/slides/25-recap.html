@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- The three things to keep, counted on the presenter's fingers. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .step { font-size: 2.6vw; }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<div class="stage">
+<main class="slide">
+<h2 class="in">Three things to keep</h2>
+<div class="steps">
+  <p class="step in" data-say="one"><span class="n">01</span>Money set aside for the unplanned</p>
+  <p class="step in" data-say="two"><span class="n" style="background: var(--sky)">02</span>Without it, a bill becomes a debt</p>
+  <p class="step in" data-say="three#2"><span class="n" style="background: var(--pink)">03</span>Counted in months. Used, then refilled.</p>
+</div>
+</main>
+<div class="presenter" data-cues="0:open one:one two:two three#2:three"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- The guess: three, five or eight out of ten would pay a surprise 400-dollar bill with cash? -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .choices { display: flex; gap: 2vw; flex-wrap: wrap; }
+  .choice { padding: 1.6vh 3.4vw; border-radius: 99em; background: var(--raised); border: 1px solid var(--line-strong); font-size: 5vw; font-weight: 800; color: var(--ink-strong); }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; gap: 3vh; padding-top: 4vh; }
+    .kicker { max-width: 62vw; }
+    .choices { gap: 4vw; flex-wrap: nowrap; }
+    .choice { font-size: 10vw; padding: 1vh 6vw; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<p class="kicker in">A surprise $400 bill &middot; out of 10 US adults</p>
+<h1 class="in" data-say="guess">Take a guess.</h1>
+<div class="choices">
+  <span class="choice pop" data-say="three">3?</span>
+  <span class="choice pop" data-say="five">5?</span>
+  <span class="choice pop" data-say="eight">8?</span>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Paid with cash, savings, or a card cleared at the next bill</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

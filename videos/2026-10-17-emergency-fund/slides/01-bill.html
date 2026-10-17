@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- The riddle: a surprise bill of 400 dollars. Out of ten US adults, how many would pay it with cash or the equivalent? -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .scene { display: block; overflow: visible; width: 24vw; }
+  @media (orientation: portrait) {
+    .scene { width: 30vw; position: absolute; right: 7vw; top: 9vh; }
+    h2 { font-size: 7vw; }
+    .lead { font-size: 5.6vw; }
+    .stage > .slide { gap: 1.2vh; justify-content: flex-end; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<div class="stage">
+<main class="slide">
+<svg class="scene" viewBox="0 0 420 330">
+  <g class="pop" data-say="surprise"><path d="M40 20 H212 L260 66 V310 H40 Z" fill="var(--snow)"/><path d="M212 20 V66 H260" fill="rgba(15,12,46,0.12)"/><rect x="71" y="78" width="158" height="10" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="71" y="107" width="132" height="10" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="71" y="136" width="158" height="10" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="66" y="194" width="167" height="78" rx="12" fill="var(--coral)"/><text x="150" y="255" font-size="58" text-anchor="middle">$400</text></g>
+  <g class="pop" data-say="repair"><circle cx="330" cy="90" r="56" fill="var(--sun)"/><path d="M304 116 L344 76 M344 76 Q338 56 356 50 L348 66 L360 72 L372 64 Q368 84 350 82" stroke="var(--on-accent)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
+  <g class="pop" data-say="phone"><rect x="298" y="176" width="66" height="116" rx="14" fill="var(--violet)"/><rect x="308" y="190" width="46" height="80" rx="4" fill="#15112e"/><path d="M318 204 L344 256 M344 204 L318 256" stroke="var(--coral)" stroke-width="8" stroke-linecap="round"/></g>
+</svg>
+<h2 class="in" data-say="question">Out of <span class="hl" data-say="ten">10</span> US adults&hellip;</h2>
+<p class="lead in" data-say="many">How many pay it <span class="mark">in cash?</span></p>
+</main>
+<div class="presenter" data-cues="0:open surprise:point question:one many:explain good:open"></div>
+</div>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- How big: often measured in months, not in dollars, because a month costs different amounts for different lives. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .bars { flex: none; height: 50vh; max-width: 62vw; gap: 4vw; }
+</style>
+</head>
+<body class="tone-forest">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<h2 class="in" data-say="measured">Counted in <span class="hl" data-say="months">months</span>, not dollars.</h2>
+<div class="bars">
+  <div class="bar"><div><b class="in" data-say="different">1 month</b><i class="grow" data-say="different" style="height: 32%; background: var(--sky)"></i></div><span>One life</span></div>
+  <div class="bar"><div><b class="in" data-say="different+0.4">1 month</b><i class="grow" data-say="different+0.4" style="height: 62%; background: var(--sun)"></i></div><span>Another</span></div>
+  <div class="bar"><div><b class="in" data-say="lives">1 month</b><i class="grow" data-say="lives" style="height: 92%; background: var(--pink)"></i></div><span>Another</span></div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

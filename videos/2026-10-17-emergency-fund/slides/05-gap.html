@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- Same bill, very different months: the difference is money already waiting for it. That money is an emergency fund. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .row { align-items: center; gap: 4vw; }
+  .pair { flex: none; width: 30vw; overflow: visible; }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; padding-top: 1vh; }
+    .row { gap: 2vh; }
+    .pair { width: 50vw; }
+    h2 { font-size: 6.4vw; }
+    .lead { font-size: 5.2vw; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="pair" viewBox="0 0 440 300">
+    <g class="pop" data-say="same"><path d="M10 10 H143 L180 45 V230 H10 Z" fill="var(--snow)"/><path d="M143 10 V45 H180" fill="rgba(15,12,46,0.12)"/><rect x="34" y="54" width="122" height="8" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="34" y="76" width="102" height="8" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="34" y="98" width="122" height="8" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="30" y="142" width="129" height="59" rx="12" fill="var(--coral)"/><text x="95" y="188" font-size="44" text-anchor="middle">$400</text></g>
+    <g class="pop" data-say="very"><path d="M250 10 H383 L420 45 V230 H250 Z" fill="var(--snow)"/><path d="M383 10 V45 H420" fill="rgba(15,12,46,0.12)"/><rect x="274" y="54" width="122" height="8" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="274" y="76" width="102" height="8" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="274" y="98" width="122" height="8" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="270" y="142" width="129" height="59" rx="12" fill="var(--coral)"/><text x="335" y="188" font-size="44" text-anchor="middle">$400</text></g>
+    <g class="pop" data-say="waiting"><rect x="10" y="246" width="170" height="44" rx="14" fill="var(--mint)"/><text x="95" y="278" font-size="26" text-anchor="middle" style="fill: var(--on-accent)">ready</text></g>
+    <g class="pop" data-say="waiting+0.4"><rect x="250" y="246" width="170" height="44" rx="14" fill="none" stroke="var(--line-strong)" stroke-width="4" stroke-dasharray="10 8"/><text x="335" y="278" font-size="26" text-anchor="middle" style="fill: var(--muted)">nothing</text></g>
+  </svg>
+  <div class="col">
+    <h2 class="in" data-say="very">Same bill. Different months.</h2>
+    <p class="lead in" data-say="money#2">That money is an <span class="hl" data-say="emergency">emergency fund</span>.</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- Back to the pizza: 86 percent of US adults who always had money left had three months set aside; 13 percent of those who never did. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .hbars { gap: 5vh; }
+  .hbar { grid-template-columns: 24vw 1fr; }
+  .hbar > span { font-size: 1.5vw; }
+  .hbar i { height: 10vh; }
+  .hbar b { font-size: 4.4vw; }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<p class="kicker in">Have three months set aside &middot; US adults, 2025</p>
+<div class="hbars">
+  <div class="hbar in" data-say="always"><span>Always money left at month&rsquo;s end</span><div><i class="wide" data-say="eighty-six" style="width: 74%"></i><b>86%</b></div></div>
+  <div class="hbar in" data-say="never"><span>Never money left</span><div><i class="wide" data-say="thirteen" style="width: 11%; background: var(--coral)"></i><b>13%</b></div></div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: Federal Reserve, Economic Well-Being of U.S. Households in 2025, figure 25</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

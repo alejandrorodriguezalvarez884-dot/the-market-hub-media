@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- The rest: a card paid over time, borrowing from family, selling something; and 12 percent could not pay at all. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .hbar { grid-template-columns: 22vw 1fr; }
+  .hbar > span { font-size: 1.5vw; }
+  @media (orientation: portrait) {
+    .slide { justify-content: flex-start; padding-top: 2vh; }
+    .kicker { max-width: 62vw; }
+    .hbars { gap: 2.2vh; }
+    .hbar { grid-template-columns: 30vw 1fr; gap: 2vw; }
+    .hbar > span { font-size: 2.6vw; letter-spacing: 0.06em; }
+    .hbar i { height: 3.6vh; }
+    .hbar b { font-size: 5.6vw; }
+  }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<p class="kicker in">The other ways &middot; % of US adults</p>
+<div class="hbars">
+  <div class="hbar in" data-say="card"><span>Card, paid over time</span><div><i class="wide" data-say="card" style="width: 60%"></i><b>15%</b></div></div>
+  <div class="hbar in" data-say="borrow"><span>Borrow from family</span><div><i class="wide" data-say="borrow" style="width: 40%"></i><b>10%</b></div></div>
+  <div class="hbar in" data-say="sell"><span>Sell something</span><div><i class="wide" data-say="sell" style="width: 28%"></i><b>7%</b></div></div>
+  <div class="hbar in" data-say="twelve"><span>Couldn&rsquo;t pay at all</span><div><i class="wide" data-say="twelve" style="width: 48%; background: var(--coral)"></i><b>12%</b></div></div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: Federal Reserve, Economic Well-Being of U.S. Households in 2025, table 25</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

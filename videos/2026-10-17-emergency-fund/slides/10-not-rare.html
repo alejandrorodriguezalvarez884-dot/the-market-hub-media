@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- Not rare: 59 percent of US adults had at least one big unexpected expense in a year; the most common, a car repair or replacement, 30 percent. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .row { align-items: center; gap: 4vw; }
+  .card { display: flex; flex-direction: column; gap: 1.6vh; padding: 4vh 2.4vw; }
+  .card svg { width: 6vw; height: 6vw; }
+  .figure.small { font-size: 7vw; color: var(--pop); }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<p class="kicker in">Big unexpected expenses &middot; US adults, one year</p>
+<div class="row">
+  <div class="col">
+    <p class="figure"><span data-count="59" data-suffix="%" data-say="fifty-nine"></span></p>
+    <p class="figure-label in" data-say="fifty-nine">had at least one</p>
+  </div>
+  <div class="card in" data-say="common">
+    <svg viewBox="0 0 48 48"><path d="M10 22 L15 13 H33 L38 22 Z" fill="var(--sky)"/><rect x="5" y="21" width="38" height="13" rx="5" fill="var(--sky)"/><circle cx="14" cy="35" r="5" fill="#15112e"/><circle cx="34" cy="35" r="5" fill="#15112e"/></svg>
+    <p class="lead">Most common: a car repair or replacement</p>
+    <p class="figure small pop" data-say="thirty">30%</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: Federal Reserve, Economic Well-Being of U.S. Households in 2025, table 23</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

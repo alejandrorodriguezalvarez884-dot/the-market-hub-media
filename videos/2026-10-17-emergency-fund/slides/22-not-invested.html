@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- Why not invest it? Something that can fall in value might be smaller on the day it is needed: a spare tire that might be flat. Growth against risk is the next episode. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .row { align-items: center; gap: 4vw; }
+  .chart { flex: none; width: 30vw; }
+  .muted { font-size: 2.4vw; }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="chart" viewBox="0 0 420 300">
+    <path class="axis" d="M20 20 V270 H400"/>
+    <path class="line draw" data-say="grow" pathLength="1" d="M20 180 L80 150 L130 165 L190 110 L240 130 L290 90"/>
+    <path class="line draw" data-say="fall" pathLength="1" d="M290 90 L330 120 L360 210" style="stroke: var(--coral)"/>
+    <circle class="pop" data-say="need" cx="360" cy="210" r="14" fill="var(--coral)"/>
+    <text class="fade" data-say="need" x="360" y="258" font-size="22" text-anchor="middle" style="fill: var(--coral)">the day you need it</text>
+  </svg>
+  <div class="col">
+    <h2 class="in" data-say="invest">Why not invest it?</h2>
+    <p class="lead in" data-say="smaller">It might be <span class="hl" data-say="smaller">smaller</span> the day you need it.</p>
+    <p class="muted in" data-say="flat">A spare that might be flat.</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Growth against risk: the next episode</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

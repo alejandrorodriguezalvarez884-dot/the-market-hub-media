@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- The CFPB: a one-time expense on a card or a loan can grow much larger than the bill. The fund keeps a surprise from turning into a debt. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .row { align-items: center; gap: 4vw; }
+  .grow-art { flex: none; width: 26vw; overflow: visible; }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="grow-art" viewBox="0 0 400 300">
+    <g class="pop" data-say="emergency"><path d="M0 120 H86 L110 144 V270 H0 Z" fill="var(--snow)"/><path d="M86 120 V144 H110" fill="rgba(15,12,46,0.12)"/><rect x="15" y="150" width="79" height="5" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="15" y="165" width="66" height="5" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="15" y="180" width="79" height="5" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="13" y="210" width="84" height="40" rx="12" fill="var(--coral)"/><text x="55" y="242" font-size="30" text-anchor="middle">$</text></g>
+    <path class="draw" data-say="grow" pathLength="1" d="M128 200 H178" stroke="var(--pop)" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <path class="fade" data-say="grow+0.6" d="M172 184 L196 200 L172 216 Z" fill="var(--pop)"/>
+    <rect class="grow" data-say="grow" x="220" y="160" width="160" height="110" rx="12" fill="var(--coral)"/>
+    <rect class="grow" data-say="larger" x="220" y="60" width="160" height="100" rx="12" fill="#ff8f8f"/>
+    <rect class="grow" data-say="original" x="220" y="10" width="160" height="50" rx="12" fill="#ffb3b3"/>
+  </svg>
+  <div class="col">
+    <p class="kicker in">CFPB</p>
+    <h2 class="in" data-say="one-time">A one-time cost can grow.</h2>
+    <p class="lead in" data-say="job">The fund stops a surprise <span class="hl" data-say="debt">becoming a debt</span>.</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: CFPB, An essential guide to building an emergency fund</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

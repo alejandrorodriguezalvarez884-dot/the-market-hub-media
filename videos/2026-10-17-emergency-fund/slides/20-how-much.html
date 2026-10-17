@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- What size is right? The CFPB gives no number: it depends on your situation; look back at the surprises you have had, and what they cost. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .row { align-items: center; gap: 4vw; }
+  .receipts { flex: none; width: 24vw; overflow: visible; }
+</style>
+</head>
+<body class="tone-forest">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<div class="row">
+  <div class="col">
+    <p class="kicker in">CFPB</p>
+    <h2 class="in" data-say="size">What size? <span class="hl" data-say="depends">It depends.</span></h2>
+    <p class="lead in" data-say="looking">Look back at past surprises, and <span class="accent">what they cost</span>.</p>
+  </div>
+  <svg class="receipts" viewBox="0 0 360 300">
+    <g class="pop" data-say="surprises"><path d="M0 40 H101 L130 67 V210 H0 Z" fill="var(--snow)"/><path d="M101 40 V67 H130" fill="rgba(15,12,46,0.12)"/><rect x="18" y="74" width="94" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="18" y="91" width="78" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="18" y="108" width="94" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="16" y="142" width="99" height="46" rx="12" fill="var(--coral)"/><text x="65" y="178" font-size="34" text-anchor="middle">$?</text></g>
+    <g class="pop" data-say="surprises+0.3"><path d="M110 10 H211 L240 37 V180 H110 Z" fill="var(--snow)"/><path d="M211 10 V37 H240" fill="rgba(15,12,46,0.12)"/><rect x="128" y="44" width="94" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="128" y="61" width="78" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="128" y="78" width="94" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="126" y="112" width="99" height="46" rx="12" fill="var(--coral)"/><text x="175" y="148" font-size="34" text-anchor="middle">$?</text></g>
+    <g class="pop" data-say="cost"><path d="M220 70 H321 L350 97 V240 H220 Z" fill="var(--snow)"/><path d="M321 70 V97 H350" fill="rgba(15,12,46,0.12)"/><rect x="238" y="104" width="94" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="238" y="121" width="78" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="238" y="138" width="94" height="6" rx="4" fill="rgba(15,12,46,0.18)"/><rect x="236" y="172" width="99" height="46" rx="12" fill="var(--coral)"/><text x="285" y="208" font-size="34" text-anchor="middle">$?</text></g>
+  </svg>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: CFPB, An essential guide to building an emergency fund</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

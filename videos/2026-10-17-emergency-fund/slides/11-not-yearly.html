@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- Not the once-a-year bills of episode 5: those are on the calendar. The fund is for what nobody can put on one. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .row { gap: 3vw; }
+  .card { display: flex; flex-direction: column; gap: 2vh; padding: 4vh 2.4vw; }
+  .icon { width: 8vw; height: auto; overflow: visible; }
+  .muted { font-size: 2.4vw; }
+</style>
+</head>
+<body class="tone-plum">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<div class="row">
+  <div class="card in" data-say="remember">
+    <svg class="icon" viewBox="0 0 120 126"><g ><rect x="0" y="0" width="120" height="126" rx="12" fill="var(--snow)"/><rect x="0" y="0" width="120" height="33" rx="12" fill="var(--coral)"/><rect x="0" y="18" width="120" height="15" fill="var(--coral)"/><text x="60" y="25" font-size="18" text-anchor="middle">YEAR</text><rect x="14" y="50" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="38" y="50" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="62" y="50" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="86" y="50" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="14" y="72" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="38" y="72" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="62" y="72" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="86" y="72" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="14" y="93" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="38" y="93" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="62" y="93" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/><rect x="86" y="93" width="16" height="12" rx="3" fill="rgba(15,12,46,0.2)"/></g></svg>
+    <p class="lead">Once-a-year bills</p>
+    <p class="muted">Insurance. Presents. <span class="hl" data-say="coming">On the calendar.</span></p>
+  </div>
+  <div class="card in" data-say="emergency">
+    <svg class="icon" viewBox="0 0 120 126"><rect x="0" y="0" width="120" height="126" rx="12" fill="none" stroke="var(--pop)" stroke-width="6" stroke-dasharray="14 10"/><text x="60" y="94" font-size="80" text-anchor="middle" style="fill: var(--pop)">?</text></svg>
+    <p class="lead">The emergency fund</p>
+    <p class="muted">For what <span class="hl" data-say="calendar">no calendar shows</span>.</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

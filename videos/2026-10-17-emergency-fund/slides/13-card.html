@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Very often onto a credit card: on cards that charged interest, the average was about 22 percent a year (episode 3). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .row { align-items: center; gap: 5vw; }
+  .cc { flex: none; width: 28vw; height: auto; }
+</style>
+</head>
+<body class="tone-ember">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<div class="row">
+  <svg class="cc pop" data-say="credit" viewBox="0 0 400 250"><rect x="0" y="0" width="400" height="250" rx="26" fill="var(--violet)"/><rect x="0" y="52" width="400" height="44" fill="#15112e"/><rect x="34" y="128" width="64" height="48" rx="8" fill="var(--sun)"/><rect x="34" y="198" width="190" height="16" rx="8" fill="rgba(255,255,255,0.5)"/></svg>
+  <div class="col">
+    <p class="figure"><span data-count="22" data-suffix="%" data-say="twenty-two"></span></p>
+    <p class="figure-label in" data-say="year">a year, on average: US cards that charged interest</p>
+  </div>
+</div>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: Federal Reserve, G.19 Consumer Credit, 7 October 2026 (22.36%)</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

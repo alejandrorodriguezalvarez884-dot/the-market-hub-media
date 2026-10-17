@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- The title card: the episode's name, held for a few seconds with nothing said. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+</style>
+</head>
+<body>
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide">
+<p class="kicker in">Episode 6</p>
+<h1 class="pop" style="max-width: none">The emergency fund</h1>
+<hr class="rule wide" style="--at: 0.4s">
+<p class="lead fade" style="--at: 0.8s">What it&rsquo;s for, and how it works</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source"></span></footer>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>

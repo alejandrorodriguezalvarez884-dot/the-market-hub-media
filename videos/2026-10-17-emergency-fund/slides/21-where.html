@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Where it lives: safe, accessible, and away from the temptation of everyday spending; a bank or credit union account is the usual home. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/slide.css">
+<style>
+  svg text { font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; fill: var(--ink-strong); }
+  .lead { max-width: none; }
+  .col { display: flex; flex-direction: column; gap: 2.4vh; min-width: 0; }
+  .gone { animation: gone 0.45s ease both; animation-delay: var(--at, 0s); }
+  @keyframes gone { to { opacity: 0; } }
+  .tile { font-size: 2.8vw; padding: 4vh 2vw; flex-direction: column; align-items: flex-start; gap: 2.4vh; }
+  .tile svg { width: 6vw; height: 6vw; }
+</style>
+</head>
+<body class="tone-ocean">
+<header class="top"><span class="chip" data-series>Money 101 &middot; EP 06</span></header>
+<main class="slide room">
+<p class="kicker in">Where it lives &middot; the CFPB&rsquo;s three words</p>
+<div class="tiles">
+  <div class="tile pop" data-say="safe"><svg viewBox="0 0 48 48"><path d="M24 4 L40 10 V24 Q40 37 24 44 Q8 37 8 24 V10 Z" fill="var(--mint)"/><path d="M17 24 L22 29 L32 18" stroke="var(--on-accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>Safe</span></div>
+  <div class="tile pop" data-say="accessible"><svg viewBox="0 0 48 48"><circle cx="16" cy="24" r="10" fill="var(--sun)"/><circle cx="16" cy="24" r="4" fill="var(--on-accent)"/><path d="M26 24 H44 M38 24 V31 M44 24 V30" stroke="var(--sun)" stroke-width="5" stroke-linecap="round"/></svg><span>Easy to reach</span></div>
+  <div class="tile pop" data-say="temptation"><svg viewBox="0 0 48 48"><rect x="4" y="14" width="18" height="24" rx="4" fill="var(--line-strong)"/><rect x="26" y="8" width="18" height="30" rx="4" fill="var(--sky)"/><path d="M24 4 V44" stroke="var(--snow)" stroke-width="3" stroke-dasharray="4 4"/></svg><span>Not tempting</span></div>
+</div>
+<p class="lead in" data-say="bank">Usually: a bank or credit union account.</p>
+</main>
+<footer class="foot"><span class="brand">The Market Hub</span><span class="source">Source: CFPB, An essential guide to building an emergency fund</span></footer>
+<div class="presenter corner"></div>
+<script src="../../../theme/presenter.js"></script>
+<script src="../../../theme/slide.js"></script>
+</body>
+</html>
