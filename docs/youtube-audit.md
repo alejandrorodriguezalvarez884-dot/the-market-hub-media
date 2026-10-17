@@ -22,11 +22,15 @@ Google del portal, así que no se usó un nombre solo de la herramienta) y se le
 principal, la política de privacidad y las condiciones del portal, que no tenía. `make auth` se
 repitió con el nombre nuevo.
 
-1. **Los datos personales** del usuario: nombre legal, dirección postal, país y el correo de
-   contacto. Van a Google.
-2. **Una subida de prueba** con `make upload`, para capturar la terminal con su salida: la
-   primera que se haga (el episodio 7) vale, y quedará en privado hasta la auditoría.
-3. **Enviar el formulario**, que es del usuario: lo que se declara va en su nombre.
+1. **Una subida con `make upload`**, para capturar la terminal con su salida: la del episodio 7
+   (decisión del usuario, 2026-10-17). Quedará en privado hasta la auditoría; el usuario lo
+   pasa a público en YouTube Studio.
+2. **Rellenar y enviar el formulario.** Lo rellena el agente en el navegador de la app con este
+   borrador; la casilla de aceptación y el botón de enviar son del usuario, porque lo que se
+   declara va en su nombre.
+
+Los datos personales del usuario (nombre legal, dirección, correo de contacto) los dio el
+2026-10-17 y están en `.secrets/youtube-audit-contact.txt`, fuera de git: este repo es público.
 
 ## Sección 1. Request type
 
@@ -37,14 +41,14 @@ repitió con el nombre nuevo.
 ## Sección 2. Organization and contact information
 
 - Are you applying: **As an individual user**
-- Your Full Legal Name: `[TÚ]`
+- Your Full Legal Name: en `.secrets/youtube-audit-contact.txt`
 - Your Organization's Legal Name: **self**
 - Parent Company Name: **self**
 - Your Organization's Primary Website: **https://themarkethub.app**
-- Country / Street Address / City / State/Province / Postal Code: `[TÚ]`
+- Country / Street Address / City / State/Province / Postal Code: en `.secrets/youtube-audit-contact.txt`
 - Category: **Education and E-Learning**
 - Organization Size / Type: **Independent Developer/Sole Proprietor**
-- Primary Contact, Name and Email: `[TÚ]`
+- Primary Contact, Name and Email: en `.secrets/youtube-audit-contact.txt`
 - Primary Technical Contact and Primary Business Contact: **Same as Primary Contact**
 
 ## Sección 3. Business model and Google contacts

@@ -180,9 +180,12 @@ dice. El tráiler y el episodio 1 ya están.
    pasar la auditoría: hasta entonces el usuario los pasa a público en YouTube Studio. La app
    de la pantalla de consentimiento se llama ya "The Market Hub" (antes "maket-hub"; es la del
    proyecto, que también da el login de Google del portal) y enlaza la privacidad y las
-   condiciones del portal. Para enviar la auditoría faltan los datos del usuario y la captura
-   de la primera `make upload` (`docs/youtube-audit.md`); las demás pruebas están en
-   `docs/youtube-audit/`.
+   condiciones del portal. Para enviar la auditoría solo falta la captura de la primera
+   `make upload`: **el episodio 7 se sube por la API** (decisión del usuario, 2026-10-17), se
+   captura la terminal y se rellena el formulario en el navegador de la app; aceptar y enviar
+   son del usuario (`docs/youtube-audit.md`). Sus datos de contacto están en
+   `.secrets/youtube-audit-contact.txt`, fuera de git (el repo es público); las demás pruebas,
+   en `docs/youtube-audit/`.
 2. Los siguientes temas, uno a uno: `/analyze-idea`, brief, `/make-video`. El episodio 6 (el
    colchón de emergencia) está publicado. El siguiente es el
    episodio 7, ahorrar frente a invertir: riesgo y plazo (el 6 lo anuncia al cerrar: "saving
