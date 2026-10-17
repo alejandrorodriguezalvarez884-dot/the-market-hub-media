@@ -1,6 +1,6 @@
 ---
 name: post-x
-description: Write a post for Market Hub's account on X and, once the user says yes to its exact text, put it on X in Claude's built-in browser and record it so the portal's Media page shows it. Use when the user asks for content on X, with something like "haz un post de X sobre el mercado de hoy", "tuitea el vídeo nuevo", "saca un post del artículo de Sysco" or "publica en X". The argument is what the post is about: the market's day, a video, an opinion article, the app, or a topic the user gives.
+description: Write a post for Market Hub's account on X and, once the user says yes to its exact text, put it on X in Claude's built-in browser, record it so the portal's Media page shows it, and then ask whether to make a related Instagram post. Use when the user asks for content on X, with something like "haz un post de X sobre el mercado de hoy", "tuitea el vídeo nuevo", "saca un post del artículo de Sysco" or "publica en X". The argument is what the post is about: the market's day, a video, an opinion article, the app, or a topic the user gives.
 ---
 
 # A post on X
@@ -153,6 +153,28 @@ later. Commit the post's file in this repo and push it.
 
 Tell the user where the post is and that it will show on https://themarkethub.app/media/ within
 a minute.
+
+## 6. Ask about Instagram
+
+The user decided (2026-10-18) that **every time a post goes on X, they are asked whether to
+publish a related post on Instagram** (account `the_market_hub_app`). Ask it in the same message
+that says where the X post is, as one question, for every post or thread published in that turn
+(one question for all of them, naming which). Don't ask before the X post is up, and don't skip
+it because the topic seems a poor fit: that is theirs to say.
+
+A yes to that question is a yes to making it, not to publishing it. If they say yes:
+
+- **The format**: a feed post (`make carousel`: one or more slides drawn at 1080 × 1350 in
+  `carousels/<date>-<slug>/`, with its `caption.txt`) unless they ask for a story (`make story`,
+  one page at 1080 × 1920 in `stories/<date>-<slug>/`). Draw it here as HTML, in the portal's
+  look; no logos, third-party images or faces, as in the videos (`CLAUDE.md`).
+- **The content**: the same facts as the X post and from the same sources, in English, with
+  the same rules (describe, never advise; every figure sourced). On Instagram the detail goes in
+  the caption, which ends with the sources and the line that nothing is investment advice; the
+  slides carry few words.
+- **Show before publishing**: draw it with `DRAW=1`, send the user the images and the exact
+  caption, and publish only after a yes to them. Then `make posts` runs on its own (or run it)
+  so the Media page shows it, and commit the folder.
 
 ## Never
 

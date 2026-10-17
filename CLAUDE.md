@@ -18,7 +18,10 @@ de X de Market Hub (en inglés; el día del mercado, un vídeo, un artículo de 
 `x/`, lo comprueba (`make xcheck`), lo pone en X **en el navegador de Claude** y lo apunta
 (`make xposted`), que deja los últimos en la página Media del portal. **Sin la API de X**, que se
 paga por post (decisión del usuario, 2026-10-14). **Cada post se publica solo tras un sí del
-usuario a su texto exacto**, en el chat; pedir "haz un post" no es ese sí.
+usuario a su texto exacto**, en el chat; pedir "haz un post" no es ese sí. **Después de cada post
+en X se le pregunta si quiere un post relacionado en Instagram** (decisión suya, 2026-10-18):
+si dice que sí, se dibuja (carrusel o story), se le enseña con su pie y se publica solo tras su
+sí a eso (paso 6 de `post-x`).
 
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
