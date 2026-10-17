@@ -8,7 +8,16 @@ de Google, cuando haya leído lo que se declara en su nombre.
 
 Las respuestas van en inglés, como el formulario. `[TÚ]` es lo que solo sabe el usuario.
 
-## Lo que falta antes de poder enviarlo
+## Enviado el 2026-10-17
+
+El usuario lo envió ese día desde el navegador de la app, con la cuenta dueña del proyecto
+(`alejandrorodriguezalvarez884@gmail.com`); Google contestó "Your email has been sent". La
+respuesta llegará a ese correo. Mientras no la aprueben, los episodios se publican a mano: lo que
+sube la API queda bloqueado en privado. Si piden ver la herramienta funcionando, se les manda
+un vídeo corto de la pantalla lanzando `make upload` (no hay cuenta demo que dar: es una
+herramienta de línea de comandos, y la única cuenta sería la real del canal).
+
+## Lo que faltaba antes de poder enviarlo
 
 Al día el 2026-10-17. Hecho: `make auth` (con la cuenta del canal, `the.market.hub.app@gmail.com`,
 añadida ese día como usuaria de prueba del cliente OAuth: sin eso Google bloqueaba el acceso);
