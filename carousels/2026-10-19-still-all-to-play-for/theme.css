@@ -1,0 +1,58 @@
+/* The slides of the green-futures carousel: 1080 by 1350, in the portal's dark theme. */
+:root { --page: #0b0c0d; --line: #222528; --ink: #c9c7c1; --ink-strong: #f2f0ea; --muted: #8c8b86; --faint: #5f5f5b;
+        --up: #35c98f; --down: #ff6b57; --warn: #e0b341;
+        --sans: "Inter", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --mono: "SF Mono", "Cascadia Mono", "Consolas", ui-monospace, Menlo, monospace;
+        --accent: #35c98f; --accent-2: #7dd3fc; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; background: var(--page); color: var(--ink-strong); font-family: var(--sans); }
+body { position: relative; display: flex; flex-direction: column; padding: 64px 72px 60px; }
+.glow { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.glow::before, .glow::after { content: ""; position: absolute; border-radius: 50%; filter: blur(30px); }
+.glow::before { width: 1100px; height: 900px; right: -460px; top: -420px; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 70%, transparent), transparent); opacity: 0.42; }
+.glow::after { width: 1000px; height: 900px; left: -480px; bottom: -460px; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent-2) 70%, transparent), transparent); opacity: 0.32; }
+.grid { position: absolute; inset: 0; z-index: -1; opacity: 0.35;
+        background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+        background-size: 54px 54px; mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 78%); }
+header { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 14px; font-size: 32px; font-weight: 650; letter-spacing: -0.01em; }
+.brand svg { width: 38px; height: 38px; }
+.pill { display: flex; align-items: center; gap: 12px; padding: 12px 22px; border: 1.5px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+        border-radius: 999px; font-family: var(--mono); font-size: 21px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); background: rgba(10,11,13,0.6); }
+.pill i { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 24px var(--accent); }
+.kicker { margin-top: 52px; font-family: var(--mono); font-size: 25px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+h1 { margin-top: 18px; font-size: 84px; font-weight: 760; letter-spacing: -0.045em; line-height: 0.98; }
+h1.big { font-size: 112px; }
+h1 em { font-style: normal; background: linear-gradient(100deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sub { margin-top: 22px; max-width: 920px; font-size: 32px; line-height: 1.28; color: var(--ink); }
+.bars { margin-top: 40px; display: grid; gap: var(--gap, 14px); }
+.bar { display: grid; grid-template-columns: 300px 1fr 150px; align-items: center; column-gap: 22px; }
+.bar b { font-size: var(--fs, 34px); font-weight: 650; letter-spacing: -0.015em; white-space: nowrap; }
+.bar .track { height: var(--h, 30px); border-radius: 8px; background: rgba(255,255,255,0.04); position: relative; overflow: hidden; }
+.bar .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 8px; background: linear-gradient(90deg, color-mix(in srgb, var(--down) 55%, transparent), var(--down)); box-shadow: 0 0 22px color-mix(in srgb, var(--down) 35%, transparent); }
+.bar span { font-family: var(--mono); font-size: var(--fs, 34px); font-weight: 600; color: var(--down); text-align: right; }
+.bar.index b { color: var(--ink); font-weight: 500; }
+.bar.index .fill { background: linear-gradient(90deg, color-mix(in srgb, var(--accent-2) 45%, transparent), var(--accent-2)); box-shadow: none; }
+.bar.index span { color: var(--accent-2); }
+.rule { height: 1.5px; background: var(--line); margin: 6px 0; }
+.stats { margin-top: auto; margin-bottom: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.stat { padding: 34px 36px; border-radius: 24px; border: 1.5px solid var(--line); background: linear-gradient(100deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); }
+.stat small { display: block; font-family: var(--mono); font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.stat strong { display: block; margin-top: 14px; font-family: var(--mono); font-size: 92px; font-weight: 700; letter-spacing: -0.04em; color: var(--down); }
+.note { margin-top: auto; font-size: 24px; line-height: 1.35; color: var(--muted); }
+footer { margin-top: 30px; display: flex; align-items: center; justify-content: space-between; font-size: 27px; color: var(--muted); }
+footer b { color: var(--ink-strong); font-weight: 600; }
+.swipe { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 22px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); }
+.swipe span { font-size: 34px; color: var(--accent); }
+.stat.wide { grid-column: 1 / -1; }
+.stat.wide strong { font-size: 76px; }
+
+.chart { margin-top: 34px; padding: 26px 0 0; border-radius: 24px; border: 1.5px solid var(--line); background: linear-gradient(180deg, rgba(53,201,143,0.06), rgba(255,255,255,0.01)); }
+.chart .lbl { display: flex; justify-content: space-between; padding: 0 28px; font-family: var(--mono); font-size: 21px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.chart svg { display: block; margin: 8px auto 18px; }
+.stats3 { margin-top: auto; margin-bottom: 6px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.stats3 .stat { padding: 26px 26px; }
+.stats3 .stat strong { font-size: 64px; color: var(--up); }
+.art { margin-top: 30px; border-radius: 24px; overflow: hidden; border: 1.5px solid var(--line); }
+.art img { display: block; width: 100%; height: 740px; object-fit: cover; object-position: 50% 45%; }
+.small { margin-top: 26px; font-size: 30px; line-height: 1.3; color: var(--ink); }
