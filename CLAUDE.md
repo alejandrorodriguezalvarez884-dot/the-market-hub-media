@@ -15,13 +15,22 @@ toma el usuario, y cada una manda sobre su paso:
 
 Y aparte de los vídeos, [`post-x`](.claude/skills/post-x/SKILL.md): escribe un post para la cuenta
 de X de Market Hub (en inglés; el día del mercado, un vídeo, un artículo de opinión, la app) en
-`x/`, lo comprueba (`make xcheck`), lo pone en X **en el navegador de Claude** y lo apunta
-(`make xposted`), que deja los últimos en la página Media del portal. **Sin la API de X**, que se
-paga por post (decisión del usuario, 2026-10-14). **Cada post se publica solo tras un sí del
-usuario a su texto exacto**, en el chat; pedir "haz un post" no es ese sí. **Después de cada post
-en X se le pregunta si quiere un post relacionado en Instagram** (decisión suya, 2026-10-18):
-si dice que sí, se dibuja (carrusel o story), se le enseña con su pie y se publica solo tras su
-sí a eso (paso 6 de `post-x`).
+`x/`, lo comprueba (`make xcheck`) y lo pone en X **por la API de X** (`make xpost`), que lo apunta
+y deja los últimos en la página Media del portal. La API se paga por post: $0,015, o **$0,20 con
+enlace**; los que pide el usuario pueden llevar enlace (decisión suya, 2026-10-21; hasta entonces
+se ponían a mano en el navegador de Claude, que queda para cuando la API no se pueda usar).
+**Cada post que pide el usuario se publica solo tras un sí a su texto exacto**, en el chat; pedir
+"haz un post" no es ese sí. **Después de cada post que pide en X se le pregunta si quiere un
+post relacionado en Instagram** (decisión suya, 2026-10-18): si dice que sí, se dibuja (carrusel
+o story), se le enseña con su pie y se publica solo tras su sí a eso (paso 6 de `post-x`).
+
+Y [`autopost`](.claude/skills/autopost/SKILL.md): **los posts que el canal hace solo** (decisión
+del usuario, 2026-10-21). Dos tareas programadas de la app de Claude, de lunes a viernes, buscan
+lo nuevo del mercado y publican sin preguntar: **cinco posts al día en X, sin enlace** (`auto: yes`
+en su cabecera; `make xcheck` para el que lleva un enlace o un dominio, y el código no hace más de
+cinco al día) y **dos carruseles al día en Instagram**. Es lo único que se publica sin un sí al
+texto exacto; las demás reglas valen igual (describir, no aconsejar; toda cifra con su fuente).
+Nunca usan el navegador para X.
 
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
@@ -66,11 +75,14 @@ Reglas que no se negocian:
   si YouTube lo dejó en privado, el reel espera y se le dice. Un
   story (`make story`, una imagen dibujada aquí en `stories/`) se publica igual: solo el que él pida. El
   token de Instagram lo genera y lo guarda él en `.secrets/`; no se le pide en el chat.
-- **No se gasta sin preguntar.** El único servicio de pago decidido es la voz (abajo). Cualquier
+- **No se gasta sin preguntar.** Los servicios de pago decididos son la voz (abajo) y la API de
+  X para publicar (arriba: los posts que pide el usuario y los cinco diarios sin enlace). Cualquier
   otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.
 - **Nada programado y nada en GitHub Actions.** Todo se lanza a mano, con una skill o desde el
-  `Makefile`. Tampoco se programa la publicación en YouTube.
+  `Makefile`. Tampoco se programa la publicación en YouTube. La única excepción es `autopost`
+  (arriba), que el usuario pidió el 2026-10-21: tareas programadas de la app de Claude, no un
+  servicio ni un cron en la nube.
 - **Claves solo en `.secrets/`, en `.env` o en el entorno.** Nunca en el repo, en logs ni en
   commits. Nunca se le pide al usuario una contraseña, un token o un código: `make auth` lo
   lanza él y se identifica en su navegador.

@@ -18,6 +18,8 @@
 #   make carousel CAROUSEL=...  publish a folder of slides as one post in the Instagram feed (DRAW=1: only draw them)
 #   make posts [TO=...]         tell the portal's Media page what the account last posted on Instagram
 #   make xcheck [POST=...]      what stops a post in x/ from going on X (every one not yet on it)
+#   make xpost POST=...         put a post in x/ on X through its API (paid: $0.015, $0.20 with a link), and tell the portal
+#   make xwho                   say which account the X API keys post as
 #   make xposted POST=... URL=...  write down where a post went on X (put there by hand), and tell the portal
 #   make xfront [TO=...]        tell the portal's Media page what the account last posted on X
 #
@@ -25,7 +27,7 @@
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xposted xfront
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xposted xfront
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
@@ -89,6 +91,13 @@ posts: ## Read the account's latest Instagram posts and leave them where the por
 
 xcheck: ## What stops a post in x/ from going on X (POST=...; every one not yet on it if not said)
 	$(RUN) xcheck $(POST)
+
+xpost: ## Put POST=... on X through its API (paid: $0.015, $0.20 with a link), write it down and tell the portal (TO=<folder>: a local portal's)
+	@[ -n "$(POST)" ] || { echo 'Which post? make xpost POST=...'; exit 1; }
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) xpost "$(POST)" $(if $(TO),--to "$(TO)")
+
+xwho: ## Say which account the X API keys post as
+	$(RUN) xwho
 
 xposted: ## Write down where POST=... went on X (URL=https://x.com/<account>/status/<number>), and tell the portal (TO=<folder>: a local portal's)
 	@[ -n "$(POST)" ] && [ -n "$(URL)" ] || { echo 'Which post and where? make xposted POST=... URL=https://x.com/...'; exit 1; }

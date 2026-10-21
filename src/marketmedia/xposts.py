@@ -1,4 +1,4 @@
-"""The account's posts on X: each written here, checked here, posted by hand and recorded here.
+"""The account's posts on X: each written here, checked here, put on X and recorded here.
 
 A post is a Markdown file in x/, named by its day and a slug, whose body is exactly what goes on X:
 
@@ -10,12 +10,18 @@ A post is a Markdown file in x/, named by its day and a slug, whose body is exac
 
     The day on one ruler: https://themarkethub.app/today/
 
-Nothing here talks to X. Its API is paid by the post (more for a post with a link), so a post is
-put on X by hand, in the browser of a Claude Code session the owner signed into, and only when the
-owner says so, post by post. Once it is there, its address is written into the file (`url:` and
-`posted_utc:`), and the latest posts are left where the portal's Media page reads them (its
-Firestore, or the folder of a portal on this machine), as `posts.py` does for Instagram. A visitor's
-browser asks nothing of X.
+A post goes on X through its API (`send`, with `xapi.create`), which is paid by the post: $0.015,
+or $0.20 when it has a link. Two kinds of post go there (owner's decision, 2026-10-21):
+
+- the ones the owner asks for, each after a yes to its exact text, which may link to Market Hub;
+- the ones the channel makes on its own (`auto: yes` in the header), on a timer, with no link and
+  no address X would turn into one, and at most AUTO_PER_DAY of them a day.
+
+It can still be put there by hand, in the browser of a Claude Code session, and recorded with
+`posted`. Once it is there, its address is written into the file (`url:` and `posted_utc:`), and
+the latest posts are left where the portal's Media page reads them (its Firestore, or the folder
+of a portal on this machine), as `posts.py` does for Instagram. A visitor's browser asks nothing
+of X.
 """
 
 from __future__ import annotations
@@ -37,6 +43,7 @@ LATEST = 12               # posts the portal is given: what the page shows
 LENGTH_MAX = 280          # X's limit, in its own weighted characters
 LINK_LENGTH = 23          # X counts any link as this many, whatever its length
 HASHTAGS_MAX = 2
+AUTO_PER_DAY = 5          # posts the channel makes on its own in a day (UTC), at most
 DATABASE = os.environ.get("MARKETHUB_FIRESTORE_DATABASE", "market-hub")  # the portal's own
 NAME = re.compile(r"\d{4}-\d{2}-\d{2}-[a-z0-9][a-z0-9\-]{0,60}")
 LINK = re.compile(r"https?://[^\s<>\"]+")
@@ -46,6 +53,8 @@ STATUS = re.compile(r"https://(?:x|twitter)\.com/([A-Za-z0-9_]{1,15})/status/(\d
 # Where a post may send its readers: Market Hub and its own accounts.
 OURS = re.compile(r"https://(?:[a-z0-9\-]+\.)?(?:themarkethub\.app|earningsradar\.app)(?:/[^\s]*)?"
                   r"|https://(?:www\.)?(?:youtube\.com|youtu\.be|instagram\.com|x\.com)/[^\s]*")
+# Text X would turn into a link (and charge for as one): a name, a dot and a domain's ending.
+BARE = re.compile(r"(?<![\w@$#/.])[A-Za-z0-9][\w-]*(?:\.[\w-]+)*\.[A-Za-z]{2,24}(?![\w.]*\w)(?:/\S*)?")
 FIGURE = re.compile(r"\d")
 EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿️]")
 
@@ -61,6 +70,7 @@ class Post:
     sources: list[str] = field(default_factory=list)
     url: str = ""
     posted_utc: str = ""
+    auto: bool = False        # made by the channel on its own, on a timer
 
     @property
     def name(self) -> str:
@@ -97,8 +107,10 @@ def load(path: Path) -> Post:
             post.url = value
         elif key == "posted_utc":
             post.posted_utc = value
+        elif key == "auto":
+            post.auto = value.lower() in ("yes", "true")
         else:
-            raise Invalid(f"{path.name}: '{key}' is not a field of a post (sources, url, posted_utc)")
+            raise Invalid(f"{path.name}: '{key}' is not a field of a post (sources, auto, url, posted_utc)")
     return post
 
 
@@ -106,6 +118,8 @@ def save(post: Post) -> None:
     head = []
     if post.sources:
         head += ["sources:", *(f"  - {s}" for s in post.sources)]
+    if post.auto:
+        head += ["auto: yes"]
     if post.url:
         head += [f"url: {post.url}", f"posted_utc: {post.posted_utc}"]
     post.path.write_text("---\n" + "\n".join(head) + ("\n" if head else "") + "---\n" + post.text + "\n", encoding="utf-8")
@@ -159,6 +173,9 @@ def problems(post: Post, handle: str = "") -> list[str]:
         found.append(f"it has {len(HASHTAG.findall(text))} hashtags; the account uses {HASHTAGS_MAX} at most")
     if EMOJI.search(text):
         found.append("it has an emoji; the account uses none")
+    if post.auto:
+        for link in [*links, *BARE.findall(LINK.sub(" ", text))]:
+            found.append(f"a post made on its own carries no link (X charges $0.20 for a post with one): {link}")
     if FIGURE.search(LINK.sub("", text)) and not post.sources:
         found.append("it has figures and no sources")
     if post.url:
@@ -181,6 +198,29 @@ def posted(post: Post, url: str, handle: str = "", *, now: Callable[[], datetime
     post.url, post.posted_utc = url, now().isoformat(timespec="seconds")
     save(post)
     return post
+
+
+def auto_today(all_posts: list[Post], now: Callable[[], datetime] = lambda: datetime.now(timezone.utc)) -> int:
+    """How many posts the channel made on its own today (UTC)."""
+    day = now().date().isoformat()
+    return sum(1 for p in all_posts if p.auto and p.url and p.posted_utc.startswith(day))
+
+
+def send(post: Post, handle: str, create: Callable[[str], str], all_posts: list[Post], *,
+         now: Callable[[], datetime] = lambda: datetime.now(timezone.utc)) -> Post:
+    """Put a post on X through the API (`create` takes its text and gives the new post's
+    number), once, and write down where it went."""
+    if not handle:
+        raise Invalid("channel.toml has no [x] handle")
+    if post.url:
+        raise Invalid(f"{post.name} is already on X: {post.url}")
+    found = problems(post, handle)
+    if found:
+        raise Invalid(f"{post.name} cannot go on X: " + "; ".join(found))
+    if post.auto and auto_today(all_posts, now) >= AUTO_PER_DAY:
+        raise Invalid(f"the channel already made {AUTO_PER_DAY} posts on its own today; that is its most")
+    number = create(post.text)
+    return posted(post, f"https://x.com/{handle}/status/{number}", handle, now=now)
 
 
 def front(all_posts: list[Post], handle: str, *, limit: int = LATEST,

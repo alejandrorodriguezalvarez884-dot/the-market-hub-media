@@ -17,6 +17,8 @@
     python -m marketmedia posts [--to DIR]               read the account's latest posts on Instagram and leave them where the
                                                          portal's Media page reads them (its Firestore, or a local portal's folder)
     python -m marketmedia xcheck [post]                  what stops a post in x/ from going on X (every one not yet on it)
+    python -m marketmedia xpost <post> [--to DIR]        put a post on X through its API (paid), write it down, tell the portal
+    python -m marketmedia xwho                           say which account the X API keys post as
     python -m marketmedia xposted <post> <url> [--to DIR]  write down where a post went on X, and tell the portal
     python -m marketmedia xfront [--to DIR]              leave the latest posts on X where the portal's Media page reads them
 
@@ -30,7 +32,7 @@ import sys
 from pathlib import Path
 
 from . import channel as channels
-from . import check, frames, instagram, posts, render, videos, voice, xposts, youtube
+from . import check, frames, instagram, posts, render, videos, voice, xapi, xposts, youtube
 from . import script as scripts
 
 
@@ -311,6 +313,26 @@ def _xfront(args, channel) -> int:
     return 0
 
 
+def _xpost(args, channel) -> int:
+    """Put a post on X through its API, once, write down where it went, and tell the portal.
+    Paid by the post: $0.015, or $0.20 with a link."""
+    keys = xapi.keys()
+    post = xposts.send(xposts.find(args.post), channel.x_handle, lambda text: xapi.create(text, keys), xposts.every())
+    print(f"x/{post.path.name}: {post.url}" + ("  (made on its own)" if post.auto else ""))
+    try:
+        return _xfront(args, channel)
+    except (Exception, SystemExit) as exc:  # noqa: BLE001 - the post is on X: `make xfront` tells the portal later
+        print(f"  the portal was not told of it ({type(exc).__name__}: {exc}): run 'make xfront'")
+        return 0
+
+
+def _xwho(args, channel) -> int:
+    """Which account the X API keys post as, and whether it is the channel's."""
+    handle = xapi.me(xapi.keys())
+    print(f"The X API keys post as @{handle}" + ("" if handle.lower() == channel.x_handle.lower() else f", not as @{channel.x_handle}"))
+    return 0 if handle.lower() == channel.x_handle.lower() else 1
+
+
 def _xposted(args, channel) -> int:
     """Write down where a post went on X, and tell the portal."""
     post = xposts.posted(xposts.find(args.post), args.url, channel.x_handle)
@@ -358,6 +380,10 @@ def main(argv: list[str] | None = None) -> int:
     swiping.add_argument("--again", action="store_true")
     commands.add_parser("posts").add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
     commands.add_parser("xcheck").add_argument("post", nargs="?")
+    sending = commands.add_parser("xpost")
+    sending.add_argument("post")
+    sending.add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
+    commands.add_parser("xwho")
     recording = commands.add_parser("xposted")
     recording.add_argument("post")
     recording.add_argument("url")
@@ -366,7 +392,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
-           "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xposted": _xposted, "xfront": _xfront}[args.command]
+           "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:

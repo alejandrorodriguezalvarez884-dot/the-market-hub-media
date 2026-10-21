@@ -1,6 +1,6 @@
 ---
 name: post-x
-description: Write a post for Market Hub's account on X and, once the user says yes to its exact text, put it on X in Claude's built-in browser, record it so the portal's Media page shows it, and then ask whether to make a related Instagram post. Use when the user asks for content on X, with something like "haz un post de X sobre el mercado de hoy", "tuitea el vídeo nuevo", "saca un post del artículo de Sysco" or "publica en X". The argument is what the post is about: the market's day, a video, an opinion article, the app, or a topic the user gives.
+description: Write a post for Market Hub's account on X and, once the user says yes to its exact text, put it on X through X's API (make xpost), record it so the portal's Media page shows it, and then ask whether to make a related Instagram post. Use when the user asks for content on X, with something like "haz un post de X sobre el mercado de hoy", "tuitea el vídeo nuevo", "saca un post del artículo de Sysco" or "publica en X". The argument is what the post is about: the market's day, a video, an opinion article, the app, or a topic the user gives.
 ---
 
 # A post on X
@@ -8,14 +8,17 @@ description: Write a post for Market Hub's account on X and, once the user says 
 Market Hub's account on X is in English and carries the same rules as the rest of the portal:
 **describe and explain, never advise** (no buy, sell or hold, no price targets, no predictions,
 no "opportunity" alerts), and **every figure comes from a source** that the post's file names.
-No emojis, at most two hashtags, and links only to Market Hub and its own accounts. Nothing is
-posted on a timer: a post is written when the user asks for it.
+No emojis, at most two hashtags, and links only to Market Hub and its own accounts. This skill is
+for the posts the user asks for; the ones the channel makes on its own, on a timer and without a
+link, are the `autopost` skill's.
 
-The user decided (2026-10-14) that posts go on X **through Claude's built-in browser**, where
-they are signed in to the account, not through X's API (which is paid by the post). **Posting is
-the user's decision, post by post**: the exact text is shown to them first, and the Post button
-is pressed only after a clear yes to that text in chat. A request to "write and post" is not a yes
-to a text they have not seen.
+Since 2026-10-21 posts go on X **through X's API** (`make xpost`), which the user pays by the
+post: $0.015, or **$0.20 with a link**. The posts the user asks for may carry their link: they
+decided that these are worth it. Until then (2026-10-14) they went through Claude's built-in
+browser, which is still the way when the API cannot be used (step 4b). **Posting is the user's
+decision, post by post**: the exact text is shown to them first, and it is sent only after a
+clear yes to that text in chat. A request to "write and post" is not a yes to a text they have
+not seen.
 
 Work from the root of the `the-market-hub-media` repo. Read `CLAUDE.md` there first.
 
@@ -79,7 +82,19 @@ nothing on X until they say yes to that text.
 
 ## 4. Put it on X
 
-Read the `built-in-browser` skill first. In Claude's built-in browser:
+```bash
+make xpost POST=<slug or name>
+```
+
+It sends the post through the API, once, writes its address and time into the file and tells the
+portal's Media page, so step 5's `make xposted` is not needed. If it fails, it says what X
+answered: no keys (`.secrets/x-api.json`, see the README), no credits left, or a refusal. Tell the
+user, and do not send it again until they say so.
+
+### 4b. By hand, in the browser
+
+Only when the API cannot be used and the user says to post it this way. Read the
+`built-in-browser` skill first. In Claude's built-in browser:
 
 1. Open `https://x.com/compose/post`. If X asks to sign in, stop and ask the user to sign in
    in the pane themselves; never type a password or a code. Check that the account shown is
@@ -142,6 +157,8 @@ box's start to `getSelection()`'s anchor, its `toString().length`).
 
 ## 5. Record it
 
+After `make xpost`, only the commit is left. After a post put on X by hand:
+
 ```bash
 make xposted POST=<slug or name> URL=https://x.com/<handle>/status/<number>
 ```
@@ -182,4 +199,5 @@ A yes to that question is a yes to making it, not to publishing it. If they say 
 - Reply to, like, repost, follow or message anyone, or change the account's settings or profile,
   unless the user asks for that very thing.
 - Delete a post: if one is wrong, tell the user; deleting it is theirs to do.
-- Use X's API, or any paid service, without the user deciding it first.
+- Use X's API for anything but sending a post the user said yes to (and `make xwho`), or any
+  other paid service without the user deciding it first.

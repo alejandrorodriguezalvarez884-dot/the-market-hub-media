@@ -198,3 +198,33 @@ in that region (Google's pricing page, October 2026), and cents if it were not.
 
 `MEDIA_BROWSER` chooses another browser channel than `chrome` for the frames; `YOUTUBE_CLIENT_SECRET`
 and `YOUTUBE_TOKEN` move the two files, and `INSTAGRAM_TOKEN` the one of Instagram.
+
+## X
+
+A post in `x/` goes on the account (`[x] handle` in `channel.toml`) with `make xpost POST=...`,
+through X's API, once: it writes the post's address and time into its file and tells the portal's
+Media page. The API is paid by the post from credits bought in advance (X's pricing page,
+2026-10-21): **$0.015 a post, $0.20 a post with a link**. So the posts the channel makes on its own
+(`auto: yes`, the `autopost` skill) carry no link, and `make xcheck` stops one that has a link or a
+domain X would turn into one; and the code makes at most five of them a day. The posts the owner
+asks for may carry their link (the `post-x` skill).
+
+The set-up, once, signed in to X as the account:
+
+1. At https://console.x.com, sign up for the API and create an app.
+2. In the app's settings, "User authentication settings": app permissions **Read and write**.
+3. In "Keys and tokens": the API Key and Secret, and then the Access Token and Secret for the
+   account itself (generate them after step 2, or they only read).
+4. Buy credits in "Billing" (the first purchase, with a card saved, comes with $20 more).
+5. Save the four, and nothing else, as `.secrets/x-api.json` (the folder is not in git):
+
+   ```json
+   {"api_key": "...", "api_secret": "...", "access_token": "...", "access_secret": "..."}
+   ```
+
+   or as `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and `X_ACCESS_SECRET` in the environment
+   (`X_API_KEYS` moves the file).
+6. `make xwho` says which account the keys post as (a read of the account's own profile, $0.001),
+   and posts nothing.
+
+A post can still be put on X by hand, in the browser, and recorded with `make xposted`.

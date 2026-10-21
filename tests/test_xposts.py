@@ -94,3 +94,58 @@ def test_a_post_is_found_by_a_part_of_its_name(tmp_path):
     assert xposts.find("debt", tmp_path).name == "2026-10-14-debt-episode"
     with pytest.raises(LookupError):
         xposts.find("2026-10-14", tmp_path)
+
+
+AUTO = SOURCES.replace("---\n", "---\nauto: yes\n", 1)
+
+
+def test_an_automatic_post_is_read_and_written_back_as_one(tmp_path):
+    post = write(tmp_path, "2026-10-14-auto", "The S&P 500 closed 0.8% higher.", head=AUTO)
+    assert post.auto and xposts.problems(post) == []
+    xposts.save(post)
+    assert xposts.load(post.path).auto
+
+
+@pytest.mark.parametrize("text", [
+    "The S&P 500 closed 0.8% higher.\n\nhttps://themarkethub.app/today/",
+    "Every move on themarkethub.app",
+    "More at x.com/the_market_hub_",
+])
+def test_an_automatic_post_carries_no_link(tmp_path, text):
+    post = write(tmp_path, "2026-10-14-auto", text, head=AUTO)
+    assert any("carries no link" in p for p in xposts.problems(post))
+
+
+def test_figures_and_abbreviations_are_not_links(tmp_path):
+    post = write(tmp_path, "2026-10-14-auto", "U.S. revenue $14.6B, up 3.5%; e.g. Inc. at 9 a.m.", head=AUTO)
+    assert xposts.problems(post) == []
+
+
+def test_a_post_is_sent_once_and_written_down(tmp_path):
+    post = write(tmp_path, "2026-10-14-the-day", "The S&P 500 closed 0.8% higher.\n\nhttps://themarkethub.app/today/")
+    sent = []
+    xposts.send(post, "the_market_hub_", lambda text: sent.append(text) or "2112790350125469806", [], now=lambda: NOW)
+    again = xposts.load(post.path)
+    assert sent == [post.text]
+    assert again.url == "https://x.com/the_market_hub_/status/2112790350125469806"
+    with pytest.raises(xposts.Invalid, match="already on X"):
+        xposts.send(again, "the_market_hub_", lambda text: sent.append(text) or "1", [again], now=lambda: NOW)
+    assert len(sent) == 1
+
+
+def test_a_post_with_a_problem_is_not_sent(tmp_path):
+    post = write(tmp_path, "2026-10-14-auto", "See themarkethub.app", head=AUTO)
+    with pytest.raises(xposts.Invalid, match="cannot go on X"):
+        xposts.send(post, "the_market_hub_", lambda text: pytest.fail("sent"), [], now=lambda: NOW)
+
+
+def test_the_channel_makes_at_most_five_posts_a_day_on_its_own(tmp_path):
+    made = []
+    for n in range(xposts.AUTO_PER_DAY):
+        post = write(tmp_path, f"2026-10-14-auto-{n}", f"Post {n}.", head=AUTO)
+        made.append(xposts.send(post, "the_market_hub_", lambda text, n=n: str(100000 + n), made, now=lambda: NOW))
+    extra = write(tmp_path, "2026-10-14-auto-extra", "One more.", head=AUTO)
+    with pytest.raises(xposts.Invalid, match="at most|its most"):
+        xposts.send(extra, "the_market_hub_", lambda text: pytest.fail("sent"), made, now=lambda: NOW)
+    asked = write(tmp_path, "2026-10-14-asked", "One the owner asked for.")
+    assert xposts.send(asked, "the_market_hub_", lambda text: "200000", made, now=lambda: NOW).url
