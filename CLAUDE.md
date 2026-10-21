@@ -83,8 +83,10 @@ Reglas que no se negocian:
   `Makefile`. Tampoco se programa la publicación en YouTube. La única excepción es `autopost`
   (arriba), que el usuario pidió el 2026-10-21: tareas programadas de la app de Claude, no un
   servicio ni un cron en la nube.
-- **Claves solo en `.secrets/`, en `.env` o en el entorno.** Nunca en el repo, en logs ni en
-  commits. Nunca se le pide al usuario una contraseña, un token o un código: `make auth` lo
+- **Claves solo en `.secrets/`, en `.env`, en el entorno o en Secret Manager.** Nunca en el repo,
+  en logs ni en commits. Las de la API de X están también en Secret Manager
+  (`market-hub-x-api-keys`, proyecto `arctic-robot-474306-g3`): en otro equipo, `make xkeys` las
+  deja en `.secrets/x-api.json` (README, "X"). Nunca se le pide al usuario una contraseña, un token o un código: `make auth` lo
   lanza él y se identifica en su navegador.
 - **Un vídeo publicado no cambia de carpeta.** El slug (el nombre de la carpeta sin la fecha) no
   se toca. Una corrección se dice en la descripción del vídeo.

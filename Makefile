@@ -20,6 +20,7 @@
 #   make xcheck [POST=...]      what stops a post in x/ from going on X (every one not yet on it)
 #   make xpost POST=...         put a post in x/ on X through its API (paid: $0.015, $0.20 with a link), and tell the portal
 #   make xwho                   say which account the X API keys post as
+#   make xkeys                  bring the X API keys from Secret Manager into .secrets/x-api.json (on a new machine)
 #   make xposted POST=... URL=...  write down where a post went on X (put there by hand), and tell the portal
 #   make xfront [TO=...]        tell the portal's Media page what the account last posted on X
 #
@@ -27,7 +28,7 @@
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xposted xfront
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
@@ -97,6 +98,12 @@ xpost: ## Put POST=... on X through its API (paid: $0.015, $0.20 with a link), w
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) xpost "$(POST)" $(if $(TO),--to "$(TO)")
 
 xwho: ## Say which account the X API keys post as
+	$(RUN) xwho
+
+xkeys: ## Bring the X API keys from Secret Manager (market-hub-x-api-keys) into .secrets/x-api.json (AGAIN=1: over one already there)
+	@[ ! -e .secrets/x-api.json ] || [ -n "$(AGAIN)" ] || { echo '.secrets/x-api.json is already here (AGAIN=1 to replace it with the one in Secret Manager)'; exit 1; }
+	mkdir -p .secrets
+	gcloud secrets versions access latest --secret=market-hub-x-api-keys --project=$(GCP_PROJECT) --out-file=.secrets/x-api.json
 	$(RUN) xwho
 
 xposted: ## Write down where POST=... went on X (URL=https://x.com/<account>/status/<number>), and tell the portal (TO=<folder>: a local portal's)

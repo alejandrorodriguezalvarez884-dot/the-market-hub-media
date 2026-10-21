@@ -227,4 +227,14 @@ The set-up, once, signed in to X as the account:
 6. `make xwho` says which account the keys post as (a read of the account's own profile, $0.001),
    and posts nothing.
 
+The keys are also in Google Secret Manager, as the secret **`market-hub-x-api-keys`** of the
+owner's project (`arctic-robot-474306-g3`): the same JSON file, uploaded on 2026-10-21. On another
+machine, signed in with `gcloud`, `make xkeys` brings them into `.secrets/x-api.json` and runs
+`make xwho` (`AGAIN=1` replaces a file already there). After regenerating them in X's console, save
+the new file and upload it as a new version:
+
+```bash
+gcloud secrets versions add market-hub-x-api-keys --data-file=.secrets/x-api.json
+```
+
 A post can still be put on X by hand, in the browser, and recorded with `make xposted`.
