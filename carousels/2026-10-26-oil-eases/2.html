@@ -1,0 +1,32 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="theme.css">
+<body>
+  <div class="glow"></div><div class="grid"></div>
+  <header>
+    <div class="brand"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 2v16M4 10h8"/><circle cx="14.5" cy="10" r="2.75" fill="currentColor" stroke="none"/></svg><span>Market Hub</span></div>
+    <div class="pill"><i></i>The month &middot; 2/3</div>
+  </header>
+  <h1 style="margin-top:52px">From $102 <em>to $117.</em></h1>
+  <p class="sub">Brent at each close in October, and its price on Monday morning.</p>
+  <div class="chart oil">
+    <div class="lbl"><span>Brent, daily close</span><span>Oct 1 &rarr; Oct 26</span></div>
+    <svg width="880" height="520" viewBox="0 0 880 520">
+      <g stroke="rgba(255,255,255,0.08)" stroke-width="1.5">
+        <line x1="30" x2="850" y1="40" y2="40"/><line x1="30" x2="850" y1="140" y2="140"/><line x1="30" x2="850" y1="240" y2="240"/><line x1="30" x2="850" y1="340" y2="340"/><line x1="30" x2="850" y1="440" y2="440"/>
+      </g>
+      <text x="36" y="32">$120</text><text x="36" y="232">$110</text><text x="36" y="472">$100</text>
+      <polyline fill="none" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" points="30.0,393.8 78.2,395.0 126.5,433.6 174.7,428.4 222.9,436.0 271.2,354.4 319.4,345.6 367.6,307.0 415.9,326.2 464.1,318.8 512.4,321.6 560.6,242.8 608.8,249.0 657.1,264.2 705.3,263.6 753.5,176.6 801.8,105.6"/>
+      <polyline fill="none" stroke="var(--down)" stroke-width="6" stroke-dasharray="4 12" stroke-linecap="round" points="801.8,105.6 850.0,135.8"/>
+      <circle cx="30" cy="393.8" r="10" fill="var(--ink-strong)"/>
+      <circle cx="801.8" cy="105.6" r="11" fill="var(--accent)"/>
+      <circle cx="850" cy="135.8" r="12" fill="var(--down)"/>
+      <text class="end" x="44" y="370" style="fill:var(--ink-strong)">102.31</text>
+      <text class="end" x="780" y="80" text-anchor="end" style="fill:var(--accent)">Fri 116.72</text>
+      <circle cx="652" cy="491" r="9" fill="var(--down)"/><text class="end" x="850" y="502" text-anchor="end" style="fill:var(--down)">Mon 115.21</text>
+    </svg>
+  </div>
+  <div class="ctx oil"><span>Last week, Friday to Friday</span><strong>+6.2%</strong></div>
+  <p class="note" style="margin-top:auto">Source: Yahoo Finance, Brent futures, daily closes; Monday at 08:30 UTC.</p>
+  <footer><span><b>themarkethub.app</b></span><span class="swipe">Swipe <span>&rarr;</span></span></footer>
+</body>
