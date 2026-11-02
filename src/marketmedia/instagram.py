@@ -77,7 +77,19 @@ def _call(method: str, path: str, key: str, **params) -> dict:
 
 def token(call: Call = _call, now: Callable[[], float] = time.time) -> str:
     """The account's token, renewed for another sixty days when it has aged. A renewal that
-    fails is not the end: the token may still be good, and the next request says if it is not."""
+    fails is not the end: the token may still be good, and the next request says if it is not.
+    In a cloud session (INSTAGRAM_TOKEN_SECRET) it is kept, and renewed, in Secret Manager."""
+    name = os.environ.get("INSTAGRAM_TOKEN_SECRET", "").strip()
+    if name:
+        from . import cloud
+        key, written = cloud.secret(name)
+        if cloud.age_days(written) > RENEW_DAYS:
+            try:
+                key = call("GET", "refresh_access_token", key, grant_type="ig_refresh_token", access_token=key)["access_token"]
+                cloud.store(name, key)
+            except (RuntimeError, KeyError):
+                pass
+        return key
     file = _token_file()
     if not file.is_file():
         raise FileNotFoundError(f"no Instagram token at {file}: see 'Instagram' in the README")
@@ -224,7 +236,8 @@ def draw(page: Path, size: dict = STORY) -> Path:
     from playwright.sync_api import sync_playwright
     target = page.with_suffix(".jpg")
     with sync_playwright() as p:
-        browser = p.chromium.launch(channel=os.environ.get("MEDIA_BROWSER", "chrome"), headless=True)
+        from .cloud import browser_channel
+        browser = p.chromium.launch(channel=browser_channel(), headless=True)
         try:
             tab = browser.new_page(viewport=size, device_scale_factor=1)
             tab.goto(page.resolve().as_uri())

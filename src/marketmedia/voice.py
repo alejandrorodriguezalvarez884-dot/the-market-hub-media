@@ -86,7 +86,7 @@ def eleven_request(text: str, channel: Channel, before: str = "", after: str = "
 
 
 def _eleven_key() -> str:
-    key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
+    key = os.environ.get("ELEVENLABS_API_KEY", "").strip()   # a cloud session's environment, or...
     file = ROOT / ".secrets" / "elevenlabs-key.txt"
     if not key and file.is_file():
         key = file.read_text(encoding="utf-8").strip()

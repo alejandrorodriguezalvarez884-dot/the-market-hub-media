@@ -151,7 +151,8 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
 
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
-        browser = p.chromium.launch(channel=os.environ.get("MEDIA_BROWSER", "chrome"), headless=True)
+        from .cloud import browser_channel
+        browser = p.chromium.launch(channel=browser_channel(), headless=True)
         try:
             page = browser.new_page(viewport=todo[0][3], device_scale_factor=1)
             page.on("pageerror", lambda e: log(f"  page error: {e}"))

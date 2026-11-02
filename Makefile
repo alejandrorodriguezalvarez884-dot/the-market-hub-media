@@ -36,7 +36,7 @@ SHELL := /bin/bash
 .PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew reelcheck reel reelpost
 
 # The Google Cloud project that pays for the narration.
-GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
+GCP_PROJECT ?= $(or $(GOOGLE_CLOUD_PROJECT),$(shell gcloud config get-value project 2>/dev/null))
 export UV_LINK_MODE ?= copy
 RUN := uv run python -m marketmedia
 # Where the ElevenLabs key lives (the owner's account, shared with Llamazo).

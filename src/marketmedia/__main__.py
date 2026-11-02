@@ -485,6 +485,8 @@ def main(argv: list[str] | None = None) -> int:
     posting.add_argument("reel")
     posting.add_argument("--again", action="store_true")
     args = parser.parse_args(argv)
+    from . import cloud
+    cloud.credentials()   # in a cloud session, the Google key comes from the environment
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
            "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront,

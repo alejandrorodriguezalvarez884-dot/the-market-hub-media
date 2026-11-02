@@ -33,8 +33,9 @@
   --up: #35c98f;
   --down: #ff6b57;
   --sky: #63b3ff;
-  --sans: system-ui, -apple-system, "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  /* San Francisco on the Mac; Inter and JetBrains Mono where there is none (the cloud: docs/reels.md) */
+  --sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --at: 0s;
 }
 
@@ -186,7 +187,7 @@ body.light .mark img { border-color: rgba(21, 18, 13, 0.2); }
 body.essay { --page: #f3f0e9; --ink: #2b2a27; --ink-strong: #121110; --muted: #6b6760; --faint: #9c978d;
              --card: rgba(251, 249, 244, 0.94); --card-line: rgba(18, 17, 16, 0.16); --amber: #8a5a14;
              --tag: transparent; --on-tag: #121110; --up: #2f6b4f; --down: #8c2f2f; --sky: #2c4a6b;
-             --serif: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif; }
+             --serif: ui-serif, "New York", "Iowan Old Style", "Source Serif 4", "Noto Serif", Georgia, "Times New Roman", serif; }
 body.essay::before { background:
     linear-gradient(180deg, rgba(243, 240, 233, 0.94) 0%, rgba(243, 240, 233, 0.72) 40%, rgba(243, 240, 233, 0.78) 65%, rgba(243, 240, 233, 0.96) 100%); }
 body.essay .bg { animation-duration: 30s; opacity: 0.7; }

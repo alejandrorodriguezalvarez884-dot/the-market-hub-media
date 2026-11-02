@@ -72,6 +72,49 @@ End with a short report in Spanish: the reel's address (or why it is not up), ho
 Las tareas `market-hub-autopost` (posts en X) siguen en el Windows del usuario y ya no hacen
 carruseles en Instagram (`autopost` con `ig` hace solo el post de X).
 
+## En la nube, con el ordenador apagado
+
+Las tareas del Mac solo corren con el Mac encendido y la app abierta. Para que los diarios no
+dependan de eso (el usuario, 2026-11-02: "si está este ordenador apagado no se crean? necesito que
+se haga automáticamente"), corren como **rutinas en la nube de Claude** (claude.ai/code/routines):
+una sesión de Claude Code en los servidores de Anthropic, con su propia copia de este repo, a la
+hora de Madrid, que sigue la misma skill y publica igual. Gastan del uso de Claude del usuario.
+Solo un sitio a la vez: con las rutinas activas, las tareas del Mac se desactivan.
+
+Lo que una sesión en la nube no tiene, y cómo lo suple el repo (`src/marketmedia/cloud.py`):
+
+| En el Mac | En la nube |
+|---|---|
+| La sesión de `gcloud` | `GOOGLE_SERVICE_ACCOUNT_JSON`: la clave de la cuenta de servicio `market-hub-reels`, que solo puede escribir en el bucket de los reels y en Firestore, y leer y renovar el token |
+| `.secrets/instagram-token.txt` | `INSTAGRAM_TOKEN_SECRET`: el token vive en Secret Manager (`market-hub-instagram-token`) y la nube lo renueva allí, porque su disco no dura |
+| `.secrets/elevenlabs-key.txt` | `ELEVENLABS_API_KEY` |
+| Chrome y San Francisco | `MEDIA_BROWSER=chromium` y las tipografías Inter, JetBrains Mono y Noto Serif (`scripts/cloud-setup.sh`) |
+
+**Puesta en marcha, una vez**:
+
+1. El usuario, en su ordenador, desde `the-market-hub-media/`: `scripts/cloud-google-setup.sh`
+   (crea la cuenta de servicio, sus permisos y el secreto del token, y deja la clave copiada).
+2. En claude.ai/code, un entorno nuevo, "Market Hub reels": acceso a la red **Full** (los reels
+   leen el portal, SEC, Yahoo, ElevenLabs, Instagram y Google); como script de preparación, el
+   contenido de `scripts/cloud-setup.sh`; y estas variables (las claves las pega el usuario):
+
+   ```text
+   ELEVENLABS_API_KEY=<la clave de ElevenLabs>
+   GOOGLE_SERVICE_ACCOUNT_JSON=<lo que deja copiado el paso 1>
+   INSTAGRAM_TOKEN_SECRET=projects/arctic-robot-474306-g3/secrets/market-hub-instagram-token
+   GOOGLE_CLOUD_PROJECT=arctic-robot-474306-g3
+   MEDIA_BROWSER=chromium
+   ```
+
+3. Dos rutinas sobre el repo `alejandrorodriguezalvarez884-dot/the-market-hub-media`, en ese
+   entorno, con `CRON_TZ=Europe/Madrid 45 15 * * 1-5` (apertura) y `CRON_TZ=Europe/Madrid 5 22 * * 1-5`
+   (cierre), y el mismo texto que las tareas del Mac (arriba) más: "Run `uv sync` first. Commit
+   and push to `main`, not to a claude/ branch." Se prueba una con "Run now" y, si publica, se
+   desactivan las tareas del Mac.
+
+Si el token de Instagram se genera de nuevo algún día, se guarda también en el secreto:
+`gcloud secrets versions add market-hub-instagram-token --project=arctic-robot-474306-g3 --data-file=.secrets/instagram-token.txt`.
+
 ## En otro ordenador
 
 Desde la raíz del workspace (`scripts/sync.sh` deja cada submódulo en la punta de `main`), y luego
