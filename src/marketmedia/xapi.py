@@ -56,7 +56,7 @@ def keys() -> dict:
     secret = os.environ.get("X_API_KEYS_SECRET", "").strip()
     if secret:
         from . import cloud
-        found = json.loads(cloud.secret(secret)[0])
+        found = json.loads(cloud.value(secret))
         missing = [name for name in KEYS if not str(found.get(name, "")).strip()]
         if missing:
             raise FileNotFoundError(f"the X API keys in Secret Manager lack {', '.join(missing)}")

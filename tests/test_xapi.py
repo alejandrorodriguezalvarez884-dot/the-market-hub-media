@@ -102,5 +102,5 @@ def test_in_the_cloud_the_x_keys_come_from_secret_manager(monkeypatch):
     import json
     from marketmedia import cloud
     monkeypatch.setenv("X_API_KEYS_SECRET", "projects/p/secrets/x")
-    monkeypatch.setattr(cloud, "secret", lambda name: (json.dumps({"api_key": "k", "api_secret": "s", "access_token": "t", "access_secret": "a"}), None))
+    monkeypatch.setattr(cloud, "value", lambda name: json.dumps({"api_key": "k", "api_secret": "s", "access_token": "t", "access_secret": "a"}))
     assert xapi.keys() == {"api_key": "k", "api_secret": "s", "access_token": "t", "access_secret": "a"}

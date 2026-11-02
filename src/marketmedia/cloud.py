@@ -68,6 +68,15 @@ def secret(name: str, session=None) -> tuple[str, datetime]:
     return base64.b64decode(value.json()["payload"]["data"]).decode("utf-8").strip(), written
 
 
+def value(name: str, session=None) -> str:
+    """Only the value of the secret's latest version (what an account that may only read it can ask)."""
+    session = session or _session()
+    answer = session.get(f"{SECRETS}/{name}/versions/latest:access", timeout=60)
+    if answer.status_code != 200:
+        raise RuntimeError(f"Secret Manager answered {answer.status_code} for {name}")
+    return base64.b64decode(answer.json()["payload"]["data"]).decode("utf-8").strip()
+
+
 def store(name: str, value: str, session=None) -> None:
     """Write ``value`` as the secret's new latest version."""
     session = session or _session()
