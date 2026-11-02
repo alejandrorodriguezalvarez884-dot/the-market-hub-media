@@ -255,3 +255,13 @@ def test_a_story_may_be_a_film(tmp_path):
     instagram.story(film, "a-bucket", key="k", call=api, park=bucket, wait=lambda seconds: None)
     assert api.asked[1][2] == {"media_type": "STORIES", "video_url": "https://storage.example/a-bucket/x.mp4"}
     assert bucket.removed == 1
+
+
+def test_a_reel_may_bring_its_own_cover_picture(short, tmp_path):
+    picture = tmp_path / "cover.jpg"
+    picture.write_bytes(b"x")
+    api, bucket = Api(), Bucket()
+    record = _publish(short, api, bucket, cover_ms=4200, cover=picture)
+    assert api.asked[1][2]["cover_url"] == "https://storage.example/a-bucket/x.mp4"
+    assert bucket.parked == [("short.mp4", "a-bucket"), ("cover.jpg", "a-bucket")] and bucket.removed == 2
+    assert record["cover"] == "cover.jpg"

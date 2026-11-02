@@ -186,59 +186,16 @@ def problems(reel: Reel, channel: Channel) -> list[str]:
     return found
 
 
-STORY_PAGE = """<!doctype html>
-<!-- The story that announces a reel: its cover, its title, and where to see it. Made by reels.announce. -->
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="{theme}/reel.css">
-<style>
-  .reel {{ top: 250px; bottom: 330px; right: 72px; align-items: center; text-align: center; gap: 40px; }}
-  .cover {{ width: 520px; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 22px; border: 2px solid var(--card-line);
-           box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3); }}
-  body.essay .cover {{ border-radius: 4px; box-shadow: none; }}
-  .cover img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
-  .reel h1 {{ font-size: 64px; max-width: 900px; }}
-  .see {{ font-size: 40px; font-weight: 700; color: var(--ink-strong); }}
-  .see span {{ display: block; margin-top: 6px; font-family: var(--mono); font-size: 28px; font-weight: 600; letter-spacing: 0.08em; color: var(--muted); }}
-</style>
-</head>
-<body class="{look}" data-bg="plain">
-<canvas class="bg"></canvas>
-<header class="brand">The Market Hub · {kind}</header>
-<main class="reel">
-<p class="kicker">Nuevo reel</p>
-<div class="cover"><img src="{cover}" alt=""></div>
-<h1>{title}</h1>
-<p class="see">Míralo entero en nuestro perfil<span>@{handle}</span></p>
-</main>
-<script src="{theme}/reel.js"></script>
-</body>
-</html>
-"""
-KINDS = {"reflexion": "Reflexión", "didactico": "Aprende"}
-
-
-def announce(reel: Reel, script, handle: str) -> Path:
-    """The page of the story that announces ``reel`` (build/story/story.html): the reel's first
-    scene as its cover, its title, and where to see it whole, in the reel's own look. It does not
-    carry the reel itself: the story points to it (the owner, 2026-11-02)."""
-    import html
-    first = script.scenes[0].name
-    cover = reel.frame(first, short=True)
-    if not cover.is_file():
-        raise FileNotFoundError(f"no cover yet ({cover.relative_to(reel.path).as_posix()}): run 'make reel' first")
-    drawing = reel.drawing(first)
-    found = re.search(r'<body[^>]*class="([^"]*)"', drawing.read_text(encoding="utf-8")) if drawing else None
-    folder = reel.build / "story"
-    folder.mkdir(parents=True, exist_ok=True)
-    page = folder / "story.html"
-    theme = Path("../" * len(page.parent.relative_to(reel.path.parents[1]).parts)) / "theme"   # reels/<reel>/build/story
-    kind = KINDS.get(script.voice, {"open": "Apertura", "close": "Cierre"}.get(reel.moment, "Reel"))
-    page.write_text(STORY_PAGE.format(theme=theme.as_posix(), look=found.group(1) if found else "", kind=kind,
-                                      cover=f"../short-frames/{first}.png", title=html.escape(script.title), handle=handle),
-                    encoding="utf-8", newline="\n")
-    return page
+def cover(reel: Reel, scene: str) -> Path:
+    """The reel's cover as the JPEG Instagram takes: ``scene`` as it stands when its narration
+    ends (build/short-frames/<scene>.png), with everything on it."""
+    from .render import _run, ffmpeg
+    still = reel.frame(scene, short=True)
+    if not still.is_file():
+        raise FileNotFoundError(f"no cover yet ({still.relative_to(reel.path).as_posix()}): run 'make reel' first")
+    out = reel.build / "cover.jpg"
+    _run([ffmpeg(), "-y", "-loglevel", "error", "-i", str(still), "-q:v", "2", str(out)])
+    return out
 
 
 def remember(reel: Reel, record: dict) -> None:

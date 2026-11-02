@@ -182,23 +182,34 @@ def _clear(remove: Callable[[], None], bucket: str, log: Callable[[str], None]) 
         log(f"  the film is still in the bucket {bucket}: {type(exc).__name__}: {exc}")
 
 
-def publish(film: Path, words: str, bucket: str, *, cover_ms: int = 0, key: str | None = None, call: Call = _call,
-            park: Park = park, wait: Callable[[float], None] = time.sleep, log: Callable[[str], None] = print) -> dict:
+def publish(film: Path, words: str, bucket: str, *, cover_ms: int = 0, cover: Path | None = None, key: str | None = None,
+            call: Call = _call, park: Park = park, wait: Callable[[float], None] = time.sleep,
+            log: Callable[[str], None] = print) -> dict:
     """Publish a film as a reel, with ``words`` under it and the frame at ``cover_ms`` as its
-    cover. Returns what to remember of it. Nothing is published unless Instagram has read the
-    whole film; the film leaves the bucket either way."""
+    cover, or the JPEG ``cover`` when one is given (Instagram then shows that picture, whatever
+    the film's frames). Returns what to remember of it. Nothing is published unless Instagram has
+    read the whole film; the film and the cover leave the bucket either way."""
     if not bucket:
         raise ValueError("channel.toml names no bucket ([instagram] bucket), and Instagram has to fetch the film from one")
     key = key or token(call)
     me = account(key, call)["user_id"]
     address, remove = park(film, bucket)
+    removals = [remove]
     try:
+        picture = {}
+        if cover:
+            cover_address, cover_remove = park(cover, bucket)
+            removals.append(cover_remove)
+            picture = {"cover_url": cover_address}
         media = _post(me, key, call, wait, media_type="REELS", video_url=address, caption=words,
-                      share_to_feed=True, thumb_offset=cover_ms)
+                      share_to_feed=True, thumb_offset=cover_ms, **picture)
     finally:
-        _clear(remove, bucket, log)
+        for gone in removals:
+            _clear(gone, bucket, log)
     # cover_ms is kept: Instagram's API gives a reel's first frame, never its cover (posts.py).
     record = {"id": media, "url": "", "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "cover_ms": cover_ms}
+    if cover:
+        record["cover"] = cover.name
     try:
         where = call("GET", media, key, fields="permalink,shortcode")
         record.update(url=where.get("permalink", ""), code=where.get("shortcode", ""))

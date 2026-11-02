@@ -56,10 +56,11 @@ tres diferencias: la carpeta es `reels/<fecha>-<unas-palabras>/`; el guion dice 
 que es **Julián** con "un poco más de entusiasmo, no te pases" (`[reel.voices.reflexion]`); y el
 aspecto es **claro**, no tan oscuro, y de ensayo (`<body class="light essay">`, abajo). Pueden defender una tesis (opinar sí),
 nunca aconsejar ni predecir precios, y se publican cuando el usuario lo pide en la misma petición:
-el reel en el feed (`make reelpost`) y **una historia que lo anuncia** (`make reelstory`: su portada,
-su título y "Míralo entero en nuestro perfil"; el usuario, 2026-11-02: "la historia tiene que ser
-solo mencionando al reel, no subiéndolo entero"), que él reúne a mano en la destacada "A fondo".
-La API no puede compartir el reel en una historia con su enlace: eso, si se quiere, desde la app.
+el reel en el feed (`make reelpost`). **La historia la hace el usuario desde la app**, compartiendo
+el reel ("Añadir a tu historia"), para que al tocarla se vaya al reel ("quiero que en la historia
+se pueda hacer click e ir al reel. Es como resubirlo", 2026-11-02), y la guarda en la destacada
+"A fondo". La API no puede: no se publican historias por la API para estos reels (ni el reel
+troceado ni un anuncio; las dos cosas se probaron el 2026-11-02 y se descartaron).
 Su aspecto es **de ensayo** (`<body class="light essay">`: titulares con serifa, tinta y papel,
 filetes finos, nada inclinado), distinto del de los didácticos, que es claro y colorido.
 

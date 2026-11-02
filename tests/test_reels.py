@@ -156,14 +156,3 @@ def test_a_voice_that_is_not_in_the_channel_is_refused(reel, channel):
     assert "'voice: nadie' is not one of [reel.voices] in channel.toml" in reels.problems(reel, channel)
     with pytest.raises(ValueError, match="nadie"):
         channel.for_reels("nadie")
-
-
-def test_a_story_announces_a_reel_in_its_own_look(reel, channel):
-    (reel.path / "slides" / "01-hook.html").write_text('<!doctype html><body class="light essay" data-bg="grid"></body>', encoding="utf-8")
-    still = reel.frame("01-hook", short=True)
-    still.parent.mkdir(parents=True)
-    still.write_bytes(b"png")
-    reel.script.write_text(SCRIPT.replace("kind: reel\n", "kind: reel\nvoice: reflexion\n"), encoding="utf-8")
-    page = reels.announce(reel, scripts.load(reel.script), "the_market_hub_app").read_text()
-    assert 'class="light essay"' in page and "../short-frames/01-hook.png" in page
-    assert "Wall Street rebota" in page and "@the_market_hub_app" in page and "Reflexión" in page

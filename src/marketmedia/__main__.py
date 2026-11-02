@@ -25,7 +25,6 @@
     python -m marketmedia reelcheck [reel]               what stops a daily reel from going on Instagram
     python -m marketmedia reel <reel> [--dry-run]        speak it, draw it and make the film (build/reel.mp4)
     python -m marketmedia reelpost <reel>                publish it on Instagram, write it down, tell the portal
-    python -m marketmedia reelstory <reel> [--draw]      publish one story that announces it (its cover and title)
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -413,9 +412,12 @@ def _reelpost(args, channel) -> int:
         return 1
     script = scripts.load(reel.script)
     cuts = render.plan(reel, script, channel, short=True)
-    # The cover: the first scene as it stands when its narration ends, with everything on it.
+    # The cover: the first scene as it stands when its narration ends, with everything on it, sent
+    # as a picture of its own (a reel's slides start half empty, and frame 0 is what Instagram
+    # would otherwise show in places).
+    cover = reels.cover(reel, cuts[0].scene.name) if cuts else None
     part = instagram.publish(reel.film(), reel.caption.read_text(encoding="utf-8").strip(), channel.instagram_bucket,
-                             cover_ms=int(cuts[0].spoken * 1000) if cuts else 0)
+                             cover_ms=int(cuts[0].spoken * 1000) if cuts else 0, cover=cover)
     reels.remember(reel, {**part, "title": script.title})
     print(f"Reel: {part['url'] or part['id']}")
     if part.get("url_error"):
@@ -424,30 +426,6 @@ def _reelpost(args, channel) -> int:
         _posts(argparse.Namespace(to=None), channel)
     except (Exception, SystemExit) as exc:  # noqa: BLE001 - the reel is up: `make posts` tells the portal later
         print(f"  the portal was not told of it ({type(exc).__name__}: {exc}): run 'make posts'")
-    return 0
-
-
-def _reelstory(args, channel) -> int:
-    """One story that announces a reel: its cover, its title, and where to see it whole. Only
-    for a reel that is up: the story points to it (the owner, 2026-11-02)."""
-    reel = reels.find(args.reel)
-    record = reel.record() or {}
-    if not record.get("url"):
-        print(f"{reel.name} is not on Instagram yet: run 'make reelpost' first; the story announces it.")
-        return 1
-    if record.get("story") and not args.again:
-        print(f"{reel.name} is already announced in a story: {record['story']['id']}  (--again to do it once more)")
-        return 1
-    script = scripts.load(reel.script)
-    page = reels.announce(reel, script, channel.instagram_handle)
-    picture = instagram.draw(page)
-    if args.draw:
-        print(picture)
-        return 0
-    part = instagram.story(picture, channel.instagram_bucket)
-    record["story"] = part
-    reels.remember(reel, record)
-    print(f"Story: {part['id']} on @{channel.instagram_handle}, announcing {record['url']}")
     return 0
 
 
@@ -506,15 +484,11 @@ def main(argv: list[str] | None = None) -> int:
     posting = commands.add_parser("reelpost")
     posting.add_argument("reel")
     posting.add_argument("--again", action="store_true")
-    storying = commands.add_parser("reelstory")
-    storying.add_argument("reel")
-    storying.add_argument("--again", action="store_true")
-    storying.add_argument("--draw", action="store_true", help="draw the story's picture, and publish nothing")
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
            "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront,
-           "reelnew": _reelnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelstory": _reelstory}[args.command]
+           "reelnew": _reelnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:

@@ -27,13 +27,12 @@
 #   make reelcheck [REEL=...]   what stops a daily reel from going on Instagram
 #   make reel REEL=... [DRY=1]  speak a daily reel, draw it and make its film
 #   make reelpost REEL=...      publish a daily reel on Instagram and tell the portal
-#   make reelstory REEL=... [DRAW=1]  publish one story that announces a reel that is up (DRAW=1: only draw it)
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront reelnew reelcheck reel reelpost reelstory
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront reelnew reelcheck reel reelpost
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
@@ -129,10 +128,6 @@ reel: ## Speak REEL=..., draw it and make its film (DRY=1: say what would be spo
 	@[ -n "$(REEL)" ] || { echo 'Which one? make reel REEL=2026-11-02-open'; exit 1; }
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reel $(REEL) $(if $(DRY),--dry-run)
 
-reelpost: ## Publish REEL=... on Instagram, write it down and tell the portal
+reelpost: ## Publish REEL=... on Instagram, write it down and tell the portal (AGAIN=1: once more, when the first was deleted)
 	@[ -n "$(REEL)" ] || { echo 'Which one? make reelpost REEL=2026-11-02-open'; exit 1; }
-	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelpost $(REEL)
-
-reelstory: ## Publish one story that announces REEL=..., once it is up (DRAW=1: only draw it)
-	@[ -n "$(REEL)" ] || { echo 'Which one? make reelstory REEL=2026-11-02-not-a-bubble'; exit 1; }
-	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelstory $(REEL) $(if $(DRAW),--draw)
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelpost $(REEL) $(if $(AGAIN),--again)

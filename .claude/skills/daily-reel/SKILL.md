@@ -186,11 +186,10 @@ bubble behaves). They follow this skill with these differences:
   Copy the slides of `reels/2026-11-02-not-a-bubble/`.
 - It may defend an opinion, said as one ("no parece una burbuja"), with the facts that support it
   and what would contradict it; never advice, never a price prediction.
-- It is published when the user's request says so ("súbelo"), and only then: `make reelpost`,
-  then `make reelstory`, which publishes **one story that announces it** (its cover, its title,
-  "Míralo entero en nuestro perfil"; never the reel itself in pieces). `make reelstory DRAW=1`
-  draws it first: look at `build/story/story.jpg`. The user adds it by hand to the highlight
-  "A fondo" (the API cannot make highlights).
+- It is published when the user's request says so ("súbelo"), and only then, with `make reelpost`.
+  **No story through the API**: the user shares the reel to their story from the app, so that
+  tapping it opens the reel (the API cannot), and keeps it in the highlight "A fondo". Tell them
+  to do so in the report.
 
 ### A reel that teaches a concept
 
