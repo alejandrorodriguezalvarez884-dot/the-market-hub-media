@@ -41,7 +41,7 @@ preguntar por dos **rutinas en la nube de Claude** (apertura a las 15:45 y cierr
 de Madrid; horas del usuario, 2026-11-02), que corren con el ordenador apagado (`docs/reels.md`; las
 tareas del Mac que lo hacían antes están en pausa). Sustituyen a los dos carruseles diarios de
 `autopost`. El formato se parece al de los reels de `@h.analistasoficial`, que el usuario dio de
-referencia, pero todo se dibuja aquí: vertical, 40 a 100 segundos, voz en off en español, voz de ElevenLabs (abajo, "La voz"), fondo
+referencia, pero todo se dibuja aquí: vertical, 40 a 120 segundos (los de reflexión, hasta 180), voz en off en español, voz de ElevenLabs (abajo, "La voz"), fondo
 oscuro dibujado en movimiento (`theme/reel.js`: cinta de cifras, velas, cuadrícula, ciudad), una
 etiqueta arriba, un titular grande con una o dos palabras en color, tarjetas y pegatinas que
 entran cuando la voz las nombra, y una pregunta al final para los comentarios. **No lleva
