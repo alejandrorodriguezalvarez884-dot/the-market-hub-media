@@ -27,7 +27,7 @@
 #   make reelcheck [REEL=...]   what stops a daily reel from going on Instagram
 #   make reel REEL=... [DRY=1]  speak a daily reel, draw it and make its film
 #   make reelpost REEL=...      publish a daily reel on Instagram and tell the portal
-#   make reelstory REEL=...     publish a reel as stories too, cut at its scenes into minutes at most
+#   make reelstory REEL=... [DRAW=1]  publish one story that announces a reel that is up (DRAW=1: only draw it)
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
@@ -133,6 +133,6 @@ reelpost: ## Publish REEL=... on Instagram, write it down and tell the portal
 	@[ -n "$(REEL)" ] || { echo 'Which one? make reelpost REEL=2026-11-02-open'; exit 1; }
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelpost $(REEL)
 
-reelstory: ## Publish REEL=... as stories too, cut at its scenes into pieces of a minute at most
+reelstory: ## Publish one story that announces REEL=..., once it is up (DRAW=1: only draw it)
 	@[ -n "$(REEL)" ] || { echo 'Which one? make reelstory REEL=2026-11-02-not-a-bubble'; exit 1; }
-	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelstory $(REEL)
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelstory $(REEL) $(if $(DRAW),--draw)

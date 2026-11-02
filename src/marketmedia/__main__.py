@@ -25,7 +25,7 @@
     python -m marketmedia reelcheck [reel]               what stops a daily reel from going on Instagram
     python -m marketmedia reel <reel> [--dry-run]        speak it, draw it and make the film (build/reel.mp4)
     python -m marketmedia reelpost <reel>                publish it on Instagram, write it down, tell the portal
-    python -m marketmedia reelstory <reel>               publish it as stories too, a minute at most each
+    python -m marketmedia reelstory <reel> [--draw]      publish one story that announces it (its cover and title)
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -428,36 +428,26 @@ def _reelpost(args, channel) -> int:
 
 
 def _reelstory(args, channel) -> int:
-    """A reel, cut at its scenes into pieces of a minute at most, published as stories one after
-    another (the reels the owner asks for, which they gather into a highlight)."""
-    import json
+    """One story that announces a reel: its cover, its title, and where to see it whole. Only
+    for a reel that is up: the story points to it (the owner, 2026-11-02)."""
     reel = reels.find(args.reel)
-    channel = reels.voiced(reel, channel)
     record = reel.record() or {}
-    if record.get("stories") and not args.again:
-        print(f"{reel.name} is already in the stories: {len(record['stories'])} of them  (--again to publish them once more)")
+    if not record.get("url"):
+        print(f"{reel.name} is not on Instagram yet: run 'make reelpost' first; the story announces it.")
         return 1
-    found = reels.problems(reel, channel)
-    if found:
-        print(f"{reel.name} is not fit to publish:")
-        for problem in found:
-            print(f"  - {problem}")
-        return 1
-    newest = max(f.stat().st_mtime for f in [reel.script, *(reel.path / "slides").glob("*")])
-    if not reel.film().is_file() or reel.film().stat().st_mtime < newest:
-        print("The film is missing or older than its script or slides: run 'make reel' first.")
+    if record.get("story") and not args.again:
+        print(f"{reel.name} is already announced in a story: {record['story']['id']}  (--again to do it once more)")
         return 1
     script = scripts.load(reel.script)
-    cuts = render.plan(reel, script, channel, short=True)
-    parts = reels.story_parts([c.seconds for c in cuts], instagram.STORY_SECONDS)
-    pieces = reels.cut(reel.film(), parts, reel.build / "stories")
-    stories = []
-    for n, (piece, (start, end)) in enumerate(zip(pieces, parts), 1):
-        part = instagram.story(piece, channel.instagram_bucket)
-        stories.append({**part, "from": start, "to": end})
-        print(f"Story {n}/{len(pieces)}: {part['id']}  ({_clock(start)} to {_clock(end)})")
-        record["stories"] = stories
-        reels.remember(reel, record)   # written after each one: a failure half way keeps what is up
+    page = reels.announce(reel, script, channel.instagram_handle)
+    picture = instagram.draw(page)
+    if args.draw:
+        print(picture)
+        return 0
+    part = instagram.story(picture, channel.instagram_bucket)
+    record["story"] = part
+    reels.remember(reel, record)
+    print(f"Story: {part['id']} on @{channel.instagram_handle}, announcing {record['url']}")
     return 0
 
 
@@ -519,6 +509,7 @@ def main(argv: list[str] | None = None) -> int:
     storying = commands.add_parser("reelstory")
     storying.add_argument("reel")
     storying.add_argument("--again", action="store_true")
+    storying.add_argument("--draw", action="store_true", help="draw the story's picture, and publish nothing")
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,

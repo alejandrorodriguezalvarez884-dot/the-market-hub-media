@@ -94,6 +94,7 @@ cue = "[reflexivo, tono de profesor sereno]"   # said to v3 before each scene: h
 
 [reel.voices.reflexion.settings]
 stability = 0.5                      # v3's "natural"
+speed = 1.08                         # "un pelín más de ritmo" (the owner, 2026-11-02)
 
 # The didactic reels the owner asks for one by one, explaining a stock-market concept (voice:
 # didactico in the script): Rafa, with the settings of the sample the owner heard (2026-11-02).

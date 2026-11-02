@@ -178,3 +178,49 @@ body.light .mark img { border-color: rgba(21, 18, 13, 0.2); }
 .logo.big { font-size: 120px; border-radius: 26px; }
 .line .name .logo { font-size: 46px; margin-right: 18px; }
 .firm { display: inline-flex; align-items: center; gap: 18px; }
+
+/* The essay look, for the reflective reels (the owner, 2026-11-02: "más serio y reflexivo", and
+   not like the didactic ones): <body class="light essay" data-bg="...">. An opinion page rather
+   than a classroom: serif headlines, sober ink and paper, hairline rules and square corners,
+   nothing tilted, and a background that is barely there. */
+body.essay { --page: #f3f0e9; --ink: #2b2a27; --ink-strong: #121110; --muted: #6b6760; --faint: #9c978d;
+             --card: rgba(251, 249, 244, 0.94); --card-line: rgba(18, 17, 16, 0.16); --amber: #8a5a14;
+             --tag: transparent; --on-tag: #121110; --up: #2f6b4f; --down: #8c2f2f; --sky: #2c4a6b;
+             --serif: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif; }
+body.essay::before { background:
+    linear-gradient(180deg, rgba(243, 240, 233, 0.94) 0%, rgba(243, 240, 233, 0.72) 40%, rgba(243, 240, 233, 0.78) 65%, rgba(243, 240, 233, 0.96) 100%); }
+body.essay .bg { animation-duration: 30s; opacity: 0.7; }
+body.essay h1, body.essay h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -0.015em; line-height: 1.06; }
+body.essay h1 { font-size: 86px; }
+body.essay h1.small { font-size: 70px; }
+body.essay .y { color: var(--amber); font-style: italic; }
+body.essay .kicker { padding: 0 0 12px; border-radius: 0; border-bottom: 2px solid var(--ink-strong); background: none;
+                     color: var(--ink-strong); font-size: 26px; letter-spacing: 0.22em; }
+body.essay .kicker.red { color: var(--down); border-color: var(--down); background: none; }
+body.essay .kicker.green { color: var(--up); border-color: var(--up); background: none; }
+body.essay .kicker.sky { color: var(--sky); border-color: var(--sky); background: none; }
+body.essay .card { border-radius: 4px; border: 1px solid var(--card-line); box-shadow: none; }
+body.essay .card.up { border-left: 6px solid var(--up); }
+body.essay .card.down { border-left: 6px solid var(--down); }
+body.essay .card.amber { border-left: 6px solid var(--amber); }
+body.essay .card.paper { background: #1b1a18; color: #f3f0e9; border: none; }
+body.essay .card.paper h2 { color: #f3f0e9; font-size: 58px; }
+body.essay .card.paper .y { color: #d9b26a; }
+body.essay .card .label { letter-spacing: 0.16em; }
+body.essay .sticker, body.essay .sticker.tilt { transform: none; border-radius: 3px; box-shadow: none; font-family: var(--serif);
+                     font-weight: 600; font-size: 50px; letter-spacing: -0.01em; padding: 12px 26px 14px;
+                     background: var(--down); color: #fbf9f4; }
+body.essay .sticker.small { font-size: 38px; }
+body.essay .sticker.green { background: var(--up); color: #fbf9f4; }
+body.essay .sticker.amber { background: var(--amber); color: #fbf9f4; }
+body.essay .sticker.tag { background: #1b1a18; color: #f3f0e9; }
+body.essay .answers .sticker { font-size: 52px; }
+body.essay .big { font-family: var(--serif); font-weight: 600; letter-spacing: -0.03em; }
+body.essay .line .fig { font-family: var(--serif); font-weight: 600; }
+body.essay .bar { height: 10px; border-radius: 0; }
+body.essay .bar i { border-radius: 0; }
+body.essay .logo { box-shadow: none; border: 1px solid var(--card-line); border-radius: 0.12em; }
+body.essay .brand::before { background: var(--ink-strong); box-shadow: none; border-radius: 0; width: 22px; height: 3px; }
+body.essay .hl { background-image: linear-gradient(rgba(138, 90, 20, 0.22), rgba(138, 90, 20, 0.22)); }
+@keyframes reel-mark-essay { from { background-size: 0% 84%; } to { background-size: 100% 84%; } }
+body.essay .hl { animation-name: reel-mark-essay; }

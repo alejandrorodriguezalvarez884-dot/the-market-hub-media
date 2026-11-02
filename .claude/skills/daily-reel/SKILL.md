@@ -205,6 +205,10 @@ the example to copy). Same differences as above (their own folder, the light loo
 - Explain, do not argue a thesis: how something works and what it usually means, never what
   anyone should do or where a price goes.
 - The brand line says `The Market Hub · Aprende`.
-- Published as a reel (`make reelpost`) **and as stories** (`make reelstory REEL=<folder>`,
-  after the reel), when the user asks for it. The user adds the stories by hand to the
-  highlight of these reels in the app; the API cannot.
+- Published as a reel (`make reelpost`), when the user asks for it, and then **one story that
+  only points to the reel** (the user, 2026-11-02: not the reel cut into stories): draw
+  `reels/<folder>/story.html` (copy the one of `2026-11-02-bond-yields-vs-stocks`: the headline,
+  the reel's drawing, "Míralo en el perfil"; no figures, so no sources), look at it with
+  `make story STORY=reels/<folder>/story.html DRAW=1`, publish it without `DRAW`, and add its id
+  under `stories` in the reel's `instagram.json`. The user adds it by hand to the highlight of
+  these reels in the app; the API cannot.

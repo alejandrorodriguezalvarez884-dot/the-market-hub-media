@@ -54,10 +54,14 @@ diarios, el usuario pide reels puntuales "más reflexivos" sobre un tema (por ej
 resultados de las grandes dicen que esto es o no una burbuja). Mismo formato y mismas reglas, con
 tres diferencias: la carpeta es `reels/<fecha>-<unas-palabras>/`; el guion dice `voice: reflexion`,
 que es **Julián** con "un poco más de entusiasmo, no te pases" (`[reel.voices.reflexion]`); y el
-aspecto es **claro**, no tan oscuro (`<body class="light">`). Pueden defender una tesis (opinar sí),
+aspecto es **claro**, no tan oscuro, y de ensayo (`<body class="light essay">`, abajo). Pueden defender una tesis (opinar sí),
 nunca aconsejar ni predecir precios, y se publican cuando el usuario lo pide en la misma petición:
-el reel en el feed (`make reelpost`) y **también en historias** (`make reelstory`, en trozos de un
-minuto como mucho), que el usuario reúne a mano en la destacada "A fondo".
+el reel en el feed (`make reelpost`) y **una historia que lo anuncia** (`make reelstory`: su portada,
+su título y "Míralo entero en nuestro perfil"; el usuario, 2026-11-02: "la historia tiene que ser
+solo mencionando al reel, no subiéndolo entero"), que él reúne a mano en la destacada "A fondo".
+La API no puede compartir el reel en una historia con su enlace: eso, si se quiere, desde la app.
+Su aspecto es **de ensayo** (`<body class="light essay">`: titulares con serifa, tinta y papel,
+filetes finos, nada inclinado), distinto del de los didácticos, que es claro y colorido.
 
 **Y reels didácticos** (decisión del usuario, 2026-11-02): reels sueltos, que el usuario pide uno
 a uno, que **explican un concepto de bolsa** (el primero, `reels/2026-11-02-bond-yields-vs-stocks/`:
@@ -66,10 +70,12 @@ reflexión, con estas diferencias: el guion dice `voice: didactico`, que es **Ra
 (`[reel.voices.didactico]`); se enseña primero con algo que cualquiera se imagina (un préstamo,
 un balancín) y después llegan las cifras; **siempre hacen un guiño al mercado de hoy**, con
 cifras leídas en la sesión y su hora (el portal: `/api/public/overview`); explican, no opinan ni
-aconsejan; y, además de como reel (`make reelpost`), **se publican como historias**
-(`make reelstory`, cortadas por escenas en trozos de un minuto como mucho), que el usuario
-destaca a mano en la app en su propia sección de historias destacadas (la API no crea
-destacadas).
+aconsejan; y, además del reel (`make reelpost`), llevan **una historia que solo menciona el
+reel**, no el reel troceado (el usuario, 2026-11-02: "la historia tiene que ser solo mencionando
+al reel"): una imagen dibujada aquí, `reels/<carpeta>/story.html`, con el titular, el dibujo del
+reel y "Míralo en el perfil", publicada con `make story` y apuntada en el `instagram.json` del
+reel. El usuario la destaca a mano en la app, en su propia sección de historias destacadas (la
+API no crea destacadas).
 
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras

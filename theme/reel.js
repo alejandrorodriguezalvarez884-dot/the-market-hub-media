@@ -59,6 +59,7 @@
   const canvas = document.querySelector("canvas.bg");
   const kind = document.body.dataset.bg || "tape";
   const LIGHT = document.body.classList.contains("light");   // the lighter look: paper, darker strokes
+  const ESSAY = document.body.classList.contains("essay");   // the essay look: the same drawings, in ink only
   const seedOf = (text) => [...text].reduce((h, c) => (Math.imul(h ^ c.charCodeAt(0), 2654435761) >>> 0), 2166136261);
   const random = (seed) => () => {
     seed = (seed + 0x6d2b79f5) >>> 0;
@@ -75,9 +76,10 @@
     const ctx = canvas.getContext("2d");
     const W = canvas.width, H = canvas.height;
     const rnd = random(seed);
-    const UP = LIGHT ? "18,146,92" : "53,201,143", DOWN = LIGHT ? "224,68,47" : "255,107,87";
-    const AMBER = LIGHT ? "194,124,0" : "242,193,78", SKY = LIGHT ? "47,127,214" : "99,179,255";
-    const PAPER = LIGHT ? ["#f2ede3", "#e9e1d0", "#f6f2ea"] : null;
+    let UP = LIGHT ? "18,146,92" : "53,201,143", DOWN = LIGHT ? "224,68,47" : "255,107,87";
+    let AMBER = LIGHT ? "194,124,0" : "242,193,78", SKY = LIGHT ? "47,127,214" : "99,179,255";
+    const PAPER = ESSAY ? ["#f3f0e9", "#ebe6db", "#f7f5f0"] : LIGHT ? ["#f2ede3", "#e9e1d0", "#f6f2ea"] : null;
+    if (ESSAY) { UP = DOWN = AMBER = SKY = "40,38,34"; }
 
     if (kind === "tape") {
       const cols = Array.from({ length: 7 }, (_, i) => ({
