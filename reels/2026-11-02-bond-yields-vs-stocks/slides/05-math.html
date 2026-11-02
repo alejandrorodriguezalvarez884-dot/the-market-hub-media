@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- Today's sums: the S&P 500's earnings yield (~5.3%) against the 10-year (4.94%) -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .line .name small b { font-weight: 700; }
+  .bar i.s { background: var(--sky); }
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .seesaw { width: 100%; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw .beam { transform-box: view-box; transform-origin: 430px 236px;
+                  animation: tip 1.3s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tip { from { transform: rotate(0deg); } to { transform: rotate(-11deg); } }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .rows { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .rows .card { flex-direction: row; align-items: center; gap: 26px; padding: 26px 32px; }
+  .rows .card .arrow { font-size: 64px; font-weight: 800; min-width: 70px; }
+  .rows .card h2 { font-size: 50px; }
+  .rows .card .label { margin-bottom: 6px; }
+</style>
+</head>
+<body class="light" data-bg="grid">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">La cuenta de hoy</p>
+<h1 class="small in">Por cada <span class="y">100&nbsp;$</span><br>en el S&amp;P&nbsp;500</h1>
+<div class="card in" data-say="empresas">
+  <div class="line"><span class="name">Beneficio esperado<small>En un año · PER de 18,7 · FactSet, 30 oct.</small></span><span class="fig y" data-count="5.3" data-decimals="1" data-prefix="≈ " data-suffix=" $" data-say="cinco"></span><span class="bar" data-say="cinco"><i style="--w: 100%"></i></span></div>
+  <div class="line"><span class="name">Bono a 10 años<small>Hoy, 18:25 · lo que rinde 100 $</small></span><span class="fig s" data-count="4.94" data-decimals="2" data-suffix=" $" data-say="noventa"></span><span class="bar" data-say="noventa"><i class="s" style="--w: 92%"></i></span></div>
+</div>
+<span class="sticker tag small pop" data-say="promete">Uno lo promete el Gobierno</span>
+<span class="sticker amber small tilt pop" data-say="depende">El otro depende de los beneficios</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

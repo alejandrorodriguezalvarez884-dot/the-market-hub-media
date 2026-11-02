@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- An Instagram story, 1080 by 1920, that only points to this reel (the owner, 2026-11-02: the
+     stories mention the reel; they do not carry it cut into pieces). Drawn with the reel's own
+     pieces and its seesaw, nothing of anyone else's, and no figures, so it needs no sources. The
+     top and the bottom 250 px are left empty: Instagram lays the account's name and the reply box
+     over them.
+
+       make story STORY=reels/2026-11-02-bond-yields-vs-stocks/story.html DRAW=1   # story.jpg, to look at
+       make story STORY=reels/2026-11-02-bond-yields-vs-stocks/story.html          # and published -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../theme/reel.css">
+<style>
+  .story { position: absolute; left: 80px; right: 80px; top: 300px; bottom: 300px;
+           display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 46px; text-align: center; }
+  .story h1 { font-size: 120px; }
+  .story p.lead { max-width: 860px; }
+  .seesaw { width: 860px; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .go { transform: none; font-size: 56px; padding: 20px 40px 22px; }
+  .mark { font-size: 40px; }
+  .mark img { width: 100px; height: 100px; }
+</style>
+</head>
+<body class="light" data-bg="plain">
+<canvas class="bg"></canvas>
+<main class="story">
+  <p class="kicker">Nuevo reel · Aprende</p>
+  <h1>Bonos <span class="y">contra</span> bolsa</h1>
+  <p class="lead">Qué es el rendimiento de un bono, y qué le pasa a la bolsa cuando ese rendimiento sube o baja. Con el mercado de hoy.</p>
+  <div class="seesaw">
+    <svg viewBox="0 0 860 380" aria-hidden="true">
+      <polygon points="430,250 360,370 500,370" style="fill: var(--ink-strong)"/>
+      <g transform="rotate(-11 430 236)">
+        <rect x="20" y="226" width="820" height="22" rx="11" style="fill: var(--amber)"/>
+        <rect x="30" y="122" width="320" height="96" rx="20" style="fill: var(--down)"/>
+        <text x="190" y="186" text-anchor="middle" style="fill: #fff">Precio ▼</text>
+        <rect x="490" y="122" width="340" height="96" rx="20" style="fill: var(--up)"/>
+        <text x="660" y="186" text-anchor="middle" style="fill: #04130c">Rendimiento ▲</text>
+      </g>
+    </svg>
+  </div>
+  <span class="sticker tag go">Míralo en el perfil</span>
+  <div class="mark"><img src="../../channel/instagram-profile.jpg" alt=""><span>@the_market_hub_app</span></div>
+</main>
+<script src="../../theme/reel.js"></script>
+</body>
+</html>

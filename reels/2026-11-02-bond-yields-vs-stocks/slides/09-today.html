@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- Today at 18:25 in Spain: yields ease, the S&P 500 rises, oil falls -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .line .name small b { font-weight: 700; }
+  .bar i.s { background: var(--sky); }
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .seesaw { width: 100%; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw .beam { transform-box: view-box; transform-origin: 430px 236px;
+                  animation: tip 1.3s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tip { from { transform: rotate(0deg); } to { transform: rotate(-11deg); } }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .rows { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .rows .card { flex-direction: row; align-items: center; gap: 26px; padding: 26px 32px; }
+  .rows .card .arrow { font-size: 64px; font-weight: 800; min-width: 70px; }
+  .rows .card h2 { font-size: 50px; }
+  .rows .card .label { margin-bottom: 6px; }
+</style>
+</head>
+<body class="light" data-bg="grid" data-seed="5">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker green in">Hoy · 18:25 en España</p>
+<h1 class="in">De <span class="y">manual</span></h1>
+<div class="card in" data-say="bono">
+  <div class="line in" data-say="diez"><span class="name">Bono a 10 años<small><b class="r">▼ 0,04 puntos</b></small></span><span class="fig">4,94 %</span></div>
+  <div class="line in" data-say="dos"><span class="name">Bono a 2 años<small><b class="r">▼ 0,05 puntos</b> · mira a la Fed</small></span><span class="fig">4,56 %</span></div>
+  <div class="line in" data-say="sube"><span class="name">S&amp;P 500<small>7.617,95 puntos</small></span><span class="fig g" data-count="0.5" data-decimals="1" data-prefix="▲ " data-suffix=" %" data-say="medio"></span></div>
+  <div class="line in" data-say="petroleo"><span class="name">Petróleo de Texas<small>96,61 $ el barril</small></span><span class="fig r" data-count="7.2" data-decimals="1" data-prefix="▼ " data-suffix=" %" data-say="siete"></span></div>
+  <p class="note">Market Hub (Yahoo Finance)</p>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

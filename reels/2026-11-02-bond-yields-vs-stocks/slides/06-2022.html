@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- 2022: the 10-year went from 1.52% to 3.88% and the S&P 500 fell 19.4% -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .line .name small b { font-weight: 700; }
+  .bar i.s { background: var(--sky); }
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .seesaw { width: 100%; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw .beam { transform-box: view-box; transform-origin: 430px 236px;
+                  animation: tip 1.3s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tip { from { transform: rotate(0deg); } to { transform: rotate(-11deg); } }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .rows { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .rows .card { flex-direction: row; align-items: center; gap: 26px; padding: 26px 32px; }
+  .rows .card .arrow { font-size: 64px; font-weight: 800; min-width: 70px; }
+  .rows .card h2 { font-size: 50px; }
+  .rows .card .label { margin-bottom: 6px; }
+</style>
+</head>
+<body class="light" data-bg="candles" data-seed="7">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker red in">2022</p>
+<h1 class="in">Cuando la regla <span class="y">se cumple</span></h1>
+<div class="card in" data-say="rendimiento">
+  <p class="label">Del 31 dic. 2021 al 30 dic. 2022 · FRED</p>
+  <div class="line in" data-say="rendimiento"><span class="name">Bono a 10 años<small>Del 1,52 % al…</small></span><span class="fig g" data-count="3.88" data-decimals="2" data-prefix="▲ " data-suffix=" %" data-say="cuatro"></span></div>
+  <div class="line in" data-say="cayo"><span class="name">S&amp;P 500<small>De 4.766 a 3.840 puntos</small></span><span class="fig r" data-count="19.4" data-decimals="1" data-prefix="▼ " data-suffix=" %" data-say="veinte"></span></div>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

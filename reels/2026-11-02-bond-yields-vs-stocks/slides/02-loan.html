@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- What a bond is: a loan, with an example -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .line .name small b { font-weight: 700; }
+  .bar i.s { background: var(--sky); }
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .seesaw { width: 100%; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw .beam { transform-box: view-box; transform-origin: 430px 236px;
+                  animation: tip 1.3s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tip { from { transform: rotate(0deg); } to { transform: rotate(-11deg); } }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .rows { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .rows .card { flex-direction: row; align-items: center; gap: 26px; padding: 26px 32px; }
+  .rows .card .arrow { font-size: 64px; font-weight: 800; min-width: 70px; }
+  .rows .card h2 { font-size: 50px; }
+  .rows .card .label { margin-bottom: 6px; }
+</style>
+</head>
+<body class="light" data-bg="city">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">¿Qué es un bono?</p>
+<h1 class="in" data-say="prestamo">Un <span class="y hl" data-say="prestamo">préstamo</span></h1>
+<div class="card in" data-say="prestas">
+  <p class="example">Ejemplo</p>
+  <div class="line in" data-say="prestas"><span class="name">Le prestas al Gobierno</span><span class="fig">100 $</span></div>
+  <div class="line in" data-say="intereses"><span class="name">Te paga cada año<small>Los intereses</small></span><span class="fig y">4 $</span></div>
+  <div class="line in" data-say="devuelve"><span class="name">Al final te devuelve</span><span class="fig">100 $</span></div>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

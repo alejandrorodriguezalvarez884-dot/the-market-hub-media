@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- 2026: the 10-year from 4.18% to 4.94% (5.31% in October, highest since 2002) and the S&P 500 up 11.3% -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .line .name small b { font-weight: 700; }
+  .bar i.s { background: var(--sky); }
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .seesaw { width: 100%; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw .beam { transform-box: view-box; transform-origin: 430px 236px;
+                  animation: tip 1.3s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tip { from { transform: rotate(0deg); } to { transform: rotate(-11deg); } }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .rows { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .rows .card { flex-direction: row; align-items: center; gap: 26px; padding: 26px 32px; }
+  .rows .card .arrow { font-size: 64px; font-weight: 800; min-width: 70px; }
+  .rows .card h2 { font-size: 50px; }
+  .rows .card .label { margin-bottom: 6px; }
+</style>
+</head>
+<body class="light" data-bg="city">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker sky in">2026</p>
+<h1 class="in">Pero <span class="y">no siempre</span></h1>
+<div class="card in" data-say="ano">
+  <p class="label">Desde el 31 dic. 2025 hasta hoy, 18:25</p>
+  <div class="line in" data-say="subido"><span class="name">Bono a 10 años<small>Del 4,18 % al…</small></span><span class="fig g" data-count="4.94" data-decimals="2" data-prefix="▲ " data-suffix=" %" data-say="subido"></span></div>
+  <div class="line in" data-say="octubre"><span class="name">Su máximo, el 5 de octubre<small>El más alto desde 2002 · FRED</small></span><span class="fig" data-count="5.31" data-decimals="2" data-suffix=" %" data-say="treinta"></span></div>
+  <div class="line in" data-say="aun"><span class="name">S&amp;P 500<small>En el año, hasta hoy</small></span><span class="fig g" data-count="11.3" data-decimals="1" data-prefix="▲ " data-suffix=" %" data-say="once"></span></div>
+</div>
+<span class="sticker tag tilt pop" data-say="como">¿Cómo puede ser?</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- Price and yield are a seesaw: a new bond paying 5 makes yours paying 4 cheaper -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .line .name small b { font-weight: 700; }
+  .bar i.s { background: var(--sky); }
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .seesaw { width: 100%; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw .beam { transform-box: view-box; transform-origin: 430px 236px;
+                  animation: tip 1.3s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tip { from { transform: rotate(0deg); } to { transform: rotate(-11deg); } }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .rows { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .rows .card { flex-direction: row; align-items: center; gap: 26px; padding: 26px 32px; }
+  .rows .card .arrow { font-size: 64px; font-weight: 800; min-width: 70px; }
+  .rows .card h2 { font-size: 50px; }
+  .rows .card .label { margin-bottom: 6px; }
+</style>
+</head>
+<body class="light" data-bg="candles">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">El truco</p>
+<h1 class="in">Un <span class="y">balancín</span></h1>
+<div class="pair">
+  <div class="card in" data-say="tuyo">
+    <p class="label">Tu bono</p>
+    <h2>Paga 4 $</h2>
+  </div>
+  <div class="card amber in" data-say="nuevos">
+    <p class="label">Bonos nuevos</p>
+    <h2>Pagan 5 $</h2>
+  </div>
+</div>
+<div class="seesaw in" data-say="precio">
+  <svg viewBox="0 0 860 380" aria-hidden="true">
+    <polygon points="430,250 360,370 500,370" style="fill: var(--ink-strong)"/>
+    <g class="beam" data-say="baja">
+      <rect x="20" y="226" width="820" height="22" rx="11" style="fill: var(--amber)"/>
+      <rect x="30" y="122" width="320" height="96" rx="20" style="fill: var(--down)"/>
+      <text x="190" y="186" text-anchor="middle" style="fill: #fff">Precio ▼</text>
+      <rect x="490" y="122" width="340" height="96" rx="20" style="fill: var(--up)"/>
+      <text x="660" y="186" text-anchor="middle" style="fill: #04130c">Rendimiento ▲</text>
+    </g>
+  </svg>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

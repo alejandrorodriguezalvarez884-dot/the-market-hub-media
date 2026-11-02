@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- Stocks compete with that bond: higher yields usually weigh on them -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .line .name small b { font-weight: 700; }
+  .bar i.s { background: var(--sky); }
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .seesaw { width: 100%; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw .beam { transform-box: view-box; transform-origin: 430px 236px;
+                  animation: tip 1.3s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tip { from { transform: rotate(0deg); } to { transform: rotate(-11deg); } }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .rows { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .rows .card { flex-direction: row; align-items: center; gap: 26px; padding: 26px 32px; }
+  .rows .card .arrow { font-size: 64px; font-weight: 800; min-width: 70px; }
+  .rows .card h2 { font-size: 50px; }
+  .rows .card .label { margin-bottom: 6px; }
+</style>
+</head>
+<body class="light" data-bg="tape" data-seed="3">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">¿Y la bolsa?</p>
+<h1 class="in">El bono, <span class="y">rival</span> de la bolsa</h1>
+<div class="pair">
+  <div class="card in" data-say="seguro">
+    <p class="label">Un bono</p>
+    <h2>Un 5 % casi seguro</h2>
+  </div>
+  <div class="card amber in" data-say="acciones">
+    <p class="label">Las acciones</p>
+    <h2>Se les pide más</h2>
+  </div>
+</div>
+<span class="sticker tag small pop" data-say="sufrir">Rendimientos que suben: presión</span>
+<span class="sticker amber small tilt pop" data-say="endeudarse">Deuda más cara</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

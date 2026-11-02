@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- Recap: yields up, a stronger rival; yields down, stocks breathe; what counts is why -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .line .name small b { font-weight: 700; }
+  .bar i.s { background: var(--sky); }
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .seesaw { width: 100%; }
+  .seesaw svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .seesaw .beam { transform-box: view-box; transform-origin: 430px 236px;
+                  animation: tip 1.3s cubic-bezier(0.3, 1.5, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tip { from { transform: rotate(0deg); } to { transform: rotate(-11deg); } }
+  .seesaw text { font-family: var(--sans); font-weight: 800; font-size: 44px; }
+  .rows { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .rows .card { flex-direction: row; align-items: center; gap: 26px; padding: 26px 32px; }
+  .rows .card .arrow { font-size: 64px; font-weight: 800; min-width: 70px; }
+  .rows .card h2 { font-size: 50px; }
+  .rows .card .label { margin-bottom: 6px; }
+</style>
+</head>
+<body class="light" data-bg="candles" data-seed="2">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">Resumen</p>
+<div class="rows">
+  <div class="card in" data-say="suben">
+    <span class="arrow g">▲</span>
+    <div><p class="label">Rendimientos que suben</p><h2>La bolsa tiene un rival más fuerte</h2></div>
+  </div>
+  <div class="card in" data-say="bajan">
+    <span class="arrow r">▼</span>
+    <div><p class="label">Rendimientos que bajan</p><h2>La bolsa respira</h2></div>
+  </div>
+</div>
+<span class="sticker amber pop" data-say="cuenta">Lo que cuenta: el porqué</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

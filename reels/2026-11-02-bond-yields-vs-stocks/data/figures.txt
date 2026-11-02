@@ -1,0 +1,8 @@
+Figures of the reel, read 2026-11-02 (Market Hub overview as_of 2026-11-02T17:25:29Z = 18:25 Madrid, 12:25 New York):
+US 10-year yield today 4.94 % (change -0.04)   overview.json rates US10Y
+US 2-year yield today 4.56 % (change -0.05)    overview.json rates US2Y
+S&P 500 today 7,617.95 (+0.50 %)               overview.json indices SPX
+WTI today 96.61 $ (-7.2 %)                     overview.json commodities WTI
+FRED DGS10: 2021-12-31 1.52 · 2022-12-30 3.88 · 2025-12-31 4.18 · 2026-10-05 5.31 (highest since 2002-05-14, 5.32)
+FRED SP500: 2021-12-31 4,766.18 · 2022-12-30 3,839.50 (-19.4 %) · 2025-12-31 6,845.50
+S&P 500 this year: 6,845.50 -> 7,617.95 = +11.3 %
