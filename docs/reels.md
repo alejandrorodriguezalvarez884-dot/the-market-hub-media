@@ -115,6 +115,9 @@ Lo que una sesión en la nube no tiene, y cómo lo suple el repo (`src/marketmed
    (cierre), y el mismo texto que las tareas del Mac (arriba) más: "Run `uv sync` first. Commit
    and push to `main`, not to a claude/ branch." Se prueba una con "Run now" y, si publica, se
    desactivan las tareas del Mac.
+   **Sin conectores**: al crear una rutina por la API se le añaden todos los conectores de
+   claude.ai del usuario, el del bróker (IBKR) incluido, que el workspace prohíbe usar. Se quitan
+   (`clear_mcp_connections`) y se comprueba que la rutina no tenga ninguno.
 
 Si el token de Instagram se genera de nuevo algún día, se guarda también en el secreto:
 `gcloud secrets versions add market-hub-instagram-token --project=arctic-robot-474306-g3 --data-file=.secrets/instagram-token.txt`.
