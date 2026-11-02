@@ -20,7 +20,10 @@ backgrounds are drawn by `theme/reel.js`), except **the logo of a company the re
 (the user, 2026-11-02), from `theme/logos/`. The reels have no presenter: a format of
 its own, like the demo.
 
-The argument is the moment: `open` or `close`. Work from the root of `the-market-hub-media`.
+The argument is the moment: `open` or `close` (weekdays), `week` (Saturday morning: the week
+that ended) or `ahead` (the night of Sunday to Monday, 01:00 in Spain: the futures, an hour after
+they open, and the week to come). All four are the "market updates" line: dark look, Dani's voice,
+up to 120 seconds. Work from the root of `the-market-hub-media`.
 
 ## 1. Before anything
 
@@ -31,9 +34,12 @@ git pull --ff-only
 
 Other sessions work in this repo too: leave alone any file that is not yours.
 
-- **Is Wall Street open today?** Read `https://themarkethub.app/api/public/overview`: if
-  `intraday` is false at the open, or `as_of` is not today, or today is a NYSE holiday
-  (https://www.nyse.com/markets/hours-calendars), make nothing and say so.
+- **Is there something to tell?** For `open` and `close`: read
+  `https://themarkethub.app/api/public/overview`; if `intraday` is false at the open, or `as_of`
+  is not today, or today is a NYSE holiday (https://www.nyse.com/markets/hours-calendars), make
+  nothing and say so. For `week`: Wall Street traded at least one day this week. For `ahead`: the
+  US index futures (ES=F, NQ=F, YM=F on Yahoo Finance) have traded since Sunday 18:00 New York;
+  if they have not (a holiday), say so and make nothing.
 - **Is it done already?** If `reels/<today>-<moment>/instagram.json` exists, it is up: stop.
   If the folder exists without it, a run before you stopped half way: take it up from where it is.
 - **Times.** Spain (Madrid) and New York are six hours apart most of the year, five for a few
@@ -41,7 +47,7 @@ Other sessions work in this repo too: leave alone any file that is not yours.
   Work out the gap for today; never assume it.
 
 ```bash
-make reelnew MOMENT=<open|close>
+make reelnew MOMENT=<open|close|week|ahead>
 ```
 
 ## 2. Find what happened
@@ -68,6 +74,24 @@ must be in. If the overview still says `intraday: true`, or its `as_of` is befor
 five minutes and read it again, for up to twenty minutes; then say which time the figures are from. how the indices closed and how the day went from the
 open; the best and worst sector; the large movers of the day and why; results released after the
 close, if out; what comes tomorrow, with its time.
+
+**The week** (`week`, Saturday 10:00 in Spain): how the three indices did over the five days
+(Friday's close against the previous Friday's: Yahoo Finance's daily history, kept in `data/`),
+and the day that moved them most; the story of the week, told as a story (what drove it and how it
+turned); the best and worst sectors and the large movers of the week, and why; the week's
+results and data that mattered; and a closing look at what is coming next week, in a line.
+
+**The week ahead** (`ahead`, 01:00 Monday in Spain, an hour after the futures open): where the
+S&P 500, Nasdaq 100 and Dow futures trade against Friday's close, and anything that moved over the
+weekend (a war, an election, a central bank, oil); then the week to come, day by day: the
+economic data and central-bank meetings with their times in Spain, and the results that matter,
+with the day and whether before the open or after the close. Name dates and times; never guess
+what they will show.
+
+**In earnings season, results come first** (the user, 2026-11-02): in every moment, look up who
+reported (before the open, after the close, overnight) and who reports next, read the release or
+the 8-K, and tell how the shares took it. A large company's results is a scene of its own; in
+`week` and `ahead` the results of the week are a scene, or two.
 
 Pick **seven to ten things**, one per scene. A rumour, a price target or someone's call on a
 stock is not a fact for the reel. Politics only when it moved the market, and the move is the
@@ -103,7 +127,8 @@ the same pieces in another order is the format. Each scene:
 
 - `<body data-bg="...">` and a `<canvas class="bg">`: tape, candles, grid, city or plain (the
   question). Change the background from one scene to the next.
-- `<header class="brand">The Market Hub · Apertura</header>` (or `Cierre`).
+- `<header class="brand">The Market Hub · Apertura</header>` (or `Cierre`, `La semana`,
+  `Próxima semana`).
 - A `.kicker` on top (what part of the story this is: "Lo que mueve hoy", "El viernes", "Esta
   noche"), a large `h1` with a word or two in `.y` (amber), and below it one or two `.card`s or
   `.sticker`s that come in when the voice says their word (`data-say`, classes `.in`, `.pop`).

@@ -33,7 +33,7 @@ from . import script as scripts
 from .channel import ROOT, Channel
 from .videos import DRAWINGS, Video
 
-MOMENTS = ("open", "close")
+MOMENTS = ("open", "close", "week", "ahead")   # the "market updates" line: daily, Saturday and Sunday night
 NAME = re.compile(r"(\d{4}-\d{2}-\d{2})-([a-z0-9][a-z0-9\-]{2,70})")
 CAPTION_MAX = 2200          # Instagram's own limit
 HASHTAGS_MAX = 8            # Instagram reads a few; more reads as spam

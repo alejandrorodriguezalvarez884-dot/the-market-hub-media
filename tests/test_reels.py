@@ -121,6 +121,7 @@ def test_a_new_reel_is_the_template_for_a_day_and_a_moment(tmp_path):
         reels.new("close", root=tmp_path, day="2026-11-02")
     with pytest.raises(ValueError, match="not open, close or a few plain words"):
         reels.new("¡No!", root=tmp_path, day="2026-11-02")
+    assert reels.new("week", root=tmp_path, day="2026-11-07").daily
     asked = reels.new("not-a-bubble", root=tmp_path, day="2026-11-02")
     assert (asked.moment, asked.daily, reel.daily) == ("not-a-bubble", False, True)
 
