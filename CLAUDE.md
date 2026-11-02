@@ -37,8 +37,9 @@ Nunca usan el navegador para X.
 Y [`daily-reel`](.claude/skills/daily-reel/SKILL.md): **los dos reels diarios de Instagram**
 (decisión del usuario, 2026-11-02, que reenfoca la cuenta): de lunes a viernes, uno con la
 **apertura de Wall Street** y otro con su **cierre**, **en español**, hechos y publicados sin
-preguntar por dos tareas programadas de la app de Claude en su Mac (`market-hub-reel-open`, 15:45,
-y `market-hub-reel-close`, hacia las 22:08, hora de Madrid; horas del usuario, 2026-11-02). Sustituyen a los dos carruseles diarios de
+preguntar por dos **rutinas en la nube de Claude** (apertura a las 15:45 y cierre a las 22:05, hora
+de Madrid; horas del usuario, 2026-11-02), que corren con el ordenador apagado (`docs/reels.md`; las
+tareas del Mac que lo hacían antes están en pausa). Sustituyen a los dos carruseles diarios de
 `autopost`. El formato se parece al de los reels de `@h.analistasoficial`, que el usuario dio de
 referencia, pero todo se dibuja aquí: vertical, 40 a 100 segundos, voz en off en español, voz de ElevenLabs (abajo, "La voz"), fondo
 oscuro dibujado en movimiento (`theme/reel.js`: cinta de cifras, velas, cuadrícula, ciudad), una

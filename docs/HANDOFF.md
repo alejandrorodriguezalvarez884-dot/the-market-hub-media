@@ -179,7 +179,8 @@ dice. El tráiler y el episodio 1 ya están.
 ## Siguientes pasos
 
 0. **Los reels de Instagram** (desde el 2026-11-02, lo que más se mueve): todo en
-   [docs/reels.md](reels.md). Los diarios son automáticos en el Mac (15:45 y 22:08); los de
+   [docs/reels.md](reels.md). Los diarios son automáticos en la nube de Claude (15:45 y 22:05, con el
+   ordenador apagado; las tareas del Mac, en pausa); los de
    reflexión y los didácticos, solo a demanda, con el tema que dé el usuario. En otro ordenador:
    `make install`, `gcloud auth`, `make elevenkey`, el token de Instagram y, si va a ser el que las
    corra, las dos tareas programadas (y desactivarlas en el otro).

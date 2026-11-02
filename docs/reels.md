@@ -8,7 +8,7 @@ automático, qué se pide a mano y cómo dejarlo todo listo.
 
 | Línea | Cuándo | Voz (ElevenLabs) | Aspecto | Destacada |
 |---|---|---|---|---|
-| **Diarios**: apertura y cierre de Wall Street | **Automáticos**, de lunes a viernes: apertura a las 15:45 y cierre hacia las 22:08 (hora de Madrid) | Dani (`[reel]` en `channel.toml`) | Oscuro: `<body data-bg="...">` | "Al día" (propuesta) |
+| **Diarios**: apertura y cierre de Wall Street | **Automáticos, en la nube**, de lunes a viernes: apertura a las 15:45 y cierre a las 22:05 (hora de Madrid), con el ordenador apagado | Dani (`[reel]` en `channel.toml`) | Oscuro: `<body data-bg="...">` | "Al día" (propuesta) |
 | **Reflexión**: una tesis sobre los mercados, con fuentes | **A demanda**: cuando el usuario da el tema y lo pide | Julián en v3, "profesor sereno" (`[reel.voices.reflexion]`) | Ensayo: `<body class="light essay">` | "A fondo" |
 | **Didácticos**: un concepto de bolsa, con un guiño al mercado de hoy | **A demanda**: cuando el usuario da el tema y lo pide | Rafa (`[reel.voices.didactico]`) | Claro y colorido: `<body class="light">` | "Aprende" |
 
@@ -42,7 +42,22 @@ aconseja ni predice precios.
 
 ## La automatización de los diarios
 
-Dos tareas programadas de la **app de Claude en el Mac del usuario**, de lunes a viernes:
+**Desde el 2026-11-02 por la noche corren en la nube**, como dos rutinas de Claude
+(https://claude.ai/code/routines), en el entorno "Market Hub reels" (sección siguiente):
+
+| Rutina | Cron | Id |
+|---|---|---|
+| Market Hub · reel de la apertura de Wall Street | `CRON_TZ=Europe/Madrid 45 15 * * 1-5` | `trig_01HJz9NnNtepWjiiTcUFoC8o` |
+| Market Hub · reel del cierre de Wall Street | `CRON_TZ=Europe/Madrid 5 22 * * 1-5` | `trig_01MgSgfpR5a8YPi6FHN7h7gv` |
+
+Corren aunque el ordenador esté apagado; cada una tarda unos 15 minutos (el montaje, unos 8). Su
+texto es el de las tareas del Mac (abajo) con lo propio de la nube (`git pull`, `uv sync`, el
+montaje en segundo plano, publicar en `main`). Cómo ha ido una se ve en su página, o con
+`RemoteTrigger` (`list_runs`, `get_run_log`). No llevan conectores. Probadas el 2026-11-02 (dos
+rutinas de prueba de una vez: todo bien; el montaje de un reel de 1:41, 7 min 53 s).
+
+**Antes** eran dos tareas programadas de la **app de Claude en el Mac del usuario**, que siguen ahí
+**en pausa** (no se activan a la vez que las rutinas: saldría cada reel dos veces):
 
 | Tarea | Cron (hora local) | Empieza de verdad | Argumento |
 |---|---|---|---|
