@@ -94,6 +94,7 @@ Lo que una sesión en la nube no tiene, y cómo lo suple el repo (`src/marketmed
 
 1. El usuario, en su ordenador, desde `the-market-hub-media/`: `scripts/cloud-google-setup.sh`
    (crea la cuenta de servicio, sus permisos y el secreto del token, y deja la clave copiada).
+   Si la clave se pierde o hay que cambiarla: `scripts/cloud-google-key.sh` (borra las anteriores y copia una nueva).
 2. En claude.ai/code, un entorno nuevo, "Market Hub reels": acceso a la red **Full** (los reels
    leen el portal, SEC, Yahoo, ElevenLabs, Instagram y Google); como script de preparación, el
    contenido de `scripts/cloud-setup.sh`; y estas variables (las claves las pega el usuario):
