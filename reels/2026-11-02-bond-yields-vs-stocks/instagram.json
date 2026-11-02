@@ -29,5 +29,14 @@
       "note": "the reel shared to stories with the app's 'Añadir a tu historia', which opens the reel when tapped (the API cannot), and kept in the highlight 'Aprende'"
     }
   ],
-  "cover_note": "Instagram took frame 0 as the cover despite cover_ms (no headline yet, the 10-year yield still counting at '0,00 %'); the owner changed it in the app on 2026-11-02 to a frame showing 4,94 %"
+  "cover_note": "Instagram took frame 0 as the cover despite cover_ms (no headline yet, the 10-year yield still counting at '0,00 %'); the owner changed it in the app on 2026-11-02 to a frame showing 4,94 %",
+  "x": {
+    "ids": [
+      "2117355213526908954",
+      "2117355215531782297",
+      "2117355217356304839"
+    ],
+    "url": "https://x.com/the_market_hub_/status/2117355213526908954",
+    "posted_utc": "2026-11-02T20:36:37+00:00"
+  }
 }
