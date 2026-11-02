@@ -103,3 +103,10 @@ def test_another_engine_or_its_settings_speak_everything_again(video, channel, s
     assert voice.pending(video, script, eleven) == []
     assert len(voice.pending(video, script, replace(eleven, voice_settings=(("speed", 1.1),)))) == 2
     assert len(voice.pending(video, script, replace(eleven, voice_model="eleven_v3"))) == 2
+
+
+def test_a_v3_voice_is_told_how_to_speak(channel):
+    eleven = replace(channel, voice_engine="elevenlabs", voice_name="abc123", voice_language="es-ES",
+                     voice_model="eleven_v3", voice_cue="[reflexivo]")
+    assert voice.eleven_request("Hoy.", eleven)["text"] == "[reflexivo] Hoy."
+    assert voice.eleven_request("Hoy.", replace(eleven, voice_model="eleven_multilingual_v2"))["text"] == "Hoy."

@@ -85,16 +85,15 @@ model = "eleven_multilingual_v2"
 disclaimer = "Contenido informativo de The Market Hub. No es una recomendación de inversión."
 
 # The reels the owner asks for one by one, to think something through (voice: reflexion in the
-# script): Julián, "a touch more enthusiastic, not much" than in his sample (the owner, 2026-11-02).
+# script): Julián as "a wise, reflective teacher, with more character" (the owner, 2026-11-02, who
+# picked this by ear: ElevenLabs v3 told the tone, after multilingual_v2 sounded odd at times).
 [reel.voices.reflexion]
 voice = "5Wn4TM7bYDwN5uDN0DpC"        # Julián
-model = "eleven_multilingual_v2"
+model = "eleven_v3"
+cue = "[reflexivo, tono de profesor sereno]"   # said to v3 before each scene: how to say it, not words to say
 
 [reel.voices.reflexion.settings]
-stability = 0.35
-similarity_boost = 0.8
-style = 0.45
-use_speaker_boost = true
+stability = 0.5                      # v3's "natural"
 
 # The didactic reels the owner asks for one by one, explaining a stock-market concept (voice:
 # didactico in the script): Rafa, with the settings of the sample the owner heard (2026-11-02).

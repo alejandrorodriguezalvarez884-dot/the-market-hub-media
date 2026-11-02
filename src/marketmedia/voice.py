@@ -72,8 +72,10 @@ def cloud(text: str, channel: Channel) -> bytes:
 def eleven_request(text: str, channel: Channel, before: str = "", after: str = "") -> dict:
     """What is asked of ElevenLabs for one scene. The words around it let the voice carry its
     tone from one scene to the next, as one person speaking."""
-    body: dict = {"text": text, "model_id": channel.voice_model or "eleven_multilingual_v2",
-                  "language_code": channel.voice_language.split("-")[0]}
+    model = channel.voice_model or "eleven_multilingual_v2"
+    if channel.voice_cue and model == "eleven_v3":   # v3 reads a bracketed cue as how to speak
+        text = f"{channel.voice_cue} {text}"
+    body: dict = {"text": text, "model_id": model, "language_code": channel.voice_language.split("-")[0]}
     if channel.voice_settings:
         body["voice_settings"] = dict(channel.voice_settings)
     if before and body["model_id"] != "eleven_v3":   # v3 does not take the words around it
@@ -124,7 +126,8 @@ def eleven(text: str, channel: Channel, before: str = "", after: str = "") -> by
 
 def _mark(scene: Scene, channel: Channel) -> str:
     """What a scene's sound depends on: its words, who says them and how."""
-    how = f"{channel.voice_engine}|{channel.voice_model}|{channel.voice_settings}|" if channel.voice_engine != "google" else ""
+    how = (f"{channel.voice_engine}|{channel.voice_model}|{channel.voice_settings}|{channel.voice_cue}|"
+           if channel.voice_engine != "google" else "")
     made_from = f"{how}{channel.voice_name}|{channel.voice_language}|{channel.voice_rate}|{scene.narration}"
     return hashlib.sha256(made_from.encode()).hexdigest()[:16]
 
