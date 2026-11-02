@@ -159,7 +159,7 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
             for source, target, moving, viewport, scene in todo:
                 target.parent.mkdir(parents=True, exist_ok=True)
                 page.set_viewport_size(viewport)
-                page.goto(source.resolve().as_uri())
+                page.goto(source.resolve().as_uri(), timeout=120000)   # a slow machine (the cloud) may take its time
                 page.evaluate("async () => { await document.fonts?.ready; await window.slideReady; }")
                 if scene:
                     page.evaluate("(scene) => { window.slideScene = scene; window.slideSetup?.(); }", scene)

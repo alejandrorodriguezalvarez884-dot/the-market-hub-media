@@ -242,7 +242,7 @@ def draw(page: Path, size: dict = STORY) -> Path:
         browser = p.chromium.launch(channel=browser_channel(), headless=True)
         try:
             tab = browser.new_page(viewport=size, device_scale_factor=1)
-            tab.goto(page.resolve().as_uri())
+            tab.goto(page.resolve().as_uri(), timeout=120000)
             tab.evaluate("async () => { await document.fonts?.ready; }")
             for quality in (95, 90, 80):
                 picture = tab.screenshot(type="jpeg", quality=quality)

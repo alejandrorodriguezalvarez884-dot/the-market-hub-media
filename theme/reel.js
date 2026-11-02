@@ -81,14 +81,19 @@
     const PAPER = ESSAY ? ["#f3f0e9", "#ebe6db", "#f7f5f0"] : LIGHT ? ["#f2ede3", "#e9e1d0", "#f6f2ea"] : null;
     if (ESSAY) { UP = DOWN = AMBER = SKY = "40,38,34"; }
 
-    // What is blurred or glows is drawn once, on a canvas of its own, and only moved after: a blur
-    // drawn again at every frame costs a second a frame on a machine with no graphics card (the cloud).
-    const layer = (w, h, draw) => {
+    // What is soft or glows is drawn once, small, on a canvas of its own, and only moved and drawn
+    // larger after: the enlargement is the blur. A real blur filter, on a machine with no graphics
+    // card (the cloud), costs seconds a frame, and tens of seconds just to draw once.
+    const layer = (w, h, draw, scale = 1) => {
       const c = document.createElement("canvas");
-      c.width = Math.ceil(w); c.height = Math.ceil(h);
-      draw(c.getContext("2d"));
+      c.width = Math.ceil(w * scale); c.height = Math.ceil(h * scale);
+      const g = c.getContext("2d");
+      g.scale(scale, scale);
+      draw(g);
+      c.w = w; c.h = h;   // its size when drawn
       return c;
     };
+    const put = (c, x, y) => ctx.drawImage(c, x, y, c.w, c.h);
     if (kind === "tape") {
       const cols = Array.from({ length: 7 }, (_, i) => ({
         x: 40 + i * 168 + rnd() * 30, speed: 18 + rnd() * 40, size: 34 + rnd() * 26,
@@ -97,14 +102,13 @@
       for (const c of cols) {   // each column, once, as a strip that wraps round
         c.step = c.size * 2.1; c.total = c.step * c.cells.length;
         c.strip = layer(200, c.total, (g) => {
-          g.filter = "blur(3px)";
           g.font = `600 ${c.size}px ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace`;
           c.cells.forEach((cell, n) => {
             const y = (((H - n * c.step) % c.total) + c.total) % c.total;
             g.fillStyle = cell.tint < 0.18 ? `rgba(${UP},0.17)` : cell.tint < 0.3 ? `rgba(${DOWN},0.16)` : `rgba(${SKY},0.1)`;
             for (const shift of [-c.total, 0, c.total]) g.fillText(cell.v, 8, y + shift);
           });
-        });
+        }, 0.35);
       }
       const walk = new Array(80).fill(0);
       let y = 0.5;
@@ -113,7 +117,7 @@
         ctx.fillStyle = LIGHT ? PAPER[0] : "#06101c"; ctx.fillRect(0, 0, W, H);
         for (const c of cols) {
           const o = -((t * c.speed) % c.total);
-          for (let top = o; top < H; top += c.total) ctx.drawImage(c.strip, c.x - 8, top);
+          for (let top = o; top < H; top += c.total) put(c.strip, c.x - 8, top);
         }
         ctx.strokeStyle = `rgba(${SKY},0.4)`; ctx.lineWidth = 5; ctx.beginPath();
         walk.forEach((v, i) => { const x = i * (W / (walk.length - 12)) - (t * 22) % (W / (walk.length - 12)); i ? ctx.lineTo(x, v * H) : ctx.moveTo(x, v * H); });
@@ -129,7 +133,6 @@
       // The whole chart, once: every bar and the average, drawn twice side by side as it moves, so it
       // wraps round. (One canvas wider than 4,096 px is left blank by Chrome when it is blurred.)
       const strip = layer(n * gap, H, (g) => {
-        g.filter = "blur(1px)";
         for (let i = 0; i < n; i++) {
           const b = bars[i], x = i * gap, color = b.close < b.open ? UP : DOWN;
           g.strokeStyle = `rgba(${color},0.5)`; g.lineWidth = 3;
@@ -143,26 +146,28 @@
           const x = i * gap + 11, y = (sum / 6) * H; i ? g.lineTo(x, y) : g.moveTo(x, y);
         }
         g.stroke();
-      });
+      }, 0.5);
       paint = (t) => {
         ctx.fillStyle = LIGHT ? PAPER[0] : "#07090b"; ctx.fillRect(0, 0, W, H);
         ctx.strokeStyle = LIGHT ? "rgba(21,18,13,0.06)" : "rgba(255,255,255,0.05)"; ctx.lineWidth = 2;
         for (let y = 100; y < H; y += 160) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
         const x = -((t * 26) % (n * gap));
-        ctx.drawImage(strip, x, 0);
-        ctx.drawImage(strip, x + n * gap, 0);
+        put(strip, x, 0);
+        put(strip, x + n * gap, 0);
       };
     } else if (kind === "grid") {
       const pts = [];
       let v = 0.3;
       for (let i = 0; i < 60; i++) { v = clamp(v + (rnd() - 0.42) * 0.05, 0.05, 0.95); pts.push(v); }
       const horizon = H * 0.58;
-      const glow = layer(W, H, (g) => {   // the glowing line, whole, once; each frame shows more of it
-        g.shadowColor = `rgba(${AMBER},0.9)`; g.shadowBlur = 30;
-        g.strokeStyle = `rgba(${AMBER},0.75)`; g.lineWidth = 6; g.beginPath();
+      const line = (g, width, alpha) => {
+        g.strokeStyle = `rgba(${AMBER},${alpha})`; g.lineWidth = width; g.lineJoin = "round"; g.beginPath();
         pts.forEach((p, i) => { const x = 60 + i * ((W - 120) / pts.length), y = horizon - p * horizon * 0.55; i ? g.lineTo(x, y) : g.moveTo(x, y); });
         g.stroke();
-      });
+      };
+      // The glow: the line drawn wide and faint, very small, so it spreads when drawn larger; the line itself on top.
+      const glow = layer(W, H, (g) => { line(g, 40, 0.35); line(g, 18, 0.5); }, 0.12);
+      const sharp = layer(W, H, (g) => line(g, 6, 0.75));
       paint = (t) => {
         const g = ctx.createLinearGradient(0, 0, 0, H);
         if (LIGHT) { g.addColorStop(0, PAPER[2]); g.addColorStop(0.55, PAPER[1]); g.addColorStop(1, PAPER[0]); }
@@ -178,7 +183,10 @@
         ctx.globalAlpha = 1;
         const shown = clamp(0.35 + t / 12, 0, 1) * pts.length;
         const cut = Math.min(W, 60 + shown * ((W - 120) / pts.length) + 30);
-        if (cut > 0) ctx.drawImage(glow, 0, 0, cut, H, 0, 0, cut, H);
+        if (cut > 0) {
+          ctx.drawImage(glow, 0, 0, cut * glow.width / W, glow.height, 0, 0, cut, H);
+          ctx.drawImage(sharp, 0, 0, cut, H, 0, 0, cut, H);
+        }
       };
     } else if (kind === "city") {
       const towers = [], stars = [];
