@@ -58,6 +58,7 @@
   // --- The background ----------------------------------------------------------------------------
   const canvas = document.querySelector("canvas.bg");
   const kind = document.body.dataset.bg || "tape";
+  const LIGHT = document.body.classList.contains("light");   // the lighter look: paper, darker strokes
   const seedOf = (text) => [...text].reduce((h, c) => (Math.imul(h ^ c.charCodeAt(0), 2654435761) >>> 0), 2166136261);
   const random = (seed) => () => {
     seed = (seed + 0x6d2b79f5) >>> 0;
@@ -74,7 +75,9 @@
     const ctx = canvas.getContext("2d");
     const W = canvas.width, H = canvas.height;
     const rnd = random(seed);
-    const UP = "53,201,143", DOWN = "255,107,87", AMBER = "242,193,78", SKY = "99,179,255";
+    const UP = LIGHT ? "18,146,92" : "53,201,143", DOWN = LIGHT ? "224,68,47" : "255,107,87";
+    const AMBER = LIGHT ? "194,124,0" : "242,193,78", SKY = LIGHT ? "47,127,214" : "99,179,255";
+    const PAPER = LIGHT ? ["#f2ede3", "#e9e1d0", "#f6f2ea"] : null;
 
     if (kind === "tape") {
       const cols = Array.from({ length: 7 }, (_, i) => ({
@@ -85,7 +88,7 @@
       let y = 0.5;
       for (let i = 0; i < walk.length; i++) { y = clamp(y + (rnd() - 0.48) * 0.08, 0.15, 0.85); walk[i] = y; }
       paint = (t) => {
-        ctx.fillStyle = "#06101c"; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = LIGHT ? PAPER[0] : "#06101c"; ctx.fillRect(0, 0, W, H);
         ctx.filter = "blur(3px)";
         for (const c of cols) {
           ctx.font = `600 ${c.size}px ui-monospace, Menlo, monospace`;
@@ -110,8 +113,8 @@
         bars.push({ open, close, high: Math.min(open, close) - rnd() * 0.03, low: Math.max(open, close) + rnd() * 0.03 });
       }
       paint = (t) => {
-        ctx.fillStyle = "#07090b"; ctx.fillRect(0, 0, W, H);
-        ctx.strokeStyle = "rgba(255,255,255,0.05)"; ctx.lineWidth = 2;
+        ctx.fillStyle = LIGHT ? PAPER[0] : "#07090b"; ctx.fillRect(0, 0, W, H);
+        ctx.strokeStyle = LIGHT ? "rgba(21,18,13,0.06)" : "rgba(255,255,255,0.05)"; ctx.lineWidth = 2;
         for (let y = 100; y < H; y += 160) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
         const gap = 34, off = (t * 26) % gap, start = Math.floor(t * 26 / gap);
         ctx.filter = "blur(1px)";
@@ -136,7 +139,8 @@
       for (let i = 0; i < 60; i++) { v = clamp(v + (rnd() - 0.42) * 0.05, 0.05, 0.95); pts.push(v); }
       paint = (t) => {
         const g = ctx.createLinearGradient(0, 0, 0, H);
-        g.addColorStop(0, "#03060d"); g.addColorStop(0.55, "#071528"); g.addColorStop(1, "#02040a");
+        if (LIGHT) { g.addColorStop(0, PAPER[2]); g.addColorStop(0.55, PAPER[1]); g.addColorStop(1, PAPER[0]); }
+        else { g.addColorStop(0, "#03060d"); g.addColorStop(0.55, "#071528"); g.addColorStop(1, "#02040a"); }
         ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
         const horizon = H * 0.58;
         ctx.strokeStyle = `rgba(${SKY},0.22)`; ctx.lineWidth = 2;
@@ -160,12 +164,13 @@
       for (let i = 0; i < 120; i++) stars.push({ x: rnd() * W, y: rnd() * H * 0.45, r: rnd() * 2 + 0.5, p: rnd() * 6 });
       paint = (t) => {
         const g = ctx.createLinearGradient(0, 0, 0, H);
-        g.addColorStop(0, "#050914"); g.addColorStop(0.6, "#0b1730"); g.addColorStop(1, "#05070c");
+        if (LIGHT) { g.addColorStop(0, "#f7f3ec"); g.addColorStop(0.6, "#ebe2cf"); g.addColorStop(1, "#e4dac5"); }
+        else { g.addColorStop(0, "#050914"); g.addColorStop(0.6, "#0b1730"); g.addColorStop(1, "#05070c"); }
         ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-        for (const s of stars) { ctx.fillStyle = `rgba(255,255,255,${0.25 + 0.25 * Math.sin(t * 1.3 + s.p)})`; ctx.fillRect(s.x, s.y, s.r, s.r); }
+        if (!LIGHT) for (const s of stars) { ctx.fillStyle = `rgba(255,255,255,${0.25 + 0.25 * Math.sin(t * 1.3 + s.p)})`; ctx.fillRect(s.x, s.y, s.r, s.r); }
         const base = H * 0.86, drift = Math.sin(t * 0.15) * 12;
         for (const tw of towers) {
-          ctx.fillStyle = "#03050a"; ctx.fillRect(tw.x + drift, base - tw.h, tw.w, tw.h + 200);
+          ctx.fillStyle = LIGHT ? "rgba(120,100,70,0.16)" : "#03050a"; ctx.fillRect(tw.x + drift, base - tw.h, tw.w, tw.h + 200);
           const r = random(Math.floor(tw.x * 1000));
           for (let wy = base - tw.h + 30; wy < base; wy += 34) for (let wx = tw.x + 14; wx < tw.x + tw.w - 14; wx += 26) {
             if (r() < 0.32 * (0.5 + tw.lit)) { ctx.fillStyle = `rgba(${AMBER},${0.25 + r() * 0.35})`; ctx.fillRect(wx + drift, wy, 10, 14); }

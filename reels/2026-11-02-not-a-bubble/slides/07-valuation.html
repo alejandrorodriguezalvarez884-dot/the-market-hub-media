@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Valuations: the S&P 500 at 24.4x forward earnings in March 2000, 18.7x today -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .vs { font-size: 38px; font-weight: 700; color: var(--muted); }
+</style>
+</head>
+<body class="light" data-bg="candles">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker in">¿Y las valoraciones?</p>
+<h1 class="small in">Veces los beneficios <span class="y">esperados</span></h1>
+<div class="card in" data-say="marzo">
+  <p class="label">S&amp;P 500 · PER a doce meses · FactSet</p>
+  <div class="line" data-say="marzo"><span class="name">Marzo de 2000</span><span class="fig r" data-count="24.4" data-decimals="1" data-suffix="x" data-say="veinticuatro"></span><span class="bar"><i class="r" style="--w: 100%"></i></span></div>
+  <div class="line" data-say="hoy"><span class="name">Hoy</span><span class="fig g" data-count="18.7" data-decimals="1" data-suffix="x" data-say="diecinueve"></span><span class="bar"><i class="g" style="--w: 77%"></i></span></div>
+  <div class="line" data-say="media"><span class="name">Media de 10 años</span><span class="fig dim">19,1x</span><span class="bar"><i style="--w: 78%"></i></span></div>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

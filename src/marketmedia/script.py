@@ -89,6 +89,7 @@ class Script:
     episode: int | None = None
     kind: str = ""               # "" for a video, "trailer" for one that presents a series, "reel" for a daily reel
     chapters: tuple[tuple[str, str], ...] = ()   # (the scene it starts at, its title)
+    voice: str = ""              # a reel's voice, one of [reel.voices] in channel.toml ("" for the reels' own)
 
     def cut(self, short: bool = False) -> list[Scene]:
         """The scenes of the video, or those of its Short. A daily reel is upright and whole: every
@@ -190,6 +191,7 @@ def parse(text: str, name: str = "script.md") -> Script:
         series=_text(data.get("series")),
         episode=int(_text(data.get("episode"))) if _text(data.get("episode")).isdigit() else None,
         kind=_text(data.get("kind")).lower(),
+        voice=_text(data.get("voice")).lower(),
     )
 
 

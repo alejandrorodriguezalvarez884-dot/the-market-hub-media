@@ -15,8 +15,9 @@ you decided.
 
 Everything in `CLAUDE.md` holds, above all: **describe and explain, never advise** (no buy, sell
 or hold, no targets, no predictions of our own); **every figure comes from a source read in this
-run**, with its time; **nothing made by others** on the slides (no logos, photos, stock footage or
-faces: the backgrounds are drawn by `theme/reel.js`). The reels have no presenter: a format of
+run**, with its time; **nothing made by others** on the slides (no photos, stock footage or faces: the
+backgrounds are drawn by `theme/reel.js`), except **the logo of a company the reel names**
+(the user, 2026-11-02), from `theme/logos/`. The reels have no presenter: a format of
 its own, like the demo.
 
 The argument is the moment: `open` or `close`. Work from the root of `the-market-hub-media`.
@@ -109,7 +110,11 @@ the same pieces in another order is the format. Each scene:
 - `.g` / `.r` and `▲` / `▼` only for what went up or down. Figures in the Spanish way
   (28,6 %; 115.000), `data-count` for one that counts up. Every figure on screen says when it is
   from if it is not the time of the reel.
-- No logos, emojis, photos or anything loaded from the network. The account's own picture
+- **A company's logo whenever the scene names it**: `<span class="logo"><img src="../../../theme/logos/meta.svg" alt="Meta"></span>`
+  in the headline or beside its name in a card (`.logo.big` for a scene about one company). The
+  logos are in `theme/logos/` (`SOURCES.md` says where each comes from); one that is missing is
+  added there the same way, from Simple Icons, or the name goes as text.
+- No emojis, photos or anything loaded from the network. The account's own picture
   (`channel/instagram-profile.jpg`) may close the reel.
 - Keep everything between 250 and 1450 px from the top and clear of the right edge: Instagram
   puts its own buttons and the caption over the rest.
@@ -164,5 +169,19 @@ git push
 
 - More than one reel per moment and day, or a reel on a day Wall Street is shut.
 - A figure without its source, a prediction, a price target, or anything that reads as advice.
-- Logos, photos, footage, music or faces of others; anything loaded from the network.
+- Photos, footage, music or faces of others; anything loaded from the network (logos only from
+  `theme/logos/`).
 - Use the browser to publish, or reply to, like, follow or message anyone.
+
+## A reel the user asks for, to think something through
+
+The user also asks for reels one by one, "more reflective" (2026-11-02): a thesis about the
+markets, argued with sources (for example, that the reaction to big tech's results is not how a
+bubble behaves). They follow this skill with these differences:
+
+- The folder is `reels/<date>-<a-few-words>/` (`make reelnew MOMENT=<a-few-words>`).
+- The script says `voice: reflexion` (Julián, a little more enthusiastic than his sample).
+- The look is light: `<body class="light" data-bg="...">`.
+- It may defend an opinion, said as one ("no parece una burbuja"), with the facts that support it
+  and what would contradict it; never advice, never a price prediction.
+- It is published when the user's request says so ("súbelo"), and only then.

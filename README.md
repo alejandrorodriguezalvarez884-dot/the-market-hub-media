@@ -216,7 +216,11 @@ make reelpost REEL=<folder>     # publish it once, write instagram.json, tell th
 
 A reel is a folder like a video's, with `kind: reel` in its script: upright only, no presenter,
 no intro or outro, no thumbnail. Its slides use `theme/reel.css` and `theme/reel.js`, whose
-backgrounds (tape, candles, grid, city) are drawn there, never taken from anyone. Its caption is
+backgrounds (tape, candles, grid, city) are drawn there, never taken from anyone. Besides the daily two, the owner asks for reels one by one, to think something through: their
+folder is `reels/<date>-<a-few-words>/` (`make reelnew MOMENT=<a-few-words>`), their script says
+`voice: reflexion` (Julián, `[reel.voices.reflexion]`) and their slides are light
+(`<body class="light">`). A company the slides name shows its logo, from `theme/logos/`
+(`SOURCES.md` there). Its caption is
 `caption.txt` and must carry its sources and `[reel] disclaimer` of `channel.toml`. The voice
 (ElevenLabs: engine, voice, model and `[reel.settings]`), the pace and the length are in `[reel]`;
 its key is in `.secrets/elevenlabs-key.txt` or `ELEVENLABS_API_KEY` (the owner's, in Secret

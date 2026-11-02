@@ -77,6 +77,7 @@ class Channel:
     # The daily reels (reels.py): their own language, length, pace and voice
     reel_language: str = "es"
     reel_seconds: tuple[float, float] = (40.0, 120.0)
+    reel_asked_seconds: tuple[float, float] = (40.0, 180.0)   # a reel the owner asks for, not a daily one
     reel_words_per_minute: int = 175
     reel_gap_seconds: float = 0.2
     reel_voice_name: str = ""
@@ -90,9 +91,21 @@ class Channel:
     reel_voice_engine: str = "google"
     reel_voice_model: str = ""
     reel_voice_settings: tuple = ()
+    reel_voices: tuple = ()                # (name, voice, model, settings): other voices a reel may ask for
 
-    def for_reels(self) -> "Channel":
-        """The channel as a daily reel sees it: its voice, its language and its pace."""
+    def reel_voice_names(self) -> list[str]:
+        return [name for name, *_ in self.reel_voices]
+
+    def for_reels(self, voice: str = "") -> "Channel":
+        """The channel as a reel sees it: its voice, its language and its pace. ``voice`` names
+        another of [reel.voices] (a script's "voice:"), for a reel that is not a daily one."""
+        if voice:
+            found = [v for v in self.reel_voices if v[0] == voice]
+            if not found:
+                raise ValueError(f"'voice: {voice}' is not one of [reel.voices] in channel.toml"
+                                 + (f" ({', '.join(self.reel_voice_names())})" if self.reel_voices else ""))
+            _, name, model, settings = found[0]
+            return replace(self.for_reels(), voice_name=name, voice_model=model or self.reel_voice_model, voice_settings=settings)
         return replace(self, language=self.reel_language, words_per_minute=self.reel_words_per_minute,
                        gap_seconds=self.reel_gap_seconds, voice_name=self.reel_voice_name,
                        voice_language=self.reel_voice_language, voice_rate=self.reel_voice_rate,
@@ -148,6 +161,7 @@ def load(path: Path | None = None) -> Channel:
         x_handle=x.get("handle", ""),
         reel_language=reel.get("language", "es"),
         reel_seconds=_range(reel.get("seconds"), (40, 120)),
+        reel_asked_seconds=_range(reel.get("asked_seconds"), (40, 180)),
         reel_words_per_minute=int(reel.get("words_per_minute", 175)),
         reel_gap_seconds=float(reel.get("gap_seconds", 0.2)),
         reel_voice_name=reel.get("voice", ""),
@@ -157,4 +171,6 @@ def load(path: Path | None = None) -> Channel:
         reel_voice_engine=reel.get("engine", "google"),
         reel_voice_model=reel.get("model", ""),
         reel_voice_settings=tuple(sorted(reel.get("settings", {}).items())),
+        reel_voices=tuple((name, v.get("voice", ""), v.get("model", ""), tuple(sorted(v.get("settings", {}).items())))
+                          for name, v in reel.get("voices", {}).items()),
     )

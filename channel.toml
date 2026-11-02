@@ -71,7 +71,8 @@ seconds = 12                         # held at least this long: YouTube's end sc
 # Each is a folder in reels/ (skill daily-reel), upright only, with no presenter: a format of its own.
 [reel]
 language = "es"
-seconds = [40, 120]                  # how long a reel runs (the reference reels run 1:37 to 1:43)
+seconds = [40, 120]                  # how long a daily reel runs (the reference reels run 1:37 to 1:43)
+asked_seconds = [40, 180]            # how long a reel the owner asks for may run (a reflection takes longer)
 words_per_minute = 175               # the pace assumed for a scene whose narration is not made yet
 gap_seconds = 0.2                    # silence left after each scene: a reel keeps moving
 # The narration: ElevenLabs (the owner, 2026-11-02, after the Google voice sounded flat), with the
@@ -82,6 +83,18 @@ voice = "xH6DmlUWSqhSmFog5gxa"        # Dani
 voice_language = "es-ES"
 model = "eleven_multilingual_v2"
 disclaimer = "Contenido informativo de The Market Hub. No es una recomendación de inversión."
+
+# The reels the owner asks for one by one, to think something through (voice: reflexion in the
+# script): Julián, "a touch more enthusiastic, not much" than in his sample (the owner, 2026-11-02).
+[reel.voices.reflexion]
+voice = "5Wn4TM7bYDwN5uDN0DpC"        # Julián
+model = "eleven_multilingual_v2"
+
+[reel.voices.reflexion.settings]
+stability = 0.35
+similarity_boost = 0.8
+style = 0.45
+use_speaker_boost = true
 
 [reel.settings]                      # as in the sample the owner picked
 stability = 0.4

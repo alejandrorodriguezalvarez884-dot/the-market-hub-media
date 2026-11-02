@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Last week: strong growth, shares punished; Microsoft beat and closed flat -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .vs { font-size: 38px; font-weight: 700; color: var(--muted); }
+</style>
+</head>
+<body class="light" data-bg="candles">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker in">La semana pasada</p>
+<h1 class="small in">El mercado <span class="r">no perdonó</span></h1>
+<div class="card in" data-say="intel">
+  <p class="label">Crecimiento → la acción al día siguiente</p>
+  <div class="line fade" data-say="intel"><span class="name"><span class="firm"><span class="logo"><img src="../../../theme/logos/intel.svg" alt="Intel"></span> Intel</span><small>Ventas +21 %</small></span><span class="fig r">−28,6 %</span></div>
+  <div class="line fade" data-say="servicenow"><span class="name">ServiceNow<small>Suscripciones +21 %</small></span><span class="fig r">−27,0 %</span></div>
+  <div class="line fade" data-say="microsoft"><span class="name"><span class="firm"><span class="logo"><img src="../../../theme/logos/microsoft.svg" alt="Microsoft"></span> Microsoft</span><small>Ventas +19 %, mejor de lo esperado</small></span><span class="fig dim">−0,2 %</span></div>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- eToys' first day: worth more than Toys R Us, selling 300 times less, at a loss -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .vs { font-size: 38px; font-weight: 700; color: var(--muted); }
+</style>
+</head>
+<body class="light" data-bg="city">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker sky in">20 de mayo de 1999</p>
+<h1 class="small in">eToys vale más que <span class="y">Toys “R” Us</span></h1>
+<div class="pair">
+  <div class="card amber in" data-say="etoys">
+    <p class="label">eToys</p>
+    <h2>7.780 M$</h2>
+    <p class="note">Ventas: 30 M$<br>En pérdidas</p>
+  </div>
+  <div class="card in" data-say="toys">
+    <p class="label">Toys “R” Us</p>
+    <h2>5.650 M$</h2>
+    <p class="note">Ventas: 11.200 M$<br>Beneficio: 376 M$</p>
+  </div>
+</div>
+<span class="sticker pop" data-say="vendiendo">Vendía 300 veces menos</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

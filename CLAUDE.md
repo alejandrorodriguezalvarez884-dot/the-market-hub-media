@@ -46,7 +46,16 @@ presentador** ni intro ni cierre del canal: es un formato propio, como la demo. 
 carpeta `reels/<fecha>-<open|close>/` (guion `kind: reel`, diapositivas, `caption.txt`, los datos
 leídos en `data/`), se monta con `make reel` y se publica con `make reelpost`, que no publica dos
 veces la misma carpeta. Las reglas de siempre valen igual: describir, no aconsejar; toda cifra con
-su fuente y su hora; nada de material ajeno. Sin emojis, también en el pie.
+su fuente y su hora; nada de material ajeno salvo los logotipos de las empresas que se nombran.
+Sin emojis, también en el pie.
+
+**Además, reels sueltos de reflexión** (decisión del usuario, 2026-11-02): aparte de los dos
+diarios, el usuario pide reels puntuales "más reflexivos" sobre un tema (por ejemplo, si los
+resultados de las grandes dicen que esto es o no una burbuja). Mismo formato y mismas reglas, con
+tres diferencias: la carpeta es `reels/<fecha>-<unas-palabras>/`; el guion dice `voice: reflexion`,
+que es **Julián** con "un poco más de entusiasmo, no te pases" (`[reel.voices.reflexion]`); y el
+aspecto es **claro**, no tan oscuro (`<body class="light">`). Pueden defender una tesis (opinar sí),
+nunca aconsejar ni predecir precios, y se publican cuando el usuario lo pide en la misma petición.
 
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
@@ -65,7 +74,10 @@ Reglas que no se negocian:
   brief con su dirección y que el vídeo lista en su descripción. No se inventan datos, citas ni
   fuentes, y no se escribe de memoria sobre lo que pasó: se comprueba.
 - **Nada de material ajeno.** Ni textos copiados, ni imágenes, música o vídeo de terceros, ni
-  logotipos, ni caras de personas reales. Cada diapositiva y cada miniatura se dibujan aquí, como
+  caras de personas reales. **Los logotipos de empresas sí, cuando hace falta** (decisión del
+  usuario, 2026-11-02, para todos los vídeos y reels): cuando una escena nombra a una empresa, su
+  logotipo, siempre desde `theme/logos/` (Simple Icons, CC0, o dibujado aquí; ver
+  `theme/logos/SOURCES.md`), nunca cargado de la red. Cada diapositiva y cada miniatura se dibujan aquí, como
   código (HTML o SVG), y se convierten en imagen con el Chrome de esta máquina. No se usa ningún
   servicio ni modelo de generación de imágenes.
 - **El presentador es un dibujo hecho aquí** (`theme/presenter.js`): medio cuerpo, con manos, que

@@ -355,11 +355,14 @@ def _reelnew(args, channel) -> int:
 
 
 def _reelcheck(args, channel) -> int:
-    channel = channel.for_reels()
     wanted = [reels.find(args.reel)] if args.reel else [r for r in reels.every() if r.stage() != "published"]
     bad = 0
     for reel in wanted:
-        found = reels.problems(reel, channel)
+        try:
+            seen = reels.voiced(reel, channel)
+        except (scripts.Invalid, ValueError):
+            seen = channel.for_reels()
+        found = reels.problems(reel, seen)
         bad += bool(found)
         print(f"{reel.name}: {'ok' if not found else ''}")
         for problem in found:
@@ -371,9 +374,9 @@ def _reelcheck(args, channel) -> int:
 
 def _reel(args, channel) -> int:
     """Speak the reel (what is not spoken yet), draw its frames and make its film."""
-    channel = channel.for_reels()
     reel = reels.find(args.reel)
     script = scripts.load(reel.script)
+    channel = channel.for_reels(script.voice)
     todo = voice.pending(reel, script, channel)
     if todo:
         print(f"{len(todo)} scenes to speak, {sum(len(s.narration) for s in todo)} characters, with {channel.voice_name}")
@@ -392,8 +395,8 @@ def _reel(args, channel) -> int:
 
 def _reelpost(args, channel) -> int:
     """Publish a daily reel on Instagram, once, with its caption.txt under it."""
-    channel = channel.for_reels()
     reel = reels.find(args.reel)
+    channel = reels.voiced(reel, channel)
     if reel.published.is_file() and not args.again:
         print(f"{reel.name} is already on Instagram: {(reel.record() or {}).get('url')}  (--again to publish it once more)")
         return 1
@@ -469,7 +472,7 @@ def main(argv: list[str] | None = None) -> int:
     recording.add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
     commands.add_parser("xfront").add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
     starting = commands.add_parser("reelnew")
-    starting.add_argument("moment", choices=reels.MOMENTS)
+    starting.add_argument("moment", help="open, close, or a few words for a reel asked for by hand")
     starting.add_argument("--date", help="the day, like 2026-11-02 (today if not said)")
     commands.add_parser("reelcheck").add_argument("reel", nargs="?")
     making = commands.add_parser("reel")

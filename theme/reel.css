@@ -147,3 +147,34 @@ p.lead { font-size: 46px; line-height: 1.18; font-weight: 600; color: var(--ink-
 @keyframes reel-pop { from { opacity: 0; scale: 0.4; } to { opacity: 1; scale: 1; } }
 @keyframes reel-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes reel-mark { from { background-size: 0% 84%; } to { background-size: 100% 84%; color: #1a1205; } }
+
+/* A lighter look, for the reels the owner asks for one by one ("no tan oscuro", 2026-11-02):
+   <body class="light" data-bg="...">. Warm paper instead of night; the same pieces. */
+body.light { --page: #f2ede3; --ink: #3a352c; --ink-strong: #15120d; --muted: #6f695d; --faint: #a39d90;
+             --card: rgba(255, 255, 255, 0.92); --card-line: rgba(21, 18, 13, 0.1); --amber: #c27c00;
+             --tag: #15120d; --on-tag: #f6f1e7; --up: #12925c; --down: #e0442f; --sky: #2f7fd6; background: var(--page); }
+body.light::before { background:
+    linear-gradient(180deg, rgba(242, 237, 227, 0.9) 0%, rgba(242, 237, 227, 0.55) 34%, rgba(242, 237, 227, 0.6) 62%, rgba(242, 237, 227, 0.94) 100%); }
+body.light[data-bg="plain"] { background: radial-gradient(90% 60% at 50% 30%, #fbf8f2, #ece5d7 75%); }
+body.light h1, body.light p.lead { text-shadow: none; }
+body.light .card { box-shadow: 0 18px 50px rgba(60, 45, 20, 0.12); }
+body.light .card.paper { background: #15120d; color: #f6f1e7; }
+body.light .card.paper h2 { color: #f6f1e7; }
+body.light .brand { color: rgba(21, 18, 13, 0.7); }
+body.light .bar { background: rgba(21, 18, 13, 0.08); }
+body.light .sticker { box-shadow: 0 12px 30px rgba(60, 45, 20, 0.18); }
+body.light .sticker.tag { background: #15120d; color: #f6f1e7; }
+body.light .mark img { border-color: rgba(21, 18, 13, 0.2); }
+
+/* A company's logo (theme/logos/<name>.svg), on a white tile so every brand colour reads:
+     <span class="logo"><img src="../../../theme/logos/meta.svg" alt="Meta"></span>
+   .logo.big for a scene about one company; .logo.word adds its name beside it. */
+.logo { display: inline-flex; align-items: center; justify-content: center; gap: 14px; height: 1.05em; min-width: 1.05em;
+        padding: 0.14em; border-radius: 0.22em; background: #fff; vertical-align: -0.12em;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); }
+.logo img { height: 100%; width: auto; display: block; }
+.logo.word { padding: 0.14em 0.4em 0.14em 0.18em; font-size: inherit; }
+.logo.word b { font-size: 0.62em; font-weight: 800; color: #15120d; letter-spacing: -0.01em; }
+.logo.big { font-size: 120px; border-radius: 26px; }
+.line .name .logo { font-size: 46px; margin-right: 18px; }
+.firm { display: inline-flex; align-items: center; gap: 18px; }

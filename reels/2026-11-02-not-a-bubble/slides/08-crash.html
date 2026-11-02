@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- It ended badly: the Nasdaq lost 78% and took 15 years to recover -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .vs { font-size: 38px; font-weight: 700; color: var(--muted); }
+</style>
+</head>
+<body class="light" data-bg="candles">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker red in">Aquello acabó mal</p>
+<h1 class="in">El Nasdaq</h1>
+<div class="card down in" data-say="perdio">
+  <p class="label">Marzo de 2000 → octubre de 2002</p>
+  <div class="big" style="color: var(--down)"><span data-count="78" data-prefix="−" data-say="ochenta"></span><small>%</small></div>
+</div>
+<span class="sticker tag pop" data-say="quince">15 años para recuperarse</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

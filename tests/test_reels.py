@@ -119,8 +119,10 @@ def test_a_new_reel_is_the_template_for_a_day_and_a_moment(tmp_path):
     assert reels.find("close", root=tmp_path) == reel
     with pytest.raises(ValueError, match="there already"):
         reels.new("close", root=tmp_path, day="2026-11-02")
-    with pytest.raises(ValueError, match="open or the close"):
-        reels.new("noon", root=tmp_path, day="2026-11-02")
+    with pytest.raises(ValueError, match="not open, close or a few plain words"):
+        reels.new("¡No!", root=tmp_path, day="2026-11-02")
+    asked = reels.new("not-a-bubble", root=tmp_path, day="2026-11-02")
+    assert (asked.moment, asked.daily, reel.daily) == ("not-a-bubble", False, True)
 
 
 def test_a_reel_is_drawn_upright_only_and_has_no_thumbnail(reel, channel):
@@ -129,3 +131,20 @@ def test_a_reel_is_drawn_upright_only_and_has_no_thumbnail(reel, channel):
     assert [(name, viewport) for name, _, _, viewport, _ in drawn] == [
         ("01-hook", {"width": 1080, "height": 1920}), ("02-oil", {"width": 1080, "height": 1920})]
     assert all("short-frames" in str(still) for _, still, _, _, _ in drawn)
+
+
+def test_a_reel_may_name_another_voice(reel):
+    base = channels.load(REPO / "channel.toml")
+    reel.script.write_text(SCRIPT.replace("kind: reel\n", "kind: reel\nvoice: reflexion\n"), encoding="utf-8")
+    assert scripts.load(reel.script).voice == "reflexion"
+    seen = reels.voiced(reel, base)
+    assert seen.voice_name != base.for_reels().voice_name and seen.voice_engine == "elevenlabs"
+    assert dict(seen.voice_settings)["style"] > dict(base.for_reels().voice_settings)["style"]
+    assert seen.language == "es" and seen.reel_seconds == base.reel_seconds
+
+
+def test_a_voice_that_is_not_in_the_channel_is_refused(reel, channel):
+    reel.script.write_text(SCRIPT.replace("kind: reel\n", "kind: reel\nvoice: nadie\n"), encoding="utf-8")
+    assert "'voice: nadie' is not one of [reel.voices] in channel.toml" in reels.problems(reel, channel)
+    with pytest.raises(ValueError, match="nadie"):
+        channel.for_reels("nadie")
