@@ -8,6 +8,15 @@ from marketmedia import videos
 
 REPO = Path(__file__).resolve().parents[1]
 
+
+@pytest.fixture(autouse=True)
+def _no_cloud_settings(monkeypatch):
+    """A cloud session's environment (docs/reels.md) must not leak into the tests: each test that
+    wants one of these sets it itself."""
+    for name in ("INSTAGRAM_TOKEN_SECRET", "GOOGLE_SERVICE_ACCOUNT_JSON", "ELEVENLABS_KEY_BY_PROXY",
+                 "ELEVENLABS_API_KEY", "MEDIA_BROWSER", "INSTAGRAM_TOKEN"):
+        monkeypatch.delenv(name, raising=False)
+
 SCRIPT = """---
 title: What a buyback does to earnings per share
 description: A company that buys its own shares divides the same profit among fewer of them.

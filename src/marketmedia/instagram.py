@@ -142,7 +142,9 @@ def park(film: Path, bucket: str) -> tuple[str, Callable[[], None]]:
     import google.auth
     from google.auth.transport.requests import AuthorizedSession
     credentials, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"],
-                                         quota_project_id=os.environ.get("GOOGLE_CLOUD_PROJECT") or None)
+                                         # a service account bills its own project; naming one needs a role it lacks
+                                         quota_project_id=None if os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
+                                         else os.environ.get("GOOGLE_CLOUD_PROJECT") or None)
     session = AuthorizedSession(credentials)
     name = f"{secrets.token_urlsafe(24)}{film.suffix}"
     # no-store: Google would otherwise keep serving a public file for an hour after it is taken away
