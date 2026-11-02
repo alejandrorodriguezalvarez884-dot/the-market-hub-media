@@ -57,12 +57,14 @@ curl -s https://themarkethub.app/api/public/overview -o reels/<folder>/data/over
 - The web, with WebSearch (and a web-fetch agent for the pages): the day's live market coverage,
   the release or SEC filing of each company named, the agency of each economic figure.
 
-**The open** (made about 35 minutes after the bell): how the three indices are doing and against
+**The open** (started at 15:45 in Spain, a quarter of an hour after the bell; the user's time): how the three indices are doing and against
 what (Friday's or yesterday's close); what drives the day (one thing, explained: a figure, a
 deal, a war, a central bank); one or two large movers and why; what comes later today or tomorrow
 (results after the close, data, a vote), with the time in Spain and in New York.
 
-**The close** (made just after the bell): how the indices closed and how the day went from the
+**The close** (started a few minutes after 22:00 in Spain, the user's time): the closing figures
+must be in. If the overview still says `intraday: true`, or its `as_of` is before the bell, wait
+five minutes and read it again, for up to twenty minutes; then say which time the figures are from. how the indices closed and how the day went from the
 open; the best and worst sector; the large movers of the day and why; results released after the
 close, if out; what comes tomorrow, with its time.
 

@@ -204,8 +204,8 @@ and `YOUTUBE_TOKEN` move the two files, and `INSTAGRAM_TOKEN` the one of Instagr
 Two reels every weekday on Instagram, in Spanish: Wall Street's open and its close (the owner's
 decision, 2026-11-02). They are made and published with nobody watching, by the skill
 `daily-reel` (`.claude/skills/daily-reel/SKILL.md`), which two scheduled tasks of the Claude app
-on the owner's Mac start: `market-hub-reel-open` (weekdays, 16:05 in Madrid) and
-`market-hub-reel-close` (22:20).
+on the owner's Mac start: `market-hub-reel-open` (weekdays, 15:45 in Madrid: its cron says 15:37, because the app
+starts it about eight minutes late) and `market-hub-reel-close` (cron 22:00, so about 22:08).
 
 ```bash
 make reelnew MOMENT=open        # reels/<today>-open/, from templates/reel
