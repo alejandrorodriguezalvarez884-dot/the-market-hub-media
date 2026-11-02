@@ -184,4 +184,27 @@ bubble behaves). They follow this skill with these differences:
 - The look is light: `<body class="light" data-bg="...">`.
 - It may defend an opinion, said as one ("no parece una burbuja"), with the facts that support it
   and what would contradict it; never advice, never a price prediction.
-- It is published when the user's request says so ("súbelo"), and only then.
+- It is published when the user's request says so ("súbelo"), and only then: `make reelpost`,
+  then `make reelstory`, which publishes it also as stories (pieces of a minute at most, cut at
+  its scenes), for the user to gather into a highlight by hand (the API cannot make highlights).
+
+### A reel that teaches a concept
+
+The user also asks for **didactic reels**, one by one (2026-11-02): one stock-market concept
+explained (the first: bond yields against stocks, `reels/2026-11-02-bond-yields-vs-stocks/`,
+the example to copy). Same differences as above (their own folder, the light look), and:
+
+- The script says `voice: didactico` (Rafa).
+- Teach first with something anyone can picture (a loan, a seesaw), drawn on the slide and
+  marked "Ejemplo" when its numbers are made up; the real figures come after, with sources.
+  One idea per scene, a question before each answer, and a recap before the closing question.
+- **Always a nod to today's market**: read `https://themarkethub.app/api/public/overview` now
+  (GET only), keep it in `data/`, and use its figures with their time in Spain. History from
+  FRED (`https://fred.stlouisfed.org/graph/fredgraph.csv?id=<series>`, kept in `data/`) or a
+  named source.
+- Explain, do not argue a thesis: how something works and what it usually means, never what
+  anyone should do or where a price goes.
+- The brand line says `The Market Hub · Aprende`.
+- Published as a reel (`make reelpost`) **and as stories** (`make reelstory REEL=<folder>`,
+  after the reel), when the user asks for it. The user adds the stories by hand to the
+  highlight of these reels in the app; the API cannot.
