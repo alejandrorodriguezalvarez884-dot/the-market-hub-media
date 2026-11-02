@@ -210,6 +210,13 @@ the example to copy). Same differences as above (their own folder, the light loo
   anyone should do or where a price goes.
 - The brand line says `The Market Hub · Aprende`.
 - Published as a reel (`make reelpost`), when the user asks for it, and then **one story that
-  only points to the reel** (the user, 2026-11-02: not the reel cut into stories):
-  `make reelstory REEL=<folder> DRAW=1` to look at it, then without `DRAW`. The user adds it by
-  hand to the highlight of these reels in the app ("Aprende", proposed); the API cannot.
+  is the reel re-posted with something more** (the user, 2026-11-02: "quiero que la historia sea
+  el reel resubido con algo más"; never the reel cut into several stories): its opening scenes,
+  cut at a scene boundary within a minute, with its voice, playing in a card under "Nuevo reel ·
+  Aprende" and the title, above "Míralo entero en el perfil". Until `make reelstory` does it,
+  copy `story-frame.html` and `story_video.py` from `reels/2026-11-02-bond-yields-vs-stocks/`,
+  draw the frame (`make story STORY=<folder>/story-frame.html DRAW=1`), run
+  `uv run python <folder>/story_video.py <folder> <scenes>`, look at `build/story-at-*.png`,
+  publish `make story STORY=<folder>/build/story-video.mp4` and add its id under `stories` in the
+  reel's `instagram.json`. The user adds it by hand to the highlight of these reels in the app
+  ("Aprende", proposed); the API cannot.

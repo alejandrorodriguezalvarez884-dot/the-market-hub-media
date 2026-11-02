@@ -12,6 +12,15 @@
       "kind": "mention",
       "picture": "story.jpg",
       "note": "one story that points to the reel (the owner: stories mention the reel, they do not carry it cut into pieces)"
+    },
+    {
+      "id": "17990024979115990",
+      "uploaded_utc": "2026-11-02T18:31:00+00:00",
+      "kind": "reel",
+      "film": "build/story-video.mp4",
+      "from": 0.0,
+      "to": 43.11,
+      "note": "the reel's first three scenes playing in story-frame.html, with 'Nuevo reel' and 'Míralo entero en el perfil' (the owner: the story is the reel re-posted with something more)"
     }
   ]
 }

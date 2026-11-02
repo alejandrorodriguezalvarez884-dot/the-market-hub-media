@@ -70,11 +70,15 @@ reflexión, con estas diferencias: el guion dice `voice: didactico`, que es **Ra
 (`[reel.voices.didactico]`); se enseña primero con algo que cualquiera se imagina (un préstamo,
 un balancín) y después llegan las cifras; **siempre hacen un guiño al mercado de hoy**, con
 cifras leídas en la sesión y su hora (el portal: `/api/public/overview`); explican, no opinan ni
-aconsejan; y, además del reel (`make reelpost`), llevan **una historia que solo menciona el
-reel**, no el reel troceado (el usuario, 2026-11-02: "la historia tiene que ser solo mencionando
-al reel"): `make reelstory`, como en los de reflexión (la del primero se dibujó a mano, en su
-`story.html`, antes de que `reelstory` la hiciera). El usuario la destaca a mano en la app, en su
-propia sección de historias destacadas, "Aprende" (nombre propuesto; la API no crea destacadas).
+aconsejan; y, además del reel (`make reelpost`), llevan **una sola historia que es el reel
+resubido con algo más**, no el reel troceado (el usuario, 2026-11-02: "la historia tiene que ser
+solo mencionando al reel", y después "quiero que la historia sea el reel resubido con algo más"):
+sus primeras escenas, cortadas en un final de escena dentro del minuto que admite una historia,
+con su voz, dentro de una tarjeta, con "Nuevo reel · Aprende" y el título encima y "Míralo entero
+en el perfil" debajo. La del primero se hizo a mano (`story-frame.html` y `story_video.py` en su
+carpeta; publicada con `make story`); `make reelstory` todavía publica solo una imagen. El
+usuario la destaca a mano en la app, en su propia sección de historias destacadas, "Aprende"
+(nombre propuesto; la API no crea destacadas).
 
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras

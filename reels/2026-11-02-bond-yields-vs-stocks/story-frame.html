@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- The frame of this reel's story (the owner, 2026-11-02: "quiero que la historia sea el reel
+     resubido con algo más"): the reel plays in the card in the middle, as when a reel is shared
+     to a story, with the line, the title and where to see it whole around it. The card's place
+     (234, 440, 612 x 1088) is where story.mp4 lays the reel; keep the two together. The top and
+     the bottom 250 px stay clear: Instagram lays the account's name and the reply box over them. -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../theme/reel.css">
+<style>
+  .top { position: absolute; left: 0; right: 0; top: 262px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .top h1 { font-size: 76px; }
+  .slot { position: absolute; left: 234px; top: 440px; width: 612px; height: 1088px; border-radius: 36px;
+          background: #15120d; box-shadow: 0 26px 70px rgba(60, 45, 20, 0.28), 0 0 0 4px rgba(21, 18, 13, 0.9); }
+  .foot { position: absolute; left: 0; right: 0; top: 1560px; display: flex; justify-content: center; }
+  .foot .sticker { transform: none; font-size: 50px; padding: 16px 36px 18px; }
+</style>
+</head>
+<body class="light" data-bg="grid" data-seed="9">
+<canvas class="bg"></canvas>
+<div class="top">
+  <p class="kicker">Nuevo reel · Aprende</p>
+  <h1>Bonos <span class="y">contra</span> bolsa</h1>
+</div>
+<div class="slot"></div>
+<div class="foot"><span class="sticker tag">Míralo entero en el perfil</span></div>
+<script src="../../theme/reel.js"></script>
+</body>
+</html>
