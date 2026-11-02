@@ -21,6 +21,13 @@
       "from": 0.0,
       "to": 43.11,
       "note": "the reel's first three scenes playing in story-frame.html, with 'Nuevo reel' and 'Míralo entero en el perfil' (the owner: the story is the reel re-posted with something more)"
+    },
+    {
+      "kind": "shared from the app",
+      "by": "owner",
+      "date": "2026-11-02",
+      "note": "the reel shared to stories with the app's 'Añadir a tu historia', which opens the reel when tapped (the API cannot), and kept in the highlight 'Aprende'"
     }
-  ]
+  ],
+  "cover_note": "Instagram took frame 0 as the cover despite cover_ms (no headline yet, the 10-year yield still counting at '0,00 %'); the owner changed it in the app on 2026-11-02 to a frame showing 4,94 %"
 }

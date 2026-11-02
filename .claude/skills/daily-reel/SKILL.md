@@ -215,3 +215,8 @@ the example to copy). Same differences as above (their own folder, the light loo
   loose pictures and films as stories, with no shared post and no link sticker), so do not
   publish a story yourself: tell the user, in the report, to open the reel in the app, tap the
   paper plane, "Añadir a tu historia", and then add it to the highlight "Aprende" (proposed).
+- **Check the cover once it is up.** On the first one, Instagram took frame 0 (no headline yet,
+  a counting figure still at "0,00 %") instead of the frame `reelpost` asked for, and the API
+  cannot change a published cover. Look at it (the reel's `thumbnail_url`, or the reel in the
+  browser) and, if it is wrong, tell the user to change it in the app: the reel, "…", "Editar",
+  "Editar portada", a frame where the headline and the figures are in.
