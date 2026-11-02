@@ -76,3 +76,30 @@ def test_a_pace_other_than_the_voices_own_is_asked_for_and_speaks_everything_aga
     script = scripts.load(video.script)
     voice.make(video, script, channel, speak=spoken, log=lambda _: None)
     assert [s.name for s in voice.pending(video, script, slower)] == ["01-hook", "03-point"]
+
+
+def test_what_is_asked_of_elevenlabs(channel):
+    eleven = replace(channel, voice_engine="elevenlabs", voice_name="abc123", voice_language="es-ES",
+                     voice_model="eleven_multilingual_v2", voice_settings=(("speed", 1.05), ("stability", 0.4)))
+    body = voice.eleven_request("Hoy rebota.", eleven, before="El viernes cayó.", after="El petróleo se hunde.")
+    assert body == {"text": "Hoy rebota.", "model_id": "eleven_multilingual_v2", "language_code": "es",
+                    "voice_settings": {"speed": 1.05, "stability": 0.4},
+                    "previous_text": "El viernes cayó.", "next_text": "El petróleo se hunde."}
+    # v3 takes no words around the scene
+    assert "previous_text" not in voice.eleven_request("Hoy.", replace(eleven, voice_model="eleven_v3"), before="Ayer.")
+
+
+def test_elevenlabs_samples_become_a_wav_file():
+    import io
+    import wave
+    with wave.open(io.BytesIO(voice.wav(b"\x00\x00" * 2400)), "rb") as file:
+        assert (file.getnchannels(), file.getsampwidth(), file.getframerate(), file.getnframes()) == (1, 2, 24000, 2400)
+
+
+def test_another_engine_or_its_settings_speak_everything_again(video, channel, spoken):
+    script = scripts.load(video.script)
+    eleven = replace(channel, voice_engine="elevenlabs", voice_name="abc123", voice_model="eleven_multilingual_v2")
+    voice.make(video, script, eleven, speak=spoken, log=lambda _: None)
+    assert voice.pending(video, script, eleven) == []
+    assert len(voice.pending(video, script, replace(eleven, voice_settings=(("speed", 1.1),)))) == 2
+    assert len(voice.pending(video, script, replace(eleven, voice_model="eleven_v3"))) == 2

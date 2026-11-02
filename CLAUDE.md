@@ -38,7 +38,7 @@ Y [`daily-reel`](.claude/skills/daily-reel/SKILL.md): **los dos reels diarios de
 preguntar por dos tareas programadas de la app de Claude en su Mac (`market-hub-reel-open`, 16:05,
 y `market-hub-reel-close`, 22:20, hora de Madrid). Sustituyen a los dos carruseles diarios de
 `autopost`. El formato se parece al de los reels de `@h.analistasoficial`, que el usuario dio de
-referencia, pero todo se dibuja aquí: vertical, 40 a 100 segundos, voz en off en español, fondo
+referencia, pero todo se dibuja aquí: vertical, 40 a 100 segundos, voz en off en español, voz de ElevenLabs (abajo, "La voz"), fondo
 oscuro dibujado en movimiento (`theme/reel.js`: cinta de cifras, velas, cuadrícula, ciudad), una
 etiqueta arriba, un titular grande con una o dos palabras en color, tarjetas y pegatinas que
 entran cuando la voz las nombra, y una pregunta al final para los comentarios. **No lleva
@@ -91,7 +91,8 @@ Reglas que no se negocian:
   si YouTube lo dejó en privado, el reel espera y se le dice. Un
   story (`make story`, una imagen dibujada aquí en `stories/`) se publica igual: solo el que él pida. El
   token de Instagram lo genera y lo guarda él en `.secrets/`; no se le pide en el chat.
-- **No se gasta sin preguntar.** Los servicios de pago decididos son la voz (abajo) y la API de
+- **No se gasta sin preguntar.** Los servicios de pago decididos son la voz (abajo), ElevenLabs para
+  la voz de los reels diarios (decisión del usuario, 2026-11-02) y la API de
   X para publicar (arriba: los posts que pide el usuario y los cinco diarios sin enlace). Cualquier
   otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.
@@ -166,7 +167,14 @@ sube al canal: la comparte el usuario a mano.
 
 ## La voz
 
-La narración la dice **Google Cloud Text-to-Speech** (decisión del usuario, 2026-10-06), con una
+**Los reels diarios hablan con ElevenLabs** (`[reel]` en `channel.toml`; decisión del usuario el
+2026-11-02, tras oír la voz de Google en el primer reel: "no me gusta nada la voz… la entonación y
+todo es horrible"). La voz es **Dani** ("Energetic Spanish YouTuber"), que eligió de oído entre
+ocho muestras, con el modelo `eleven_multilingual_v2`. La clave es la de su cuenta de ElevenLabs
+(`ELEVENLABS_API_KEY` en Secret Manager de `llamazo-prod`), en `.secrets/elevenlabs-key.txt`. Un
+reel son unos 1.600 caracteres. Lo de abajo vale para los vídeos de YouTube.
+
+La narración de los vídeos la dice **Google Cloud Text-to-Speech** (decisión del usuario, 2026-10-06), con una
 voz Chirp 3 HD (`[voice]` en `channel.toml`), la sesión de `gcloud` del usuario y su proyecto.
 `make voice` genera un archivo por escena en `videos/<vídeo>/voice/` y solo vuelve a decir las
 escenas cuyas palabras, o la voz, han cambiado. Se genera dentro de `make-video`, sin preguntar

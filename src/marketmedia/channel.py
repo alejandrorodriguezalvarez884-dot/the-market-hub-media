@@ -76,19 +76,28 @@ class Channel:
     x_handle: str = ""
     # The daily reels (reels.py): their own language, length, pace and voice
     reel_language: str = "es"
-    reel_seconds: tuple[float, float] = (40.0, 100.0)
+    reel_seconds: tuple[float, float] = (40.0, 120.0)
     reel_words_per_minute: int = 175
     reel_gap_seconds: float = 0.2
     reel_voice_name: str = ""
     reel_voice_language: str = "es-ES"
     reel_voice_rate: float = 1.0
     reel_disclaimer: str = ""
+    # Who speaks: "google" (Cloud Text-to-Speech, [voice]) or "elevenlabs" (the reels, [reel])
+    voice_engine: str = "google"
+    voice_model: str = ""                  # ElevenLabs' model, like eleven_multilingual_v2
+    voice_settings: tuple = ()             # ElevenLabs' voice settings, as (name, value) pairs
+    reel_voice_engine: str = "google"
+    reel_voice_model: str = ""
+    reel_voice_settings: tuple = ()
 
     def for_reels(self) -> "Channel":
         """The channel as a daily reel sees it: its voice, its language and its pace."""
         return replace(self, language=self.reel_language, words_per_minute=self.reel_words_per_minute,
                        gap_seconds=self.reel_gap_seconds, voice_name=self.reel_voice_name,
                        voice_language=self.reel_voice_language, voice_rate=self.reel_voice_rate,
+                       voice_engine=self.reel_voice_engine, voice_model=self.reel_voice_model,
+                       voice_settings=self.reel_voice_settings,
                        short_seconds=self.reel_seconds, disclaimer=self.reel_disclaimer or self.disclaimer,
                        intro=None, outro=None)
 
@@ -138,11 +147,14 @@ def load(path: Path | None = None) -> Channel:
         instagram_bucket=instagram.get("bucket", ""),
         x_handle=x.get("handle", ""),
         reel_language=reel.get("language", "es"),
-        reel_seconds=_range(reel.get("seconds"), (40, 100)),
+        reel_seconds=_range(reel.get("seconds"), (40, 120)),
         reel_words_per_minute=int(reel.get("words_per_minute", 175)),
         reel_gap_seconds=float(reel.get("gap_seconds", 0.2)),
         reel_voice_name=reel.get("voice", ""),
         reel_voice_language=reel.get("voice_language", "es-ES"),
         reel_voice_rate=float(reel.get("rate", 1.0)),
         reel_disclaimer=" ".join(str(reel.get("disclaimer", "")).split()),
+        reel_voice_engine=reel.get("engine", "google"),
+        reel_voice_model=reel.get("model", ""),
+        reel_voice_settings=tuple(sorted(reel.get("settings", {}).items())),
     )

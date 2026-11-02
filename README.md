@@ -210,15 +210,17 @@ on the owner's Mac start: `market-hub-reel-open` (weekdays, 16:05 in Madrid) and
 ```bash
 make reelnew MOMENT=open        # reels/<today>-open/, from templates/reel
 make reelcheck REEL=<folder>    # what stops it from going up
-make reel REEL=<folder>         # speak it (es-ES voice, about 1,500 characters), draw it, make build/reel.mp4
+make reel REEL=<folder>         # speak it (ElevenLabs, about 1,600 characters), draw it, make build/reel.mp4
 make reelpost REEL=<folder>     # publish it once, write instagram.json, tell the portal
 ```
 
 A reel is a folder like a video's, with `kind: reel` in its script: upright only, no presenter,
 no intro or outro, no thumbnail. Its slides use `theme/reel.css` and `theme/reel.js`, whose
 backgrounds (tape, candles, grid, city) are drawn there, never taken from anyone. Its caption is
-`caption.txt` and must carry its sources and `[reel] disclaimer` of `channel.toml`. The voice,
-the pace and the length are in `[reel]`.
+`caption.txt` and must carry its sources and `[reel] disclaimer` of `channel.toml`. The voice
+(ElevenLabs: engine, voice, model and `[reel.settings]`), the pace and the length are in `[reel]`;
+its key is in `.secrets/elevenlabs-key.txt` or `ELEVENLABS_API_KEY` (the owner's, in Secret
+Manager as `ELEVENLABS_API_KEY` of the project `llamazo-prod`).
 
 ## X
 

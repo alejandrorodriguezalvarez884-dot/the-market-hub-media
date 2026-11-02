@@ -60,7 +60,8 @@ def reel(tmp_path):
 def test_a_reel_sees_the_channel_in_spanish():
     channel = channels.load(REPO / "channel.toml").for_reels()
     assert channel.language == "es"
-    assert channel.voice_language == "es-ES" and channel.voice_name.startswith("es-ES-")
+    assert channel.voice_language == "es-ES" and channel.voice_name
+    assert channel.voice_engine == "elevenlabs" and dict(channel.voice_settings)["stability"] == 0.4
     assert channel.short_seconds == channel.reel_seconds
     assert channel.intro is None and channel.outro is None
     assert "No es una recomendación de inversión" in channel.disclaimer

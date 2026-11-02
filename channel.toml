@@ -71,10 +71,20 @@ seconds = 12                         # held at least this long: YouTube's end sc
 # Each is a folder in reels/ (skill daily-reel), upright only, with no presenter: a format of its own.
 [reel]
 language = "es"
-seconds = [40, 100]                  # how long a reel runs
+seconds = [40, 120]                  # how long a reel runs (the reference reels run 1:37 to 1:43)
 words_per_minute = 175               # the pace assumed for a scene whose narration is not made yet
 gap_seconds = 0.2                    # silence left after each scene: a reel keeps moving
-voice = "es-ES-Chirp3-HD-Schedar"    # the same voice as the Spanish demo
+# The narration: ElevenLabs (the owner, 2026-11-02, after the Google voice sounded flat), with the
+# voice "Dani - Energetic Spanish YouTuber", picked by ear from eight samples. Its key is the
+# owner's, in .secrets/elevenlabs-key.txt (from Secret Manager, ELEVENLABS_API_KEY of llamazo-prod).
+engine = "elevenlabs"
+voice = "xH6DmlUWSqhSmFog5gxa"        # Dani
 voice_language = "es-ES"
-rate = 1.08                          # a touch quicker than the voice's own pace
+model = "eleven_multilingual_v2"
 disclaimer = "Contenido informativo de The Market Hub. No es una recomendación de inversión."
+
+[reel.settings]                      # as in the sample the owner picked
+stability = 0.4
+similarity_boost = 0.8
+style = 0.35
+use_speaker_boost = true

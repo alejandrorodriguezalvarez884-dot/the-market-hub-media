@@ -1,10 +1,12 @@
-"""The narration: each scene's words spoken by Google Cloud Text-to-Speech, one sound file each.
+"""The narration: each scene's words spoken by Google Cloud Text-to-Speech (the channel's videos)
+or by ElevenLabs (the daily reels, [reel] engine in channel.toml), one sound file each.
 
     videos/<video>/voice/01-hook.wav
     videos/<video>/voice/made.json     what each file was made from, so that nothing is made twice
     channel/voice/intro.wav            the intro and the outro, the same in every video: said once
 
-It uses the owner's own Google Cloud session (``gcloud auth application-default login``) and
+ElevenLabs takes the owner's key, from ELEVENLABS_API_KEY or .secrets/elevenlabs-key.txt (never in
+git), and is paid by the character. Google uses the owner's own Google Cloud session (``gcloud auth application-default login``) and
 project. The service is paid by the character once a monthly free allowance is spent, so a scene
 is spoken again only when its words or the voice change. A sound file that this did not make (a
 recording the owner dropped in voice/) is left alone.
@@ -14,16 +16,22 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import io
 import json
 import os
+import urllib.error
+import urllib.request
+import wave
 from collections.abc import Callable
 
-from .channel import Channel
+from .channel import ROOT, Channel
 from . import render
 from .script import Scene, Script
 from .videos import Video
 
 URL = "https://texttospeech.googleapis.com/v1/text:synthesize"
+ELEVEN = "https://api.elevenlabs.io/v1/text-to-speech"
+ELEVEN_RATE = 24000   # pcm_24000: plain 16-bit samples, made into a WAV file here
 Speak = Callable[[str, Channel], bytes]
 
 
@@ -61,9 +69,63 @@ def cloud(text: str, channel: Channel) -> bytes:
     return base64.b64decode(response.json()["audioContent"])
 
 
+def eleven_request(text: str, channel: Channel, before: str = "", after: str = "") -> dict:
+    """What is asked of ElevenLabs for one scene. The words around it let the voice carry its
+    tone from one scene to the next, as one person speaking."""
+    body: dict = {"text": text, "model_id": channel.voice_model or "eleven_multilingual_v2",
+                  "language_code": channel.voice_language.split("-")[0]}
+    if channel.voice_settings:
+        body["voice_settings"] = dict(channel.voice_settings)
+    if before and body["model_id"] != "eleven_v3":   # v3 does not take the words around it
+        body["previous_text"] = before
+    if after and body["model_id"] != "eleven_v3":
+        body["next_text"] = after
+    return body
+
+
+def _eleven_key() -> str:
+    key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
+    file = ROOT / ".secrets" / "elevenlabs-key.txt"
+    if not key and file.is_file():
+        key = file.read_text(encoding="utf-8").strip()
+    if not key:
+        raise FileNotFoundError("no ElevenLabs key: set ELEVENLABS_API_KEY or put it in .secrets/elevenlabs-key.txt")
+    return key
+
+
+def wav(pcm: bytes, rate: int = ELEVEN_RATE) -> bytes:
+    """Plain 16-bit mono samples as a WAV file."""
+    out = io.BytesIO()
+    with wave.open(out, "wb") as file:
+        file.setnchannels(1)
+        file.setsampwidth(2)
+        file.setframerate(rate)
+        file.writeframes(pcm)
+    return out.getvalue()
+
+
+def eleven(text: str, channel: Channel, before: str = "", after: str = "") -> bytes:
+    """Speak ``text`` with ElevenLabs and return a WAV file."""
+    request = urllib.request.Request(
+        f"{ELEVEN}/{channel.voice_name}?output_format=pcm_{ELEVEN_RATE}",
+        data=json.dumps(eleven_request(text, channel, before, after)).encode(), method="POST",
+        headers={"xi-api-key": _eleven_key(), "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=180) as response:
+            return wav(response.read())
+    except urllib.error.HTTPError as exc:
+        try:
+            reason = json.load(exc)["detail"]
+            reason = reason.get("message", reason) if isinstance(reason, dict) else reason
+        except (ValueError, KeyError, TypeError):
+            reason = ""
+        raise RuntimeError(f"ElevenLabs answered {exc.code}: {str(reason)[:300]}") from None
+
+
 def _mark(scene: Scene, channel: Channel) -> str:
-    """What a scene's sound depends on: its words, the voice and its pace."""
-    made_from = f"{channel.voice_name}|{channel.voice_language}|{channel.voice_rate}|{scene.narration}"
+    """What a scene's sound depends on: its words, who says them and how."""
+    how = f"{channel.voice_engine}|{channel.voice_model}|{channel.voice_settings}|" if channel.voice_engine != "google" else ""
+    made_from = f"{how}{channel.voice_name}|{channel.voice_language}|{channel.voice_rate}|{scene.narration}"
     return hashlib.sha256(made_from.encode()).hexdigest()[:16]
 
 
@@ -88,14 +150,21 @@ def _made(folder) -> dict:
     return json.loads(record.read_text(encoding="utf-8")) if record.is_file() else {}
 
 
-def make(video: Video, script: Script, channel: Channel, speak: Speak = cloud,
+def make(video: Video, script: Script, channel: Channel, speak: Speak | None = None,
          log: Callable[[str], None] = print) -> int:
     """Speak the scenes that need it. Returns how many characters were sent to the service."""
     if not channel.voice_name:
         raise ValueError("channel.toml names no voice ([voice] name)")
+    said = [s.narration for s in render.scenes(script, channel)]
     sent = 0
     for scene in pending(video, script, channel):
-        sound = speak(scene.narration, channel)
+        if speak:
+            sound = speak(scene.narration, channel)
+        elif channel.voice_engine == "elevenlabs":
+            n = said.index(scene.narration)
+            sound = eleven(scene.narration, channel, " ".join(said[max(0, n - 2):n]), said[n + 1] if n + 1 < len(said) else "")
+        else:
+            sound = cloud(scene.narration, channel)
         folder, stem = video.voices(scene.name)
         folder.mkdir(parents=True, exist_ok=True)
         made = _made(folder)

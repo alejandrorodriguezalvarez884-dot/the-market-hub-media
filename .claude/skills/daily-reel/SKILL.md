@@ -76,8 +76,14 @@ point.
 title, a one-line description, a few tags and **every source**, each "what it is | address".
 Then the scenes, `## 01-hook` to `## 09-question`, each with what is said.
 
-- **Spanish from Spain**, spoken, short sentences: a reel runs **40 to 100 seconds** (about 170
-  to 230 words). Numbers as they are said ("un seis por ciento", "ciento quince mil millones"),
+- **A story, not a list** (the user, 2026-11-02, after the first reel: "inspírate más en el reel").
+  One thread for the day, told with tension and turns: a hook that raises a question ("Hoy...
+  rebota. ¿Se acabó el miedo?"), going back to explain it ("Para entenderlo, hay que volver al
+  viernes"), a turn ("Pero hoy el protagonista es otro"), and a question before each answer
+  ("¿Por qué?", "¿Y quién gana?", "¿Su secreto?"). Short sentences, an ellipsis where the voice
+  should hold: that is what gives the voice its intonation. See `reels/2026-11-02-open/script.md`.
+- **Spanish from Spain**, spoken, short sentences: a reel runs **40 to 120 seconds**, like the reference's
+  1:37 to 1:43 (about 200 to 280 words). Numbers as they are said ("un seis por ciento", "ciento quince mil millones"),
   rounded as a person would say them; the exact figure goes on the slide.
 - **01-hook**: the day in one line, with the moment and the day ("Wall Street abre la semana en
   verde"). The first two seconds decide whether anyone stays.
@@ -120,9 +126,9 @@ make reelcheck REEL=<folder>
 make reel REEL=<folder>
 ```
 
-`make reel` speaks what is not spoken yet (Google Text-to-Speech, about 1.500 characters: inside
-the free monthly allowance), draws every frame and makes `build/reel.mp4`. It says each scene's
-length; the whole must be 40 to 100 seconds (`make reelcheck` says so too). If it prints that a
+`make reel` speaks what is not spoken yet (ElevenLabs, the voice Dani the user chose: about 1.600
+characters a reel, paid by the character on the user's ElevenLabs account), draws every frame and makes `build/reel.mp4`. It says each scene's
+length; the whole must be 40 to 120 seconds (`make reelcheck` says so too). If it prints that a
 slide "waits for" a word its narration does not say, fix the `data-say`.
 
 **Look at every scene** before publishing: read `build/short-frames/<scene>.png` (the slide as
