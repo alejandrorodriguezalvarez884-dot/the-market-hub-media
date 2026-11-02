@@ -96,6 +96,18 @@ similarity_boost = 0.8
 style = 0.45
 use_speaker_boost = true
 
+# The didactic reels the owner asks for one by one, explaining a stock-market concept (voice:
+# didactico in the script): Rafa, with the settings of the sample the owner heard (2026-11-02).
+[reel.voices.didactico]
+voice = "iJQjCIhyynnZMKT6NN3H"        # Rafa
+model = "eleven_multilingual_v2"
+
+[reel.voices.didactico.settings]
+stability = 0.4
+similarity_boost = 0.8
+style = 0.35
+use_speaker_boost = true
+
 [reel.settings]                      # as in the sample the owner picked
 stability = 0.4
 similarity_boost = 0.8
