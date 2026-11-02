@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- An Instagram story, 1080 by 1920, that introduces the didactic reels and goes first in their
+     highlight, "Aprende", as its cover (the owner, 2026-11-02: a story for each line, "con estilos
+     distintos", to put first in each highlight). Drawn in those reels' own light, colourful look
+     (<body class="light">), nothing of anyone else's, and no figures, so it needs no sources.
+     Everything sits between 260 and 1450 px from the top: Instagram lays the account's name and
+     the reply box over the rest. Nothing moves in it (no .in or .pop): it is a still.
+
+       make story STORY=stories/2026-11-02-intro-didactic/story.html DRAW=1   # story.jpg, to look at
+       make story STORY=stories/2026-11-02-intro-didactic/story.html          # and published -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../theme/reel.css">
+<style>
+  .bg { animation: none; }
+  .story { position: absolute; left: 80px; right: 80px; top: 260px; bottom: 470px;
+           display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 38px; }
+  .story .brand { position: static; }
+  .story h1 { font-size: 160px; line-height: 0.95; }
+  .story h1 small { display: block; margin-top: 18px; font-size: 64px; letter-spacing: -0.025em; color: var(--ink); }
+  .steps { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .step { flex-direction: row; align-items: center; gap: 28px; padding: 24px 32px; }
+  .step .n { flex: none; display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%;
+             font-size: 46px; font-weight: 800; color: #fff; }
+  .step h2 { font-size: 46px; }
+  .step p { margin-top: 4px; font-size: 30px; font-weight: 500; color: var(--muted); }
+  .n.a { background: var(--sky); } .n.b { background: var(--amber); } .n.c { background: var(--up); }
+  .tags { display: flex; gap: 22px; }
+  .tags .sticker { font-size: 44px; padding: 10px 24px 12px; }
+  .mark { font-size: 40px; }
+  .mark img { width: 104px; height: 104px; }
+</style>
+</head>
+<body class="light" data-bg="candles" data-seed="intro-didactic">
+<canvas class="bg"></canvas>
+<main class="story">
+  <header class="brand">The Market Hub</header>
+  <p class="kicker">Conceptos de bolsa</p>
+  <h1><span class="y">Aprende</span><small>un concepto en cada reel</small></h1>
+  <div class="steps">
+    <div class="card step"><span class="n a">1</span><div><h2>La idea</h2><p>Con algo que cualquiera se imagina</p></div></div>
+    <div class="card step"><span class="n b">2</span><div><h2>Las cifras</h2><p>Cuando la idea ya se entiende</p></div></div>
+    <div class="card step"><span class="n c">3</span><div><h2>El mercado de hoy</h2><p>Un guiño a lo que pasa ese día</p></div></div>
+  </div>
+  <div class="tags">
+    <span class="sticker tag">Sin jerga</span>
+    <span class="sticker tilt">Sin consejos</span>
+  </div>
+  <div class="mark"><img src="../../channel/instagram-profile.jpg" alt=""><span>@the_market_hub_app</span></div>
+</main>
+<script src="../../theme/reel.js"></script>
+</body>
+</html>

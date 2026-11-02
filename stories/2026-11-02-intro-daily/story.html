@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- An Instagram story, 1080 by 1920, that introduces the daily reels (Wall Street's open and close,
+     every weekday) and goes first in their highlight, as its cover (the owner, 2026-11-02: a story
+     for each line, "con estilos distintos", to put first in each highlight). Drawn in the daily
+     reels' own dark look (theme/reel.css, no class on the body), nothing of anyone else's, and no
+     figures, so it needs no sources. Everything sits between 260 and 1450 px from the top:
+     Instagram lays the account's name and the reply box over the rest. Nothing moves in it (no .in
+     or .pop): it is a still.
+
+       make story STORY=stories/2026-11-02-intro-daily/story.html DRAW=1   # story.jpg, to look at
+       make story STORY=stories/2026-11-02-intro-daily/story.html          # and published -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../theme/reel.css">
+<style>
+  .bg { animation: none; }
+  .story { position: absolute; left: 80px; right: 80px; top: 260px; bottom: 470px;
+           display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 40px; }
+  .story .brand { position: static; }
+  .story h1 { font-size: 132px; line-height: 0.98; }
+  .story p.lead { font-size: 48px; }
+  .slots { display: flex; flex-direction: column; gap: 24px; width: 100%; }
+  .slot { flex-direction: row; align-items: center; gap: 34px; padding: 30px 36px; }
+  .slot .sticker { transform: none; font-size: 46px; padding: 12px 24px 14px; min-width: 250px; justify-content: center; }
+  .slot h2 { font-size: 50px; }
+  .slot p { margin-top: 8px; font-size: 32px; font-weight: 500; color: var(--muted); }
+  .slot .time { font-family: var(--mono); font-weight: 700; color: var(--ink-strong); }
+  .mark { font-size: 40px; }
+  .mark img { width: 104px; height: 104px; }
+</style>
+</head>
+<body data-bg="city" data-seed="intro-daily">
+<canvas class="bg"></canvas>
+<main class="story">
+  <header class="brand">The Market Hub</header>
+  <p class="kicker">Cada día de mercado</p>
+  <h1>Wall Street,<br><span class="y">al día</span></h1>
+  <p class="lead">De lunes a viernes, dos reels al día sobre la bolsa de EE. UU., en español.</p>
+  <div class="slots">
+    <div class="card slot up">
+      <span class="sticker green">Apertura</span>
+      <div><h2>Cómo abre</h2><p>Hacia las <span class="time">15:45</span>, hora de España</p></div>
+    </div>
+    <div class="card slot amber">
+      <span class="sticker amber">Cierre</span>
+      <div><h2>Cómo cierra</h2><p>Hacia las <span class="time">22:10</span>, hora de España</p></div>
+    </div>
+  </div>
+  <div class="mark"><img src="../../channel/instagram-profile.jpg" alt=""><span>@the_market_hub_app</span></div>
+</main>
+<script src="../../theme/reel.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- An Instagram story, 1080 by 1920, that introduces the reflective reels and goes first in their
+     highlight, "A fondo", as its cover (the owner, 2026-11-02: a story for each line, "con estilos
+     distintos", to put first in each highlight). Drawn in those reels' own essay look
+     (<body class="light essay">: serif, ink and paper, hairline rules, nothing tilted), nothing of
+     anyone else's, and no figures, so it needs no sources. Everything sits between 260 and 1450 px
+     from the top: Instagram lays the account's name and the reply box over the rest. Nothing moves
+     in it (no .in or .pop): it is a still.
+
+       make story STORY=stories/2026-11-02-intro-reflection/story.html DRAW=1   # story.jpg, to look at
+       make story STORY=stories/2026-11-02-intro-reflection/story.html          # and published -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../theme/reel.css">
+<style>
+  .bg { animation: none; }
+  .story { position: absolute; left: 90px; right: 90px; top: 260px; bottom: 470px;
+           display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 44px; }
+  .story .brand { position: static; }
+  body.essay .story h1 { font-size: 168px; line-height: 0.95; }
+  .story p.lead { font-family: var(--serif); font-weight: 500; font-size: 50px; line-height: 1.24; color: var(--ink); }
+  .steps { width: 100%; list-style: none; border-top: 2px solid var(--ink-strong); }
+  .steps li { display: grid; grid-template-columns: 90px 1fr; align-items: baseline; padding: 24px 0 26px;
+              border-bottom: 1px solid var(--card-line); }
+  .steps b { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 50px; color: var(--amber); }
+  .steps span { font-family: var(--serif); font-weight: 600; font-size: 50px; color: var(--ink-strong); letter-spacing: -0.01em; }
+  .when { font-family: var(--mono); font-size: 28px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .mark { font-family: var(--serif); font-weight: 600; font-size: 40px; }
+  .mark img { width: 104px; height: 104px; }
+</style>
+</head>
+<body class="light essay" data-bg="grid" data-seed="intro-reflection">
+<canvas class="bg"></canvas>
+<main class="story">
+  <header class="brand">The Market Hub</header>
+  <p class="kicker">Una reflexión</p>
+  <h1>A <span class="y">fondo</span></h1>
+  <p class="lead">Una idea sobre los mercados, pensada con calma y defendida con datos.</p>
+  <ol class="steps">
+    <li><b>I</b><span>Una tesis</span></li>
+    <li><b>II</b><span>Los hechos, con sus fuentes</span></li>
+    <li><b>III</b><span>Lo que podría desmentirla</span></li>
+  </ol>
+  <p class="when">Reels sueltos, cuando el tema lo pide</p>
+  <div class="mark"><img src="../../channel/instagram-profile.jpg" alt=""><span>@the_market_hub_app</span></div>
+</main>
+<script src="../../theme/reel.js"></script>
+</body>
+</html>
