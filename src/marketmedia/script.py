@@ -50,7 +50,7 @@ HEADING = re.compile(r"##\s+(\S.*?)\s*$")
 # YouTube's own limits.
 TITLE_MAX = 100
 TAGS_MAX = 500
-KINDS = ("", "trailer")
+KINDS = ("", "trailer", "reel")
 # A video argues and explains; it does not tell a viewer what to do with their money.
 ADVICE = re.compile(
     r"\b(you should (buy|sell|hold)|we recommend|(buy|sell|hold) rating|strong buy|price target of|our (price )?target"
@@ -87,12 +87,13 @@ class Script:
     short_title: str = ""
     series: str = ""             # the slug of its series in channel.toml
     episode: int | None = None
-    kind: str = ""               # "" for a video, "trailer" for one that presents a series
+    kind: str = ""               # "" for a video, "trailer" for one that presents a series, "reel" for a daily reel
     chapters: tuple[tuple[str, str], ...] = ()   # (the scene it starts at, its title)
 
     def cut(self, short: bool = False) -> list[Scene]:
-        """The scenes of the video, or those of its Short."""
-        if not short:
+        """The scenes of the video, or those of its Short. A daily reel is upright and whole: every
+        scene is in it."""
+        if not short or self.kind == "reel":
             return self.scenes
         by_name = {s.name: s for s in self.scenes}
         return [by_name[name] for name in self.short if name in by_name]
@@ -213,7 +214,7 @@ def problems(script: Script) -> list[str]:
     if len(",".join(script.tags)) > TAGS_MAX:
         found.append(f"the tags add up to more than {TAGS_MAX} characters")
     if script.kind not in KINDS:
-        found.append(f"'kind: {script.kind}' is not a kind of video; leave it out, or 'trailer'")
+        found.append(f"'kind: {script.kind}' is not a kind of video; leave it out, or 'trailer' or 'reel'")
     if len(script.sources) < 2 and script.kind != "trailer":
         found.append("fewer than two sources: every figure, date and quotation needs one")
     for label, address in script.sources:
@@ -239,7 +240,7 @@ def problems(script: Script) -> list[str]:
     for scene, title in script.chapters:
         if scene not in names or not title:
             found.append(f"a chapter is not 'a scene of the script | its title': {scene!r}")
-    if not script.short:
+    if not script.short and script.kind != "reel":
         found.append("no 'short:' line: name the scenes that make the Short")
     for name in script.short:
         if name not in names:

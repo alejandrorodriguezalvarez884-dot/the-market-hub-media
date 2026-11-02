@@ -28,9 +28,25 @@ Y [`autopost`](.claude/skills/autopost/SKILL.md): **los posts que el canal hace 
 del usuario, 2026-10-21). Dos tareas programadas de la app de Claude, de lunes a viernes, buscan
 lo nuevo del mercado y publican sin preguntar: **cinco posts al día en X, sin enlace** (`auto: yes`
 en su cabecera; `make xcheck` para el que lleva un enlace o un dominio, y el código no hace más de
-cinco al día) y **dos carruseles al día en Instagram**. Es lo único que se publica sin un sí al
+cinco al día) y **dos carruseles al día en Instagram** (estos, sustituidos por los reels diarios desde el 2026-11-02: abajo). Es lo único que se publica sin un sí al
 texto exacto; las demás reglas valen igual (describir, no aconsejar; toda cifra con su fuente).
 Nunca usan el navegador para X.
+
+Y [`daily-reel`](.claude/skills/daily-reel/SKILL.md): **los dos reels diarios de Instagram**
+(decisión del usuario, 2026-11-02, que reenfoca la cuenta): de lunes a viernes, uno con la
+**apertura de Wall Street** y otro con su **cierre**, **en español**, hechos y publicados sin
+preguntar por dos tareas programadas de la app de Claude en su Mac (`market-hub-reel-open`, 16:05,
+y `market-hub-reel-close`, 22:20, hora de Madrid). Sustituyen a los dos carruseles diarios de
+`autopost`. El formato se parece al de los reels de `@h.analistasoficial`, que el usuario dio de
+referencia, pero todo se dibuja aquí: vertical, 40 a 100 segundos, voz en off en español, fondo
+oscuro dibujado en movimiento (`theme/reel.js`: cinta de cifras, velas, cuadrícula, ciudad), una
+etiqueta arriba, un titular grande con una o dos palabras en color, tarjetas y pegatinas que
+entran cuando la voz las nombra, y una pregunta al final para los comentarios. **No lleva
+presentador** ni intro ni cierre del canal: es un formato propio, como la demo. Cada reel es una
+carpeta `reels/<fecha>-<open|close>/` (guion `kind: reel`, diapositivas, `caption.txt`, los datos
+leídos en `data/`), se monta con `make reel` y se publica con `make reelpost`, que no publica dos
+veces la misma carpeta. Las reglas de siempre valen igual: describir, no aconsejar; toda cifra con
+su fuente y su hora; nada de material ajeno. Sin emojis, también en el pie.
 
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
@@ -80,8 +96,8 @@ Reglas que no se negocian:
   otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.
 - **Nada programado y nada en GitHub Actions.** Todo se lanza a mano, con una skill o desde el
-  `Makefile`. Tampoco se programa la publicación en YouTube. La única excepción es `autopost`
-  (arriba), que el usuario pidió el 2026-10-21: tareas programadas de la app de Claude, no un
+  `Makefile`. Tampoco se programa la publicación en YouTube. Las únicas excepciones son `autopost`
+  (arriba), que el usuario pidió el 2026-10-21, y `daily-reel`, el 2026-11-02: tareas programadas de la app de Claude, no un
   servicio ni un cron en la nube.
 - **Claves solo en `.secrets/`, en `.env`, en el entorno o en Secret Manager.** Nunca en el repo,
   en logs ni en commits. Las de la API de X están también en Secret Manager
@@ -164,7 +180,7 @@ montaje deja la escena en silencio el tiempo que tardarían en decirse sus palab
 ## Convenciones
 
 - Hablar con el usuario en español. Guiones y textos en pantalla, en el idioma del canal
-  (`channel.toml`; hoy, inglés). Código y comentarios, en inglés.
+  (`channel.toml`; hoy, inglés), salvo los reels diarios, que van en español (`[reel]`). Código y comentarios, en inglés.
 - Python 3.12 con `uv`. `make test` para los tests; `make check` antes de publicar, siempre.
 - Cada cambio en una regla de `make check` o en el montaje lleva su test en `tests/`.
 - Al terminar una tarea relevante, actualizar "Dónde estamos" en `docs/HANDOFF.md`.

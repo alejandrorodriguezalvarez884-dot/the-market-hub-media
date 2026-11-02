@@ -21,6 +21,10 @@
     python -m marketmedia xwho                           say which account the X API keys post as
     python -m marketmedia xposted <post> <url> [--to DIR]  write down where a post went on X, and tell the portal
     python -m marketmedia xfront [--to DIR]              leave the latest posts on X where the portal's Media page reads them
+    python -m marketmedia reelnew <open|close> [--date D] a daily reel's folder, from the template
+    python -m marketmedia reelcheck [reel]               what stops a daily reel from going on Instagram
+    python -m marketmedia reel <reel> [--dry-run]        speak it, draw it and make the film (build/reel.mp4)
+    python -m marketmedia reelpost <reel>                publish it on Instagram, write it down, tell the portal
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -32,7 +36,7 @@ import sys
 from pathlib import Path
 
 from . import channel as channels
-from . import check, frames, instagram, posts, render, videos, voice, xapi, xposts, youtube
+from . import check, frames, instagram, posts, reels, render, videos, voice, xapi, xposts, youtube
 from . import script as scripts
 
 
@@ -344,6 +348,81 @@ def _xposted(args, channel) -> int:
         return 0
 
 
+def _reelnew(args, channel) -> int:
+    reel = reels.new(args.moment, day=args.date)
+    print(f"reels/{reel.name}")
+    return 0
+
+
+def _reelcheck(args, channel) -> int:
+    channel = channel.for_reels()
+    wanted = [reels.find(args.reel)] if args.reel else [r for r in reels.every() if r.stage() != "published"]
+    bad = 0
+    for reel in wanted:
+        found = reels.problems(reel, channel)
+        bad += bool(found)
+        print(f"{reel.name}: {'ok' if not found else ''}")
+        for problem in found:
+            print(f"  - {problem}")
+    if not wanted:
+        print("No reel is waiting to go on Instagram.")
+    return 1 if bad else 0
+
+
+def _reel(args, channel) -> int:
+    """Speak the reel (what is not spoken yet), draw its frames and make its film."""
+    channel = channel.for_reels()
+    reel = reels.find(args.reel)
+    script = scripts.load(reel.script)
+    todo = voice.pending(reel, script, channel)
+    if todo:
+        print(f"{len(todo)} scenes to speak, {sum(len(s.narration) for s in todo)} characters, with {channel.voice_name}")
+        if args.dry_run:
+            return 0
+        voice.make(reel, script, channel)
+    elif args.dry_run:
+        print("Every scene has its voice.")
+        return 0
+    frames.draw(reel, script, channel)
+    film = render.film(reel, script, channel, short=True)
+    seconds = sum(c.seconds for c in render.plan(reel, script, channel, short=True))
+    print(f"  {film.relative_to(channels.ROOT).as_posix()}  {_clock(seconds)}")
+    return 0
+
+
+def _reelpost(args, channel) -> int:
+    """Publish a daily reel on Instagram, once, with its caption.txt under it."""
+    channel = channel.for_reels()
+    reel = reels.find(args.reel)
+    if reel.published.is_file() and not args.again:
+        print(f"{reel.name} is already on Instagram: {(reel.record() or {}).get('url')}  (--again to publish it once more)")
+        return 1
+    found = reels.problems(reel, channel)
+    if found:
+        print(f"{reel.name} is not fit to publish:")
+        for problem in found:
+            print(f"  - {problem}")
+        return 1
+    newest = max(f.stat().st_mtime for f in [reel.script, *(reel.path / "slides").glob("*")])
+    if not reel.film().is_file() or reel.film().stat().st_mtime < newest:
+        print("The film is missing or older than its script or slides: run 'make reel' first.")
+        return 1
+    script = scripts.load(reel.script)
+    cuts = render.plan(reel, script, channel, short=True)
+    # The cover: the first scene as it stands when its narration ends, with everything on it.
+    part = instagram.publish(reel.film(), reel.caption.read_text(encoding="utf-8").strip(), channel.instagram_bucket,
+                             cover_ms=int(cuts[0].spoken * 1000) if cuts else 0)
+    reels.remember(reel, {**part, "title": script.title})
+    print(f"Reel: {part['url'] or part['id']}")
+    if part.get("url_error"):
+        print(f"  it is published, but its address could not be read: {part['url_error']}")
+    try:
+        _posts(argparse.Namespace(to=None), channel)
+    except (Exception, SystemExit) as exc:  # noqa: BLE001 - the reel is up: `make posts` tells the portal later
+        print(f"  the portal was not told of it ({type(exc).__name__}: {exc}): run 'make posts'")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="marketmedia", description="The Market Hub's YouTube channel.")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -389,10 +468,21 @@ def main(argv: list[str] | None = None) -> int:
     recording.add_argument("url")
     recording.add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
     commands.add_parser("xfront").add_argument("--to", help="the folder a portal on this machine reads, instead of the portal's Firestore")
+    starting = commands.add_parser("reelnew")
+    starting.add_argument("moment", choices=reels.MOMENTS)
+    starting.add_argument("--date", help="the day, like 2026-11-02 (today if not said)")
+    commands.add_parser("reelcheck").add_argument("reel", nargs="?")
+    making = commands.add_parser("reel")
+    making.add_argument("reel")
+    making.add_argument("--dry-run", action="store_true", help="say what would be spoken, and spend nothing")
+    posting = commands.add_parser("reelpost")
+    posting.add_argument("reel")
+    posting.add_argument("--again", action="store_true")
     args = parser.parse_args(argv)
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
-           "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront}[args.command]
+           "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront,
+           "reelnew": _reelnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:

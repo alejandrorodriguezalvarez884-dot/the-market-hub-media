@@ -21,3 +21,7 @@ dist/
 .DS_Store
 .vscode/
 .idea/
+
+# A daily reel's film and narration, like a video's
+reels/*/build/
+reels/*/voice/

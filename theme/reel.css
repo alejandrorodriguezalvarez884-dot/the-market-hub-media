@@ -1,0 +1,149 @@
+/* The look of the daily reels (reels/): Wall Street's open and close, told in Spanish, upright.
+   Not the look of the channel's videos: dark, like a trading floor at night, with a drawn
+   background that moves behind each scene, a small tag on top, a large headline with a word or
+   two in colour, and cards and stickers that come in as the voice names them. Drawn for exactly
+   1080x1920; everything that matters stays inside the part of the screen Instagram leaves free
+   (between 230 and 1450 px from the top, and clear of the buttons on the right).
+
+     <body data-bg="tape">                     the background: tape, candles, grid, city or plain
+     <canvas class="bg"></canvas>
+     <main class="reel">
+       <p class="kicker">Apertura · lunes 2</p>
+       <h1>El petróleo <span class="y">se hunde</span></h1>
+       <span class="sticker red pop" data-say="seis">▼ 6,6 %</span>
+       <div class="card in" data-say="brent"> ... </div>
+     </main>
+     <footer class="brand">The Market Hub</footer>
+     <script src="../../../theme/reel.js"></script>
+
+   Colours: .y (amber) for what the scene is about, .g and .r only for what went up or down,
+   never as a verdict. */
+
+:root {
+  --page: #060708;
+  --ink: #d8d6cf;
+  --ink-strong: #f6f4ee;
+  --muted: #9a988f;
+  --faint: #66655f;
+  --card: rgba(13, 14, 16, 0.86);
+  --card-line: rgba(255, 255, 255, 0.13);
+  --amber: #f2c14e;
+  --tag: #ecd29a;
+  --on-tag: #17130a;
+  --up: #35c98f;
+  --down: #ff6b57;
+  --sky: #63b3ff;
+  --sans: system-ui, -apple-system, "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --at: 0s;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--page); }
+body { position: relative; isolation: isolate; color: var(--ink); font-family: var(--sans); font-size: 40px;
+       font-weight: 600; line-height: 1.2; -webkit-font-smoothing: antialiased; }
+
+/* The background: drawn by theme/reel.js, slowly pushed in, and darkened so the words read. */
+.bg { position: absolute; inset: -40px; width: 1160px; height: 2000px; z-index: -3;
+      animation: reel-push 14s linear both; }
+@keyframes reel-push { from { transform: scale(1); } to { transform: scale(1.09); } }
+body::before { content: ""; position: absolute; inset: 0; z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(6, 7, 8, 0.82) 0%, rgba(6, 7, 8, 0.42) 34%, rgba(6, 7, 8, 0.5) 62%, rgba(6, 7, 8, 0.92) 100%),
+    radial-gradient(120% 70% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.6) 100%); }
+body[data-bg="plain"] .bg { display: none; }
+body[data-bg="plain"] { background: radial-gradient(90% 60% at 50% 30%, #17191c, #060708 75%); }
+
+/* The scene: everything sits in the free part of the screen, from the top down. */
+.reel { position: absolute; left: 72px; right: 150px; top: 250px; bottom: 470px;
+        display: flex; flex-direction: column; align-items: flex-start; gap: 34px; }
+.reel.center { justify-content: center; }
+.reel.wide { right: 72px; }
+
+/* The tag on top: what part of the story this is. */
+.kicker { display: inline-block; padding: 10px 20px 9px; border-radius: 8px; background: var(--tag); color: var(--on-tag);
+          font-family: var(--mono); font-size: 30px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.15; }
+.kicker.red { background: var(--down); color: #fff; }
+.kicker.green { background: var(--up); color: #06140e; }
+.kicker.sky { background: var(--sky); color: #06101c; }
+
+h1 { font-size: 92px; line-height: 1.02; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong);
+     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55); }
+h1.small { font-size: 74px; }
+h2 { font-size: 60px; line-height: 1.06; font-weight: 800; letter-spacing: -0.03em; color: var(--ink-strong); }
+p.lead { font-size: 46px; line-height: 1.18; font-weight: 600; color: var(--ink-strong); text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6); }
+.y { color: var(--amber); }
+.g { color: var(--up); }
+.r { color: var(--down); }
+.s { color: var(--sky); }
+.dim, p.lead.dim { color: var(--muted); }
+.mono { font-family: var(--mono); }
+
+/* A sticker: a few words, slightly turned, as if stuck on the screen. */
+.sticker { display: inline-flex; align-items: center; gap: 0.3em; padding: 14px 30px 16px; border-radius: 18px;
+           font-size: 60px; font-weight: 800; letter-spacing: -0.02em; color: #fff; background: var(--down);
+           transform: rotate(-3deg); box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45); white-space: nowrap; }
+.sticker.tilt { transform: rotate(3deg); }
+.sticker.green { background: var(--up); color: #04130c; }
+.sticker.amber { background: var(--amber); color: #1a1205; }
+.sticker.tag { background: var(--tag); color: var(--on-tag); }
+.sticker.small { font-size: 42px; padding: 10px 22px 12px; }
+.card .sticker { align-self: flex-start; }
+
+/* A card: a figure, a list, a comparison. */
+.card { width: 100%; padding: 30px 36px; border-radius: 28px; background: var(--card); border: 2px solid var(--card-line);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45); display: flex; flex-direction: column; gap: 22px; }
+.card.up { border-color: color-mix(in srgb, var(--up) 70%, transparent); }
+.card.down { border-color: color-mix(in srgb, var(--down) 70%, transparent); }
+.card.amber { border-color: color-mix(in srgb, var(--amber) 70%, transparent); }
+.card.paper { background: #f3ead6; color: #17130a; border-color: transparent; }
+.card.paper h2 { color: #17130a; }
+.card .label { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.card .note { font-size: 28px; font-weight: 500; color: var(--muted); }
+
+/* A line of a card: a name on the left, its figure on the right; a bar under it when there is one. */
+.line { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 6px 24px; }
+.line .name { font-size: 46px; font-weight: 700; color: var(--ink-strong); }
+.line .name small { display: block; font-size: 28px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+.line .fig { font-size: 52px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.bar { grid-column: 1 / -1; height: 20px; border-radius: 10px; background: rgba(255, 255, 255, 0.09); overflow: hidden; }
+.bar i { display: block; height: 100%; width: var(--w, 50%); border-radius: 10px; background: var(--amber); transform-origin: left;
+         animation: reel-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+.bar i.g { background: var(--up); }
+.bar i.r { background: var(--down); }
+@keyframes reel-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* One figure, as large as the frame allows. */
+.big { font-size: 170px; line-height: 0.95; font-weight: 800; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; color: var(--ink-strong); }
+.big.mid { font-size: 128px; }
+.big small { font-size: 0.34em; letter-spacing: 0; font-weight: 700; color: var(--muted); margin-left: 12px; }
+
+/* A clock: when something happens, in Spain and in New York. */
+.clock { display: flex; align-items: baseline; gap: 18px; }
+.clock b { font-family: var(--mono); font-size: 110px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink-strong); }
+.clock span { font-family: var(--mono); font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* The two answers of the closing question. */
+.answers { display: flex; align-items: center; gap: 28px; }
+.answers .sticker { transform: none; font-size: 60px; padding: 20px 36px 22px; }
+.answers em { font-style: normal; font-size: 44px; color: var(--muted); }
+.mark { display: flex; align-items: center; gap: 24px; font-size: 44px; font-weight: 700; color: var(--ink-strong); }
+.mark img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.25); }
+
+/* At the foot of every scene: whose reel this is. */
+.brand { position: absolute; left: 72px; top: 170px; display: flex; align-items: center; gap: 14px;
+         font-family: var(--mono); font-size: 26px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); }
+.brand::before { content: ""; width: 16px; height: 16px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 18px var(--amber); }
+.brand .live { color: var(--down); }
+
+/* How things come in, from the moment their word is said (data-say, theme/reel.js). */
+.in   { animation: reel-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+.pop  { animation: reel-pop 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) both; animation-delay: var(--at); }
+.fade { animation: reel-fade 0.5s ease both; animation-delay: var(--at); }
+.hl   { background: linear-gradient(var(--amber), var(--amber)) no-repeat 0 60% / 0% 84%; padding: 0 0.12em; margin: 0 -0.04em; border-radius: 0.1em;
+        -webkit-box-decoration-break: clone; box-decoration-break: clone;
+        animation: reel-mark 0.45s cubic-bezier(0.3, 0.8, 0.3, 1) both; animation-delay: var(--at); }
+@keyframes reel-in { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@keyframes reel-pop { from { opacity: 0; scale: 0.4; } to { opacity: 1; scale: 1; } }
+@keyframes reel-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes reel-mark { from { background-size: 0% 84%; } to { background-size: 100% 84%; color: #1a1205; } }

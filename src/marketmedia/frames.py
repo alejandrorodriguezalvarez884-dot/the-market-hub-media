@@ -103,16 +103,17 @@ def told(script: Script, channel: Channel, cut: render.Cut, start: float, total:
     }
 
 
-def draw(video: Video, script: Script, channel: Channel, everything: bool = False,
-         log: Callable[[str], None] = print) -> int:
-    """Draw the frames that are missing or older than what they are made from. Returns how many
-    scenes it drew."""
+def drawings(video: Video, script: Script, channel: Channel) -> list[tuple]:
+    """What is drawn for a film: (the drawing's name, its still frame, the folder of its frames,
+    the window, what it is told), for the video and its Short and the thumbnail, or, for a daily
+    reel, its scenes upright and nothing else."""
     wide = {"width": channel.width, "height": channel.height}
     upright = {"width": channel.short_width, "height": channel.short_height}
-    # (the drawing's name, its still frame, the folder of its frames, the window, what it is told)
     wanted = []
     voices: dict[str, dict] = {}
-    for short, viewport in ((False, wide), (True, upright)):
+    # A daily reel is upright only, and has no thumbnail.
+    shapes = ((True, upright),) if script.kind == "reel" else ((False, wide), (True, upright))
+    for short, viewport in shapes:
         cuts = render.plan(video, script, channel, short)
         total = sum(c.seconds for c in cuts)
         start = 0.0
@@ -124,8 +125,17 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
             wanted.append((name, video.frame(name, short), video.moving(name, short), viewport, scene))
             start += cut.seconds
     series = channel.series.get(script.series)
-    wanted.append(("thumbnail", video.thumbnail, None, THUMBNAIL,   # it is told its series, for the colour and the name
-                   {"series": {"name": series.name, "accent": series.accent} if series else None, "episode": script.episode}))
+    if script.kind != "reel":
+        wanted.append(("thumbnail", video.thumbnail, None, THUMBNAIL,   # it is told its series, for the colour and the name
+                       {"series": {"name": series.name, "accent": series.accent} if series else None, "episode": script.episode}))
+    return wanted
+
+
+def draw(video: Video, script: Script, channel: Channel, everything: bool = False,
+         log: Callable[[str], None] = print) -> int:
+    """Draw the frames that are missing or older than what they are made from. Returns how many
+    scenes it drew."""
+    wanted = drawings(video, script, channel)
 
     # A change to the shared style, to the script or to the channel redraws every frame: a scene's
     # frames say how far into the film it is, and carry the words of its captions.
@@ -143,7 +153,7 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
     with sync_playwright() as p:
         browser = p.chromium.launch(channel=os.environ.get("MEDIA_BROWSER", "chrome"), headless=True)
         try:
-            page = browser.new_page(viewport=wide, device_scale_factor=1)
+            page = browser.new_page(viewport=todo[0][3], device_scale_factor=1)
             page.on("pageerror", lambda e: log(f"  page error: {e}"))
             for source, target, moving, viewport, scene in todo:
                 target.parent.mkdir(parents=True, exist_ok=True)

@@ -19,7 +19,7 @@ this repo where something is published without a yes to its exact text; everythi
 The argument says what this run does:
 
 - `x`: one post on X.
-- `x ig`: one post on X and one carousel on Instagram, about the same thing or another.
+- `x ig`: the same as `x` since 2026-11-02 (the carousel gave way to the daily reels; step 4).
 
 Work from the root of the `the-market-hub-media` repo. Read its `CLAUDE.md` first, then
 `.claude/skills/post-x/SKILL.md` for how a post reads (steps 1 and 2) and how a carousel is drawn
@@ -113,6 +113,12 @@ use the browser**: putting posts on X through the browser with nobody watching i
 Leave the file as it is and report what X answered.
 
 ## 4. The carousel on Instagram (only with `ig`)
+
+**Not any more.** Since 2026-11-02 the account's daily posts are the two reels of the skill
+`daily-reel` (Wall Street's open and close, in Spanish), which replace these carousels (the
+user's decision). A run with `ig` makes its post on X and **no carousel**: skip this step and say
+so in the report. What follows is kept for a carousel the user asks for by hand.
+
 
 As in step 6 of `post-x`: two to four slides at 1080 × 1350 in `carousels/<YYYY-MM-DD>-<slug>/`,
 drawn here as HTML in the portal's look (copy `theme.css` from the latest carousel and add what

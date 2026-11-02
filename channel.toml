@@ -66,3 +66,15 @@ after = 0                            # how many of the video's own scenes play b
 [outro]
 narration = "Thanks for watching. The next video is right here. And subscribe, so you don't miss the one after it."
 seconds = 12                         # held at least this long: YouTube's end screen takes 5 to 20 seconds
+
+# The daily reels on Instagram: Wall Street's open and close, told in Spanish (the owner, 2026-11-02).
+# Each is a folder in reels/ (skill daily-reel), upright only, with no presenter: a format of its own.
+[reel]
+language = "es"
+seconds = [40, 100]                  # how long a reel runs
+words_per_minute = 175               # the pace assumed for a scene whose narration is not made yet
+gap_seconds = 0.2                    # silence left after each scene: a reel keeps moving
+voice = "es-ES-Chirp3-HD-Schedar"    # the same voice as the Spanish demo
+voice_language = "es-ES"
+rate = 1.08                          # a touch quicker than the voice's own pace
+disclaimer = "Contenido informativo de The Market Hub. No es una recomendación de inversión."

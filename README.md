@@ -199,6 +199,27 @@ in that region (Google's pricing page, October 2026), and cents if it were not.
 `MEDIA_BROWSER` chooses another browser channel than `chrome` for the frames; `YOUTUBE_CLIENT_SECRET`
 and `YOUTUBE_TOKEN` move the two files, and `INSTAGRAM_TOKEN` the one of Instagram.
 
+## The daily reels
+
+Two reels every weekday on Instagram, in Spanish: Wall Street's open and its close (the owner's
+decision, 2026-11-02). They are made and published with nobody watching, by the skill
+`daily-reel` (`.claude/skills/daily-reel/SKILL.md`), which two scheduled tasks of the Claude app
+on the owner's Mac start: `market-hub-reel-open` (weekdays, 16:05 in Madrid) and
+`market-hub-reel-close` (22:20).
+
+```bash
+make reelnew MOMENT=open        # reels/<today>-open/, from templates/reel
+make reelcheck REEL=<folder>    # what stops it from going up
+make reel REEL=<folder>         # speak it (es-ES voice, about 1,500 characters), draw it, make build/reel.mp4
+make reelpost REEL=<folder>     # publish it once, write instagram.json, tell the portal
+```
+
+A reel is a folder like a video's, with `kind: reel` in its script: upright only, no presenter,
+no intro or outro, no thumbnail. Its slides use `theme/reel.css` and `theme/reel.js`, whose
+backgrounds (tape, candles, grid, city) are drawn there, never taken from anyone. Its caption is
+`caption.txt` and must carry its sources and `[reel] disclaimer` of `channel.toml`. The voice,
+the pace and the length are in `[reel]`.
+
 ## X
 
 A post in `x/` goes on the account (`[x] handle` in `channel.toml`) with `make xpost POST=...`,

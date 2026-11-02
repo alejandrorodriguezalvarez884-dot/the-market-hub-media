@@ -23,12 +23,16 @@
 #   make xkeys                  bring the X API keys from Secret Manager into .secrets/x-api.json (on a new machine)
 #   make xposted POST=... URL=...  write down where a post went on X (put there by hand), and tell the portal
 #   make xfront [TO=...]        tell the portal's Media page what the account last posted on X
+#   make reelnew MOMENT=open|close [DATE=...]   a daily reel's folder in reels/, from the template
+#   make reelcheck [REEL=...]   what stops a daily reel from going on Instagram
+#   make reel REEL=... [DRY=1]  speak a daily reel, draw it and make its film
+#   make reelpost REEL=...      publish a daily reel on Instagram and tell the portal
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront reelnew reelcheck reel reelpost
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
@@ -112,3 +116,18 @@ xposted: ## Write down where POST=... went on X (URL=https://x.com/<account>/sta
 
 xfront: ## Leave the account's latest posts on X where the portal's Media page reads them (TO=<folder>: a local portal's)
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) xfront $(if $(TO),--to "$(TO)")
+
+reelnew: ## A daily reel's folder: MOMENT=open|close [DATE=2026-11-02]
+	@[ -n "$(MOMENT)" ] || { echo 'Which one? make reelnew MOMENT=open|close'; exit 1; }
+	$(RUN) reelnew $(MOMENT) $(if $(DATE),--date $(DATE))
+
+reelcheck: ## What stops a daily reel from going on Instagram (every one not yet up, or REEL=...)
+	$(RUN) reelcheck $(REEL)
+
+reel: ## Speak REEL=..., draw it and make its film (DRY=1: say what would be spoken, and spend nothing)
+	@[ -n "$(REEL)" ] || { echo 'Which one? make reel REEL=2026-11-02-open'; exit 1; }
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reel $(REEL) $(if $(DRY),--dry-run)
+
+reelpost: ## Publish REEL=... on Instagram, write it down and tell the portal
+	@[ -n "$(REEL)" ] || { echo 'Which one? make reelpost REEL=2026-11-02-open'; exit 1; }
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelpost $(REEL)

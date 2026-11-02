@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 import tomllib
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 # The repo. MEDIA_ROOT moves it, for tests.
@@ -74,6 +74,23 @@ class Channel:
     instagram_bucket: str = ""   # where a film is parked while Instagram fetches it
     # X
     x_handle: str = ""
+    # The daily reels (reels.py): their own language, length, pace and voice
+    reel_language: str = "es"
+    reel_seconds: tuple[float, float] = (40.0, 100.0)
+    reel_words_per_minute: int = 175
+    reel_gap_seconds: float = 0.2
+    reel_voice_name: str = ""
+    reel_voice_language: str = "es-ES"
+    reel_voice_rate: float = 1.0
+    reel_disclaimer: str = ""
+
+    def for_reels(self) -> "Channel":
+        """The channel as a daily reel sees it: its voice, its language and its pace."""
+        return replace(self, language=self.reel_language, words_per_minute=self.reel_words_per_minute,
+                       gap_seconds=self.reel_gap_seconds, voice_name=self.reel_voice_name,
+                       voice_language=self.reel_voice_language, voice_rate=self.reel_voice_rate,
+                       short_seconds=self.reel_seconds, disclaimer=self.reel_disclaimer or self.disclaimer,
+                       intro=None, outro=None)
 
 
 def _range(value, default: tuple[float, float]) -> tuple[float, float]:
@@ -90,7 +107,7 @@ def _shared(data: dict, name: str, scene: str) -> Shared | None:
 
 def load(path: Path | None = None) -> Channel:
     data = tomllib.loads((path or ROOT / "channel.toml").read_text(encoding="utf-8"))
-    video, short, voice, youtube, instagram, x = (data.get(k, {}) for k in ("video", "short", "voice", "youtube", "instagram", "x"))
+    video, short, voice, youtube, instagram, x, reel = (data.get(k, {}) for k in ("video", "short", "voice", "youtube", "instagram", "x", "reel"))
     return Channel(
         name=data["name"],
         language=data.get("language", "en"),
@@ -120,4 +137,12 @@ def load(path: Path | None = None) -> Channel:
         instagram_handle=instagram.get("handle", ""),
         instagram_bucket=instagram.get("bucket", ""),
         x_handle=x.get("handle", ""),
+        reel_language=reel.get("language", "es"),
+        reel_seconds=_range(reel.get("seconds"), (40, 100)),
+        reel_words_per_minute=int(reel.get("words_per_minute", 175)),
+        reel_gap_seconds=float(reel.get("gap_seconds", 0.2)),
+        reel_voice_name=reel.get("voice", ""),
+        reel_voice_language=reel.get("voice_language", "es-ES"),
+        reel_voice_rate=float(reel.get("rate", 1.0)),
+        reel_disclaimer=" ".join(str(reel.get("disclaimer", "")).split()),
     )
