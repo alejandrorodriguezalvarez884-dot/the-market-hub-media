@@ -87,7 +87,7 @@ Lo que una sesión en la nube no tiene, y cómo lo suple el repo (`src/marketmed
 |---|---|
 | La sesión de `gcloud` | `GOOGLE_SERVICE_ACCOUNT_JSON`: la clave de la cuenta de servicio `market-hub-reels`, que solo puede escribir en el bucket de los reels y en Firestore, y leer y renovar el token |
 | `.secrets/instagram-token.txt` | `INSTAGRAM_TOKEN_SECRET`: el token vive en Secret Manager (`market-hub-instagram-token`) y la nube lo renueva allí, porque su disco no dura |
-| `.secrets/elevenlabs-key.txt` | `ELEVENLABS_API_KEY` |
+| `.secrets/elevenlabs-key.txt` | Un secreto de red del entorno para `api.elevenlabs.io` (cabecera `xi-api-key`) y `ELEVENLABS_KEY_BY_PROXY=1` |
 | Chrome y San Francisco | `MEDIA_BROWSER=chromium` y las tipografías Inter, JetBrains Mono y Noto Serif (`scripts/cloud-setup.sh`) |
 
 **Puesta en marcha, una vez**:
@@ -98,8 +98,11 @@ Lo que una sesión en la nube no tiene, y cómo lo suple el repo (`src/marketmed
    leen el portal, SEC, Yahoo, ElevenLabs, Instagram y Google); como script de preparación, el
    contenido de `scripts/cloud-setup.sh`; y estas variables (las claves las pega el usuario):
 
+   La clave de ElevenLabs va como **secreto de red** (el proxy la añade a cada petición a
+   `api.elevenlabs.io`, en la cabecera `xi-api-key`, sin que la sesión la vea), no como variable.
+
    ```text
-   ELEVENLABS_API_KEY=<la clave de ElevenLabs>
+   ELEVENLABS_KEY_BY_PROXY=1
    GOOGLE_SERVICE_ACCOUNT_JSON=<lo que deja copiado el paso 1>
    INSTAGRAM_TOKEN_SECRET=projects/arctic-robot-474306-g3/secrets/market-hub-instagram-token
    GOOGLE_CLOUD_PROJECT=arctic-robot-474306-g3

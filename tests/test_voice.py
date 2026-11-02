@@ -124,3 +124,11 @@ def test_long_pauses_are_cut_down_and_short_ones_left():
     with wave.open(io.BytesIO(out), "rb") as file:
         seconds = file.getnframes() / rate
     assert abs(seconds - (3.1 - 0.55)) < 0.03   # the 1.0 s pause became 0.45 s; the 0.2 s one, the start and the end stay
+
+
+def test_in_the_cloud_the_proxy_brings_the_elevenlabs_key(monkeypatch):
+    monkeypatch.setenv("ELEVENLABS_KEY_BY_PROXY", "1")
+    assert voice._eleven_key() == ""
+    monkeypatch.delenv("ELEVENLABS_KEY_BY_PROXY")
+    monkeypatch.setenv("ELEVENLABS_API_KEY", "k")
+    assert voice._eleven_key() == "k"

@@ -86,6 +86,10 @@ def eleven_request(text: str, channel: Channel, before: str = "", after: str = "
 
 
 def _eleven_key() -> str:
+    """The ElevenLabs key, or "" in a cloud session where the environment's proxy adds it to each
+    request to api.elevenlabs.io (ELEVENLABS_KEY_BY_PROXY=1, a network secret: docs/reels.md)."""
+    if os.environ.get("ELEVENLABS_KEY_BY_PROXY", "").strip() in ("1", "true", "yes"):
+        return ""
     key = os.environ.get("ELEVENLABS_API_KEY", "").strip()   # a cloud session's environment, or...
     file = ROOT / ".secrets" / "elevenlabs-key.txt"
     if not key and file.is_file():
@@ -147,7 +151,7 @@ def eleven(text: str, channel: Channel, before: str = "", after: str = "") -> by
     request = urllib.request.Request(
         f"{ELEVEN}/{channel.voice_name}?output_format=pcm_{ELEVEN_RATE}",
         data=json.dumps(eleven_request(text, channel, before, after)).encode(), method="POST",
-        headers={"xi-api-key": _eleven_key(), "Content-Type": "application/json"})
+        headers={"Content-Type": "application/json", **({"xi-api-key": key} if (key := _eleven_key()) else {})})
     try:
         with urllib.request.urlopen(request, timeout=180) as response:
             sound = wav(response.read())
