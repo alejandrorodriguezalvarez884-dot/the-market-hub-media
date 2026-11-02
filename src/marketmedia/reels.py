@@ -186,5 +186,37 @@ def problems(reel: Reel, channel: Channel) -> list[str]:
     return found
 
 
+def story_parts(seconds: list[float], limit: float = 60.0) -> list[tuple[float, float]]:
+    """Where to cut a film whose scenes last ``seconds`` into stories of ``limit`` seconds at
+    most: at the end of a scene, so nothing is cut in the middle of a sentence. A scene longer
+    than ``limit`` on its own is cut at ``limit``. Returns (start, end) pairs."""
+    parts: list[tuple[float, float]] = []
+    start = at = 0.0
+    for length in seconds:
+        if at + length - start > limit and at > start:
+            parts.append((start, at))
+            start = at
+        at += length
+        while at - start > limit:
+            parts.append((start, start + limit))
+            start += limit
+    if at > start:
+        parts.append((start, at))
+    return [(round(a, 3), round(b, 3)) for a, b in parts]
+
+
+def cut(film: Path, parts: list[tuple[float, float]], folder: Path) -> list[Path]:
+    """The pieces of ``film`` between each (start, end), made again so each starts on a frame."""
+    from .render import _run, ffmpeg
+    folder.mkdir(parents=True, exist_ok=True)
+    out = []
+    for n, (start, end) in enumerate(parts, 1):
+        piece = folder / f"story-{n}.mp4"
+        _run([ffmpeg(), "-y", "-loglevel", "error", "-ss", f"{start:.3f}", "-i", str(film), "-t", f"{end - start:.3f}",
+              "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(piece)])
+        out.append(piece)
+    return out
+
+
 def remember(reel: Reel, record: dict) -> None:
     reel.published.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")

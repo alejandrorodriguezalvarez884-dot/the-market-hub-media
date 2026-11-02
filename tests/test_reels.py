@@ -143,8 +143,22 @@ def test_a_reel_may_name_another_voice(reel):
     assert seen.language == "es" and seen.reel_seconds == base.reel_seconds
 
 
+def test_the_didactic_reels_speak_with_rafa():
+    base = channels.load(REPO / "channel.toml")
+    rafa = base.for_reels("didactico")
+    assert rafa.voice_name == "iJQjCIhyynnZMKT6NN3H" and rafa.voice_engine == "elevenlabs"
+    assert rafa.voice_name not in {base.for_reels().voice_name, base.for_reels("reflexion").voice_name}
+    assert dict(rafa.voice_settings)["stability"] == 0.4 and rafa.language == "es"
+
+
 def test_a_voice_that_is_not_in_the_channel_is_refused(reel, channel):
     reel.script.write_text(SCRIPT.replace("kind: reel\n", "kind: reel\nvoice: nadie\n"), encoding="utf-8")
     assert "'voice: nadie' is not one of [reel.voices] in channel.toml" in reels.problems(reel, channel)
     with pytest.raises(ValueError, match="nadie"):
         channel.for_reels("nadie")
+
+
+def test_a_reel_is_cut_into_stories_at_its_scenes():
+    assert reels.story_parts([13, 17, 16, 7, 14, 10, 12, 8, 9, 9, 6]) == [(0, 53), (53, 106), (106, 121)]
+    assert reels.story_parts([20, 20]) == [(0, 40)]
+    assert reels.story_parts([30, 75]) == [(0, 30), (30, 90), (90, 105)]   # a scene longer than a minute is cut inside it

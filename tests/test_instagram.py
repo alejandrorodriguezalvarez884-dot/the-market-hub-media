@@ -131,7 +131,7 @@ def test_a_story_instagram_refuses_leaves_the_bucket_and_one_that_is_no_jpeg_is_
         instagram.story(picture, "a-bucket", key="k", call=api, park=bucket)
     assert bucket.removed == 1
     api = Api()
-    with pytest.raises(ValueError, match="not a JPEG"):
+    with pytest.raises(ValueError, match="not a JPEG or an MP4"):
         instagram.story(tmp_path / "story.png", "a-bucket", key="k", call=api, park=Bucket())
     assert api.asked == []
 
@@ -246,3 +246,12 @@ def test_a_carousel_of_one_picture_or_of_no_jpegs_is_not_sent(tmp_path):
         instagram.carousel([one], "words", "a-bucket", key="k", call=Api(), park=Bucket())
     with pytest.raises(ValueError):
         instagram.carousel([one, tmp_path / "2.png"], "words", "a-bucket", key="k", call=Api(), park=Bucket())
+
+
+def test_a_story_may_be_a_film(tmp_path):
+    film = tmp_path / "story-1.mp4"
+    film.write_bytes(b"x")
+    api, bucket = Api(reads=["FINISHED"]), Bucket()
+    instagram.story(film, "a-bucket", key="k", call=api, park=bucket, wait=lambda seconds: None)
+    assert api.asked[1][2] == {"media_type": "STORIES", "video_url": "https://storage.example/a-bucket/x.mp4"}
+    assert bucket.removed == 1

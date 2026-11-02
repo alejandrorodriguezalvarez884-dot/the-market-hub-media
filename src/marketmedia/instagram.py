@@ -40,6 +40,7 @@ RENEW_DAYS = 7         # a token older than this is renewed before it is used
 EVERY, TRIES = 15, 40  # how often Instagram is asked whether it has read the film, and how many times
 STORY = {"width": 1080, "height": 1920}  # a story fills an upright phone
 STORY_BYTES = 8_000_000                   # Instagram takes a JPEG of up to 8 MB
+STORY_SECONDS = 60                        # and a film of up to a minute
 SLIDE = {"width": 1080, "height": 1350}   # a carousel's picture: 4:5, the tallest the feed shows whole
 SLIDES = (2, 10)                          # how few and how many pictures a carousel takes
 
@@ -229,17 +230,18 @@ def draw(page: Path, size: dict = STORY) -> Path:
 
 def story(picture: Path, bucket: str, *, key: str | None = None, call: Call = _call, park: Park = park,
           wait: Callable[[float], None] = time.sleep, log: Callable[[str], None] = print) -> dict:
-    """Publish a picture as a story: it is seen for a day and has no caption. Returns what to
-    remember of it. The picture leaves the bucket either way."""
-    if picture.suffix.lower() not in (".jpg", ".jpeg"):
-        raise ValueError(f"{picture.name} is not a JPEG, and that is what Instagram takes for a story")
+    """Publish a picture, or a film of up to a minute, as a story: it is seen for a day and has
+    no caption. Returns what to remember of it. The file leaves the bucket either way."""
+    film = picture.suffix.lower() == ".mp4"
+    if not film and picture.suffix.lower() not in (".jpg", ".jpeg"):
+        raise ValueError(f"{picture.name} is not a JPEG or an MP4, and that is what Instagram takes for a story")
     if not bucket:
         raise ValueError("channel.toml names no bucket ([instagram] bucket), and Instagram has to fetch the picture from one")
     key = key or token(call)
     me = account(key, call)["user_id"]
     address, remove = park(picture, bucket)
     try:
-        media = _post(me, key, call, wait, media_type="STORIES", image_url=address)
+        media = _post(me, key, call, wait, media_type="STORIES", **({"video_url": address} if film else {"image_url": address}))
     finally:
         _clear(remove, bucket, log)
     return {"id": media, "uploaded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
