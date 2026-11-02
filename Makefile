@@ -27,13 +27,14 @@
 #   make reelnew MOMENT=open|close [DATE=...]   a daily reel's folder in reels/, from the template
 #   make reelcheck [REEL=...]   what stops a daily reel from going on Instagram
 #   make reel REEL=... [DRY=1]  speak a daily reel, draw it and make its film
-#   make reelpost REEL=...      publish a daily reel on Instagram and tell the portal
+#   make reelpost REEL=...      publish a reel on Instagram, tell the portal, then its thread on X
+#   make reelx REEL=...         post a reel's thread on X with its film (when reelpost could not)
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew reelcheck reel reelpost
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew reelcheck reel reelpost reelx
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(or $(GOOGLE_CLOUD_PROJECT),$(shell gcloud config get-value project 2>/dev/null))
@@ -141,3 +142,7 @@ reel: ## Speak REEL=..., draw it and make its film (DRY=1: say what would be spo
 reelpost: ## Publish REEL=... on Instagram, write it down and tell the portal (AGAIN=1: once more, when the first was deleted)
 	@[ -n "$(REEL)" ] || { echo 'Which one? make reelpost REEL=2026-11-02-open'; exit 1; }
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelpost $(REEL) $(if $(AGAIN),--again)
+
+reelx: ## Post the thread of REEL=... on X with its film (paid: about $0.015 a post), when reelpost could not
+	@[ -n "$(REEL)" ] || { echo 'Which one? make reelx REEL=2026-11-02-open'; exit 1; }
+	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelx $(REEL)

@@ -24,7 +24,8 @@
     python -m marketmedia reelnew <open|close> [--date D] a daily reel's folder, from the template
     python -m marketmedia reelcheck [reel]               what stops a daily reel from going on Instagram
     python -m marketmedia reel <reel> [--dry-run]        speak it, draw it and make the film (build/reel.mp4)
-    python -m marketmedia reelpost <reel>                publish it on Instagram, write it down, tell the portal
+    python -m marketmedia reelpost <reel>                publish it on Instagram, write it down, tell the portal, then on X
+    python -m marketmedia reelx <reel>                   post its thread on X with the film (when reelpost could not)
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -426,6 +427,37 @@ def _reelpost(args, channel) -> int:
         _posts(argparse.Namespace(to=None), channel)
     except (Exception, SystemExit) as exc:  # noqa: BLE001 - the reel is up: `make posts` tells the portal later
         print(f"  the portal was not told of it ({type(exc).__name__}: {exc}): run 'make posts'")
+    # Every reel goes to X too, as a thread with the film (the owner, 2026-11-02).
+    try:
+        _reelx(argparse.Namespace(reel=reel.name, again=False), channel)
+    except (Exception, SystemExit) as exc:  # noqa: BLE001 - the reel is up on Instagram: `make reelx` tries X again
+        print(f"  not on X ({type(exc).__name__}: {exc}): run 'make reelx REEL={reel.name}'")
+    return 0
+
+
+def _reelx(args, channel) -> int:
+    """A reel's thread on X (x.txt), the film on its first post, once."""
+    reel = reels.find(args.reel)
+    record = reel.record() or {}
+    if record.get("x") and not args.again:
+        print(f"{reel.name} is already on X: {record['x']['url']}  (--again to post it once more)")
+        return 1
+    texts = reel.thread()
+    found = ["no x.txt"] if not texts and not reel.thread_file.is_file() else reels.thread_problems(texts)
+    if found:
+        print(f"{reel.name} cannot go on X:")
+        for problem in found:
+            print(f"  - {problem}")
+        return 1
+    if not reel.film().is_file():
+        print("The film is missing: run 'make reel' first.")
+        return 1
+    numbers = xapi.thread(texts, reel.film(), xapi.keys())
+    from datetime import datetime, timezone
+    record["x"] = {"ids": numbers, "url": f"https://x.com/{channel.x_handle}/status/{numbers[0]}",
+                   "posted_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    reels.remember(reel, record)
+    print(f"X: {record['x']['url']}  ({len(numbers)} posts)")
     return 0
 
 
@@ -484,13 +516,16 @@ def main(argv: list[str] | None = None) -> int:
     posting = commands.add_parser("reelpost")
     posting.add_argument("reel")
     posting.add_argument("--again", action="store_true")
+    xing = commands.add_parser("reelx")
+    xing.add_argument("reel")
+    xing.add_argument("--again", action="store_true")
     args = parser.parse_args(argv)
     from . import cloud
     cloud.credentials()   # in a cloud session, the Google key comes from the environment
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
            "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront,
-           "reelnew": _reelnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost}[args.command]
+           "reelnew": _reelnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:

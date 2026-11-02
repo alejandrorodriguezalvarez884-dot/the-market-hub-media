@@ -51,6 +51,7 @@ def reel(tmp_path):
     (path / "slides").mkdir(parents=True)
     (path / "script.md").write_text(SCRIPT, encoding="utf-8")
     (path / "caption.txt").write_text(CAPTION, encoding="utf-8")
+    (path / "x.txt").write_text("Wall Street rebota tras su peor día desde junio.\n---\nEl petróleo cae más de un 6 %.\n", encoding="utf-8")
     for name in ("01-hook", "02-oil"):
         (path / "slides" / f"{name}.html").write_text(
             '<!doctype html><link rel="stylesheet" href="../../../theme/reel.css"><h1>Una diapositiva</h1>', encoding="utf-8")
@@ -157,3 +158,15 @@ def test_a_voice_that_is_not_in_the_channel_is_refused(reel, channel):
     assert "'voice: nadie' is not one of [reel.voices] in channel.toml" in reels.problems(reel, channel)
     with pytest.raises(ValueError, match="nadie"):
         channel.for_reels("nadie")
+
+
+def test_a_reel_goes_to_x_with_a_short_thread_and_no_link(reel, channel):
+    assert reel.thread() == ["Wall Street rebota tras su peor día desde junio.", "El petróleo cae más de un 6 %."]
+    reel.thread_file.write_text("Míralo en themarkethub.app\n---\nDeberías comprar ya.\n", encoding="utf-8")
+    found = reels.problems(reel, channel)
+    assert any("post 1" in f and "carries no link" in f for f in found)
+    assert any("post 2" in f and "advice" in f for f in found)
+    reel.thread_file.write_text("\n---\n".join(["Uno."] * 5), encoding="utf-8")
+    assert "x.txt has 5 posts" in reels.problems(reel, channel)[0]
+    reel.thread_file.unlink()
+    assert any(f.startswith("no x.txt") for f in reels.problems(reel, channel))

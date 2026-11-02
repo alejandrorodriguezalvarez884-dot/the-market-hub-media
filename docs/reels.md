@@ -19,6 +19,17 @@ Ejemplos que copiar: `reels/2026-11-02-open/` (diario), `reels/2026-11-02-not-a-
 a paso, está en la skill [`daily-reel`](../.claude/skills/daily-reel/SKILL.md). Las historias de
 presentación de cada línea, las primeras de cada destacada, están en `stories/2026-11-02-intro-*`.
 
+## También en X
+
+**Cada reel se publica también en X** (decisión del usuario, 2026-11-02), en la cuenta
+@the_market_hub_: un hilo corto **en español**, con el vídeo en el primer post (`x.txt` en la
+carpeta del reel; la skill dice cómo se escribe). `make reelpost` lo pone después de Instagram;
+`make reelx` lo reintenta. El vídeo se sube a X por partes (`xapi.upload_video`, probado el
+2026-11-02). Cuesta unos 0,015 $ por post en X (2 a 4 por reel); el precio de la subida del vídeo
+no lo publica X. Sin enlaces, para no pagar 0,20 $ por post. Las claves de X: en el Mac,
+`.secrets/x-api.json` (`make xkeys`); en la nube, `X_API_KEYS_SECRET`, que lee el secreto
+`market-hub-x-api-keys` con la cuenta de servicio.
+
 ## Cómo pedir uno a demanda
 
 Basta con decirlo en una sesión de Claude Code abierta en el workspace, con el tema:
@@ -123,6 +134,7 @@ Lo que una sesión en la nube no tiene, y cómo lo suple el repo (`src/marketmed
 
    ```text
    ELEVENLABS_KEY_BY_PROXY=1
+   X_API_KEYS_SECRET=projects/arctic-robot-474306-g3/secrets/market-hub-x-api-keys
    GOOGLE_SERVICE_ACCOUNT_JSON=<lo que deja copiado el paso 1>
    INSTAGRAM_TOKEN_SECRET=projects/arctic-robot-474306-g3/secrets/market-hub-instagram-token
    GOOGLE_CLOUD_PROJECT=arctic-robot-474306-g3

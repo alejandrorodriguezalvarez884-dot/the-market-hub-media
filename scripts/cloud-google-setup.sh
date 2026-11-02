@@ -39,6 +39,10 @@ for role in roles/secretmanager.secretAccessor roles/secretmanager.secretVersion
     --member="serviceAccount:$ACCOUNT" --role="$role" >/dev/null
 done
 
+echo "3b. It may read the X API keys (market-hub-x-api-keys): every reel goes to X too"
+gcloud secrets add-iam-policy-binding market-hub-x-api-keys --project="$PROJECT" \
+  --member="serviceAccount:$ACCOUNT" --role=roles/secretmanager.secretAccessor >/dev/null
+
 echo "4. A key of the account, on the clipboard (base64) for GOOGLE_SERVICE_ACCOUNT_JSON"
 KEY="$(mktemp -t market-hub-reels-key).json"
 gcloud iam service-accounts keys create "$KEY" --iam-account="$ACCOUNT" --project="$PROJECT" >/dev/null

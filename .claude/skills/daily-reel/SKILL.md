@@ -151,6 +151,27 @@ one line per thing, starting with `▲`, `▼` or `·`, with its figure and its 
 the closing question; `Fuentes:` and who they are; the notice exactly as `channel.toml` says it
 (`[reel] disclaimer`); `themarkethub.app`; three to six hashtags in Spanish. No emojis.
 
+## 5b. The thread on X
+
+**Every reel goes to X too**, as a short thread with the film on its first post (the user,
+2026-11-02), **in Spanish**, like the film. Write `x.txt`: two to four posts, apart by a line with
+only `---`:
+
+```text
+Wall Street rebota tras su peor día desde junio. Y el petróleo se hunde: el barril de Texas cae más de un 6 % y baja de 100 dólares.
+---
+Lo que mueve hoy: según la CNBC, el líder supremo de Irán ha dado margen a su Gobierno para negociar la paz. Las aerolíneas suben; la energía, el sector que más cae.
+---
+Esta noche presenta Apple. Y mañana, elecciones de mitad de mandato en EE. UU.
+```
+
+The first post is the hook and goes with the video; the next ones carry the key figures, each with
+its time. Same rules as the channel's posts on X: 280 characters as X counts them, **no link and
+no domain** (X charges $0.20 for a post with one; themarkethub.app is a domain), no emoji, two
+hashtags at most, no advice. `make reelcheck` checks it. `make reelpost` posts it after Instagram,
+at about $0.015 a post; if X refuses, the reel stays up on Instagram, and `make reelx REEL=<folder>`
+tries X again.
+
 ## 6. Make it, look at it, publish it
 
 ```bash

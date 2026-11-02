@@ -14,7 +14,7 @@ def _no_cloud_settings(monkeypatch):
     """A cloud session's environment (docs/reels.md) must not leak into the tests: each test that
     wants one of these sets it itself."""
     for name in ("INSTAGRAM_TOKEN_SECRET", "GOOGLE_SERVICE_ACCOUNT_JSON", "ELEVENLABS_KEY_BY_PROXY",
-                 "ELEVENLABS_API_KEY", "MEDIA_BROWSER", "INSTAGRAM_TOKEN"):
+                 "ELEVENLABS_API_KEY", "MEDIA_BROWSER", "INSTAGRAM_TOKEN", "X_API_KEYS_SECRET"):
         monkeypatch.delenv(name, raising=False)
 
 SCRIPT = """---

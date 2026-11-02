@@ -58,3 +58,49 @@ def test_the_keys_come_from_the_environment_or_the_file(tmp_path, monkeypatch):
     for name, variable in xapi.ENVIRONMENT.items():
         monkeypatch.setenv(variable, name + "-from-env")
     assert xapi.keys()["api_key"] == "api_key-from-env"
+
+
+def test_a_film_is_uploaded_in_pieces_then_posted_with_a_thread(tmp_path, monkeypatch):
+    film = tmp_path / "reel.mp4"
+    film.write_bytes(b"x" * 10)
+    monkeypatch.setattr(xapi, "CHUNK", 4)
+    asked = []
+    states = iter([{"state": "in_progress", "check_after_secs": 1}, {"state": "succeeded"}])
+
+    def call(method, url, keys, body):
+        asked.append((method, url.replace(xapi.API, ""), body))
+        if url.endswith("/initialize"):
+            return {"data": {"id": "77"}}
+        if url.endswith("/finalize"):
+            return {"data": {"processing_info": next(states)}}
+        if "command=STATUS" in url:
+            return {"data": {"processing_info": next(states)}}
+        if url.endswith("/tweets"):
+            return {"data": {"id": str(100 + len([a for a in asked if a[1] == "/tweets"]))}}
+        return {}
+
+    numbers = xapi.thread(["Uno.", "Dos."], film, {}, call, wait=lambda s: None)
+    assert numbers == ["101", "102"]
+    paths = [a[1] for a in asked]
+    assert paths[:5] == ["/media/upload/initialize", "/media/upload/77/append", "/media/upload/77/append",
+                         "/media/upload/77/append", "/media/upload/77/finalize"]
+    assert [a[2]["segment_index"] for a in asked if a[1].endswith("/append")] == ["0", "1", "2"]
+    assert asked[0][2] == {"media_type": "video/mp4", "total_bytes": 10, "media_category": "tweet_video"}
+    posts = [a[2] for a in asked if a[1] == "/tweets"]
+    assert posts[0] == {"text": "Uno.", "media": {"media_ids": ["77"]}}
+    assert posts[1] == {"text": "Dos.", "reply": {"in_reply_to_tweet_id": "101"}}
+
+
+def test_a_query_string_is_signed_as_parameters():
+    keys = {"api_key": "k", "api_secret": "s", "access_token": "t", "access_secret": "a"}
+    with_query = xapi.authorization("GET", "https://api.x.com/2/media/upload?command=STATUS&media_id=1", keys, nonce="n", timestamp=1)
+    without = xapi.authorization("GET", "https://api.x.com/2/media/upload", keys, nonce="n", timestamp=1)
+    assert with_query != without
+
+
+def test_in_the_cloud_the_x_keys_come_from_secret_manager(monkeypatch):
+    import json
+    from marketmedia import cloud
+    monkeypatch.setenv("X_API_KEYS_SECRET", "projects/p/secrets/x")
+    monkeypatch.setattr(cloud, "secret", lambda name: (json.dumps({"api_key": "k", "api_secret": "s", "access_token": "t", "access_secret": "a"}), None))
+    assert xapi.keys() == {"api_key": "k", "api_secret": "s", "access_token": "t", "access_secret": "a"}

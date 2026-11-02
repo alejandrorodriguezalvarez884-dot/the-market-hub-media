@@ -5,6 +5,7 @@ named by its date and its moment.
         script.md           what is said, scene by scene (kind: reel), with its sources (script.py)
         slides/01-hook.html the picture of each scene, drawn upright as code (theme/reel.css)
         caption.txt         what goes under the reel on Instagram
+        x.txt               the thread that takes it to X: two to four posts, apart by a line of ---
         data/               what was read to write it, as it was read (the portal's overview...)
         voice/              the narration of each scene (not in git)
         build/reel.mp4      the film (not in git)
@@ -69,6 +70,17 @@ class Reel(Video):
     @property
     def published(self) -> Path:
         return self.path / "instagram.json"
+
+    @property
+    def thread_file(self) -> Path:
+        return self.path / "x.txt"
+
+    def thread(self) -> list[str]:
+        """The posts of its thread on X, in order (the film goes on the first)."""
+        if not self.thread_file.is_file():
+            return []
+        text = self.thread_file.read_text(encoding="utf-8").replace("\r\n", "\n")
+        return [part.strip() for part in re.split(r"(?m)^---\s*$", text) if part.strip()]
 
     def stage(self) -> str:
         """How far along it is: started, script, rendered or published."""
@@ -148,6 +160,23 @@ def voiced(reel: Reel, channel: Channel) -> Channel:
     return channel.for_reels(voice)
 
 
+THREAD = (1, 4)   # how few and how many posts take a reel to X
+
+
+def thread_problems(texts: list[str]) -> list[str]:
+    """What stops a reel's thread from going on X: the same rules as the channel's own posts
+    (xposts: X's length, no advice, no emoji, two hashtags at most) and, like the posts it makes
+    on its own, no link or domain (X charges $0.20 for a post with one)."""
+    from . import xposts
+    if not THREAD[0] <= len(texts) <= THREAD[1]:
+        return [f"x.txt has {len(texts)} posts; a reel's thread has {THREAD[0]} to {THREAD[1]}, apart by a line of ---"]
+    found = []
+    for n, text in enumerate(texts, 1):
+        post = xposts.Post(Path("2000-01-01-reel.md"), text, sources=["the reel's script"], auto=True)
+        found += [f"x.txt, post {n}: {problem}" for problem in xposts.problems(post)]
+    return found
+
+
 def problems(reel: Reel, channel: Channel) -> list[str]:
     """Empty when nothing stops this reel from being published. ``channel`` is the channel as a
     reel sees it (Channel.for_reels)."""
@@ -183,6 +212,8 @@ def problems(reel: Reel, channel: Channel) -> list[str]:
         if not low <= seconds <= high:
             found.append(f"the reel runs {seconds:.0f} s; a reel runs {low:.0f} to {high:.0f} s")
     found += caption_problems(reel.caption.read_text(encoding="utf-8") if reel.caption.is_file() else "", channel)
+    found += ["no x.txt: every reel goes to X too, with its thread (the owner, 2026-11-02)"] if not reel.thread_file.is_file() \
+        else thread_problems(reel.thread())
     return found
 
 
