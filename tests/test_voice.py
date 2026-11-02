@@ -110,3 +110,17 @@ def test_a_v3_voice_is_told_how_to_speak(channel):
                      voice_model="eleven_v3", voice_cue="[reflexivo]")
     assert voice.eleven_request("Hoy.", eleven)["text"] == "[reflexivo] Hoy."
     assert voice.eleven_request("Hoy.", replace(eleven, voice_model="eleven_multilingual_v2"))["text"] == "Hoy."
+
+
+def test_long_pauses_are_cut_down_and_short_ones_left():
+    import array
+    import io
+    import wave
+    rate = 24000
+    def tone(seconds): return array.array("h", [8000 if i % 2 else -8000 for i in range(int(rate * seconds))])
+    def hush(seconds): return array.array("h", [0] * int(rate * seconds))
+    sound = hush(0.5) + tone(0.3) + hush(1.0) + tone(0.3) + hush(0.2) + tone(0.3) + hush(0.5)
+    out = voice.shorten_pauses(voice.wav(sound.tobytes(), rate), 0.45)
+    with wave.open(io.BytesIO(out), "rb") as file:
+        seconds = file.getnframes() / rate
+    assert abs(seconds - (3.1 - 0.55)) < 0.03   # the 1.0 s pause became 0.45 s; the 0.2 s one, the start and the end stay

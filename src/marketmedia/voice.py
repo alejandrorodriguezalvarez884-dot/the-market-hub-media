@@ -106,6 +106,42 @@ def wav(pcm: bytes, rate: int = ELEVEN_RATE) -> bytes:
     return out.getvalue()
 
 
+def shorten_pauses(sound: bytes, longest: float, quiet: float = 0.0126, window: float = 0.01) -> bytes:
+    """A WAV file whose silences inside the speech last ``longest`` seconds at most: a pause longer
+    than that is cut down, its middle taken out, so the voice keeps moving. ``quiet`` is how loud
+    (of full scale) a stretch may be and still count as silence; the start and the end are kept."""
+    import array
+    with wave.open(io.BytesIO(sound), "rb") as file:
+        rate, width, channels = file.getframerate(), file.getsampwidth(), file.getnchannels()
+        frames = file.readframes(file.getnframes())
+    if width != 2 or channels != 1 or longest <= 0:
+        return sound
+    samples = array.array("h", frames)
+    step = max(1, int(rate * window))
+    limit = quiet * 32768
+    loud = [max((abs(v) for v in samples[i:i + step]), default=0) > limit for i in range(0, len(samples), step)]
+    keep = max(1, int(longest / window))
+    out, n = array.array("h"), 0
+    first = next((i for i, l in enumerate(loud) if l), len(loud))
+    last = len(loud) - next((i for i, l in enumerate(reversed(loud)) if l), len(loud))
+    while n < len(loud):
+        if first <= n < last and not loud[n]:
+            end = n
+            while end < last and not loud[end]:
+                end += 1
+            if end - n > keep:   # keep the pause's two ends, take out its middle
+                half = keep // 2
+                out.extend(samples[n * step:(n + half) * step])
+                out.extend(samples[(end - (keep - half)) * step:end * step])
+            else:
+                out.extend(samples[n * step:end * step])
+            n = end
+        else:
+            out.extend(samples[n * step:(n + 1) * step])
+            n += 1
+    return wav(out.tobytes(), rate)
+
+
 def eleven(text: str, channel: Channel, before: str = "", after: str = "") -> bytes:
     """Speak ``text`` with ElevenLabs and return a WAV file."""
     request = urllib.request.Request(
@@ -114,7 +150,8 @@ def eleven(text: str, channel: Channel, before: str = "", after: str = "") -> by
         headers={"xi-api-key": _eleven_key(), "Content-Type": "application/json"})
     try:
         with urllib.request.urlopen(request, timeout=180) as response:
-            return wav(response.read())
+            sound = wav(response.read())
+            return shorten_pauses(sound, channel.voice_pause) if channel.voice_pause else sound
     except urllib.error.HTTPError as exc:
         try:
             reason = json.load(exc)["detail"]
@@ -127,6 +164,7 @@ def eleven(text: str, channel: Channel, before: str = "", after: str = "") -> by
 def _mark(scene: Scene, channel: Channel) -> str:
     """What a scene's sound depends on: its words, who says them and how."""
     how = (f"{channel.voice_engine}|{channel.voice_model}|{channel.voice_settings}|{channel.voice_cue}|"
+           + (f"{channel.voice_pause}|" if channel.voice_pause else "")
            if channel.voice_engine != "google" else "")
     made_from = f"{how}{channel.voice_name}|{channel.voice_language}|{channel.voice_rate}|{scene.narration}"
     return hashlib.sha256(made_from.encode()).hexdigest()[:16]

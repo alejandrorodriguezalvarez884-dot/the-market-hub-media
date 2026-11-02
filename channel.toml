@@ -91,6 +91,7 @@ disclaimer = "Contenido informativo de The Market Hub. No es una recomendación 
 voice = "5Wn4TM7bYDwN5uDN0DpC"        # Julián
 model = "eleven_v3"
 cue = "[reflexivo, tono de profesor sereno]"   # said to v3 before each scene: how to say it, not words to say
+longest_pause = 0.45                 # v3 left pauses of up to a second: cut down, for more pace (the owner, 2026-11-02)
 
 [reel.voices.reflexion.settings]
 stability = 0.5                      # v3's "natural"

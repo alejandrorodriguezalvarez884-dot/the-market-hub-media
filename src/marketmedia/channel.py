@@ -89,10 +89,11 @@ class Channel:
     voice_model: str = ""                  # ElevenLabs' model, like eleven_multilingual_v2
     voice_settings: tuple = ()             # ElevenLabs' voice settings, as (name, value) pairs
     voice_cue: str = ""                    # ElevenLabs v3: how to say it, in brackets before each scene
+    voice_pause: float = 0.0               # the longest pause inside a scene, in seconds (0: as the voice says it)
     reel_voice_engine: str = "google"
     reel_voice_model: str = ""
     reel_voice_settings: tuple = ()
-    reel_voices: tuple = ()                # (name, voice, model, settings, cue): other voices a reel may ask for
+    reel_voices: tuple = ()                # (name, voice, model, settings, cue, longest pause): other voices a reel may ask for
 
     def reel_voice_names(self) -> list[str]:
         return [name for name, *_ in self.reel_voices]
@@ -105,9 +106,9 @@ class Channel:
             if not found:
                 raise ValueError(f"'voice: {voice}' is not one of [reel.voices] in channel.toml"
                                  + (f" ({', '.join(self.reel_voice_names())})" if self.reel_voices else ""))
-            _, name, model, settings, cue = found[0]
+            _, name, model, settings, cue, pause = found[0]
             return replace(self.for_reels(), voice_name=name, voice_model=model or self.reel_voice_model,
-                           voice_settings=settings, voice_cue=cue)
+                           voice_settings=settings, voice_cue=cue, voice_pause=pause)
         return replace(self, language=self.reel_language, words_per_minute=self.reel_words_per_minute,
                        gap_seconds=self.reel_gap_seconds, voice_name=self.reel_voice_name,
                        voice_language=self.reel_voice_language, voice_rate=self.reel_voice_rate,
@@ -173,6 +174,7 @@ def load(path: Path | None = None) -> Channel:
         reel_voice_engine=reel.get("engine", "google"),
         reel_voice_model=reel.get("model", ""),
         reel_voice_settings=tuple(sorted(reel.get("settings", {}).items())),
-        reel_voices=tuple((name, v.get("voice", ""), v.get("model", ""), tuple(sorted(v.get("settings", {}).items())), v.get("cue", ""))
+        reel_voices=tuple((name, v.get("voice", ""), v.get("model", ""), tuple(sorted(v.get("settings", {}).items())), v.get("cue", ""),
+                           float(v.get("longest_pause", 0)))
                           for name, v in reel.get("voices", {}).items()),
     )
