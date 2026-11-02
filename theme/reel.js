@@ -81,70 +81,93 @@
     const PAPER = ESSAY ? ["#f3f0e9", "#ebe6db", "#f7f5f0"] : LIGHT ? ["#f2ede3", "#e9e1d0", "#f6f2ea"] : null;
     if (ESSAY) { UP = DOWN = AMBER = SKY = "40,38,34"; }
 
+    // What is blurred or glows is drawn once, on a canvas of its own, and only moved after: a blur
+    // drawn again at every frame costs a second a frame on a machine with no graphics card (the cloud).
+    const layer = (w, h, draw) => {
+      const c = document.createElement("canvas");
+      c.width = Math.ceil(w); c.height = Math.ceil(h);
+      draw(c.getContext("2d"));
+      return c;
+    };
     if (kind === "tape") {
       const cols = Array.from({ length: 7 }, (_, i) => ({
         x: 40 + i * 168 + rnd() * 30, speed: 18 + rnd() * 40, size: 34 + rnd() * 26,
         cells: Array.from({ length: 40 }, () => ({ v: (rnd() * 99).toFixed(rnd() < 0.5 ? 2 : 1), tint: rnd() })),
       }));
+      for (const c of cols) {   // each column, once, as a strip that wraps round
+        c.step = c.size * 2.1; c.total = c.step * c.cells.length;
+        c.strip = layer(200, c.total, (g) => {
+          g.filter = "blur(3px)";
+          g.font = `600 ${c.size}px ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace`;
+          c.cells.forEach((cell, n) => {
+            const y = (((H - n * c.step) % c.total) + c.total) % c.total;
+            g.fillStyle = cell.tint < 0.18 ? `rgba(${UP},0.17)` : cell.tint < 0.3 ? `rgba(${DOWN},0.16)` : `rgba(${SKY},0.1)`;
+            for (const shift of [-c.total, 0, c.total]) g.fillText(cell.v, 8, y + shift);
+          });
+        });
+      }
       const walk = new Array(80).fill(0);
       let y = 0.5;
       for (let i = 0; i < walk.length; i++) { y = clamp(y + (rnd() - 0.48) * 0.08, 0.15, 0.85); walk[i] = y; }
       paint = (t) => {
         ctx.fillStyle = LIGHT ? PAPER[0] : "#06101c"; ctx.fillRect(0, 0, W, H);
-        ctx.filter = "blur(3px)";
         for (const c of cols) {
-          ctx.font = `600 ${c.size}px ui-monospace, Menlo, monospace`;
-          const step = c.size * 2.1, total = step * c.cells.length;
-          c.cells.forEach((cell, n) => {
-            const y2 = (((H - n * step - t * c.speed) % total) + total) % total;
-            ctx.fillStyle = cell.tint < 0.18 ? `rgba(${UP},0.17)` : cell.tint < 0.3 ? `rgba(${DOWN},0.16)` : `rgba(${SKY},0.1)`;
-            ctx.fillText(cell.v, c.x, y2);
-          });
+          const o = -((t * c.speed) % c.total);
+          for (let top = o; top < H; top += c.total) ctx.drawImage(c.strip, c.x - 8, top);
         }
-        ctx.filter = "blur(0.6px)";
-        ctx.strokeStyle = `rgba(${SKY},0.45)`; ctx.lineWidth = 5; ctx.beginPath();
+        ctx.strokeStyle = `rgba(${SKY},0.4)`; ctx.lineWidth = 5; ctx.beginPath();
         walk.forEach((v, i) => { const x = i * (W / (walk.length - 12)) - (t * 22) % (W / (walk.length - 12)); i ? ctx.lineTo(x, v * H) : ctx.moveTo(x, v * H); });
         ctx.stroke();
-        ctx.filter = "none";
       };
     } else if (kind === "candles") {
-      const n = 90, bars = [];
+      const n = 90, bars = [], gap = 34;
       let close = 0.55;
       for (let i = 0; i < n; i++) {
         const open = close; close = clamp(open + (rnd() - 0.49) * 0.06, 0.12, 0.88);
         bars.push({ open, close, high: Math.min(open, close) - rnd() * 0.03, low: Math.max(open, close) + rnd() * 0.03 });
       }
+      // The whole chart, once: every bar and the average, drawn twice side by side as it moves, so it
+      // wraps round. (One canvas wider than 4,096 px is left blank by Chrome when it is blurred.)
+      const strip = layer(n * gap, H, (g) => {
+        g.filter = "blur(1px)";
+        for (let i = 0; i < n; i++) {
+          const b = bars[i], x = i * gap, color = b.close < b.open ? UP : DOWN;
+          g.strokeStyle = `rgba(${color},0.5)`; g.lineWidth = 3;
+          g.beginPath(); g.moveTo(x + 11, b.high * H); g.lineTo(x + 11, b.low * H); g.stroke();
+          g.fillStyle = `rgba(${color},0.42)`;
+          g.fillRect(x, Math.min(b.open, b.close) * H, 22, Math.max(6, Math.abs(b.open - b.close) * H));
+        }
+        g.strokeStyle = `rgba(${AMBER},0.5)`; g.lineWidth = 4; g.beginPath();
+        for (let i = 0; i <= n; i++) {
+          let sum = 0; for (let k = 0; k < 6; k++) sum += bars[(i - k + n * 2) % n].close;
+          const x = i * gap + 11, y = (sum / 6) * H; i ? g.lineTo(x, y) : g.moveTo(x, y);
+        }
+        g.stroke();
+      });
       paint = (t) => {
         ctx.fillStyle = LIGHT ? PAPER[0] : "#07090b"; ctx.fillRect(0, 0, W, H);
         ctx.strokeStyle = LIGHT ? "rgba(21,18,13,0.06)" : "rgba(255,255,255,0.05)"; ctx.lineWidth = 2;
         for (let y = 100; y < H; y += 160) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-        const gap = 34, off = (t * 26) % gap, start = Math.floor(t * 26 / gap);
-        ctx.filter = "blur(1px)";
-        for (let i = 0; i < 40; i++) {
-          const b = bars[(start + i) % n], x = i * gap - off, up = b.close < b.open;
-          const color = up ? UP : DOWN;
-          ctx.strokeStyle = `rgba(${color},0.5)`; ctx.lineWidth = 3;
-          ctx.beginPath(); ctx.moveTo(x + 11, b.high * H); ctx.lineTo(x + 11, b.low * H); ctx.stroke();
-          ctx.fillStyle = `rgba(${color},0.42)`;
-          ctx.fillRect(x, Math.min(b.open, b.close) * H, 22, Math.max(6, Math.abs(b.open - b.close) * H));
-        }
-        ctx.strokeStyle = `rgba(${AMBER},0.5)`; ctx.lineWidth = 4; ctx.beginPath();
-        for (let i = 0; i < 40; i++) {
-          let s = 0; for (let k = 0; k < 6; k++) s += bars[(start + i - k + n * 2) % n].close;
-          const x = i * gap - off + 11, y = (s / 6) * H; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-        }
-        ctx.stroke(); ctx.filter = "none";
+        const x = -((t * 26) % (n * gap));
+        ctx.drawImage(strip, x, 0);
+        ctx.drawImage(strip, x + n * gap, 0);
       };
     } else if (kind === "grid") {
       const pts = [];
       let v = 0.3;
       for (let i = 0; i < 60; i++) { v = clamp(v + (rnd() - 0.42) * 0.05, 0.05, 0.95); pts.push(v); }
+      const horizon = H * 0.58;
+      const glow = layer(W, H, (g) => {   // the glowing line, whole, once; each frame shows more of it
+        g.shadowColor = `rgba(${AMBER},0.9)`; g.shadowBlur = 30;
+        g.strokeStyle = `rgba(${AMBER},0.75)`; g.lineWidth = 6; g.beginPath();
+        pts.forEach((p, i) => { const x = 60 + i * ((W - 120) / pts.length), y = horizon - p * horizon * 0.55; i ? g.lineTo(x, y) : g.moveTo(x, y); });
+        g.stroke();
+      });
       paint = (t) => {
         const g = ctx.createLinearGradient(0, 0, 0, H);
         if (LIGHT) { g.addColorStop(0, PAPER[2]); g.addColorStop(0.55, PAPER[1]); g.addColorStop(1, PAPER[0]); }
         else { g.addColorStop(0, "#03060d"); g.addColorStop(0.55, "#071528"); g.addColorStop(1, "#02040a"); }
         ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-        const horizon = H * 0.58;
         ctx.strokeStyle = `rgba(${SKY},0.22)`; ctx.lineWidth = 2;
         for (let i = -12; i <= 12; i++) { ctx.beginPath(); ctx.moveTo(W / 2 + i * 30, horizon); ctx.lineTo(W / 2 + i * 260, H); ctx.stroke(); }
         const run = (t * 0.35) % 1;
@@ -154,10 +177,8 @@
         }
         ctx.globalAlpha = 1;
         const shown = clamp(0.35 + t / 12, 0, 1) * pts.length;
-        ctx.shadowColor = `rgba(${AMBER},0.9)`; ctx.shadowBlur = 30;
-        ctx.strokeStyle = `rgba(${AMBER},0.75)`; ctx.lineWidth = 6; ctx.beginPath();
-        for (let i = 0; i < shown; i++) { const x = 60 + i * ((W - 120) / pts.length), y = horizon - pts[i] * horizon * 0.55; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
-        ctx.stroke(); ctx.shadowBlur = 0;
+        const cut = Math.min(W, 60 + shown * ((W - 120) / pts.length) + 30);
+        if (cut > 0) ctx.drawImage(glow, 0, 0, cut, H, 0, 0, cut, H);
       };
     } else if (kind === "city") {
       const towers = [], stars = [];
