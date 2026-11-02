@@ -38,7 +38,8 @@ Y [`daily-reel`](.claude/skills/daily-reel/SKILL.md): **los dos reels diarios de
 (decisión del usuario, 2026-11-02, que reenfoca la cuenta): de lunes a viernes, uno con la
 **apertura de Wall Street** y otro con su **cierre**, **en español**, hechos y publicados sin
 preguntar por dos **rutinas en la nube de Claude** (apertura a las 15:45 y cierre a las 22:05, hora
-de Madrid; horas del usuario, 2026-11-02), que corren con el ordenador apagado (`docs/reels.md`; las
+de Madrid; horas del usuario, 2026-11-02), más el repaso de la semana los sábados a las 10:00 y los
+futuros y la semana que viene la noche del domingo al lunes a la 01:05, que corren con el ordenador apagado (`docs/reels.md`; las
 tareas del Mac que lo hacían antes están en pausa). Sustituyen a los dos carruseles diarios de
 `autopost`. El formato se parece al de los reels de `@h.analistasoficial`, que el usuario dio de
 referencia, pero todo se dibuja aquí: vertical, 40 a 120 segundos (los de reflexión, hasta 180), voz en off en español, voz de ElevenLabs (abajo, "La voz"), fondo
