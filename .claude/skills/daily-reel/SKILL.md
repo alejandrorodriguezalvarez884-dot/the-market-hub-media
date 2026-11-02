@@ -180,13 +180,17 @@ markets, argued with sources (for example, that the reaction to big tech's resul
 bubble behaves). They follow this skill with these differences:
 
 - The folder is `reels/<date>-<a-few-words>/` (`make reelnew MOMENT=<a-few-words>`).
-- The script says `voice: reflexion` (Julián, a little more enthusiastic than his sample).
-- The look is light: `<body class="light" data-bg="...">`.
+- The script says `voice: reflexion` (Julián on ElevenLabs v3, as a calm, reflective teacher).
+- The look is an essay: `<body class="light essay" data-bg="...">` (serif headlines, ink and
+  paper, nothing tilted: "más serio y reflexivo", the user, 2026-11-02), unlike the didactic ones.
+  Copy the slides of `reels/2026-11-02-not-a-bubble/`.
 - It may defend an opinion, said as one ("no parece una burbuja"), with the facts that support it
   and what would contradict it; never advice, never a price prediction.
 - It is published when the user's request says so ("súbelo"), and only then: `make reelpost`,
-  then `make reelstory`, which publishes it also as stories (pieces of a minute at most, cut at
-  its scenes), for the user to gather into a highlight by hand (the API cannot make highlights).
+  then `make reelstory`, which publishes **one story that announces it** (its cover, its title,
+  "Míralo entero en nuestro perfil"; never the reel itself in pieces). `make reelstory DRAW=1`
+  draws it first: look at `build/story/story.jpg`. The user adds it by hand to the highlight
+  "A fondo" (the API cannot make highlights).
 
 ### A reel that teaches a concept
 
