@@ -1,0 +1,113 @@
+# Los reels de Instagram
+
+Desde el 2026-11-02 la cuenta de Instagram `the_market_hub_app` está reenfocada en **reels en
+español**, en tres líneas. Este documento basta para seguir en otro ordenador: qué hay, qué es
+automático, qué se pide a mano y cómo dejarlo todo listo.
+
+## Las tres líneas
+
+| Línea | Cuándo | Voz (ElevenLabs) | Aspecto | Destacada |
+|---|---|---|---|---|
+| **Diarios**: apertura y cierre de Wall Street | **Automáticos**, de lunes a viernes: apertura a las 15:45 y cierre hacia las 22:08 (hora de Madrid) | Dani (`[reel]` en `channel.toml`) | Oscuro: `<body data-bg="...">` | "Al día" (propuesta) |
+| **Reflexión**: una tesis sobre los mercados, con fuentes | **A demanda**: cuando el usuario da el tema y lo pide | Julián en v3, "profesor sereno" (`[reel.voices.reflexion]`) | Ensayo: `<body class="light essay">` | "A fondo" |
+| **Didácticos**: un concepto de bolsa, con un guiño al mercado de hoy | **A demanda**: cuando el usuario da el tema y lo pide | Rafa (`[reel.voices.didactico]`) | Claro y colorido: `<body class="light">` | "Aprende" |
+
+Ejemplos que copiar: `reels/2026-11-02-open/` (diario), `reels/2026-11-02-not-a-bubble/`
+(reflexión) y `reels/2026-11-02-bond-yields-vs-stocks/` (didáctico). Cómo se hace cada uno, paso
+a paso, está en la skill [`daily-reel`](../.claude/skills/daily-reel/SKILL.md). Las historias de
+presentación de cada línea, las primeras de cada destacada, están en `stories/2026-11-02-intro-*`.
+
+## Cómo pedir uno a demanda
+
+Basta con decirlo en una sesión de Claude Code abierta en el workspace, con el tema:
+
+- "Haz un reel de reflexión sobre <tema> y súbelo".
+- "Haz un reel didáctico sobre <concepto> y súbelo".
+
+Claude sigue la skill `daily-reel` (su última parte): busca las fuentes, escribe el guion, dibuja
+las diapositivas, pone la voz, monta, revisa cada fotograma y, si la petición dice "súbelo", lo
+publica con `make reelpost`. Sin "súbelo" lo deja montado y lo enseña. Los diarios no se piden: los
+hacen las tareas programadas (abajo). Uno de reflexión puede defender una opinión; ninguno
+aconseja ni predice precios.
+
+## Lo que hace siempre el usuario, en la app
+
+- **Compartir cada reel en historias** (el avión de papel del reel, "Añadir a tu historia"), para
+  que al tocar la historia se vaya al reel, y guardarla en su destacada. La API de Instagram no
+  puede compartir un reel en historias ni crear destacadas, y la web tampoco tiene esa opción. No
+  se publican historias por la API para los reels (se probó a trocear el reel y a anunciarlo con
+  una imagen, y el usuario lo descartó).
+- **Borrar** un post o una historia: la API no puede, y borrar es siempre decisión suya.
+- **Renovar el token de Instagram** si caduca (abajo).
+
+## La automatización de los diarios
+
+Dos tareas programadas de la **app de Claude en el Mac del usuario**, de lunes a viernes:
+
+| Tarea | Cron (hora local) | Empieza de verdad | Argumento |
+|---|---|---|---|
+| `market-hub-reel-open` | `37 15 * * 1-5` | 15:45 (la app añade unos 8 minutos) | `open` |
+| `market-hub-reel-close` | `0 22 * * 1-5` | hacia las 22:08 | `close` |
+
+Cada una tarda unos 10 minutos en hacer y publicar su reel. **Solo corren con la app de Claude
+abierta y el Mac despierto**; si la app está cerrada a esa hora, la tarea corre al abrirla. Las
+tareas del Mac no viajan: en otro ordenador hay que crearlas de nuevo con estos textos, y **solo un
+ordenador debe tenerlas activas** (dos publicarían el mismo reel dos veces). Si una tarea se para a
+pedir permiso, se pulsa "Run now" una vez en su página de la app y se aprueba lo que pida, o se le
+pone un modo de permisos.
+
+El texto de cada tarea (cambiando `open` por `close`, y "OPEN" por "CLOSE", en la segunda; y la
+carpeta por la del repo en ese ordenador):
+
+```text
+Make and publish today's reel of Wall Street's OPEN for Market Hub's Instagram account, in Spanish, with nobody watching.
+
+Work in the repo <path>/TheMarketHub/the-market-hub-media. Read its CLAUDE.md first, then follow the skill .claude/skills/daily-reel/SKILL.md with the argument "open", step by step: check Wall Street is open today and that today's open reel is not already up, find what happened from sources read now, write the script, slides and caption, run `make reel`, look at every frame, `make reelcheck`, `make reelpost`, commit and push only the reel's folder.
+
+The user decided on 2026-11-02 that these reels are published without asking them. Describe, never advise; every figure from a source read in this run; nothing made by others on the slides except company logos from theme/logos/. If Instagram refuses (for example an expired token), do not retry: leave the folder and say what Instagram answered. Never ask for or handle tokens or passwords.
+
+End with a short report in Spanish: the reel's address (or why it is not up), how long it runs, what it told, and anything decided or left unchecked.
+```
+
+Las tareas `market-hub-autopost` (posts en X) siguen en el Windows del usuario y ya no hacen
+carruseles en Instagram (`autopost` con `ig` hace solo el post de X).
+
+## En otro ordenador
+
+Desde la raíz del workspace (`scripts/sync.sh` deja cada submódulo en la punta de `main`), y luego
+dentro de `the-market-hub-media/`:
+
+1. `make install` (Python 3.12 con `uv`; Chrome instalado: dibuja los fotogramas).
+2. `gcloud auth login` y `gcloud auth application-default login` con la cuenta del usuario, y
+   `gcloud config set project arctic-robot-474306-g3` (el bucket de los reels y la voz de Google).
+3. **La voz de los reels**: `make elevenkey` trae la clave de ElevenLabs de Secret Manager
+   (`ELEVENLABS_API_KEY` del proyecto `llamazo-prod`, la cuenta del usuario) a
+   `.secrets/elevenlabs-key.txt`.
+4. **Instagram**: el token no está en Secret Manager (se renueva solo en el disco y una copia se
+   quedaría vieja). O se copia `.secrets/instagram-token.txt` del otro ordenador, o se genera uno
+   nuevo: en https://developers.facebook.com/apps/, la app "Market Hub Publisher", caso de uso de
+   Instagram, "API setup with Instagram login", "Generate access tokens", el segundo "Generate
+   token" (el de `the_market_hub_app`; el primero es de `wyncall.ai`). Lo genera y lo guarda el
+   usuario: `pbpaste > .secrets/instagram-token.txt`. `make instagram CHECK=1` dice de qué cuenta es.
+5. **X** (los posts): `make xkeys`.
+6. `make test`, y crear las dos tareas programadas (arriba) si este ordenador va a ser el que las
+   corre, y desactivarlas en el otro.
+
+## Coste
+
+- **ElevenLabs** (la voz de los tres): unos 1.600 a 1.900 caracteres por reel, de la cuenta del
+  usuario. Dos diarios al día son unos 70.000 caracteres al mes, más los que se pidan.
+- **Instagram**: gratis. El vídeo pasa unos minutos por el bucket
+  `arctic-robot-474306-g3-market-hub-reels` y se borra.
+- **Claude**: cada reel lo piensa una sesión de Claude Code, con la cuota del usuario.
+
+## Comandos
+
+```bash
+make reelnew MOMENT=open                 # o close, o unas-palabras para uno a demanda
+make reelcheck REEL=<carpeta>            # lo que impide publicarlo
+make reel REEL=<carpeta> [DRY=1]         # voz, fotogramas y build/reel.mp4
+make reelpost REEL=<carpeta> [AGAIN=1]   # publicarlo (AGAIN=1: otra vez, si el usuario borró el primero)
+make story STORY=stories/<carpeta>/story.html [DRAW=1]   # una historia suelta (imagen), solo si el usuario la pide
+make elevenkey                           # la clave de ElevenLabs, en un ordenador nuevo
+```

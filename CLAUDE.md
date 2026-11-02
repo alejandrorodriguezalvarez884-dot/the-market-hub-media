@@ -32,6 +32,8 @@ cinco al día) y **dos carruseles al día en Instagram** (estos, sustituidos por
 texto exacto; las demás reglas valen igual (describir, no aconsejar; toda cifra con su fuente).
 Nunca usan el navegador para X.
 
+**Todo lo de los reels, para seguir en otro ordenador: [docs/reels.md](docs/reels.md).**
+
 Y [`daily-reel`](.claude/skills/daily-reel/SKILL.md): **los dos reels diarios de Instagram**
 (decisión del usuario, 2026-11-02, que reenfoca la cuenta): de lunes a viernes, uno con la
 **apertura de Wall Street** y otro con su **cierre**, **en español**, hechos y publicados sin
@@ -50,7 +52,7 @@ su fuente y su hora; nada de material ajeno salvo los logotipos de las empresas 
 Sin emojis, también en el pie.
 
 **Además, reels sueltos de reflexión** (decisión del usuario, 2026-11-02): aparte de los dos
-diarios, el usuario pide reels puntuales "más reflexivos" sobre un tema (por ejemplo, si los
+diarios, **solo a demanda** (el usuario da el tema y lo pide; nada programado), el usuario pide reels puntuales "más reflexivos" sobre un tema (por ejemplo, si los
 resultados de las grandes dicen que esto es o no una burbuja). Mismo formato y mismas reglas, con
 tres diferencias: la carpeta es `reels/<fecha>-<unas-palabras>/`; el guion dice `voice: reflexion`,
 que es **Julián** con "un poco más de entusiasmo, no te pases" (`[reel.voices.reflexion]`); y el

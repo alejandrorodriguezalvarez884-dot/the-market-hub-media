@@ -1,6 +1,6 @@
 ---
 name: daily-reel
-description: The channel's two daily reels on Instagram, in Spanish - Wall Street's open ("open") and its close ("close"). Find what happened, write the script, draw the slides, speak it, make the film, check it and publish it, with nobody watching. It is what the scheduled tasks "market-hub-reel-open" and "market-hub-reel-close" run on weekdays; use it by hand when the user asks for the day's reel ("haz el reel de la apertura", "lanza el reel del cierre").
+description: Market Hub's reels on Instagram, in Spanish. The two daily ones - Wall Street's open ("open") and its close ("close") - made and published with nobody watching by the scheduled tasks "market-hub-reel-open" and "market-hub-reel-close" on weekdays; and the ones the user asks for on demand with a topic - a reflective reel ("haz un reel de reflexión sobre X") or a didactic one ("haz un reel didáctico sobre X"). Find the facts, write the script, draw the slides, speak it, make the film, check it and publish it when asked. See docs/reels.md.
 ---
 
 # A daily reel

@@ -201,6 +201,8 @@ and `YOUTUBE_TOKEN` move the two files, and `INSTAGRAM_TOKEN` the one of Instagr
 
 ## The daily reels
 
+The whole of it, in Spanish, with how to set it up on another computer: [docs/reels.md](docs/reels.md).
+
 Two reels every weekday on Instagram, in Spanish: Wall Street's open and its close (the owner's
 decision, 2026-11-02). They are made and published with nobody watching, by the skill
 `daily-reel` (`.claude/skills/daily-reel/SKILL.md`), which two scheduled tasks of the Claude app

@@ -21,6 +21,7 @@
 #   make xpost POST=...         put a post in x/ on X through its API (paid: $0.015, $0.20 with a link), and tell the portal
 #   make xwho                   say which account the X API keys post as
 #   make xkeys                  bring the X API keys from Secret Manager into .secrets/x-api.json (on a new machine)
+#   make elevenkey              bring the ElevenLabs key (the reels' voices) from Secret Manager into .secrets/ (on a new machine)
 #   make xposted POST=... URL=...  write down where a post went on X (put there by hand), and tell the portal
 #   make xfront [TO=...]        tell the portal's Media page what the account last posted on X
 #   make reelnew MOMENT=open|close [DATE=...]   a daily reel's folder in reels/, from the template
@@ -32,12 +33,15 @@
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront reelnew reelcheck reel reelpost
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew reelcheck reel reelpost
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(shell gcloud config get-value project 2>/dev/null)
 export UV_LINK_MODE ?= copy
 RUN := uv run python -m marketmedia
+# Where the ElevenLabs key lives (the owner's account, shared with Llamazo).
+ELEVEN_PROJECT ?= llamazo-prod
+ELEVEN_SECRET ?= ELEVENLABS_API_KEY
 
 help: ## List the targets
 	@grep -E '^[a-z]+:.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
@@ -103,6 +107,12 @@ xpost: ## Put POST=... on X through its API (paid: $0.015, $0.20 with a link), w
 
 xwho: ## Say which account the X API keys post as
 	$(RUN) xwho
+
+elevenkey: ## Bring the ElevenLabs key from Secret Manager (ELEVENLABS_API_KEY of llamazo-prod) into .secrets/elevenlabs-key.txt (AGAIN=1: over one already there)
+	@[ ! -e .secrets/elevenlabs-key.txt ] || [ -n "$(AGAIN)" ] || { echo '.secrets/elevenlabs-key.txt is already here (AGAIN=1 to replace it with the one in Secret Manager)'; exit 1; }
+	mkdir -p .secrets
+	gcloud secrets versions access latest --secret=$(ELEVEN_SECRET) --project=$(ELEVEN_PROJECT) --out-file=.secrets/elevenlabs-key.txt
+	@chmod 600 .secrets/elevenlabs-key.txt; echo 'ElevenLabs key in .secrets/elevenlabs-key.txt'
 
 xkeys: ## Bring the X API keys from Secret Manager (market-hub-x-api-keys) into .secrets/x-api.json (AGAIN=1: over one already there)
 	@[ ! -e .secrets/x-api.json ] || [ -n "$(AGAIN)" ] || { echo '.secrets/x-api.json is already here (AGAIN=1 to replace it with the one in Secret Manager)'; exit 1; }
