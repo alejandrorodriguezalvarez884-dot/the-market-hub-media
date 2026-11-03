@@ -281,3 +281,11 @@ def test_no_pause_goes_where_the_voice_runs_one_sentence_into_the_next():
     alignment = {"characters": list("Uno. Dos."), "character_start_times_seconds": [0, .3, .6, .9, .95, .95, 1.6, 2.0, 2.4],
                  "character_end_times_seconds": [.3, .6, .9, .95, .95, 1.6, 2.0, 2.4, 2.5]}
     assert voice.paused(said, "Uno. Dos.", 0.5, alignment) == voice.wav(voice._samples(said)[1].tobytes(), 24000)
+
+
+def test_the_reels_speak_with_elevenlabs_v4():
+    # "en el futuro para estos reels y para todos uses el modelo de v4 de elevenlabs" (the owner, 2026-11-03)
+    channel = channels.load()
+    assert channel.for_reels().voice_model == "eleven_v4"
+    for name in ("didactico", "grafico"):
+        assert channel.for_reels(name).voice_model == "eleven_v4", name

@@ -83,7 +83,8 @@ crossfade = 0.3                      # each slide dissolves into the next, inste
 engine = "elevenlabs"
 voice = "xH6DmlUWSqhSmFog5gxa"        # Dani
 voice_language = "es-ES"
-model = "eleven_multilingual_v2"
+model = "eleven_v4"                  # every reel speaks with ElevenLabs v4: "en el futuro para estos reels y para todos
+                                     # uses el modelo de v4 de elevenlabs" (the owner, 2026-11-03); multilingual_v2 before
 disclaimer = "Contenido informativo de The Market Hub. No es una recomendación de inversión."
 
 # The reels the owner asks for one by one, to think something through (voice: reflexion in the
@@ -106,7 +107,7 @@ speed = 1.08                         # "un pelín más de ritmo" (the owner, 202
 # didactico in the script): Rafa, with the settings of the sample the owner heard (2026-11-02).
 [reel.voices.didactico]
 voice = "iJQjCIhyynnZMKT6NN3H"        # Rafa
-model = "eleven_multilingual_v2"
+model = "eleven_v4"                  # every reel on v4 (the owner, 2026-11-03)
 
 [reel.voices.didactico.settings]
 stability = 0.4
@@ -120,7 +121,7 @@ use_speaker_boost = true
 # from five samples of the same hook (2026-11-03).
 [reel.voices.grafico]
 voice = "7xK0jqLEWCrIBJ8ymBJi"        # Rafalupi
-model = "eleven_multilingual_v2"
+model = "eleven_v4"                  # every reel on v4 (the owner, 2026-11-03); today's first reel was made on multilingual_v2
 sentence_pause = 0.55                # each scene said in one go, each pause at a sentence's end made at least this long:
                                      # "que hable rápido en la misma frase pero que dé un poco más de pausa entre frases"
                                      # (the owner, 2026-11-03). Sentences said one by one and joined (sentence_gap) were

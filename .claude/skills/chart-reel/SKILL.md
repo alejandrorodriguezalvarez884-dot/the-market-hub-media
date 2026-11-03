@@ -39,7 +39,8 @@ Upright, **50 to 80 seconds**, the light look of the on-demand reels with a plai
 background (`<body class="light chart-reel" data-bg="plain">`), the brand line `The Market Hub ·
 Lee el gráfico`, the voice of the line: **Rafalupi** (`voice: grafico`, `[reel.voices.grafico]` in
 `channel.toml`; the user asked for "una voz que enganche mucho y que sea didáctica… una nueva" and
-picked it by ear from five samples). **How it speaks** (the user, 2026-11-03, after the first cut):
+picked it by ear from five samples), on ElevenLabs' `eleven_v4`, like every reel (the user,
+2026-11-03; the first reel was made on `eleven_multilingual_v2`). **How it speaks** (the user, 2026-11-03, after the first cut):
 fast inside a sentence, with a breath between two ("que hable rápido en la misma frase pero que dé
 un poco más de pausa entre frases"), so each scene is said **in one go**, with its own
 intonation, and the code makes each pause at a sentence's end at least `sentence_pause` seconds

@@ -15,6 +15,10 @@ automático, qué se pide a mano y cómo dejarlo todo listo.
 
 En época de resultados, los resultados van primero en los cuatro (el usuario, 2026-11-02).
 
+**Todas las voces hablan con el modelo `eleven_v4` de ElevenLabs** desde el 2026-11-03 (el usuario:
+"para estos reels y para todos uses el modelo de v4"): el `model` de `[reel]` y de cada
+`[reel.voices.*]` en `channel.toml`.
+
 Ejemplos que copiar: `reels/2026-11-02-open/` (diario), `reels/2026-11-02-not-a-bubble/`
 (reflexión), `reels/2026-11-02-bond-yields-vs-stocks/` (didáctico) y
 `reels/2026-11-03-grafico-doble-suelo/` (Lee el gráfico). Cómo se hace cada uno, paso a paso, está
