@@ -20,10 +20,10 @@ backgrounds are drawn by `theme/reel.js`), except **the logo of a company the re
 (the user, 2026-11-02), from `theme/logos/`. The reels have no presenter: a format of
 its own, like the demo.
 
-The argument is the moment: `open` or `close` (weekdays), `week` (Saturday morning: the week
+The argument is the moment: `open` or `close` (weekdays), `week` (Saturday evening: the week
 that ended) or `ahead` (the night of Sunday to Monday, 01:00 in Spain: the futures, an hour after
 they open, and the week to come). All four are the "market updates" line: dark look, Dani's voice,
-up to 120 seconds. Work from the root of `the-market-hub-media`.
+60 to 100 seconds. Work from the root of `the-market-hub-media`.
 
 ## 1. Before anything
 
@@ -75,7 +75,7 @@ five minutes and read it again, for up to twenty minutes; then say which time th
 open; the best and worst sector; the large movers of the day and why; results released after the
 close, if out; what comes tomorrow, with its time.
 
-**The week** (`week`, Saturday 10:00 in Spain): how the three indices did over the five days
+**The week** (`week`, Saturday 18:00 in Spain): how the three indices did over the five days
 (Friday's close against the previous Friday's: Yahoo Finance's daily history, kept in `data/`),
 and the day that moved them most; the story of the week, told as a story (what drove it and how it
 turned); the best and worst sectors and the large movers of the week, and why; the week's
@@ -109,8 +109,8 @@ Then the scenes, `## 01-hook` to `## 09-question`, each with what is said.
   viernes"), a turn ("Pero hoy el protagonista es otro"), and a question before each answer
   ("¿Por qué?", "¿Y quién gana?", "¿Su secreto?"). Short sentences, an ellipsis where the voice
   should hold: that is what gives the voice its intonation. See `reels/2026-11-02-open/script.md`.
-- **Spanish from Spain**, spoken, short sentences: a reel runs **40 to 120 seconds**, like the reference's
-  1:37 to 1:43 (about 200 to 280 words). Numbers as they are said ("un seis por ciento", "ciento quince mil millones"),
+- **Spanish from Spain**, spoken, short sentences: a reel runs **60 to 100 seconds** (the owner, 2026-11-03; the reference ran
+  1:37 to 1:43), about 170 to 250 words. Numbers as they are said ("un seis por ciento", "ciento quince mil millones"),
   rounded as a person would say them; the exact figure goes on the slide.
 - **01-hook**: the day in one line, with the moment and the day ("Wall Street abre la semana en
   verde"). The first two seconds decide whether anyone stays.
@@ -181,7 +181,7 @@ make reel REEL=<folder>
 
 `make reel` speaks what is not spoken yet (ElevenLabs, the voice Dani the user chose: about 1.600
 characters a reel, paid by the character on the user's ElevenLabs account), draws every frame and makes `build/reel.mp4`. It says each scene's
-length; the whole must be 40 to 120 seconds (`make reelcheck` says so too). If it prints that a
+length; the whole must be 60 to 100 seconds (`make reelcheck` says so too). If it prints that a
 slide "waits for" a word its narration does not say, fix the `data-say`.
 
 **Look at every scene** before publishing: read `build/short-frames/<scene>.png` (the slide as

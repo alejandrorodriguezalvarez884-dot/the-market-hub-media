@@ -8,7 +8,7 @@ automático, qué se pide a mano y cómo dejarlo todo listo.
 
 | Línea | Cuándo | Voz (ElevenLabs) | Aspecto | Destacada |
 |---|---|---|---|---|
-| **Market updates**: apertura y cierre de Wall Street, de lunes a viernes; el repaso de la semana, el sábado a las 10:00; y los futuros y la semana que viene, la noche del domingo al lunes a la 01:05 (los futuros abren a medianoche de España) | **Automáticos, en la nube**, de lunes a viernes: apertura a las 15:45 y cierre a las 22:05 (hora de Madrid), con el ordenador apagado | Dani (`[reel]` en `channel.toml`) | Oscuro: `<body data-bg="...">` | "Al día" (propuesta) |
+| **Market updates**: apertura y cierre de Wall Street, de lunes a viernes; el repaso de la semana, el sábado a las 18:00 (antes a las 10:00; el usuario, 2026-11-03); y los futuros y la semana que viene, la noche del domingo al lunes a la 01:05 (los futuros abren a medianoche de España) | **Automáticos, en la nube**, de lunes a viernes: apertura a las 15:45 y cierre a las 22:05 (hora de Madrid), con el ordenador apagado | Dani (`[reel]` en `channel.toml`) | Oscuro: `<body data-bg="...">` | "Al día" (propuesta) |
 | **Reflexión**: una tesis sobre los mercados, con fuentes | **A demanda**: cuando el usuario da el tema y lo pide | Julián, "profesor sereno" (`[reel.voices.reflexion]`) | Ensayo: `<body class="light essay">` | "A fondo" |
 | **Didácticos**: un concepto de bolsa, con un guiño al mercado de hoy | **A demanda**: cuando el usuario da el tema y lo pide | Rafa (`[reel.voices.didactico]`) | Claro y colorido: `<body class="light">` | "Aprende" |
 | **Lee el gráfico**: un gráfico real con el valor y las fechas tapados, "¿qué crees que pasó después?", cinco segundos de cuenta atrás con tic, y la respuesta: el patrón, qué pasó en ese caso y que un patrón no es una promesa | **A demanda**: cuando el usuario pide un patrón (o deja elegirlo) | Rafalupi (`[reel.voices.grafico]`), elegida por el usuario de oído el 2026-11-03 | Papel liso, gráfico de velas: `<body class="light chart-reel" data-bg="plain">` | "Lee el gráfico" (propuesta) |
@@ -91,7 +91,7 @@ aconseja ni predice precios.
 |---|---|---|
 | Market Hub · reel de la apertura de Wall Street | `CRON_TZ=Europe/Madrid 45 15 * * 1-5` | `trig_01HJz9NnNtepWjiiTcUFoC8o` |
 | Market Hub · reel del cierre de Wall Street | `CRON_TZ=Europe/Madrid 5 22 * * 1-5` | `trig_01MgSgfpR5a8YPi6FHN7h7gv` |
-| Market Hub · reel de la semana (sábado, `week`) | `CRON_TZ=Europe/Madrid 2 10 * * 6` | `trig_01YM4JwMLEvqA7Fp8dkMPcz9` |
+| Market Hub · reel de la semana (sábado, `week`) | `CRON_TZ=Europe/Madrid 0 18 * * 6` | `trig_01YM4JwMLEvqA7Fp8dkMPcz9` |
 | Market Hub · reel de la semana que viene (noche del domingo, `ahead`) | `CRON_TZ=Europe/Madrid 5 1 * * 1` | `trig_016A6VKPeVAbJV1sjtqweDTU` |
 
 Corren aunque el ordenador esté apagado; cada una tarda unos 15 minutos (el montaje, unos 8). Su

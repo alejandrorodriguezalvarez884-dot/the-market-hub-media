@@ -19,9 +19,13 @@ Todas las horas son **de Madrid**. Desde el 2026-10-25 Madrid está en UTC+1, y 
 3. **Dejar al menos dos horas entre dos reels.** No consta que publicar varios seguidos reste
    alcance. Pero si salen juntos, no hay forma de saber qué hora funcionó.
 4. **Pasar el repaso del sábado de las 10:00 a las 18:00.** A las 10:00 son las 03:00 en Ciudad de
-   México. La noche del domingo (01:05) se queda: allí es domingo por la tarde.
+   México. La noche del domingo (01:05) se queda: allí es domingo por la tarde. **Hecho el
+   2026-11-03, por decisión del usuario**: la rutina corre ya a las 18:00, y la primera es el
+   2026-11-07.
 5. **Ningún reel de más de 180 segundos.** Por encima ya no entran en la pestaña Reels. Los diarios,
-   entre 60 y 100 segundos. Los a demanda, 150 como mucho.
+   entre 60 y 100 segundos. Los a demanda, 150 como mucho. **Hecho el 2026-11-03, por decisión del
+   usuario**: `[reel] seconds = [60, 100]` y `asked_seconds = [40, 180]` en `channel.toml`.
+   `make reelcheck` lo comprueba.
 6. **Historias**: compartir cada reel en historias, como ahora, y nada más. **Carruseles**: ninguno
    por ahora. Se vuelve a mirar al llegar a 1.000 seguidores.
 7. **Medir cada reel a las 24 horas y a las 72**, y revisar dos veces: el **2026-11-17** y el
@@ -217,15 +221,17 @@ esa cifra.
 
 **El repaso del sábado, a las 18:00.** El sábado es el día más flojo en casi todos los estudios, y
 las 10:00 son de noche en toda Latinoamérica. A las 18:00 es la tarde en España y las 11:00 en
-México, cerca de la punta del sábado de Hootsuite. Es la única propuesta que **cambia una rutina**
-(`trig_01YM4JwMLEvqA7Fp8dkMPcz9`, `CRON_TZ=Europe/Madrid 2 10 * * 6`): solo si el usuario lo dice.
+México, cerca de la punta del sábado de Hootsuite. Era la única propuesta que **cambiaba una
+rutina** (`trig_01YM4JwMLEvqA7Fp8dkMPcz9`). El usuario la aprobó el 2026-11-03: el cron ha pasado
+de `CRON_TZ=Europe/Madrid 2 10 * * 6` a `CRON_TZ=Europe/Madrid 0 18 * * 6`.
 
 **El domingo, sin nada nuevo.** Los futuros salen a la 01:05 del lunes, que es la tarde del domingo
 en América.
 
 **La duración.**
 
-- Los diarios, entre 60 y 100 segundos. Ahora duran entre 101 y 106 y el tope está en 120.
+- Los diarios, entre 60 y 100 segundos. Hasta ahora duraban entre 101 y 106, con el tope en 120
+  (cambiado el 2026-11-03).
 - Los a demanda, 150 como mucho. El de bonos duraba 174, a 6 segundos del límite de la pestaña
   Reels.
 - Lo que más falla no es lo largo sino **los primeros segundos**: el de la burbuja perdió a casi
