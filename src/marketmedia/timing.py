@@ -41,25 +41,26 @@ def _weight(word: str, pauses: bool) -> float:
     return letters
 
 
-def silences(levels: list[float], fps: int) -> list[tuple[int, int]]:
+def silences(levels: list[float], fps: int, pause: float = PAUSE) -> list[tuple[int, int]]:
     """The stretches of frames, inside the voice, where it stops: (first silent, first sounding again)."""
     out, start = [], None
     for n, level in enumerate(levels):
         if level <= 0 and start is None:
             start = n
         elif level > 0 and start is not None:
-            if start > 0 and n - start >= PAUSE * fps:
+            if start > 0 and n - start >= pause * fps:
                 out.append((start, n))
             start = None
     return out
 
 
-def _anchors(tokens: list[str], weights: list[float], levels: list[float], fps: int) -> list[tuple[int, int, int]]:
+def _anchors(tokens: list[str], weights: list[float], levels: list[float], fps: int,
+             pause: float = PAUSE) -> list[tuple[int, int, int]]:
     """Which written stop is which silence of the voice: (the word that ends at it, the silence's
     first frame, the first frame after it), in order. The match that leaves each stretch of
     words closest to the time its letters would take, at the pace of the whole scene."""
     stops = [n for n, t in enumerate(tokens[:-1]) if t[-1:] in STOPS + COMMAS]
-    pauses = silences(levels, fps)
+    pauses = silences(levels, fps, pause)
     if not stops or not pauses:
         return []
     sounding = [0]

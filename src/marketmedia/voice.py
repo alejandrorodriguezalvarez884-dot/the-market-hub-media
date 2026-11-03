@@ -225,49 +225,70 @@ def eleven_sentences(text: str, channel: Channel, before: str = "", after: str =
     return joined(sounds, channel.voice_sentence_gap)
 
 
-def paused(sound: bytes, text: str, at_least: float, fps: int = 100) -> bytes:
+QUIET = 150   # of 32768: below this, for 5 ms, the voice is silent and a pause can go in
+
+
+def paused(sound: bytes, text: str, at_least: float, alignment: dict | None = None,
+           fps: int = 200, shortest: float = 0.04) -> bytes:
     """A scene said in one go, with each pause at the end of a sentence made at least ``at_least``
-    seconds long; commas and ellipses stay as the voice said them. When each sentence ends is
-    worked out as for the slides (timing.words: the written stops matched to the voice's silences
-    when it makes them, the words spread by their length when it does not), and the time is added
-    at the quietest moment near there: a fast voice may leave a tenth of a second, or a breath,
-    between two sentences. The sound sinks to silence over 10 ms before the pause and rises from
-    it after, so nothing clicks. The owner asked for more pause between sentences, and sentences
-    said one by one sounded odd (2026-11-03)."""
+    seconds long; commas and ellipses stay as the voice said them.
+
+    The time is only ever added between two sentences, never inside a word. With ``alignment``
+    (ElevenLabs' times for each character, ``eleven_timed``) it is known exactly where each
+    sentence's last letter ends and the next one's first starts, and the time goes at the
+    quietest moment between the two. Without it, the written stops (full stops, commas, colons, ellipses) are matched in order to the voice's
+    silences as for the slides (timing.py), here counting silences from ``shortest`` seconds,
+    as a fast voice leaves a tenth of a second between two sentences; a sentence whose end
+    matches no silence is left as it is. The time goes at the quietest sample of that silence,
+    with 10 ms of fade either side. The owner asked for more pause between sentences (2026-11-03);
+    sentences said one by one sounded odd, and placing the pause by the words' estimated times
+    landed twice inside a word ("f...ue")."""
     import array
     import math
 
     from . import mouth, timing
     rate, samples = _samples(sound)
-    block = max(1, rate // 200)                                  # 5 ms
-    loud = [math.sqrt(sum(v * v for v in samples[i:i + block]) / block) for i in range(0, len(samples) - block + 1, block)]
-    quiet_level = 0.006 * 32768
-    said = timing.words(text, len(samples) / rate, mouth.levels(samples.tobytes(), rate, fps), fps)
-    ends = [w.end for n, w in enumerate(said)
-            if n < len(said) - 1 and w.word.rstrip("»”\"')")[-1:] in ".!?" and not w.word.rstrip("»”\"')").endswith("..")]
-    width = 6                                                    # 30 ms: the stretch that must be quiet
     cuts = []
-    for end in ends:
-        first, last = max(0, int((end - 0.25) * 200)), min(len(loud) - width, int((end + 0.35) * 200))
-        if last <= first:
+    if alignment:
+        block = max(1, rate // 200)                              # 5 ms
+        for said, next_starts in sentence_ends(alignment):
+            first = max(0, int((said - 0.03) * rate))
+            last = min(len(samples) - block, int((next_starts + 0.03) * rate))
+            if last <= first:
+                continue
+            quietest = min(range(first, last, max(1, block // 2)), key=lambda i: sum(abs(v) for v in samples[i:i + block]))
+            if math.sqrt(sum(v * v for v in samples[quietest:quietest + block]) / block) > QUIET:
+                continue   # the voice runs one sentence into the next: a pause there would cut a sound
+            at = min(range(quietest, quietest + block), key=lambda i: abs(samples[i]))
+            have = max(0.0, next_starts - said)
+            if have < at_least:
+                cuts.append((at, at_least - have))
+        return _stretch(samples, rate, cuts)
+    tokens = text.split()
+    levels = mouth.levels(samples.tobytes(), rate, fps)
+    weights = [timing._weight(t, pauses=False) for t in tokens]
+    for word, quiet, loud in timing._anchors(tokens, weights, levels, fps, pause=shortest):
+        token = tokens[word].rstrip("»”\"')")
+        if token[-1:] not in ".!?" or token.endswith(".."):
             continue
-        best = min(range(first, last), key=lambda b: sum(loud[b:b + width]))
-        centre = best + width // 2
-        left = right = centre
-        while left > 0 and loud[left - 1] < quiet_level:
-            left -= 1
-        while right < len(loud) - 1 and loud[right + 1] < quiet_level:
-            right += 1
-        have = (right - left + 1) * block / rate if loud[centre] < quiet_level else 0.0
-        if have < at_least:
-            at = centre * block
-            at = min(range(max(1, at - block // 2), min(len(samples) - 1, at + block // 2)), key=lambda i: abs(samples[i]))
-            cuts.append((at, at_least - have))
+        start, end = quiet * rate // fps, loud * rate // fps
+        have = (end - start) / rate
+        if have >= at_least or end - start < 4:
+            continue
+        inner = range(start + (end - start) // 4, end - (end - start) // 4)
+        at = min(inner, key=lambda i: abs(samples[i]))
+        cuts.append((at, at_least - have))
+    return _stretch(samples, rate, cuts)
+
+
+def _stretch(samples, rate: int, cuts: list[tuple[int, float]]) -> bytes:
+    """``samples`` with ``seconds`` of silence put in at each sample ``at`` of ``cuts``, the sound
+    sinking to silence over 10 ms before each and rising from it after."""
+    import array
+    import math
     fade = rate // 100                                           # 10 ms
     out, done = array.array("h"), 0
     for at, seconds in sorted(cuts):
-        if at <= done:
-            continue
         piece = samples[done:at]
         for k in range(min(fade, len(piece))):                   # sink to silence...
             piece[len(piece) - 1 - k] = int(piece[len(piece) - 1 - k] * (0.5 - 0.5 * math.cos(math.pi * k / fade)))
@@ -297,6 +318,51 @@ def eleven(text: str, channel: Channel, before: str = "", after: str = "", speed
         except (ValueError, KeyError, TypeError):
             reason = ""
         raise RuntimeError(f"ElevenLabs answered {exc.code}: {str(reason)[:300]}") from None
+
+
+def eleven_timed(text: str, channel: Channel, before: str = "", after: str = "",
+                 speed: float | None = None) -> tuple[bytes, dict]:
+    """Speak ``text`` with ElevenLabs and return a WAV file and when each character of it is said
+    (the "with-timestamps" call: the same price, and its "alignment": characters,
+    character_start_times_seconds, character_end_times_seconds)."""
+    request = urllib.request.Request(
+        f"{ELEVEN}/{channel.voice_name}/with-timestamps?output_format=pcm_{ELEVEN_RATE}",
+        data=json.dumps(eleven_request(text, channel, before, after, speed)).encode(), method="POST",
+        headers={"Content-Type": "application/json", **({"xi-api-key": key} if (key := _eleven_key()) else {})})
+    try:
+        with urllib.request.urlopen(request, timeout=180) as response:
+            answer = json.load(response)
+    except urllib.error.HTTPError as exc:
+        try:
+            reason = json.load(exc)["detail"]
+            reason = reason.get("message", reason) if isinstance(reason, dict) else reason
+        except (ValueError, KeyError, TypeError):
+            reason = ""
+        raise RuntimeError(f"ElevenLabs answered {exc.code}: {str(reason)[:300]}") from None
+    return wav(base64.b64decode(answer["audio_base64"])), answer.get("alignment") or {}
+
+
+def sentence_ends(alignment: dict) -> list[tuple[float, float]]:
+    """From ElevenLabs' alignment, where each sentence's last letter ends and the next sentence's
+    first letter starts, in seconds. An ellipsis is not the end of a sentence."""
+    chars = alignment.get("characters") or []
+    starts = alignment.get("character_start_times_seconds") or []
+    ends = alignment.get("character_end_times_seconds") or []
+    closing = "»”\"')"
+    out = []
+    for i, char in enumerate(chars):
+        if char not in ".!?" or (char == "." and ((i and chars[i - 1] == ".") or (i + 1 < len(chars) and chars[i + 1] == "."))):
+            continue
+        last = i - 1
+        while last >= 0 and (chars[last] in ".!?" + closing or chars[last].isspace()):
+            last -= 1
+        following = i + 1
+        while following < len(chars) and (chars[following].isspace() or chars[following] in closing):
+            following += 1
+        if last < 0 or following >= len(chars):
+            continue
+        out.append((ends[last], max(ends[last], starts[following])))
+    return out
 
 
 def _mark(scene: Scene, channel: Channel) -> str:
@@ -334,6 +400,7 @@ def to_pay(video: Video, script: Script, channel: Channel) -> int:
     for scene in pending(video, script, channel):
         folder, stem = video.voices(scene.name)
         kept = (channel.voice_sentence_pause and (folder / "raw" / f"{stem}.wav").is_file()
+                and (folder / "raw" / f"{stem}.json").is_file()
                 and _made(folder).get(f"raw/{stem}") == _mark(scene, replace(channel, voice_sentence_pause=0.0)))
         total += 0 if kept else len(scene.narration)
     return total
@@ -355,8 +422,8 @@ def make(video: Video, script: Script, channel: Channel, speak: Speak | None = N
         folder, stem = video.voices(scene.name)
         folder.mkdir(parents=True, exist_ok=True)
         made = _made(folder)
-        # With sentence_pause, the voice as it came is kept in voice/raw/: a new length of pause is
-        # made from it again, and nothing is paid twice.
+        # With sentence_pause, the voice as it came is kept in voice/raw/, with when each character
+        # is said (.json): a new length of pause is made from them again, and nothing is paid twice.
         raw, raw_mark = folder / "raw" / f"{stem}.wav", _mark(scene, replace(channel, voice_sentence_pause=0.0))
         paid = len(scene.narration)
         if speak:
@@ -367,13 +434,17 @@ def make(video: Video, script: Script, channel: Channel, speak: Speak | None = N
             if channel.voice_sentence_gap:
                 sound = eleven_sentences(scene.narration, channel, *around, speed=scene.speed)
             elif channel.voice_sentence_pause:
-                if raw.is_file() and made.get(f"raw/{stem}") == raw_mark:
+                times = raw.with_suffix(".json")   # when each character is said (eleven_timed)
+                if raw.is_file() and times.is_file() and made.get(f"raw/{stem}") == raw_mark:
                     paid = 0
                 else:
                     raw.parent.mkdir(parents=True, exist_ok=True)
-                    raw.write_bytes(eleven(scene.narration, channel, *around, speed=scene.speed))
+                    first, alignment = eleven_timed(scene.narration, channel, *around, speed=scene.speed)
+                    raw.write_bytes(first)
+                    times.write_text(json.dumps(alignment, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
                     made[f"raw/{stem}"] = raw_mark
-                sound = paused(raw.read_bytes(), scene.narration, channel.voice_sentence_pause)
+                sound = paused(raw.read_bytes(), scene.narration, channel.voice_sentence_pause,
+                               json.loads(times.read_text(encoding="utf-8")))
             else:
                 sound = eleven(scene.narration, channel, *around, speed=scene.speed)
         else:

@@ -43,11 +43,17 @@ picked it by ear from five samples). **How it speaks** (the user, 2026-11-03, af
 fast inside a sentence, with a breath between two ("que hable rápido en la misma frase pero que dé
 un poco más de pausa entre frases"), so each scene is said **in one go**, with its own
 intonation, and the code makes each pause at a sentence's end at least `sentence_pause` seconds
-long (0.55, in `[reel.voices.grafico]`; `voice.paused`): it finds which silence is which full
-stop as `timing.py` does for the slides, and adds the time in the middle of that silence, where
-the voice is already quiet. Commas and ellipses stay as the voice said them. The voice as it came
-is kept in `voice/raw/`, so another length of pause costs nothing: change `sentence_pause` and run
-`make reel` again. **Tried and dropped** (2026-11-03): each sentence said on its own and joined
+long (0.55, in `[reel.voices.grafico]`; `voice.paused`). Where each sentence ends comes from
+ElevenLabs itself: the voice is asked for with its times for each character (`voice.eleven_timed`,
+the "with-timestamps" call, same price), so the pause goes exactly between the last letter of one
+sentence and the first of the next, at the quietest moment there. Commas and ellipses stay as
+the voice said them. The voice as it came and its times are kept in `voice/raw/` (`.wav` and
+`.json`), so another length of pause costs nothing: change `sentence_pause`, delete the scenes'
+files in `voice/` (not `voice/raw/`) and run `make reel` again; it says "nothing paid".
+**Do not place the pause by guessing** where a sentence ends from the words' lengths or by
+matching the voice's silences: this voice barely stops between sentences, the guess drifted by
+over a second in a long scene, and the pause landed twice inside a word ("f…ue", the owner,
+2026-11-03). **Tried and dropped** (2026-11-03): each sentence said on its own and joined
 with a set silence (`sentence_gap`, still used by the reflective voice): first it cut each
 sentence while it still rang ("cortes muy bruscos"), and with fades the pauses still sounded odd
 ("pausas muy raras entre frases"), as each sentence was said as if it were the last. Listen to

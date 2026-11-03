@@ -231,11 +231,11 @@ def test_a_new_length_of_pause_is_made_from_the_kept_voice_and_nothing_is_paid(t
     reel = reels.Reel(folder)
     script = scripts.parse(COUNTDOWN)
     calls = []
-    monkeypatch.setattr(voice, "eleven", lambda text, *a, **k: calls.append(text) or _speech((0.6, True), (0.2, False), (0.6, True)))
+    monkeypatch.setattr(voice, "eleven_timed", lambda text, *a, **k: calls.append(text) or (_speech((0.6, True), (0.2, False), (0.6, True)), {}))
     channel = replace(channels.load().for_reels("grafico"), voice_sentence_gap=0.0, voice_sentence_pause=0.5)
     paid = voice.make(reel, script, channel, log=lambda line: None)
     assert paid == sum(len(s.narration) for s in script.scenes) and len(calls) == 2
-    assert (folder / "voice" / "raw" / "01-hook.wav").is_file()
+    assert (folder / "voice" / "raw" / "01-hook.wav").is_file() and (folder / "voice" / "raw" / "01-hook.json").is_file()
     assert voice.to_pay(reel, script, replace(channel, voice_sentence_pause=0.8)) == 0
     again = voice.make(reel, script, replace(channel, voice_sentence_pause=0.8), log=lambda line: None)
     assert again == 0 and len(calls) == 2                    # the pauses made again from voice/raw/, nothing spoken
@@ -245,3 +245,39 @@ def test_a_new_length_of_pause_is_made_from_the_kept_voice_and_nothing_is_paid(t
 def test_the_line_says_each_scene_in_one_go_and_lengthens_its_sentence_pauses():
     channel = channels.load().for_reels("grafico")
     assert channel.voice_sentence_gap == 0 and channel.voice_sentence_pause >= 0.4
+
+
+ALIGNMENT = {   # "Uno. Dos... tres. Cuatro." as ElevenLabs times it, one character every 0.1 s
+    "characters": list("Uno. Dos... tres. Cuatro."),
+    "character_start_times_seconds": [n / 10 for n in range(25)],
+    "character_end_times_seconds": [n / 10 + 0.1 for n in range(25)],
+}
+
+
+def test_the_end_of_each_sentence_is_read_from_elevenlabs_times():
+    from marketmedia import voice
+    ends = voice.sentence_ends(ALIGNMENT)
+    # "Uno." ends with the o (0.3) and "Dos" starts at 0.5; "tres." ends at 1.6 and "Cuatro" starts at 1.8;
+    # the ellipsis after "Dos" is not an end, and the last full stop has nothing after it.
+    assert [(round(a, 2), round(b, 2)) for a, b in ends] == [(0.3, 0.5), (1.6, 1.8)]
+
+
+def test_with_elevenlabs_times_the_pause_goes_between_two_sentences():
+    from marketmedia import voice
+    said = _speech((0.9, True), (0.05, False), (1.55, True))  # a voice that barely stops between the two
+    # the o of "Uno." ends at 0.9 and the D of "Dos." starts at 0.95: 0.05 s apart
+    alignment = {"characters": list("Uno. Dos."), "character_start_times_seconds": [0, .3, .6, .9, .95, .95, 1.6, 2.0, 2.4],
+                 "character_end_times_seconds": [.3, .6, .9, .95, .95, 1.6, 2.0, 2.4, 2.5]}
+    longer = voice.paused(said, "Uno. Dos.", 0.5, alignment)
+    assert _silences(longer) and abs(_silences(longer)[0] - 0.5) <= 0.03     # its own 0.05 s and 0.45 s more
+    rate, samples = voice._samples(longer)
+    start = next(n for n in range(int(0.85 * rate), len(samples)) if samples[n] == 0 and samples[n + 1] == 0)
+    assert 0.85 <= start / rate <= 1.3                          # between the o of "Uno." and the D of "Dos."
+
+
+def test_no_pause_goes_where_the_voice_runs_one_sentence_into_the_next():
+    from marketmedia import voice
+    said = _speech((2.5, True))                               # it never stops: any pause would cut a sound
+    alignment = {"characters": list("Uno. Dos."), "character_start_times_seconds": [0, .3, .6, .9, .95, .95, 1.6, 2.0, 2.4],
+                 "character_end_times_seconds": [.3, .6, .9, .95, .95, 1.6, 2.0, 2.4, 2.5]}
+    assert voice.paused(said, "Uno. Dos.", 0.5, alignment) == voice.wav(voice._samples(said)[1].tobytes(), 24000)
