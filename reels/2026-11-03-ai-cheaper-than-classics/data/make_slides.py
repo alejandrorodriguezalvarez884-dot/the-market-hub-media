@@ -83,14 +83,14 @@ w, n = rows["WMT"], rows["NVDA"]
 slide("01-hook", "Hook: Walmart grows 4% and trades at 41 times; Nvidia grows 68% and trades at 14", "grid", f"""<p class="kicker in">Una reflexión</p>
 <h1 class="small in">¿Cuál de las dos <span class="y">asusta</span>?</h1>
 <div class="pair">
-  <div class="card in" data-say="walmart">
+  <div class="card in" data-say="uolmart">
     <p class="label">{logo("WMT")} Walmart</p>
     <p class="note">Ventas esperadas, próximo ejercicio</p>
     <h2 class="fade" data-say="cuatro">+{es(w["rev_growth_next_fy_pct"])} %</h2>
     <p class="note">Veces el beneficio esperado</p>
     <h2 class="fade" data-say="cuarenta">{es(w["pe_ntm"])}x</h2>
   </div>
-  <div class="card amber in" data-say="nvidia">
+  <div class="card amber in" data-say="envidia">
     <p class="label">{logo("NVDA")} Nvidia</p>
     <p class="note">Ventas esperadas, próximo ejercicio</p>
     <h2 class="fade g" data-say="sesenta">+{es(n["rev_growth_next_fy_pct"])} %</h2>
@@ -98,7 +98,7 @@ slide("01-hook", "Hook: Walmart grows 4% and trades at 41 times; Nvidia grows 68
     <h2 class="fade" data-say="catorce">{es(n["pe_ntm"])}x</h2>
   </div>
 </div>
-{SRC.format(say="walmart")}
+{SRC.format(say="uolmart")}
 """, extra=".pair h2 { font-size: 88px; white-space: nowrap; } .pair .card { padding: 40px 34px; gap: 20px; } .pair .note { font-size: 30px; }")
 
 # 02 - the two teams
@@ -190,7 +190,7 @@ slide("05-punished", "The punishment: median distance from the one-year high; me
   <span class="sticker small pop" data-say="mitad">{logo("000660.KS")} SK Hynix −{es(abs(k["from_high_pct"]))} %</span>
 </div>
 <p class="src fade" data-say="junio">Desde sus máximos de junio de 2026</p>
-<p class="src fade" data-say="multiplicarse">En un año, aun así: Sandisk +{es(s["change_1y_pct"], 0)} % · SK Hynix +{es(k["change_1y_pct"], 0)} % · Yahoo Finance</p>
+<p class="src fade" data-say="mitad">En un año, aun así: Sandisk +{es(s["change_1y_pct"], 0)} % · SK Hynix +{es(k["change_1y_pct"], 0)} % · Yahoo Finance</p>
 """, extra=".big { font-size: 150px; }")
 
 # 06 - a demanding market; Coca-Cola up 41% in a year
@@ -306,7 +306,7 @@ slide("12-question", "The closing question; Nvidia reports on 17 November", "pla
   <em class="fade" data-say="o">o</em>
   <span class="sticker green pop" data-say="prudente">Prudente</span>
 </div>
-<div class="card in" data-say="nvidia">
+<div class="card in" data-say="ves">
   <p class="label">{logo("NVDA")} Próximo examen</p>
   <h2>Nvidia presenta resultados el 17 de noviembre</h2>
 </div>

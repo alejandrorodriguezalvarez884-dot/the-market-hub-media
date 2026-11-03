@@ -75,6 +75,8 @@ seconds = [40, 120]                  # how long a daily reel runs (the reference
 asked_seconds = [40, 180]            # how long a reel the owner asks for may run (a reflection takes longer)
 words_per_minute = 175               # the pace assumed for a scene whose narration is not made yet
 gap_seconds = 0.2                    # silence left after each scene: a reel keeps moving
+crossfade = 0.3                      # each slide dissolves into the next, instead of a cut: "se escuchan unos cortes muy
+                                     # bruscos cuando se cambia la diapositiva" (the owner, 2026-11-03)
 # The narration: ElevenLabs (the owner, 2026-11-02, after the Google voice sounded flat), with the
 # voice "Dani - Energetic Spanish YouTuber", picked by ear from eight samples. Its key is the
 # owner's, in .secrets/elevenlabs-key.txt (from Secret Manager, ELEVENLABS_API_KEY of llamazo-prod).
@@ -92,6 +94,9 @@ voice = "5Wn4TM7bYDwN5uDN0DpC"        # Julián
 model = "eleven_v3"
 cue = "[reflexivo, tono de profesor sereno]"   # said to v3 before each scene: how to say it, not words to say
 longest_pause = 0.45                 # v3 left pauses of up to a second: cut down, for more pace (the owner, 2026-11-02)
+sentence_gap = 0.15                  # each sentence said on its own (plus ~0.25 s of its own silence): said in one go, v3
+                                     # cuts the last syllable of a long scene, whatever it ends with, and the owner heard it as
+                                     # a cut at each change of slide (2026-11-03). Short, so the joins sound like one voice.
 
 [reel.voices.reflexion.settings]
 stability = 0.5                      # v3's "natural"

@@ -1,3 +1,4 @@
+from marketmedia import channel as channels
 from marketmedia import render
 from marketmedia import script as scripts
 
@@ -73,3 +74,37 @@ def test_a_still_scene_is_one_frame_held_and_a_moving_one_is_its_frames(video, c
     assert hold == "tpad=stop_mode=clone:stop_duration=7.500"
     # The Short has frames of its own.
     assert render.picture(video, "01-hook", True, 30, 7.5)[1] == ""
+
+
+def test_scenes_dissolve_into_each_other_without_moving_the_voice():
+    graph = render.dissolve([5.0, 4.0, 3.0], 0.3)
+    # every picture but the last is held a little longer, for the next to dissolve over it...
+    assert "[0:v]tpad=stop_mode=clone:stop_duration=0.300[p0]" in graph
+    assert "[1:v]tpad=stop_mode=clone:stop_duration=0.300[p1]" in graph
+    assert "[2:v]tpad" not in graph
+    # ...and each scene starts where it would have started after a cut
+    assert "[p0][p1]xfade=transition=fade:duration=0.300:offset=5.000[x1]" in graph
+    assert "[x1][2:v]xfade=transition=fade:duration=0.300:offset=9.000[v]" in graph
+    # the sound is not crossed: one scene's voice after the other's
+    assert graph.endswith("[0:a][1:a][2:a]concat=n=3:v=0:a=1[a]")
+
+
+def test_a_reel_dissolves_from_scene_to_scene_and_a_video_still_cuts():
+    channel = channels.load()
+    assert channel.crossfade == 0
+    assert channel.for_reels().crossfade > 0
+    assert channel.for_reels("reflexion").crossfade == channel.for_reels().crossfade
+
+
+def test_a_dissolve_keeps_the_films_length(tmp_path):
+    import subprocess
+    tool = render.ffmpeg()
+    for n, (colour, seconds) in enumerate((("red", 1.0), ("blue", 1.5))):
+        subprocess.run([tool, "-y", "-loglevel", "error", "-f", "lavfi", "-i", f"color={colour}:s=64x64:r=30:d={seconds}",
+                        "-f", "lavfi", "-i", f"sine=f=440:d={seconds}", "-c:v", "libx264", "-pix_fmt", "yuv420p",
+                        "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(tmp_path / f"{n}.mp4")], check=True)
+    out = tmp_path / "film.mp4"
+    subprocess.run([tool, "-y", "-loglevel", "error", "-i", str(tmp_path / "0.mp4"), "-i", str(tmp_path / "1.mp4"),
+                    "-filter_complex", render.dissolve([1.0, 1.5], 0.3), "-map", "[v]", "-map", "[a]",
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", str(out)], check=True)
+    assert abs(render.length(out) - 2.5) < 0.1

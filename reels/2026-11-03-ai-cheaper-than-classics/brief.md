@@ -118,6 +118,15 @@ récords "mientras los inversores salen de los chips" (Dow Jones, 17-10-2026).
   precios de DRAM se modera), la competencia china (CXMT), la capacidad nueva hacia 2028-2029 y
   las dudas sobre el gasto en IA y su financiación. Los resultados siguen superando previsiones.
 
+## La voz
+
+Julián dice los nombres de las empresas como en inglés (el usuario, 2026-11-03: "Maicron, no
+Micron"): en la narración del guion se escriben como suenan (Máicron, Uólmart, Envidia, Es Kei
+Jáinix, Sándisk, Álfabet), y en pantalla, el pie y X van bien escritos. Coca-Cola se queda como se
+dice en España. La voz se pide frase a frase (`sentence_gap` de `[reel.voices.reflexion]`): dicha
+de una vez, v3 cortaba la última sílaba de cada escena, y se oía como un corte al cambiar de
+diapositiva; y las diapositivas se funden una en otra (`[reel] crossfade`).
+
 ## ¿Oportunidad? (debate, sin recomendar)
 
 A favor: crecen más, ganan más y cuestan menos. En contra: si el ciclo de la memoria gira o el

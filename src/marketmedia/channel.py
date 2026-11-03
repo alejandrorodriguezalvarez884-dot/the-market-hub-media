@@ -80,6 +80,9 @@ class Channel:
     reel_asked_seconds: tuple[float, float] = (40.0, 180.0)   # a reel the owner asks for, not a daily one
     reel_words_per_minute: int = 175
     reel_gap_seconds: float = 0.2
+    reel_crossfade: float = 0.0
+    # How one scene gives way to the next in the film: 0 is a cut; a reel dissolves ([reel] crossfade)
+    crossfade: float = 0.0             # seconds one scene's picture takes to dissolve into the next (0: a cut)
     reel_voice_name: str = ""
     reel_voice_language: str = "es-ES"
     reel_voice_rate: float = 1.0
@@ -113,7 +116,7 @@ class Channel:
                            voice_settings=settings, voice_cue=cue, voice_pause=pause, voice_sentence_gap=gap,
                            voice_sentence_pause=stop)
         return replace(self, language=self.reel_language, words_per_minute=self.reel_words_per_minute,
-                       gap_seconds=self.reel_gap_seconds, voice_name=self.reel_voice_name,
+                       gap_seconds=self.reel_gap_seconds, crossfade=self.reel_crossfade, voice_name=self.reel_voice_name,
                        voice_language=self.reel_voice_language, voice_rate=self.reel_voice_rate,
                        voice_engine=self.reel_voice_engine, voice_model=self.reel_voice_model,
                        voice_settings=self.reel_voice_settings,
@@ -170,6 +173,7 @@ def load(path: Path | None = None) -> Channel:
         reel_asked_seconds=_range(reel.get("asked_seconds"), (40, 180)),
         reel_words_per_minute=int(reel.get("words_per_minute", 175)),
         reel_gap_seconds=float(reel.get("gap_seconds", 0.2)),
+        reel_crossfade=float(reel.get("crossfade", 0)),
         reel_voice_name=reel.get("voice", ""),
         reel_voice_language=reel.get("voice_language", "es-ES"),
         reel_voice_rate=float(reel.get("rate", 1.0)),

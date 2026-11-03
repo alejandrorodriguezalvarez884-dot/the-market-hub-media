@@ -29,11 +29,11 @@ sources:
 
 ## 01-hook
 
-[con un punto de ironía] Se espera que Walmart venda un cuatro por ciento más el año que viene. Cotiza a cuarenta y una veces su beneficio esperado. Nvidia, un sesenta y ocho por ciento más. Y cotiza a catorce. Adivina cuál de las dos asusta al mercado.
+[con un punto de ironía] Se espera que Uólmart venda un cuatro por ciento más el año que viene. Cotiza a cuarenta y una veces su beneficio esperado. Envidia, un sesenta y ocho por ciento más. Y cotiza a catorce. Adivina cuál de las dos asusta al mercado.
 
 ## 02-teams
 
-Y no es solo Nvidia. Pongamos a seis grandes de la inteligencia artificial frente a cuatro clásicas de toda la vida.
+Y no es solo Envidia: seis grandes de la inteligencia artificial, frente a cuatro clásicas de toda la vida.
 
 ## 03-price
 
@@ -41,11 +41,11 @@ Primero, el precio. La tecnológica típica cotiza a nueve veces el beneficio qu
 
 ## 04-growth
 
-¿Será que las clásicas crecen más? Al revés. Se espera que el beneficio de las tecnológicas suba un veintidós por ciento el año que viene. El de las clásicas, un ocho. Y de cada cien dólares que venden, a unas les quedan setenta y tres. A las otras, quince.
+¿Crecen más las clásicas? Al revés. El beneficio de las tecnológicas subiría un veintidós por ciento el año que viene. El de las clásicas, un ocho. Y de cada cien dólares vendidos, a unas les quedan setenta y tres. A las otras, quince.
 
 ## 05-punished
 
-Y aun así, la tecnológica típica está un treinta y uno por ciento por debajo de su máximo del año. La clásica, un tres y medio. Ojo: la memoria venía de multiplicarse. Pero desde junio, Sandisk y SK Hynix han perdido la mitad.
+Y aun así, la tecnológica típica está un treinta y uno por ciento por debajo de su máximo del año. La clásica, un tres y medio. Y desde junio, Sándisk y Es Kei Jáinix han perdido la mitad.
 
 ## 06-demanding
 
@@ -53,11 +53,11 @@ Eso es un mercado exigente: a unas les pide un examen cada trimestre. [con un pu
 
 ## 07-cycle
 
-¿Tiene motivos? Alguno, sí. La memoria se queda hoy con unos ochenta y cinco de cada cien dólares que vende. Eso huele a pico. En el último bajón, en dos mil veintitrés, Micron vendió la mitad. Y perdió casi seis mil millones.
+¿Tiene motivos? Alguno, sí. La memoria se queda hoy con unos ochenta y cinco de cada cien dólares que vende. Eso huele a pico. En el último bajón, en dos mil veintitrés, Máicron vendió la mitad. Y perdió casi seis mil millones.
 
 ## 08-spending
 
-Y está el gasto. Las grandes invertirán este año unos ochocientos mil millones de dólares. Tres clientes ya son más del cuarenta por ciento de las ventas de Nvidia. Y Alphabet ha multiplicado su deuda casi por tres en nueve meses.
+Y está el gasto. Este año, las grandes invertirán unos ochocientos mil millones. Tres clientes ya son más del cuarenta por ciento de las ventas de Envidia. Y Álfabet ha multiplicado su deuda casi por tres en nueve meses.
 
 ## 09-time
 
@@ -73,4 +73,4 @@ Mi lectura: a las tecnológicas se les exige la perfección. A las defensivas se
 
 ## 12-question
 
-¿Y tú qué ves? ¿Un mercado exigente, o un mercado prudente? Nvidia presenta resultados el diecisiete de noviembre. Te leo en comentarios.
+¿Y tú qué ves? ¿Un mercado exigente, o un mercado prudente? Te leo en comentarios.

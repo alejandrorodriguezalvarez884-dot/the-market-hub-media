@@ -2,7 +2,8 @@
 
 Two films come out of a script: the video (every scene, as wide as a screen) and its Short (the
 scenes the script names, upright). Each scene is its picture, moving while it moves and then
-held, for as long as its narration lasts, plus a short silence. A scene whose narration is not made yet is held for the time its
+held, for as long as its narration lasts, plus a short silence. One scene follows the next with a
+cut, or, where channel.toml says so (a reel's [reel] crossfade), dissolves into it. A scene whose narration is not made yet is held for the time its
 words would take at the channel's pace, in silence: a film can be watched, timed and corrected
 before a word is spoken.
 
@@ -149,6 +150,24 @@ def picture(video: Video, scene: str, short: bool, fps: int, seconds: float) -> 
     return ["-loop", "1", "-framerate", str(fps), "-i", str(video.frame(scene, short))], ""
 
 
+def dissolve(seconds: list[float], fade: float) -> str:
+    """The ffmpeg filter that joins the scenes' parts (inputs 0, 1, ...) so that each picture
+    dissolves into the next over ``fade`` seconds, while the sound runs on as it is. Each picture
+    but the last is held ``fade`` seconds longer (its last frame), and the next one starts where it
+    would have started after a cut: the voice and the captions keep their times."""
+    n = len(seconds)
+    steps = [f"[{i}:v]tpad=stop_mode=clone:stop_duration={fade:.3f}[p{i}]" for i in range(n - 1)]
+    last, start = "p0", 0.0
+    for i in range(1, n):
+        start += seconds[i - 1]
+        nxt = f"p{i}" if i < n - 1 else f"{i}:v"
+        out = "v" if i == n - 1 else f"x{i}"
+        steps.append(f"[{last}][{nxt}]xfade=transition=fade:duration={fade:.3f}:offset={start:.3f}[{out}]")
+        last = out
+    steps.append("".join(f"[{i}:a]" for i in range(n)) + f"concat=n={n}:v=0:a=1[a]")
+    return ";".join(steps)
+
+
 def film(video: Video, script: Script, channel: Channel, short: bool = False,
          log: Callable[[str], None] = print) -> Path:
     """Make the video (build/video.mp4) or its Short (build/short.mp4), with its captions.
@@ -176,8 +195,15 @@ def film(video: Video, script: Script, channel: Channel, short: bool = False,
             f"{'  moving' if hold else ''}")
     order = video.build / f"{parts.name}.txt"
     order.write_text("".join(f"file '{parts.name}/{c.scene.name}.mp4'\n" for c in cuts), encoding="utf-8", newline="\n")
-    _run([tool, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(order),
-          "-c", "copy", "-movflags", "+faststart", str(video.film(short))])
+    if channel.crossfade > 0 and len(cuts) > 1:   # a dissolve between scenes: one more encoding
+        inputs = [a for c in cuts for a in ("-i", str(parts / f"{c.scene.name}.mp4"))]
+        _run([tool, "-y", "-loglevel", "error", *inputs,
+              "-filter_complex", dissolve([c.seconds for c in cuts], channel.crossfade),
+              "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", str(channel.fps),
+              "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart", str(video.film(short))])
+    else:
+        _run([tool, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(order),
+              "-c", "copy", "-movflags", "+faststart", str(video.film(short))])
     words = captions(cuts, SHORT_CAPTION_CHARS if short else CAPTION_CHARS)
     video.captions(short).write_text(words, encoding="utf-8", newline="\n")
     return video.film(short)
