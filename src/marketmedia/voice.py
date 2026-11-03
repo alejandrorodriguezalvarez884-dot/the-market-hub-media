@@ -10,6 +10,10 @@ git), and is paid by the character. Google uses the owner's own Google Cloud ses
 project. The service is paid by the character once a monthly free allowance is spent, so a scene
 is spoken again only when its words or the voice change. A sound file that this did not make (a
 recording the owner dropped in voice/) is left alone.
+
+A reel's voice may say each sentence on its own and join them with a set pause (``sentence_gap``
+in its [reel.voices.*]: the chart reels), and a scene may set its own speed ("speed:" in the
+script): both go into what a file was made from, so changing them speaks the scene again.
 """
 
 from __future__ import annotations
@@ -19,6 +23,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import urllib.error
 import urllib.request
 import wave
@@ -69,15 +74,18 @@ def cloud(text: str, channel: Channel) -> bytes:
     return base64.b64decode(response.json()["audioContent"])
 
 
-def eleven_request(text: str, channel: Channel, before: str = "", after: str = "") -> dict:
-    """What is asked of ElevenLabs for one scene. The words around it let the voice carry its
-    tone from one scene to the next, as one person speaking."""
+def eleven_request(text: str, channel: Channel, before: str = "", after: str = "", speed: float | None = None) -> dict:
+    """What is asked of ElevenLabs for one scene (or one sentence of it). The words around it let
+    the voice carry its tone from one to the next, as one person speaking. ``speed`` is the
+    scene's own, over the voice's."""
     model = channel.voice_model or "eleven_multilingual_v2"
     if channel.voice_cue and model == "eleven_v3":   # v3 reads a bracketed cue as how to speak
         text = f"{channel.voice_cue} {text}"
     body: dict = {"text": text, "model_id": model, "language_code": channel.voice_language.split("-")[0]}
-    if channel.voice_settings:
+    if channel.voice_settings or speed:
         body["voice_settings"] = dict(channel.voice_settings)
+    if speed:
+        body["voice_settings"]["speed"] = speed
     if before and body["model_id"] != "eleven_v3":   # v3 does not take the words around it
         body["previous_text"] = before
     if after and body["model_id"] != "eleven_v3":
@@ -146,11 +154,61 @@ def shorten_pauses(sound: bytes, longest: float, quiet: float = 0.0126, window: 
     return wav(out.tobytes(), rate)
 
 
-def eleven(text: str, channel: Channel, before: str = "", after: str = "") -> bytes:
+def sentences(text: str) -> list[str]:
+    """A narration cut into its sentences, at a full stop, a question or an exclamation mark. An
+    ellipsis is a hold inside the sentence, not its end ("Cae... rebota... y vuelve a caer.")."""
+    parts = re.split(r"(?<=[^.][.!?])\s+|(?<=[!?][»”\"])\s+", " ".join(text.split()))
+    return [p for p in parts if p]
+
+
+def _samples(sound: bytes) -> tuple[int, "array.array"]:
+    import array
+    with wave.open(io.BytesIO(sound), "rb") as file:
+        return file.getframerate(), array.array("h", file.readframes(file.getnframes()))
+
+
+def trimmed(sound: bytes, quiet: float = 0.0126, keep: float = 0.04) -> bytes:
+    """A WAV file without the silence before its first sound and after its last, but ``keep``
+    seconds of each."""
+    rate, samples = _samples(sound)
+    limit = quiet * 32768
+    loud = [n for n, v in enumerate(samples) if abs(v) > limit]
+    if not loud:
+        return sound
+    margin = int(rate * keep)
+    return wav(samples[max(0, loud[0] - margin):loud[-1] + margin + 1].tobytes(), rate)
+
+
+def joined(sounds: list[bytes], gap: float) -> bytes:
+    """WAV files one after another, with ``gap`` seconds of silence between each two."""
+    import array
+    rate, out = _samples(sounds[0])
+    for sound in sounds[1:]:
+        out.extend(array.array("h", bytes(2 * int(rate * gap))))
+        out.extend(_samples(sound)[1])
+    return wav(out.tobytes(), rate)
+
+
+def eleven_sentences(text: str, channel: Channel, before: str = "", after: str = "",
+                     speed: float | None = None, say: Callable[..., bytes] | None = None) -> bytes:
+    """Speak a scene a sentence at a time, each with the sentences around it as its context, and
+    join them with ``channel.voice_sentence_gap`` seconds of silence: the voice keeps its pace
+    inside a sentence and takes a breath between two (the owner, 2026-11-03, on the chart reels)."""
+    say = say or eleven
+    parts = sentences(text)
+    sounds = []
+    for n, sentence in enumerate(parts):
+        said_before = " ".join(filter(None, [before, *parts[:n]]))
+        said_after = " ".join(filter(None, [*parts[n + 1:], after]))
+        sounds.append(trimmed(say(sentence, channel, said_before, said_after, speed)))
+    return joined(sounds, channel.voice_sentence_gap)
+
+
+def eleven(text: str, channel: Channel, before: str = "", after: str = "", speed: float | None = None) -> bytes:
     """Speak ``text`` with ElevenLabs and return a WAV file."""
     request = urllib.request.Request(
         f"{ELEVEN}/{channel.voice_name}?output_format=pcm_{ELEVEN_RATE}",
-        data=json.dumps(eleven_request(text, channel, before, after)).encode(), method="POST",
+        data=json.dumps(eleven_request(text, channel, before, after, speed)).encode(), method="POST",
         headers={"Content-Type": "application/json", **({"xi-api-key": key} if (key := _eleven_key()) else {})})
     try:
         with urllib.request.urlopen(request, timeout=180) as response:
@@ -169,6 +227,8 @@ def _mark(scene: Scene, channel: Channel) -> str:
     """What a scene's sound depends on: its words, who says them and how."""
     how = (f"{channel.voice_engine}|{channel.voice_model}|{channel.voice_settings}|{channel.voice_cue}|"
            + (f"{channel.voice_pause}|" if channel.voice_pause else "")
+           + (f"gap {channel.voice_sentence_gap}|" if channel.voice_sentence_gap else "")
+           + (f"speed {scene.speed}|" if scene.speed else "")
            if channel.voice_engine != "google" else "")
     made_from = f"{how}{channel.voice_name}|{channel.voice_language}|{channel.voice_rate}|{scene.narration}"
     return hashlib.sha256(made_from.encode()).hexdigest()[:16]
@@ -207,7 +267,9 @@ def make(video: Video, script: Script, channel: Channel, speak: Speak | None = N
             sound = speak(scene.narration, channel)
         elif channel.voice_engine == "elevenlabs":
             n = said.index(scene.narration)
-            sound = eleven(scene.narration, channel, " ".join(said[max(0, n - 2):n]), said[n + 1] if n + 1 < len(said) else "")
+            around = (" ".join(said[max(0, n - 2):n]), said[n + 1] if n + 1 < len(said) else "")
+            sound = (eleven_sentences(scene.narration, channel, *around, speed=scene.speed) if channel.voice_sentence_gap
+                     else eleven(scene.narration, channel, *around, speed=scene.speed))
         else:
             sound = cloud(scene.narration, channel)
         folder, stem = video.voices(scene.name)

@@ -11,6 +11,7 @@ sources:
 ---
 
 ## 01-hook
+speed: 0.85
 
 Mira este gráfico. Cae... rebota... y vuelve a caer, justo hasta el mismo sitio. ¿Qué crees que pasó después? Tienes cinco segundos.
 

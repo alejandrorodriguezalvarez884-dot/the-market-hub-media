@@ -30,7 +30,11 @@ es siempre un episodio real (velas diarias de Yahoo Finance, `make candles`), no
 respuesta cuenta lo que pasó en ese caso y dónde habría fallado, sin señales, objetivos ni
 porcentajes de acierto. Se alternan casos en que el patrón se cumplió y casos en que falló. El
 gráfico lo dibuja `theme/chart.js` (con `theme/chart.css`); la cuenta atrás es una escena sin voz
-con `seconds: 5` y `sound: tick` (un tic hecho con ffmpeg, no una grabación). Las historias de
+con `seconds: 5` y `sound: tick` (un tic hecho con ffmpeg, no una grabación). La voz habla rápido
+dentro de cada frase y hace una pausa fija entre frases (cada frase se dice aparte y se unen con
+`sentence_gap`, 0,55 s), y el gancho va más despacio (`speed: 0.85` en `01-hook`): lo pidió el
+usuario al ver el primero ("que hable rápido en la misma frase pero que dé un poco más de pausa
+entre frases… al principio quiero que vaya más despacio exponiendo la pregunta"). Las historias de
 presentación de cada línea, las primeras de cada destacada, están en `stories/2026-11-02-intro-*`.
 
 ## También en X

@@ -117,3 +117,58 @@ def test_the_chart_script_is_loaded_after_the_reel_script_in_every_chart_slide()
         if "chart.js" in text:
             assert text.index("theme/reel.js") < text.index("theme/chart.js"), slide
             assert "../data/candles.js" in text, slide
+
+
+def _tone(seconds: float, rate: int = 24000, loud: bool = True) -> bytes:
+    import array
+    import math
+    from marketmedia import voice
+    samples = array.array("h", (int(8000 * math.sin(n / 5)) if loud else 0 for n in range(int(rate * seconds))))
+    return voice.wav(samples.tobytes(), rate)
+
+
+def test_a_narration_is_cut_into_sentences_but_not_at_an_ellipsis():
+    from marketmedia import voice
+    said = "Mira este gráfico. Cae... rebota... y vuelve a caer. ¿Qué crees que pasó después? Tienes cinco segundos."
+    assert voice.sentences(said) == ["Mira este gráfico.", "Cae... rebota... y vuelve a caer.",
+                                     "¿Qué crees que pasó después?", "Tienes cinco segundos."]
+    assert voice.sentences("Y justo aquí... lo acaba de tocar.") == ["Y justo aquí... lo acaba de tocar."]
+
+
+def test_sentences_are_said_one_by_one_with_their_context_and_a_set_pause_between_them():
+    from dataclasses import replace
+
+    from marketmedia import voice
+    channel = replace(channels.load().for_reels("grafico"), voice_sentence_gap=0.5)
+    asked = []
+
+    def say(text, channel, before, after, speed):
+        asked.append((text, before, after, speed))
+        return voice.joined([_tone(0.2, loud=False), _tone(1.0), _tone(0.3, loud=False)], 0)   # silence round the voice
+
+    sound = voice.eleven_sentences("Una frase. Otra frase.", channel, "Lo de antes.", "Lo de después.", speed=0.85, say=say)
+    assert asked == [("Una frase.", "Lo de antes.", "Otra frase. Lo de después.", 0.85),
+                     ("Otra frase.", "Lo de antes. Una frase.", "Lo de después.", 0.85)]
+    seconds = len(voice._samples(sound)[1]) / 24000
+    assert abs(seconds - (1.0 + 0.08 + 0.5 + 1.0 + 0.08)) < 0.02   # each trimmed to its voice (and 0.04 s a side), 0.5 s between
+
+
+def test_a_scene_can_ask_its_voice_to_go_slower():
+    from marketmedia import voice
+    script = scripts.parse(COUNTDOWN.replace("## 01-hook\n", "## 01-hook\nspeed: 0.85\n"))
+    assert script.scenes[0].speed == 0.85 and script.scenes[2].speed is None
+    body = voice.eleven_request("Hola.", channels.load().for_reels("grafico"), speed=script.scenes[0].speed)
+    assert body["voice_settings"]["speed"] == 0.85 and body["voice_settings"]["stability"] == 0.4
+    too_fast = scripts.parse(COUNTDOWN.replace("## 01-hook\n", "## 01-hook\nspeed: 1.5\n"))
+    assert any("'speed:' goes from 0.7 to 1.2" in p for p in scripts.problems(too_fast))
+
+
+def test_a_change_of_speed_or_of_the_pause_between_sentences_speaks_the_scene_again():
+    from dataclasses import replace
+
+    from marketmedia import voice
+    channel = channels.load().for_reels("grafico")
+    scene = scripts.parse(COUNTDOWN).scenes[0]
+    marks = {voice._mark(scene, channel), voice._mark(replace(scene, speed=0.85), channel),
+             voice._mark(scene, replace(channel, voice_sentence_gap=0.8))}
+    assert len(marks) == 3

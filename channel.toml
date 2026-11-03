@@ -116,6 +116,8 @@ use_speaker_boost = true
 [reel.voices.grafico]
 voice = "7xK0jqLEWCrIBJ8ymBJi"        # Rafalupi
 model = "eleven_multilingual_v2"
+sentence_gap = 0.55                  # each sentence said on its own, this silence between two: "que hable rápido en la
+                                     # misma frase pero que dé un poco más de pausa entre frases" (the owner, 2026-11-03)
 
 [reel.voices.grafico.settings]       # as in the sample the owner picked
 stability = 0.4

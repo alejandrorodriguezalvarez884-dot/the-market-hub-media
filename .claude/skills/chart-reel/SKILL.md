@@ -39,11 +39,17 @@ Upright, **50 to 80 seconds**, the light look of the on-demand reels with a plai
 background (`<body class="light chart-reel" data-bg="plain">`), the brand line `The Market Hub ·
 Lee el gráfico`, the voice of the line: **Rafalupi** (`voice: grafico`, `[reel.voices.grafico]` in
 `channel.toml`; the user asked for "una voz que enganche mucho y que sea didáctica… una nueva" and
-picked it by ear from five samples). The scenes, in this order:
+picked it by ear from five samples). **How it speaks** (the user, 2026-11-03, after the first cut):
+fast inside a sentence, with a breath between two ("que hable rápido en la misma frase pero que dé
+un poco más de pausa entre frases"), so the voice says each sentence on its own, with the others
+as its context, and the code joins them with `sentence_gap` seconds of silence (0.55, in
+`[reel.voices.grafico]`; `voice.eleven_sentences`); an ellipsis is a hold inside a sentence, not
+its end. And **the hook is slower** while it puts the question ("al principio quiero que vaya más
+despacio exponiendo la pregunta"): `speed: 0.85` under `## 01-hook`. The scenes, in this order:
 
 | Scene | About | What it does |
 |---|---|---|
-| `01-hook` | 5–7 s | The chart draws itself as the voice tells its shape ("Cae… rebota… y vuelve a caer"), **name and dates hidden** (`.secret`), and stops on the last candle before the answer. Ends with "¿Qué crees que pasó después? Tienes cinco segundos." It is also the cover: nothing in it gives the answer away. |
+| `01-hook` | 8–10 s | The chart draws itself as the voice tells its shape ("Cae… rebota… y vuelve a caer"), **name and dates hidden** (`.secret`), and stops on the last candle before the answer. Ends with "¿Qué crees que pasó después? Tienes cinco segundos." It is also the cover: nothing in it gives the answer away. |
 | `02-countdown` | 5 s | `seconds: 5` and `sound: tick`, nothing said: the countdown (`.countdown`) over the chart, a clock ticking once a second (made by ffmpeg, `render.TICK`), and two readings as stickers ("¿Sigue cayendo?" / "¿Se da la vuelta?"): questions, not verdicts. |
 | `03-name` | 7–9 s | "¿Lo tienes?" and the pattern's name, marked on the chart (rings, the shape traced). |
 | `04-rules` | 10–14 s | What makes it, as ticks (`.checks`), each shown on the chart as it is said: from the definition in the source (below), with this episode's figures. |
@@ -111,7 +117,8 @@ before the close above the peak). Never stop on the day that already answers it.
 
 `script.md` with `kind: reel`, `voice: grafico`, `tickers:`, and **at least two sources**: Yahoo
 Finance (the candles, with the figures used and the day they were read) and the page that defines
-the pattern. Then the scenes as in the table above, `02-countdown` with only:
+the pattern. Then the scenes as in the table above: `01-hook` with `speed: 0.85` under its heading (slower while
+it puts the question; every other scene at the voice's own speed), and `02-countdown` with only:
 
 ```text
 ## 02-countdown

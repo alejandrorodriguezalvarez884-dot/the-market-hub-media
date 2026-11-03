@@ -24,7 +24,9 @@
 A scene is a "## " heading with its name (two digits, a dash, a few words) and, under it, what is
 said. Its picture is slides/<name>.html (or .svg). A scene where nothing is said gives its length
 in a "seconds:" line, and may say "sound: tick" under it for a clock ticking once a second while
-it is on (the countdown of a chart-reading reel), made by the code, never a recording.
+it is on (the countdown of a chart-reading reel), made by the code, never a recording. A scene
+whose voice should go slower or faster than the rest says "speed: 0.85" under its heading
+(ElevenLabs' speed, 0.7 to 1.2; the voice's own when not said).
 
 "short:" names the scenes that, in that order, make the Short: a cut of the video that stands on
 its own, drawn again upright. "short_title:" is its title, when it is not the video's.
@@ -72,6 +74,7 @@ class Scene:
     narration: str               # what is said, paragraphs apart by a blank line
     seconds: float | None = None  # its length, given by hand when nothing is said
     sound: str = ""              # what is heard when nothing is said: "" (silence) or one of SOUNDS
+    speed: float | None = None   # how fast its voice speaks, against the voice's own (ElevenLabs, 0.7 to 1.2)
 
     @property
     def words(self) -> int:
@@ -146,18 +149,19 @@ def _scenes(body: str, name: str) -> list[Scene]:
     current: str | None = None
     seconds: float | None = None
     sound = ""
+    speed: float | None = None
     lines: list[str] = []
 
     def close() -> None:
         if current is not None:
             paragraphs = [" ".join(p.split()) for p in "\n".join(lines).split("\n\n")]
-            scenes.append(Scene(current, "\n\n".join(p for p in paragraphs if p), seconds, sound))
+            scenes.append(Scene(current, "\n\n".join(p for p in paragraphs if p), seconds, sound, speed))
 
     for line in body.split("\n"):
         heading = HEADING.match(line)
         if heading:
             close()
-            current, seconds, sound, lines = heading.group(1), None, "", []
+            current, seconds, sound, speed, lines = heading.group(1), None, "", None, []
         elif current is None:
             if line.strip():
                 raise Invalid(f"{name}: text before the first scene ('## 01-name')")
@@ -168,6 +172,11 @@ def _scenes(body: str, name: str) -> list[Scene]:
                 raise Invalid(f"{name}: scene {current}: 'seconds:' is not a number") from None
         elif line.startswith("sound:") and not any(l.strip() for l in lines):
             sound = line.partition(":")[2].strip()
+        elif line.startswith("speed:") and not any(l.strip() for l in lines):
+            try:
+                speed = float(line.partition(":")[2])
+            except ValueError:
+                raise Invalid(f"{name}: scene {current}: 'speed:' is not a number") from None
         else:
             lines.append(line.rstrip())
     close()
@@ -245,6 +254,8 @@ def problems(script: Script) -> list[str]:
             found.append(f"scene {scene.name}: 'sound: {scene.sound}' is not one of {', '.join(SOUNDS)}")
         if scene.sound and scene.narration:
             found.append(f"scene {scene.name}: 'sound:' is for a scene where nothing is said")
+        if scene.speed is not None and not 0.7 <= scene.speed <= 1.2:
+            found.append(f"scene {scene.name}: 'speed:' goes from 0.7 to 1.2 (ElevenLabs)")
 
     for scene in script.scenes:
         if scene.name in ("00-intro", "99-outro"):
