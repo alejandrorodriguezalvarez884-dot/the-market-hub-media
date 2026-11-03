@@ -1,0 +1,222 @@
+/* This reel's own look: an election-night broadcast, unlike any line of reels (the owner,
+   2026-11-03: "que no se parezca en nada a ninguno de los anteriores"). It does not load
+   theme/reel.css. Every scene shares one frame, so the cuts feel like one live graphic:
+
+     header.hud        the bug on top: MIDTERMS 2026 and "hoy se vota", with a progress bar
+     main.stage        what the scene shows, between 300 and 1330 px from the top
+     div.ticker        the crawl at the foot, continuous from scene to scene (midterms.js)
+
+   Type: Bahnschrift, condensed, in capitals for labels. Colours: the parties' usual blue and red,
+   always side by side and never as a verdict; the market in gold; green and red only for what
+   went up or down. Things come in when the voice names them (data-say, theme/reel.js), with a
+   wipe, a slam or a rise instead of the other reels' fades and stickers. */
+
+:root {
+  --navy: #050c22; --navy-2: #0b1a44; --panel: rgba(9, 22, 58, 0.9); --line: rgba(150, 180, 255, 0.22);
+  --ink: #f5f7fc; --muted: #9eb0d8; --faint: #5d6f9a;
+  --dem: #2f6bff; --rep: #ff3b47; --gold: #ffc83d; --up: #2fd38a; --down: #ff5a5f;
+  --cond: "Bahnschrift", "DIN Alternate", "Arial Narrow", sans-serif;
+  --at: 0s;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; }
+body { position: relative; isolation: isolate; color: var(--ink); font-family: var(--cond); font-weight: 600;
+       font-size: 40px; line-height: 1.1; -webkit-font-smoothing: antialiased;
+       background: radial-gradient(120% 70% at 30% 28%, #12276a 0%, var(--navy-2) 32%, var(--navy) 72%); }
+
+/* The studio behind: a slow field of stars, ghost stripes on the right and a light that sweeps. */
+.studio { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.studio::before { content: ""; position: absolute; inset: -200px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.55) 1.6px, transparent 2.2px),
+                    radial-gradient(circle, rgba(255, 255, 255, 0.3) 1.2px, transparent 1.8px);
+  background-size: 140px 140px, 90px 90px; background-position: 0 0, 45px 60px;
+  animation: mt-drift 40s linear infinite; opacity: 0.45; }
+.studio::after { content: ""; position: absolute; top: -10%; bottom: -10%; width: 520px; left: -40%;
+  background: linear-gradient(100deg, transparent, rgba(120, 160, 255, 0.10) 45%, rgba(255, 255, 255, 0.07) 50%, transparent 60%);
+  animation: mt-sweep 7s ease-in-out infinite; }
+.studio .stripes { position: absolute; right: -260px; top: 520px; width: 760px; height: 900px; transform: rotate(-14deg);
+  background: repeating-linear-gradient(180deg, rgba(255, 59, 71, 0.10) 0 60px, rgba(255, 255, 255, 0.03) 60px 120px);
+  mask-image: linear-gradient(90deg, transparent, #000 40%); animation: mt-wave 9s ease-in-out infinite alternate; }
+.studio .ghost { position: absolute; left: -30px; bottom: 360px; font-size: 640px; font-weight: 800; font-stretch: 75%;
+  letter-spacing: -0.06em; color: rgba(140, 170, 255, 0.05); line-height: 0.8; }
+@keyframes mt-drift { to { transform: translate(140px, -140px); } }
+@keyframes mt-sweep { 0% { left: -40%; } 60%, 100% { left: 120%; } }
+@keyframes mt-wave { from { transform: rotate(-14deg) translateY(0); } to { transform: rotate(-12deg) translateY(-40px); } }
+
+/* The bug on top. */
+.hud { position: absolute; left: 60px; right: 60px; top: 228px; height: 64px; display: flex; align-items: stretch; gap: 0; }
+.hud .badge { display: flex; align-items: center; gap: 12px; padding: 0 22px 0 0; background: #fff; color: var(--navy);
+              font-size: 38px; font-weight: 800; font-stretch: 75%; letter-spacing: 0.02em; }
+.hud .badge .flag { width: 64px; align-self: stretch; display: grid; grid-template-columns: 1fr 1fr; }
+.hud .badge .flag i:first-child { background: var(--dem); }
+.hud .badge .flag i:last-child { background: var(--rep); }
+.hud .badge span { color: var(--rep); }
+.hud .live { display: flex; align-items: center; gap: 14px; padding: 0 22px; background: rgba(5, 12, 34, 0.85);
+             border: 2px solid var(--line); border-left: none; font-size: 30px; font-weight: 700; font-stretch: 80%;
+             letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+.hud .live .dot { width: 16px; height: 16px; border-radius: 50%; background: var(--rep); box-shadow: 0 0 16px var(--rep);
+                  animation: mt-blink 1.2s ease-in-out infinite; }
+@keyframes mt-blink { 50% { opacity: 0.25; } }
+.hud .progress { position: absolute; left: 0; right: 0; bottom: -10px; height: 4px; background: rgba(255, 255, 255, 0.08); }
+.hud .progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--dem), var(--rep)); }
+
+/* The crawl at the foot, with whose broadcast this is. */
+.ticker { position: absolute; left: 0; right: 0; top: 1372px; height: 66px; display: flex; background: rgba(3, 8, 24, 0.94);
+          border-top: 3px solid var(--gold); overflow: hidden; }
+.ticker .who { flex: none; display: flex; align-items: center; padding: 0 22px 0 60px; background: var(--gold); color: var(--navy);
+               font-size: 30px; font-weight: 800; font-stretch: 75%; letter-spacing: 0.08em; text-transform: uppercase; z-index: 1; }
+.ticker .crawl { position: relative; flex: 1; overflow: hidden; }
+.ticker .crawl p { position: absolute; top: 0; left: 0; height: 66px; display: flex; align-items: center; white-space: nowrap;
+                   font-size: 31px; font-weight: 600; font-stretch: 85%; letter-spacing: 0.02em; color: var(--ink); }
+.ticker .crawl b { color: var(--gold); font-weight: 800; margin-right: 10px; }
+.ticker .crawl em { font-style: normal; color: var(--faint); margin: 0 26px; }
+
+/* The scene. */
+.stage { position: absolute; left: 60px; right: 150px; top: 330px; height: 1010px; display: flex; flex-direction: column; gap: 26px; }
+.stage.full { right: 60px; }
+.stage.center { justify-content: center; }
+.tag { align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; padding: 8px 18px 7px 14px;
+       background: rgba(255, 255, 255, 0.08); border-left: 8px solid var(--gold); font-size: 30px; font-weight: 700;
+       font-stretch: 80%; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+.tag.d { border-color: var(--dem); }
+.tag.p { border-color: var(--rep); }
+.title { font-size: 108px; line-height: 0.92; font-weight: 800; font-stretch: 75%; letter-spacing: -0.01em; text-transform: uppercase; }
+.title.mid { font-size: 86px; }
+.title.small { font-size: 70px; }
+.y { color: var(--gold); }
+.d { color: var(--dem); }
+.p { color: var(--rep); }
+.g { color: var(--up); }
+.r { color: var(--down); }
+.m { color: var(--muted); }
+.note { font-size: 28px; font-weight: 500; font-stretch: 90%; color: var(--muted); letter-spacing: 0.01em; line-height: 1.2; }
+
+/* A panel: a broadcast box with a coloured edge and a heading strip. */
+.panel { width: 100%; background: var(--panel); border: 2px solid var(--line); border-top: 6px solid var(--gold);
+         padding: 22px 28px 24px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); }
+.panel.d { border-top-color: var(--dem); }
+.panel.p { border-top-color: var(--rep); }
+.panel.split { border-image: linear-gradient(90deg, var(--dem) 50%, var(--rep) 50%) 6 0 0 0 / 6px 0 0 0; }
+.panel h3 { font-size: 30px; font-weight: 700; font-stretch: 80%; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.big { font-size: 190px; line-height: 0.86; font-weight: 800; font-stretch: 75%; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.big.mid { font-size: 140px; }
+.big.small { font-size: 104px; }
+.row { display: flex; gap: 22px; width: 100%; }
+.row > * { flex: 1; }
+
+/* How things come in, from their word (theme/reel.js sets --at). */
+.wipe { animation: mt-wipe 0.6s cubic-bezier(0.7, 0, 0.2, 1) both; animation-delay: var(--at); }
+.slam { animation: mt-slam 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; animation-delay: var(--at); }
+.rise { animation: mt-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+.show { animation: mt-show 0.4s ease both; animation-delay: var(--at); }
+@keyframes mt-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes mt-slam { from { opacity: 0; transform: scale(1.5); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes mt-rise { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: none; } }
+@keyframes mt-show { from { opacity: 0; } to { opacity: 1; } }
+
+/* 20 of 20: a box for each midterm, ticked one after another (midterms.js). */
+.boxes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: 100%; }
+.boxes div { height: 74px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line);
+             font-size: 30px; font-weight: 700; font-stretch: 80%; color: var(--muted); background: rgba(255, 255, 255, 0.03);
+             animation: mt-tick 0.3s ease both; }
+@keyframes mt-tick { to { background: var(--up); border-color: var(--up); color: #04170e; } }
+.boxes div.weak { animation-name: mt-tick-weak; }
+@keyframes mt-tick-weak { to { background: rgba(47, 211, 138, 0.35); border-color: var(--up); color: var(--ink); } }
+
+/* A chamber drawn as a half circle of seats (midterms.js fills it). */
+.chamber { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.chamber.narrow { width: 82%; align-self: center; }
+.chamber svg { width: 100%; height: auto; overflow: visible; }
+.seat { fill: rgba(255, 255, 255, 0.07); animation: mt-seat 0.3s ease both; }
+.seat.d { --to: var(--dem); }
+.seat.p { --to: var(--rep); }
+.seat.n { --to: rgba(235, 240, 255, 0.85); }
+.seat.up { stroke: var(--gold); stroke-width: 4px; }
+@keyframes mt-seat { to { fill: var(--to); } }
+.chamber .mid-line { stroke: var(--gold); stroke-width: 4; stroke-dasharray: 10 8; }
+.chamber .mid-text { font-family: var(--cond); font-size: 30px; font-weight: 700; fill: var(--gold); letter-spacing: 0.08em; }
+.legend { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; }
+.legend b { display: block; font-size: 96px; line-height: 0.9; font-weight: 800; font-stretch: 75%; }
+.legend span { font-size: 28px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.legend .right { text-align: right; }
+
+/* A market's odds, both sides on one bar. */
+.odds { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.odds .names { display: flex; justify-content: space-between; font-size: 30px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.odds .track { position: relative; height: 70px; display: flex; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
+.odds .track i { display: block; height: 100%; animation: mt-grow 1s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+.odds .track i.d { background: var(--dem); transform-origin: left; }
+.odds .track i.p { background: var(--rep); transform-origin: right; margin-left: auto; }
+.odds .track::after { content: ""; position: absolute; left: 50%; top: -6px; bottom: -6px; width: 3px; background: rgba(255, 255, 255, 0.6); }
+.odds .figs { display: flex; justify-content: space-between; font-size: 76px; line-height: 0.95; font-weight: 800; font-stretch: 75%; font-variant-numeric: tabular-nums; }
+@keyframes mt-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Horizontal bars, for comparing a few figures. */
+.bars { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.bars .b { display: grid; grid-template-columns: 250px 1fr; align-items: center; gap: 18px; }
+.bars .b > span { font-size: 32px; font-weight: 700; font-stretch: 80%; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); line-height: 1.05; }
+.bars .b > div { position: relative; height: 70px; }
+.bars .b i { position: absolute; left: 0; top: 0; bottom: 0; width: var(--w); background: var(--muted); transform-origin: left;
+             animation: mt-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+.bars .b i.y { background: var(--gold); }
+.bars .b i.g { background: var(--up); }
+.bars .b i.r { background: var(--down); }
+.bars .b i.dim { background: rgba(255, 255, 255, 0.18); }
+.bars .b em { position: absolute; left: calc(var(--w) + 16px); top: 50%; transform: translateY(-50%); font-style: normal;
+              font-size: 58px; font-weight: 800; font-stretch: 75%; white-space: nowrap; font-variant-numeric: tabular-nums;
+              animation: mt-show 0.4s ease both; animation-delay: calc(var(--at) + 0.5s); }
+.bars .b.hot > span { color: var(--ink); }
+
+/* The chart of the 20 midterms (midterms.js). */
+.chart { width: 100%; }
+.chart svg { width: 100%; height: auto; overflow: visible; display: block; }
+.chart .axis { font-family: var(--cond); font-size: 28px; font-weight: 700; fill: var(--muted); letter-spacing: 0.1em; }
+.chart .zero { stroke: rgba(255, 255, 255, 0.25); stroke-width: 2; stroke-dasharray: 6 8; }
+.chart .vote { stroke: var(--gold); stroke-width: 3; }
+.chart .one { fill: none; stroke: rgba(170, 195, 255, 0.24); stroke-width: 2.2; }
+.chart .mean { fill: none; stroke: var(--gold); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round;
+               filter: drop-shadow(0 0 16px rgba(255, 200, 61, 0.6)); }
+.chart .now { fill: none; stroke: #fff; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 2 13; }
+.chart .low { fill: var(--gold); }
+.chart .lowtext { font-family: var(--cond); font-size: 32px; font-weight: 800; fill: var(--gold); letter-spacing: 0.04em;
+                  paint-order: stroke; stroke: var(--navy); stroke-width: 10px; stroke-linejoin: round; }
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: mt-draw 2.4s cubic-bezier(0.4, 0, 0.2, 1) both; animation-delay: var(--at); }
+.draw.fast { animation-duration: 1.2s; }
+@keyframes mt-draw { to { stroke-dashoffset: 0; } }
+
+/* A scenario of the report: which side has each chamber, its odds and the move it gives. */
+.scen { display: grid; grid-template-columns: 132px 1fr auto; align-items: center; gap: 20px; width: 100%;
+        padding: 16px 22px; background: var(--panel); border: 2px solid var(--line); }
+.scen.top { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold), 0 20px 50px rgba(0, 0, 0, 0.4); }
+.scen .who { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.scen .who i { height: 60px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px;
+               font-style: normal; font-size: 18px; font-weight: 800; letter-spacing: 0.06em; color: rgba(255, 255, 255, 0.92); }
+.scen .who i.d { background: var(--dem); }
+.scen .who i.p { background: var(--rep); }
+.scen .what { font-size: 34px; font-weight: 700; font-stretch: 85%; line-height: 1.05; }
+.scen .what small { display: block; font-size: 26px; font-weight: 600; color: var(--gold); letter-spacing: 0.06em; margin-top: 6px; }
+.scen .fig { font-size: 52px; font-weight: 800; font-stretch: 75%; white-space: nowrap; font-variant-numeric: tabular-nums; text-align: right; }
+.scen .fig small { display: block; font-size: 22px; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+
+/* The closing question: two answers, face to face. */
+.versus { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; width: 100%; }
+.versus > div { padding: 34px 18px; text-align: center; font-size: 62px; line-height: 0.95; font-weight: 800; font-stretch: 75%; text-transform: uppercase; }
+.versus .a { background: linear-gradient(135deg, var(--dem), var(--rep)); }
+.versus .b { background: var(--gold); color: var(--navy); }
+.versus em { font-style: normal; font-size: 44px; font-weight: 800; color: var(--muted); }
+.mark { display: flex; align-items: center; gap: 22px; font-size: 40px; font-weight: 700; font-stretch: 85%; }
+.mark img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.3); }
+
+/* The cover's banner (the first scene is the reel's cover): a special, as on election night. */
+.special { position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 100%; }
+.special .sp { padding: 8px 22px 6px; background: var(--rep); color: #fff; font-size: 40px; font-weight: 800; font-stretch: 75%;
+               letter-spacing: 0.18em; text-transform: uppercase; }
+.special b { display: block; width: 100%; padding: 12px 26px 8px; background: #fff; color: var(--navy); font-size: 96px; line-height: 0.95;
+             font-weight: 800; font-stretch: 75%; letter-spacing: -0.005em; text-transform: uppercase; box-shadow: 0 22px 60px rgba(0, 0, 0, 0.5); }
+.special b i { font-style: normal; color: var(--dem); }
+.special .flagline { display: block; width: 100%; height: 10px; background: linear-gradient(90deg, var(--dem) 0 50%, var(--rep) 50% 100%); }
+.boxes.tight div { height: 62px; }
+.line1 { font-size: 58px; line-height: 1; font-weight: 800; font-stretch: 75%; text-transform: uppercase; }
+.versus { align-items: stretch; }
+.versus > div { display: flex; align-items: center; justify-content: center; font-size: 56px; }
+.versus em { align-self: center; }

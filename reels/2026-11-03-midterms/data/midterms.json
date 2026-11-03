@@ -1,0 +1,378 @@
+{
+ "elections": [
+  {
+   "election": "1946-11-05",
+   "base_day": "1946-11-04",
+   "base": 15.33,
+   "ytd_to_election": -11.69,
+   "max_drawdown_in_year": -26.65,
+   "dd_peak": "1946-05-29",
+   "dd_trough": "1946-10-09",
+   "after_3m": 3.85,
+   "after_6m": -3.13,
+   "after_12m": 0.07,
+   "before_3m": -14.41,
+   "before_6m": -16.96
+  },
+  {
+   "election": "1950-11-07",
+   "base_day": "1950-11-06",
+   "base": 19.36,
+   "ytd_to_election": 15.31,
+   "max_drawdown_in_year": -14.02,
+   "dd_peak": "1950-06-12",
+   "dd_trough": "1950-07-17",
+   "after_3m": 13.58,
+   "after_6m": 16.89,
+   "after_12m": 16.17,
+   "before_3m": 5.16,
+   "before_6m": 6.26
+  },
+  {
+   "election": "1954-11-02",
+   "base_day": "1954-11-01",
+   "base": 31.79,
+   "ytd_to_election": 28.13,
+   "max_drawdown_in_year": -4.42,
+   "dd_peak": "1954-08-20",
+   "dd_trough": "1954-08-31",
+   "after_3m": 15.16,
+   "after_6m": 19.66,
+   "after_12m": 33.22,
+   "before_3m": 2.58,
+   "before_6m": 12.49
+  },
+  {
+   "election": "1958-11-04",
+   "base_day": "1958-11-03",
+   "base": 51.56,
+   "ytd_to_election": 28.93,
+   "max_drawdown_in_year": -4.36,
+   "dd_peak": "1958-02-04",
+   "dd_trough": "1958-02-25",
+   "after_3m": 6.79,
+   "after_6m": 11.81,
+   "after_12m": 11.06,
+   "before_3m": 7.55,
+   "before_6m": 18.01
+  },
+  {
+   "election": "1962-11-06",
+   "base_day": "1962-11-05",
+   "base": 58.35,
+   "ytd_to_election": -18.45,
+   "max_drawdown_in_year": -26.44,
+   "dd_peak": "1962-01-03",
+   "dd_trough": "1962-06-26",
+   "after_3m": 13.8,
+   "after_6m": 19.16,
+   "after_12m": 24.78,
+   "before_3m": 1.04,
+   "before_6m": -11.91
+  },
+  {
+   "election": "1966-11-08",
+   "base_day": "1966-11-07",
+   "base": 80.73,
+   "ytd_to_election": -12.66,
+   "max_drawdown_in_year": -22.18,
+   "dd_peak": "1966-02-09",
+   "dd_trough": "1966-10-07",
+   "after_3m": 8.66,
+   "after_6m": 17.16,
+   "after_12m": 12.89,
+   "before_3m": -3.61,
+   "before_6m": -8.09
+  },
+  {
+   "election": "1970-11-03",
+   "base_day": "1970-11-02",
+   "base": 83.51,
+   "ytd_to_election": -9.29,
+   "max_drawdown_in_year": -25.86,
+   "dd_peak": "1970-01-05",
+   "dd_trough": "1970-05-26",
+   "after_3m": 15.71,
+   "after_6m": 23.69,
+   "after_12m": 13.65,
+   "before_3m": 8.43,
+   "before_6m": 2.54
+  },
+  {
+   "election": "1974-11-05",
+   "base_day": "1974-11-04",
+   "base": 73.08,
+   "ytd_to_election": -25.08,
+   "max_drawdown_in_year": -37.6,
+   "dd_peak": "1974-01-03",
+   "dd_trough": "1974-10-03",
+   "after_3m": 8.03,
+   "after_6m": 23.26,
+   "after_12m": 21.99,
+   "before_3m": -7.83,
+   "before_6m": -19.95
+  },
+  {
+   "election": "1978-11-07",
+   "base_day": "1978-11-06",
+   "base": 95.19,
+   "ytd_to_election": 0.09,
+   "max_drawdown_in_year": -13.55,
+   "dd_peak": "1978-09-12",
+   "dd_trough": "1978-11-14",
+   "after_3m": 2.07,
+   "after_6m": 4.02,
+   "after_12m": 4.92,
+   "before_3m": -8.07,
+   "before_6m": -1.39
+  },
+  {
+   "election": "1982-11-02",
+   "base_day": "1982-11-01",
+   "base": 135.47,
+   "ytd_to_election": 10.54,
+   "max_drawdown_in_year": -16.56,
+   "dd_peak": "1982-01-04",
+   "dd_trough": "1982-08-12",
+   "after_3m": 5.73,
+   "after_6m": 19.66,
+   "after_12m": 21.68,
+   "before_3m": 24.31,
+   "before_6m": 16.34
+  },
+  {
+   "election": "1986-11-04",
+   "base_day": "1986-11-03",
+   "base": 245.8,
+   "ytd_to_election": 16.34,
+   "max_drawdown_in_year": -9.42,
+   "dd_peak": "1986-09-04",
+   "dd_trough": "1986-09-29",
+   "after_3m": 13.77,
+   "after_6m": 17.72,
+   "after_12m": 1.29,
+   "before_3m": 4.16,
+   "before_6m": 4.69
+  },
+  {
+   "election": "1990-11-06",
+   "base_day": "1990-11-05",
+   "base": 314.59,
+   "ytd_to_election": -10.98,
+   "max_drawdown_in_year": -19.92,
+   "dd_peak": "1990-07-16",
+   "dd_trough": "1990-10-11",
+   "after_3m": 13.82,
+   "after_6m": 20.82,
+   "after_12m": 23.96,
+   "before_3m": -5.93,
+   "before_6m": -7.03
+  },
+  {
+   "election": "1994-11-08",
+   "base_day": "1994-11-07",
+   "base": 463.07,
+   "ytd_to_election": -0.72,
+   "max_drawdown_in_year": -8.94,
+   "dd_peak": "1994-02-02",
+   "dd_trough": "1994-04-04",
+   "after_3m": 3.91,
+   "after_6m": 13.15,
+   "after_12m": 27.78,
+   "before_3m": 1.13,
+   "before_6m": 3.41
+  },
+  {
+   "election": "1998-11-03",
+   "base_day": "1998-11-02",
+   "base": 1111.6,
+   "ytd_to_election": 14.55,
+   "max_drawdown_in_year": -19.34,
+   "dd_peak": "1998-07-17",
+   "dd_trough": "1998-08-31",
+   "after_3m": 14.44,
+   "after_6m": 21.86,
+   "after_12m": 21.89,
+   "before_3m": -0.08,
+   "before_6m": -0.84
+  },
+  {
+   "election": "2002-11-05",
+   "base_day": "2002-11-04",
+   "base": 908.35,
+   "ytd_to_election": -20.88,
+   "max_drawdown_in_year": -33.75,
+   "dd_peak": "2002-01-04",
+   "dd_trough": "2002-10-09",
+   "after_3m": -7.13,
+   "after_6m": 2.0,
+   "after_12m": 15.79,
+   "before_3m": 8.84,
+   "before_6m": -15.38
+  },
+  {
+   "election": "2006-11-07",
+   "base_day": "2006-11-06",
+   "base": 1379.78,
+   "ytd_to_election": 10.53,
+   "max_drawdown_in_year": -7.7,
+   "dd_peak": "2006-05-05",
+   "dd_trough": "2006-06-13",
+   "after_3m": 5.09,
+   "after_6m": 9.4,
+   "after_12m": 6.95,
+   "before_3m": 8.15,
+   "before_6m": 4.07
+  },
+  {
+   "election": "2010-11-02",
+   "base_day": "2010-11-01",
+   "base": 1184.38,
+   "ytd_to_election": 6.21,
+   "max_drawdown_in_year": -15.99,
+   "dd_peak": "2010-04-23",
+   "dd_trough": "2010-07-02",
+   "after_3m": 10.1,
+   "after_6m": 14.93,
+   "after_12m": 4.52,
+   "before_3m": 5.2,
+   "before_6m": -0.19
+  },
+  {
+   "election": "2014-11-04",
+   "base_day": "2014-11-03",
+   "base": 2017.8101,
+   "ytd_to_election": 9.17,
+   "max_drawdown_in_year": -7.4,
+   "dd_peak": "2014-09-18",
+   "dd_trough": "2014-10-15",
+   "after_3m": 1.17,
+   "after_6m": 4.79,
+   "after_12m": 4.19,
+   "before_3m": 4.07,
+   "before_6m": 7.27
+  },
+  {
+   "election": "2018-11-06",
+   "base_day": "2018-11-05",
+   "base": 2738.3101,
+   "ytd_to_election": 2.42,
+   "max_drawdown_in_year": -19.78,
+   "dd_peak": "2018-09-20",
+   "dd_trough": "2018-12-24",
+   "after_3m": -0.24,
+   "after_6m": 7.09,
+   "after_12m": 12.36,
+   "before_3m": -3.93,
+   "before_6m": 2.81
+  },
+  {
+   "election": "2022-11-08",
+   "base_day": "2022-11-07",
+   "base": 3806.8,
+   "ytd_to_election": -20.13,
+   "max_drawdown_in_year": -25.43,
+   "dd_peak": "2022-01-03",
+   "dd_trough": "2022-10-12",
+   "after_3m": 8.17,
+   "after_6m": 8.7,
+   "after_12m": 15.13,
+   "before_3m": -8.05,
+   "before_6m": -7.68
+  }
+ ],
+ "summary": {
+  "before_6m": {
+   "mean": -0.58,
+   "median": 1.18,
+   "positive": 10,
+   "n": 20,
+   "min": -19.95,
+   "max": 18.01
+  },
+  "before_3m": {
+   "mean": 1.44,
+   "median": 1.85,
+   "positive": 12,
+   "n": 20,
+   "min": -14.41,
+   "max": 24.31
+  },
+  "ytd_to_election": {
+   "mean": 0.62,
+   "median": 1.25,
+   "positive": 11,
+   "n": 20,
+   "min": -25.08,
+   "max": 28.93
+  },
+  "max_drawdown_in_year": {
+   "mean": -17.97,
+   "median": -17.95,
+   "positive": 0,
+   "n": 20,
+   "min": -37.6,
+   "max": -4.36
+  },
+  "after_3m": {
+   "mean": 7.82,
+   "median": 8.1,
+   "positive": 18,
+   "n": 20,
+   "min": -7.13,
+   "max": 15.71
+  },
+  "after_6m": {
+   "mean": 13.63,
+   "median": 15.91,
+   "positive": 19,
+   "n": 20,
+   "min": -3.13,
+   "max": 23.69
+  },
+  "after_12m": {
+   "mean": 14.71,
+   "median": 14.39,
+   "positive": 20,
+   "n": 20,
+   "min": 0.07,
+   "max": 33.22
+  }
+ },
+ "cycle_1949_2025": {
+  "1": {
+   "mean": 8.46,
+   "median": 9.76,
+   "n": 20,
+   "positive": 13
+  },
+  "2": {
+   "mean": 4.63,
+   "median": 1.06,
+   "n": 19,
+   "positive": 11
+  },
+  "3": {
+   "mean": 17.18,
+   "median": 18.89,
+   "n": 19,
+   "positive": 17
+  },
+  "4": {
+   "mean": 8.11,
+   "median": 11.78,
+   "n": 19,
+   "positive": 16
+  }
+ },
+ "y2026": {
+  "last": [
+   "2026-11-02",
+   7541.3999
+  ],
+  "ytd": 10.17,
+  "max_drawdown": -9.1,
+  "high": "2026-10-06",
+  "high_close": 7818.9302
+ }
+}
