@@ -167,9 +167,14 @@ def _samples(sound: bytes) -> tuple[int, "array.array"]:
         return file.getframerate(), array.array("h", file.readframes(file.getnframes()))
 
 
-def trimmed(sound: bytes, quiet: float = 0.0126, keep: float = 0.04) -> bytes:
+FADE_IN, FADE_OUT = 0.03, 0.08   # seconds: how a sentence said on its own comes in and goes out
+
+
+def trimmed(sound: bytes, quiet: float = 0.004, keep: float = 0.12) -> bytes:
     """A WAV file without the silence before its first sound and after its last, but ``keep``
-    seconds of each."""
+    seconds of each. ``quiet`` is low, and ``keep`` long, so the end of a word dies away as the
+    voice said it instead of being cut while it still sounds (the owner heard those cuts,
+    2026-11-03)."""
     rate, samples = _samples(sound)
     limit = quiet * 32768
     loud = [n for n, v in enumerate(samples) if abs(v) > limit]
@@ -177,6 +182,20 @@ def trimmed(sound: bytes, quiet: float = 0.0126, keep: float = 0.04) -> bytes:
         return sound
     margin = int(rate * keep)
     return wav(samples[max(0, loud[0] - margin):loud[-1] + margin + 1].tobytes(), rate)
+
+
+def faded(sound: bytes, fade_in: float = FADE_IN, fade_out: float = FADE_OUT) -> bytes:
+    """A WAV file that rises from silence at its start and sinks to it at its end (a raised
+    cosine), so that silence put next to it does not click."""
+    import math
+    rate, samples = _samples(sound)
+    for seconds, at_start in ((fade_in, True), (fade_out, False)):
+        n = min(len(samples) // 2, int(rate * seconds))
+        for k in range(n):
+            gain = 0.5 - 0.5 * math.cos(math.pi * k / n)
+            i = k if at_start else len(samples) - 1 - k
+            samples[i] = int(samples[i] * gain)
+    return wav(samples.tobytes(), rate)
 
 
 def joined(sounds: list[bytes], gap: float) -> bytes:
@@ -193,14 +212,15 @@ def eleven_sentences(text: str, channel: Channel, before: str = "", after: str =
                      speed: float | None = None, say: Callable[..., bytes] | None = None) -> bytes:
     """Speak a scene a sentence at a time, each with the sentences around it as its context, and
     join them with ``channel.voice_sentence_gap`` seconds of silence: the voice keeps its pace
-    inside a sentence and takes a breath between two (the owner, 2026-11-03, on the chart reels)."""
+    inside a sentence and takes a breath between two (the owner, 2026-11-03, on the chart reels).
+    Each sentence keeps a little of its own silence and fades in and out, so the joins are not heard."""
     say = say or eleven
     parts = sentences(text)
     sounds = []
     for n, sentence in enumerate(parts):
         said_before = " ".join(filter(None, [before, *parts[:n]]))
         said_after = " ".join(filter(None, [*parts[n + 1:], after]))
-        sounds.append(trimmed(say(sentence, channel, said_before, said_after, speed)))
+        sounds.append(faded(trimmed(say(sentence, channel, said_before, said_after, speed))))
     return joined(sounds, channel.voice_sentence_gap)
 
 

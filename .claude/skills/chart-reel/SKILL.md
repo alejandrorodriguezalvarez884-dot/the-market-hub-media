@@ -42,9 +42,12 @@ Lee el gráfico`, the voice of the line: **Rafalupi** (`voice: grafico`, `[reel.
 picked it by ear from five samples). **How it speaks** (the user, 2026-11-03, after the first cut):
 fast inside a sentence, with a breath between two ("que hable rápido en la misma frase pero que dé
 un poco más de pausa entre frases"), so the voice says each sentence on its own, with the others
-as its context, and the code joins them with `sentence_gap` seconds of silence (0.55, in
-`[reel.voices.grafico]`; `voice.eleven_sentences`); an ellipsis is a hold inside a sentence, not
-its end. And **the hook is slower** while it puts the question ("al principio quiero que vaya más
+as its context, and the code joins them with `sentence_gap` seconds of silence (0.35, in
+`[reel.voices.grafico]`; `voice.eleven_sentences`), about 0.6 s heard in all; an ellipsis is a
+hold inside a sentence, not its end. Each sentence keeps 0.12 s of its own silence and fades in
+(30 ms) and out (80 ms): the first try cut each sentence while its last sound still rang and
+put digital silence after it, and the owner heard "cortes muy bruscos" (`voice.trimmed`,
+`voice.faded`; listen to the joins of every new reel). And **the hook is slower** while it puts the question ("al principio quiero que vaya más
 despacio exponiendo la pregunta"): `speed: 0.85` under `## 01-hook`. The scenes, in this order:
 
 | Scene | About | What it does |

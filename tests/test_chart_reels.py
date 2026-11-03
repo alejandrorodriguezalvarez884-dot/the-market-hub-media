@@ -150,7 +150,17 @@ def test_sentences_are_said_one_by_one_with_their_context_and_a_set_pause_betwee
     assert asked == [("Una frase.", "Lo de antes.", "Otra frase. Lo de después.", 0.85),
                      ("Otra frase.", "Lo de antes. Una frase.", "Lo de después.", 0.85)]
     seconds = len(voice._samples(sound)[1]) / 24000
-    assert abs(seconds - (1.0 + 0.08 + 0.5 + 1.0 + 0.08)) < 0.02   # each trimmed to its voice (and 0.04 s a side), 0.5 s between
+    assert abs(seconds - (1.0 + 0.24 + 0.5 + 1.0 + 0.24)) < 0.02   # each trimmed to its voice (and 0.12 s a side), 0.5 s between
+
+
+def test_a_sentence_fades_in_and_out_so_its_joins_do_not_click():
+    from marketmedia import voice
+    rate, samples = voice._samples(voice.faded(_tone(1.0)))
+    assert abs(samples[0]) < 50 and abs(samples[-1]) < 50              # it starts and ends at silence...
+    step = max(abs(samples[n + 1] - samples[n]) for n in range(len(samples) - 1))
+    assert step < 2000                                                   # ...with no jump anywhere
+    middle = samples[rate // 2 - 200: rate // 2 + 200]
+    assert max(abs(v) for v in middle) > 7000                            # and the middle is untouched
 
 
 def test_a_scene_can_ask_its_voice_to_go_slower():
