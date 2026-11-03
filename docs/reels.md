@@ -1,7 +1,7 @@
 # Los reels de Instagram
 
 Desde el 2026-11-02 la cuenta de Instagram `the_market_hub_app` está reenfocada en **reels en
-español**, en tres líneas. Este documento basta para seguir en otro ordenador: qué hay, qué es
+español**, en tres líneas, y desde el 2026-11-03 en cuatro (la de **Lee el gráfico**). Este documento basta para seguir en otro ordenador: qué hay, qué es
 automático, qué se pide a mano y cómo dejarlo todo listo.
 
 ## Las tres líneas
@@ -11,12 +11,26 @@ automático, qué se pide a mano y cómo dejarlo todo listo.
 | **Market updates**: apertura y cierre de Wall Street, de lunes a viernes; el repaso de la semana, el sábado a las 10:00; y los futuros y la semana que viene, la noche del domingo al lunes a la 01:05 (los futuros abren a medianoche de España) | **Automáticos, en la nube**, de lunes a viernes: apertura a las 15:45 y cierre a las 22:05 (hora de Madrid), con el ordenador apagado | Dani (`[reel]` en `channel.toml`) | Oscuro: `<body data-bg="...">` | "Al día" (propuesta) |
 | **Reflexión**: una tesis sobre los mercados, con fuentes | **A demanda**: cuando el usuario da el tema y lo pide | Julián en v3, "profesor sereno" (`[reel.voices.reflexion]`) | Ensayo: `<body class="light essay">` | "A fondo" |
 | **Didácticos**: un concepto de bolsa, con un guiño al mercado de hoy | **A demanda**: cuando el usuario da el tema y lo pide | Rafa (`[reel.voices.didactico]`) | Claro y colorido: `<body class="light">` | "Aprende" |
+| **Lee el gráfico**: un gráfico real con el valor y las fechas tapados, "¿qué crees que pasó después?", cinco segundos de cuenta atrás con tic, y la respuesta: el patrón, qué pasó en ese caso y que un patrón no es una promesa | **A demanda**: cuando el usuario pide un patrón (o deja elegirlo) | Rafalupi (`[reel.voices.grafico]`), elegida por el usuario de oído el 2026-11-03 | Papel liso, gráfico de velas: `<body class="light chart-reel" data-bg="plain">` | "Lee el gráfico" (propuesta) |
 
 En época de resultados, los resultados van primero en los cuatro (el usuario, 2026-11-02).
 
 Ejemplos que copiar: `reels/2026-11-02-open/` (diario), `reels/2026-11-02-not-a-bubble/`
-(reflexión) y `reels/2026-11-02-bond-yields-vs-stocks/` (didáctico). Cómo se hace cada uno, paso
-a paso, está en la skill [`daily-reel`](../.claude/skills/daily-reel/SKILL.md). Las historias de
+(reflexión), `reels/2026-11-02-bond-yields-vs-stocks/` (didáctico) y
+`reels/2026-11-03-grafico-doble-suelo/` (Lee el gráfico). Cómo se hace cada uno, paso a paso, está
+en la skill [`daily-reel`](../.claude/skills/daily-reel/SKILL.md), salvo Lee el gráfico, que tiene
+la suya: [`chart-reel`](../.claude/skills/chart-reel/SKILL.md).
+
+**Lee el gráfico** (el usuario, 2026-11-03: "vídeos con un patrón, preguntes a la persona que ve
+el reel qué haría y luego des la solución explicando, tras haber dejado un poco de tiempo para
+pensar"). Se inspira en el ritmo de un reel que el usuario guardó en Instagram (`velasyvolumen`:
+"¿Compras o vendes? Tienes 5 segundos", un martillo, 75 s), pero no en su tono: aquí la pregunta
+es de lectura del gráfico ("¿qué crees que pasó después?"), nunca "¿compras o vendes?"; el gráfico
+es siempre un episodio real (velas diarias de Yahoo Finance, `make candles`), no un esquema; y la
+respuesta cuenta lo que pasó en ese caso y dónde habría fallado, sin señales, objetivos ni
+porcentajes de acierto. Se alternan casos en que el patrón se cumplió y casos en que falló. El
+gráfico lo dibuja `theme/chart.js` (con `theme/chart.css`); la cuenta atrás es una escena sin voz
+con `seconds: 5` y `sound: tick` (un tic hecho con ffmpeg, no una grabación). Las historias de
 presentación de cada línea, las primeras de cada destacada, están en `stories/2026-11-02-intro-*`.
 
 ## También en X
@@ -36,6 +50,8 @@ Basta con decirlo en una sesión de Claude Code abierta en el workspace, con el 
 
 - "Haz un reel de reflexión sobre <tema> y súbelo".
 - "Haz un reel didáctico sobre <concepto> y súbelo".
+- "Haz un reel de Lee el gráfico con un <patrón>" (o sin patrón: Claude elige uno que no esté
+  hecho), con "y súbelo" si se publica. Lo hace la skill `chart-reel`.
 
 Claude sigue la skill `daily-reel` (su última parte): busca las fuentes, escribe el guion, dibuja
 las diapositivas, pone la voz, monta, revisa cada fotograma y, si la petición dice "súbelo", lo
@@ -191,4 +207,5 @@ make reel REEL=<carpeta> [DRY=1]         # voz, fotogramas y build/reel.mp4
 make reelpost REEL=<carpeta> [AGAIN=1]   # publicarlo (AGAIN=1: otra vez, si el usuario borró el primero)
 make story STORY=stories/<carpeta>/story.html [DRAW=1]   # una historia suelta (imagen), solo si el usuario la pide
 make elevenkey                           # la clave de ElevenLabs, en un ordenador nuevo
+make candles REEL=<carpeta> SYMBOL=TSLA FROM=2024-12-02 TO=2025-07-15   # las velas de un reel de Lee el gráfico (Yahoo Finance)
 ```

@@ -1,0 +1,57 @@
+/* The chart-reading reels, "Lee el gráfico" (skill chart-reel): what theme/reel.css does not
+   have. Loaded after it, on the light look:
+
+     <link rel="stylesheet" href="../../../theme/reel.css">
+     <link rel="stylesheet" href="../../../theme/chart.css">
+     <body class="light chart-reel" data-bg="plain">
+
+   The chart is the scene: a large canvas in the middle of the free part of the screen (theme/
+   chart.js draws it), a short line of text above it, and the countdown over it when the reel
+   asks. */
+
+body.chart-reel .reel { gap: 26px; }
+body.chart-reel h1 { font-size: 78px; }
+body.chart-reel h1.small { font-size: 64px; }
+
+/* The chart, with room for what sits over it. */
+.plot { position: relative; width: 100%; }
+.plot canvas.chart { display: block; width: 100%; height: 820px; }
+.plot.tall canvas.chart { height: 900px; }
+.plot.short canvas.chart { height: 680px; }
+
+/* What the chart does not say yet: no name, no dates. */
+.secret { display: inline-flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 26px; font-weight: 700;
+          letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.secret i { display: inline-block; width: 150px; height: 30px; border-radius: 6px; background: repeating-linear-gradient(-45deg, var(--ink-strong) 0 10px, #3a352c 10px 20px); }
+
+/* Two readings to choose from: neither a verdict, both questions. */
+.choices { display: flex; gap: 22px; width: 100%; }
+.choices .sticker { transform: none; font-size: 44px; padding: 16px 26px 18px; flex: 1; justify-content: center; }
+
+/* A list of what makes the pattern, ticked off as the voice names each. */
+.checks { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.checks p { display: flex; align-items: center; gap: 20px; font-size: 42px; font-weight: 700; color: var(--ink-strong); }
+.checks p::before { content: "✓"; display: inline-grid; place-items: center; flex: none; width: 58px; height: 58px; border-radius: 50%;
+                    background: var(--up); color: #fff; font-size: 34px; font-weight: 800; }
+.checks p.no::before { content: "✕"; background: var(--down); }
+
+/* The reveal: who it was, and when. */
+.reveal { display: flex; align-items: center; gap: 22px; }
+.reveal .logo { font-size: 84px; }
+.reveal b { font-size: 64px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink-strong); }
+.reveal small { display: block; font-family: var(--mono); font-size: 26px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+/* The countdown (theme/chart.js counts it): a ring that empties each second round a large number,
+   over the chart, beating on each second. */
+.countdown { position: absolute; left: 50%; top: 50%; width: 330px; height: 330px; margin: -165px 0 0 -165px;
+             border-radius: 50%; background: rgba(251, 248, 242, 0.93); box-shadow: 0 20px 60px rgba(60, 45, 20, 0.22);
+             scale: calc(1 + 0.06 * var(--beat, 0)); }
+.countdown svg { position: absolute; inset: 15px; width: 300px; height: 300px; }
+.countdown circle { fill: none; stroke-width: 16; }
+.countdown .track { stroke: rgba(21, 18, 13, 0.08); }
+.countdown .left { stroke: var(--amber); stroke-linecap: round; }
+.countdown b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 190px; font-weight: 800;
+               letter-spacing: -0.05em; color: var(--ink-strong); font-variant-numeric: tabular-nums; line-height: 1; }
+
+/* Under the chart: where its candles come from. */
+.source { font-family: var(--mono); font-size: 24px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: -12px; }

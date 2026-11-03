@@ -44,6 +44,7 @@
     window.slideMissing.push(text);
     return 0;
   };
+  window.slideWhen = when;   // for theme/chart.js: the same cues, for what it draws
 
   // --- Figures that count up ---------------------------------------------------------------------
   let figures = [];

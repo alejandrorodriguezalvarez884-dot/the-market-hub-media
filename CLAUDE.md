@@ -85,6 +85,16 @@ tampoco crea destacadas). No se sube el reel troceado en historias ni una copia 
 historia (con el primero se probaron las dos cosas, `story.html` y `story_video.py` en su
 carpeta, antes de que el usuario lo precisara).
 
+**Y reels de "Lee el gráfico"** (decisión del usuario, 2026-11-03), con su propia skill,
+[`chart-reel`](.claude/skills/chart-reel/SKILL.md): a demanda, un gráfico real de velas (Yahoo
+Finance, `make candles`) con el valor y las fechas tapados, la pregunta "¿qué crees que pasó
+después?", cinco segundos de cuenta atrás con un tic hecho por el código, y la respuesta: el patrón
+(doble suelo, hombro-cabeza-hombro, banderas, rupturas…), qué pasó en ese caso y que un patrón no
+es una promesa. Voz **Rafalupi** (`voice: grafico`), elegida por él de oído; aspecto claro de papel
+(`<body class="light chart-reel" data-bg="plain">`, `theme/chart.js` y `theme/chart.css`). La
+pregunta es de lectura, nunca "¿compras o vendes?", y nada de señales, objetivos ni porcentajes de
+acierto. Se publica solo cuando él lo pide ("súbelo"), como los otros a demanda.
+
 Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
 y la misma voz, dibujadas de nuevo en vertical). El canal es **en inglés**.

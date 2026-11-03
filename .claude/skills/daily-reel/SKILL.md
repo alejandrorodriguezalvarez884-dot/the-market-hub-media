@@ -237,6 +237,12 @@ bubble behaves). They follow this skill with these differences:
   tapping it opens the reel (the API cannot), and keeps it in the highlight "A fondo". Tell them
   to do so in the report.
 
+### A reel that asks the viewer to read a chart
+
+"Lee el gráfico" (the user, 2026-11-03) has its own skill: `.claude/skills/chart-reel/SKILL.md`.
+It shares this skill's making, checking and publishing (steps 5b to 7), with its own voice
+(`voice: grafico`), its own slides (`theme/chart.js`) and its own rules.
+
 ### A reel that teaches a concept
 
 The user also asks for **didactic reels**, one by one (2026-11-02): one stock-market concept

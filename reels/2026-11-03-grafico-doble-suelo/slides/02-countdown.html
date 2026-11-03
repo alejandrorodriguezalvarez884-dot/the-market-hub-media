@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- Five seconds to think, with the clock ticking (sound: tick): two readings, neither a verdict -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker">Lee el gráfico</p>
+<h1>Tienes <span class="y">5 segundos</span></h1>
+<div class="choices">
+  <span class="sticker pop" data-say="0.2">¿Sigue cayendo?</span>
+  <span class="sticker green pop" data-say="0.5">¿Se da la vuelta?</span>
+</div>
+<div class="plot"><canvas class="chart"></canvas><div class="countdown" data-say="0" data-from="5"></div></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({ show: [{ to: EPISODE.ask }] }));
+</script>
+</body>
+</html>

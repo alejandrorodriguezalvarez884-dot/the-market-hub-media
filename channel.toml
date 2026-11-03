@@ -109,6 +109,20 @@ similarity_boost = 0.8
 style = 0.35
 use_speaker_boost = true
 
+# The chart-reading reels the owner asks for one by one, "Lee el gráfico" (voice: grafico in the
+# script; skill chart-reel): Rafalupi, "Fast, Engaging and Smart", peninsular Spanish. The owner
+# wanted a voice "que enganche mucho y que sea didáctica", new to the account, and picked it by ear
+# from five samples of the same hook (2026-11-03).
+[reel.voices.grafico]
+voice = "7xK0jqLEWCrIBJ8ymBJi"        # Rafalupi
+model = "eleven_multilingual_v2"
+
+[reel.voices.grafico.settings]       # as in the sample the owner picked
+stability = 0.4
+similarity_boost = 0.8
+style = 0.35
+use_speaker_boost = true
+
 [reel.settings]                      # as in the sample the owner picked
 stability = 0.4
 similarity_boost = 0.8

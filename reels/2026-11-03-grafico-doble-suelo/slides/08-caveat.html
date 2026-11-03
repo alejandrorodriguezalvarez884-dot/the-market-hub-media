@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- A pattern is not a promise: where it would have failed, and the 14.3 % fall of 5 June -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker red in">Ojo</p>
+<h1 class="small in">Un patrón <span class="hl" data-say="promesa">no es una promesa</span></h1>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Tesla (TSLA) · velas diarias · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: "2025-05-29" }, { to: EPISODE.to, say: "recta", for: 1.2 }],
+  axis: { at: 0 },
+  marks: [
+    { type: "level", price: EPISODE.line, at: 0, label: "291,85 $", labelAt: "2025-03-25", from: EPISODE.low1 },
+    { type: "level", price: EPISODE.floor, color: "down", dash: true, label: "Por debajo, habría fallado", labelAt: "2025-05-12", say: "debajo", for: 0.8 },
+    { type: "note", day: EPISODE.drop, price: 252, side: "below", text: "−14,3 % en un día", color: "down", say: "cinco" },
+  ],
+}));
+</script>
+</body>
+</html>

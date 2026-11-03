@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- The pattern's name: two bottoms, a rebound between them, the W traced -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">El patrón</p>
+<h1 class="in">Un <span class="hl" data-say="doble">doble suelo</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "ring", day: EPISODE.low1, where: "low", label: "Suelo 1", say: "minimos" },
+    { type: "ring", day: EPISODE.low2, where: "low", label: "Suelo 2", say: "misma" },
+    { type: "note", day: EPISODE.rebound, price: "high", text: "Rebote", color: "ink", say: "rebote" },
+    { type: "path", color: "sky", say: "uve", for: 1.3, width: 8,
+      points: [["2025-03-03", 300], [EPISODE.low1, 217.02], [EPISODE.rebound, 291.85], [EPISODE.low2, 214.25], [EPISODE.ask, 292]] },
+  ],
+}));
+</script>
+</body>
+</html>

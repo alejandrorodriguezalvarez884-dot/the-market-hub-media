@@ -26,6 +26,7 @@
     python -m marketmedia reel <reel> [--dry-run]        speak it, draw it and make the film (build/reel.mp4)
     python -m marketmedia reelpost <reel>                publish it on Instagram, write it down, tell the portal, then on X
     python -m marketmedia reelx <reel>                   post its thread on X with the film (when reelpost could not)
+    python -m marketmedia candles <reel> <symbol> <from> <to>   a chart-reading reel's daily candles, from Yahoo Finance, into its data/
 
 <video> is the folder's name, or a part of it that only one video has.
 """
@@ -37,7 +38,7 @@ import sys
 from pathlib import Path
 
 from . import channel as channels
-from . import check, frames, instagram, posts, reels, render, videos, voice, xapi, xposts, youtube
+from . import candles, check, frames, instagram, posts, reels, render, videos, voice, xapi, xposts, youtube
 from . import script as scripts
 
 
@@ -394,6 +395,16 @@ def _reel(args, channel) -> int:
     return 0
 
 
+def _candles(args, channel) -> int:
+    """Read a stock's or an index's daily candles from Yahoo Finance into a reel's data/."""
+    reel = reels.find(args.reel)
+    given = candles.keep(reel.path, args.symbol, args.start, args.end)
+    rows = given["rows"]
+    print(f"reels/{reel.name}/data/candles.js: {given['name']} ({given['symbol']}), {len(rows)} days, "
+          f"{rows[0][0]} to {rows[-1][0]}, read {given['read_at']}")
+    return 0
+
+
 def _reelpost(args, channel) -> int:
     """Publish a daily reel on Instagram, once, with its caption.txt under it."""
     reel = reels.find(args.reel)
@@ -519,13 +530,18 @@ def main(argv: list[str] | None = None) -> int:
     xing = commands.add_parser("reelx")
     xing.add_argument("reel")
     xing.add_argument("--again", action="store_true")
+    reading = commands.add_parser("candles")
+    reading.add_argument("reel")
+    reading.add_argument("symbol", help="as Yahoo Finance writes it: TSLA, ^GSPC, ^NDX")
+    reading.add_argument("start", help="the first day, like 2025-01-02")
+    reading.add_argument("end", help="the last day, like 2025-07-10")
     args = parser.parse_args(argv)
     from . import cloud
     cloud.credentials()   # in a cloud session, the Google key comes from the environment
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
            "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront,
-           "reelnew": _reelnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx}[args.command]
+           "reelnew": _reelnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx, "candles": _candles}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:

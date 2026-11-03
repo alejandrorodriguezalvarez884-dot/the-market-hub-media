@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- The key: the pattern is only complete on a close above the ceiling, and here it has just touched it -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">La clave</p>
+<h1 class="small in">Cerrar <span class="hl" data-say="encima">por encima</span> del techo</h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "level", price: EPISODE.line, at: 0, label: "Techo", from: EPISODE.low1 },
+    { type: "ring", day: EPISODE.ask, where: "high", r: 40, color: "ink", label: "Lo toca", side: "above", say: "aqui" },
+  ],
+}));
+</script>
+</body>
+</html>

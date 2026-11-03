@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- What happened: the next day it closed above the ceiling; four weeks later, 24.3 % higher -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker green in">La respuesta</p>
+<h1 class="in">Lo que <span class="hl" data-say="paso">pasó</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }, { to: "2025-05-29", say: "siguiente", for: 3 }],
+  marks: [
+    { type: "level", price: EPISODE.line, at: 0, label: "Techo", labelAt: "2025-03-25", from: EPISODE.low1 },
+    { type: "note", day: EPISODE.breakout, price: 220, side: "below", text: "Cierra por encima", color: "up", say: "siguiente" },
+    { type: "move", from: [EPISODE.breakout, 292.03], to: [EPISODE.top, 362.89], color: "up", label: "+24 %", dx: -30, say: "cuatro", for: 1 },
+  ],
+}));
+</script>
+</body>
+</html>

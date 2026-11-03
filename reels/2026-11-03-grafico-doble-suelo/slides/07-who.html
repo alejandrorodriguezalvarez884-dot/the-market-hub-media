@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- Who it was, and when: the name and the axis come in -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">El valor</p>
+<div class="reveal pop" data-say="tesla">
+  <span class="logo"><img src="../../../theme/logos/tesla.svg" alt="Tesla"></span>
+  <div><b>Tesla</b><small>Febrero a junio de 2025</small></div>
+</div>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source in" data-say="tesla">Tesla (TSLA) · velas diarias · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: "2025-05-29" }],
+  axis: { say: "tesla" },
+  marks: [
+    { type: "level", price: EPISODE.line, at: 0, label: "291,85 $", labelAt: "2025-03-25", from: EPISODE.low1 },
+  ],
+}));
+</script>
+</body>
+</html>

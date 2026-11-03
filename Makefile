@@ -29,12 +29,13 @@
 #   make reel REEL=... [DRY=1]  speak a daily reel, draw it and make its film
 #   make reelpost REEL=...      publish a reel on Instagram, tell the portal, then its thread on X
 #   make reelx REEL=...         post a reel's thread on X with its film (when reelpost could not)
+#   make candles REEL=... SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10   a chart-reading reel's daily candles (Yahoo Finance) into its data/
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew reelcheck reel reelpost reelx
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew reelcheck reel reelpost reelx candles
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(or $(GOOGLE_CLOUD_PROJECT),$(shell gcloud config get-value project 2>/dev/null))
@@ -146,3 +147,7 @@ reelpost: ## Publish REEL=... on Instagram, write it down and tell the portal (A
 reelx: ## Post the thread of REEL=... on X with its film (paid: about $0.015 a post), when reelpost could not
 	@[ -n "$(REEL)" ] || { echo 'Which one? make reelx REEL=2026-11-02-open'; exit 1; }
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) reelx $(REEL)
+
+candles: ## A chart-reading reel's daily candles from Yahoo Finance into its data/: REEL=... SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10
+	@[ -n "$(REEL)" ] && [ -n "$(SYMBOL)" ] && [ -n "$(FROM)" ] && [ -n "$(TO)" ] || { echo 'make candles REEL=<folder> SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10'; exit 1; }
+	$(RUN) candles $(REEL) '$(SYMBOL)' $(FROM) $(TO)

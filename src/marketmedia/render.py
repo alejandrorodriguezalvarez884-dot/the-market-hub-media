@@ -31,6 +31,11 @@ MIN_SECONDS = 2.0          # no picture is shown for less
 CAPTION_CHARS = 84         # two lines of text on screen
 SHORT_CAPTION_CHARS = 30   # a few words at a time, in the Short's caption file
 DURATION = re.compile(r"Duration:\s*(\d+):(\d\d):(\d\d(?:\.\d+)?)")
+# A clock ticking once a second, made here for a scene where nothing is said and that says
+# "sound: tick" (the countdown of a chart-reading reel): a short, dry knock at the start of each
+# second, high, fading in a few hundredths. Never a recording.
+_KNOCK = "0.3*sin(2*PI*2100*t)*exp(-90*mod(t\\,1))*lt(mod(t\\,1)\\,0.05)"
+TICK = f"aevalsrc=exprs={_KNOCK}|{_KNOCK}:s=48000"
 
 
 def ffmpeg() -> str:
@@ -159,7 +164,9 @@ def film(video: Video, script: Script, channel: Channel, short: bool = False,
     parts.mkdir(parents=True, exist_ok=True)
     tool = ffmpeg()
     for cut in cuts:
-        sound = ["-i", str(cut.voice), "-af", "apad"] if cut.voice else ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo"]
+        sound = (["-i", str(cut.voice), "-af", "apad"] if cut.voice
+                 else ["-f", "lavfi", "-i", TICK] if cut.scene.sound == "tick"
+                 else ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo"])
         source, hold = picture(video, cut.scene.name, short, channel.fps, cut.seconds)
         _run([tool, "-y", "-loglevel", "error", *source, *sound, "-t", f"{cut.seconds:.3f}",
               "-vf", ",".join(f for f in (hold, f"scale={width}:{height}") if f), "-c:v", "libx264",
