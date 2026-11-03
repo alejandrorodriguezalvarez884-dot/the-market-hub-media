@@ -1,0 +1,53 @@
+<!doctype html>
+<!-- The punishment: median distance from the one-year high; memory had multiplied before June -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 14px; }
+  .pair h2 { font-size: 50px; }
+  .rows { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+  .row { display: grid; grid-template-columns: 330px 1fr 140px; align-items: center; gap: 18px; }
+  .row .who { display: flex; align-items: center; gap: 14px; font-size: 32px; font-weight: 700; color: var(--ink-strong); white-space: nowrap; }
+  .row .who .logo { font-size: 40px; }
+  .row .track { height: 16px; background: rgba(18, 17, 16, 0.07); }
+  .row .track i { display: block; height: 100%; width: var(--w); background: var(--c, var(--amber)); transform-origin: left; animation: grow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+  .row .v { font-family: var(--serif); font-size: 42px; font-weight: 600; text-align: right; color: var(--ink-strong); font-variant-numeric: tabular-nums; }
+  .row.tech { --c: #2c4a6b; }
+  .row.classic { --c: #8a5a14; }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .logos { display: flex; flex-wrap: wrap; gap: 26px 26px; align-items: center; font-size: 84px; padding: 10px 0; }
+  .src { font-family: var(--mono); font-size: 22px; letter-spacing: 0.06em; color: var(--muted); }
+  .medians { display: flex; gap: 18px 22px; flex-wrap: wrap; }
+  body.essay .sticker.techc { background: #2c4a6b; color: #fbf9f4; }
+  body.essay .sticker.classicc { background: #8a5a14; color: #fbf9f4; }
+  .card .label .logo { font-size: 52px; margin-right: 10px; }
+  .big { font-size: 150px; }
+</style>
+</head>
+<body class="light essay" data-bg="candles">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker red in">El castigo</p>
+<h1 class="small in">Desde su máximo <span class="y">del año</span></h1>
+<div class="card down in" data-say="treinta">
+  <p class="label">Tecnológica típica</p>
+  <div class="big" style="color: var(--down)"><span data-count="31.0" data-decimals="1" data-prefix="−" data-say="treinta"></span><small>%</small></div>
+</div>
+<div class="card in" data-say="tres">
+  <p class="label">Clásica típica</p>
+  <h2>−3,6 %</h2>
+</div>
+<div class="medians">
+  <span class="sticker small pop" data-say="mitad"><span class="logo"><img src="../../../theme/logos/sandisk.svg" alt="Sandisk"></span> Sandisk −54,0 %</span>
+  <span class="sticker small pop" data-say="mitad"><span class="logo"><img src="../../../theme/logos/skhynix.svg" alt="SK Hynix"></span> SK Hynix −52,1 %</span>
+</div>
+<p class="src fade" data-say="junio">Desde sus máximos de junio de 2026</p>
+<p class="src fade" data-say="multiplicarse">En un año, aun así: Sandisk +419 % · SK Hynix +126 % · Yahoo Finance</p>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>
