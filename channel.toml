@@ -116,8 +116,10 @@ use_speaker_boost = true
 [reel.voices.grafico]
 voice = "7xK0jqLEWCrIBJ8ymBJi"        # Rafalupi
 model = "eleven_multilingual_v2"
-sentence_gap = 0.35                  # each sentence said on its own, this silence between two (plus ~0.25 s of its own): "que hable rápido en la
-                                     # misma frase pero que dé un poco más de pausa entre frases" (the owner, 2026-11-03)
+sentence_pause = 0.55                # each scene said in one go, each pause at a sentence's end made at least this long:
+                                     # "que hable rápido en la misma frase pero que dé un poco más de pausa entre frases"
+                                     # (the owner, 2026-11-03). Sentences said one by one and joined (sentence_gap) were
+                                     # tried first and sounded odd: "pausas muy raras entre frases".
 
 [reel.voices.grafico.settings]       # as in the sample the owner picked
 stability = 0.4

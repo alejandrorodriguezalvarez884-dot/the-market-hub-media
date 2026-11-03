@@ -41,13 +41,17 @@ Lee el gráfico`, the voice of the line: **Rafalupi** (`voice: grafico`, `[reel.
 `channel.toml`; the user asked for "una voz que enganche mucho y que sea didáctica… una nueva" and
 picked it by ear from five samples). **How it speaks** (the user, 2026-11-03, after the first cut):
 fast inside a sentence, with a breath between two ("que hable rápido en la misma frase pero que dé
-un poco más de pausa entre frases"), so the voice says each sentence on its own, with the others
-as its context, and the code joins them with `sentence_gap` seconds of silence (0.35, in
-`[reel.voices.grafico]`; `voice.eleven_sentences`), about 0.6 s heard in all; an ellipsis is a
-hold inside a sentence, not its end. Each sentence keeps 0.12 s of its own silence and fades in
-(30 ms) and out (80 ms): the first try cut each sentence while its last sound still rang and
-put digital silence after it, and the owner heard "cortes muy bruscos" (`voice.trimmed`,
-`voice.faded`; listen to the joins of every new reel). And **the hook is slower** while it puts the question ("al principio quiero que vaya más
+un poco más de pausa entre frases"), so each scene is said **in one go**, with its own
+intonation, and the code makes each pause at a sentence's end at least `sentence_pause` seconds
+long (0.55, in `[reel.voices.grafico]`; `voice.paused`): it finds which silence is which full
+stop as `timing.py` does for the slides, and adds the time in the middle of that silence, where
+the voice is already quiet. Commas and ellipses stay as the voice said them. The voice as it came
+is kept in `voice/raw/`, so another length of pause costs nothing: change `sentence_pause` and run
+`make reel` again. **Tried and dropped** (2026-11-03): each sentence said on its own and joined
+with a set silence (`sentence_gap`, still used by the reflective voice): first it cut each
+sentence while it still rang ("cortes muy bruscos"), and with fades the pauses still sounded odd
+("pausas muy raras entre frases"), as each sentence was said as if it were the last. Listen to
+the pauses of every new reel. And **the hook is slower** while it puts the question ("al principio quiero que vaya más
 despacio exponiendo la pregunta"): `speed: 0.85` under `## 01-hook`. The scenes, in this order:
 
 | Scene | About | What it does |

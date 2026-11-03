@@ -31,8 +31,10 @@ respuesta cuenta lo que pasó en ese caso y dónde habría fallado, sin señales
 porcentajes de acierto. Se alternan casos en que el patrón se cumplió y casos en que falló. El
 gráfico lo dibuja `theme/chart.js` (con `theme/chart.css`); la cuenta atrás es una escena sin voz
 con `seconds: 5` y `sound: tick` (un tic hecho con ffmpeg, no una grabación). La voz habla rápido
-dentro de cada frase y hace una pausa fija entre frases (cada frase se dice aparte y se unen con
-`sentence_gap`, 0,35 s más un fundido de cada frase, unos 0,6 s en total), y el gancho va más despacio (`speed: 0.85` en `01-hook`): lo pidió el
+dentro de cada frase y hace más pausa entre frases: cada escena se dice de un tirón y el código
+alarga cada pausa de fin de frase hasta `sentence_pause` (0,55 s), sin tocar comas ni puntos
+suspensivos; la voz tal como llega se guarda en `voice/raw/` y cambiar la pausa no vuelve a
+gastar. Decir cada frase aparte y unirlas sonaba raro y se descartó. El gancho va más despacio (`speed: 0.85` en `01-hook`): lo pidió el
 usuario al ver el primero ("que hable rápido en la misma frase pero que dé un poco más de pausa
 entre frases… al principio quiero que vaya más despacio exponiendo la pregunta"). Las historias de
 presentación de cada línea, las primeras de cada destacada, están en `stories/2026-11-02-intro-*`.

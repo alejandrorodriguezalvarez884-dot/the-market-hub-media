@@ -182,3 +182,66 @@ def test_a_change_of_speed_or_of_the_pause_between_sentences_speaks_the_scene_ag
     marks = {voice._mark(scene, channel), voice._mark(replace(scene, speed=0.85), channel),
              voice._mark(scene, replace(channel, voice_sentence_gap=0.8))}
     assert len(marks) == 3
+
+
+def _speech(*parts):
+    """A made-up voice: (seconds, loud) pieces one after another."""
+    from marketmedia import voice
+    return voice.joined([_tone(seconds, loud=loud) for seconds, loud in parts], 0)
+
+
+def _silences(sound: bytes) -> list[float]:
+    from marketmedia import voice
+    rate, samples = voice._samples(sound)
+    out, run = [], 0
+    for v in samples:
+        if v == 0 or abs(v) < 20:
+            run += 1
+        else:
+            if run > rate * 0.08:
+                out.append(round(run / rate, 2))
+            run = 0
+    return out
+
+
+def test_only_the_pauses_at_the_end_of_a_sentence_grow():
+    from marketmedia import voice
+    said = _speech((0.9, True), (0.25, False), (0.5, True), (0.15, False), (0.7, True))
+    text = "Uno dos tres cuatro. Cinco seis, siete ocho nueve."
+    assert _silences(said) == [0.25, 0.15]
+    longer = voice.paused(said, text, 0.55)
+    stop, comma = _silences(longer)
+    assert abs(stop - 0.55) <= 0.03 and comma == 0.15          # the full stop's pause, not the comma's
+    assert _silences(voice.paused(longer, text, 0.4)) == [stop, comma]   # one long enough already is left alone
+
+
+def test_an_ellipsis_is_not_the_end_of_a_sentence():
+    from marketmedia import voice
+    said = _speech((0.6, True), (0.25, False), (0.9, True))
+    assert _silences(voice.paused(said, "Cae... y vuelve a caer otra vez.", 0.55)) == [0.25]
+
+
+def test_a_new_length_of_pause_is_made_from_the_kept_voice_and_nothing_is_paid(tmp_path, monkeypatch):
+    from dataclasses import replace
+
+    from marketmedia import reels, voice
+    folder = tmp_path / "reels" / "2026-11-03-grafico-prueba"
+    folder.mkdir(parents=True)
+    (folder / "script.md").write_text(COUNTDOWN, encoding="utf-8")
+    reel = reels.Reel(folder)
+    script = scripts.parse(COUNTDOWN)
+    calls = []
+    monkeypatch.setattr(voice, "eleven", lambda text, *a, **k: calls.append(text) or _speech((0.6, True), (0.2, False), (0.6, True)))
+    channel = replace(channels.load().for_reels("grafico"), voice_sentence_gap=0.0, voice_sentence_pause=0.5)
+    paid = voice.make(reel, script, channel, log=lambda line: None)
+    assert paid == sum(len(s.narration) for s in script.scenes) and len(calls) == 2
+    assert (folder / "voice" / "raw" / "01-hook.wav").is_file()
+    assert voice.to_pay(reel, script, replace(channel, voice_sentence_pause=0.8)) == 0
+    again = voice.make(reel, script, replace(channel, voice_sentence_pause=0.8), log=lambda line: None)
+    assert again == 0 and len(calls) == 2                    # the pauses made again from voice/raw/, nothing spoken
+    assert not voice.pending(reel, script, replace(channel, voice_sentence_pause=0.8))
+
+
+def test_the_line_says_each_scene_in_one_go_and_lengthens_its_sentence_pauses():
+    channel = channels.load().for_reels("grafico")
+    assert channel.voice_sentence_gap == 0 and channel.voice_sentence_pause >= 0.4

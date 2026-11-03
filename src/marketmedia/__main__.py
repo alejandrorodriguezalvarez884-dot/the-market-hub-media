@@ -381,7 +381,7 @@ def _reel(args, channel) -> int:
     channel = channel.for_reels(script.voice)
     todo = voice.pending(reel, script, channel)
     if todo:
-        print(f"{len(todo)} scenes to speak, {sum(len(s.narration) for s in todo)} characters, with {channel.voice_name}")
+        print(f"{len(todo)} scenes to speak, {voice.to_pay(reel, script, channel)} characters to pay for, with {channel.voice_name}")
         if args.dry_run:
             return 0
         voice.make(reel, script, channel)
