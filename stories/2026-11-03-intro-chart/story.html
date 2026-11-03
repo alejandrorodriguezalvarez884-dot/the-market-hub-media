@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- An Instagram story, 1080 by 1920, that introduces the chart-reading reels, "Lee el gráfico",
+     and goes first in their highlight as its cover (the owner, 2026-11-03: "una historia
+     presentando esta nueva línea de vídeos para poner como portada en las historias destacadas").
+     Drawn in those reels' own look (theme/chart.css on the light look): a real chart, the candles
+     of the first reel (Tesla, 2025, Yahoo Finance) with no name, dates or prices on it, stopped
+     where that reel asks its question, and the countdown over it. No figures, so no sources.
+     Everything sits between 260 and 1450 px from the top: Instagram lays the account's name and
+     the reply box over the rest. Nothing moves in it: it is a still.
+
+       make story STORY=stories/2026-11-03-intro-chart/story.html DRAW=1   # story.jpg, to look at
+       make story STORY=stories/2026-11-03-intro-chart/story.html          # and published -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../theme/reel.css">
+<link rel="stylesheet" href="../../theme/chart.css">
+<style>
+  .story { position: absolute; left: 80px; right: 80px; top: 260px; bottom: 470px;
+           display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 24px; }
+  .story .brand { position: static; }
+  .story h1 { font-size: 132px; line-height: 0.95; letter-spacing: -0.045em; }
+  .story h1 small { display: block; margin-top: 16px; font-size: 54px; letter-spacing: -0.025em; color: var(--ink); }
+  .story .plot canvas.chart { height: 300px; }
+  .story .countdown { left: auto; right: 0; transform: scale(0.62); transform-origin: right center; }
+  .steps { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+  .step { flex-direction: row; align-items: center; gap: 26px; padding: 18px 28px; }
+  .step .n { flex: none; display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%;
+             font-size: 42px; font-weight: 800; color: #fff; }
+  .step h2 { font-size: 42px; }
+  .step p { margin-top: 2px; font-size: 28px; font-weight: 500; color: var(--muted); }
+  .n.a { background: var(--ink-strong); } .n.b { background: var(--amber); } .n.c { background: var(--up); }
+  .mark { font-size: 38px; }
+  .mark img { width: 92px; height: 92px; }
+</style>
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<main class="story">
+  <header class="brand">The Market Hub</header>
+  <p class="kicker">Análisis técnico</p>
+  <h1>Lee el <span class="y">gráfico</span><small>¿Qué crees que pasó después?</small></h1>
+  <div class="plot"><canvas class="chart"></canvas><div class="countdown" data-from="5"></div></div>
+  <div class="steps">
+    <div class="card step"><span class="n a">1</span><div><h2>Un gráfico real</h2><p>Con el valor y las fechas tapados</p></div></div>
+    <div class="card step"><span class="n b">2</span><div><h2>Cinco segundos</h2><p>Para pensar qué pasó después</p></div></div>
+    <div class="card step"><span class="n c">3</span><div><h2>La respuesta</h2><p>El patrón, lo que pasó y por qué no siempre se cumple</p></div></div>
+  </div>
+  <div class="mark"><img src="../../channel/instagram-profile.jpg" alt=""><span>@the_market_hub_app</span></div>
+</main>
+<script src="../../reels/2026-11-03-grafico-doble-suelo/data/candles.js"></script>
+<script src="../../theme/reel.js"></script>
+<script src="../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", { from: "2025-02-03", to: "2025-05-23", show: [{ to: "2025-04-28" }],
+  marks: [{ type: "note", day: "2025-04-28", price: "low", side: "below", text: "¿Y ahora?", color: "ink", at: 0 }] });
+</script>
+</body>
+</html>
