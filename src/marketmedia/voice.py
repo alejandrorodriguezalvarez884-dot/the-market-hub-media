@@ -80,7 +80,7 @@ def eleven_request(text: str, channel: Channel, before: str = "", after: str = "
     the voice carry its tone from one to the next, as one person speaking. ``speed`` is the
     scene's own, over the voice's."""
     model = channel.voice_model or "eleven_multilingual_v2"
-    if channel.voice_cue and model == "eleven_v3":   # v3 reads a bracketed cue as how to speak
+    if channel.voice_cue and model in ("eleven_v3", "eleven_v4"):   # v3 and v4 read a bracketed cue as how to speak
         text = f"{channel.voice_cue} {text}"
     body: dict = {"text": text, "model_id": model, "language_code": channel.voice_language.split("-")[0]}
     if channel.voice_settings or speed:

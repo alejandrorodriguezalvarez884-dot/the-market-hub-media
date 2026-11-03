@@ -123,9 +123,11 @@ récords "mientras los inversores salen de los chips" (Dow Jones, 17-10-2026).
 Julián dice los nombres de las empresas como en inglés (el usuario, 2026-11-03: "Maicron, no
 Micron"): en la narración del guion se escriben como suenan (Máicron, Uólmart, Envidia, Es Kei
 Jáinix, Sándisk, Álfabet), y en pantalla, el pie y X van bien escritos. Coca-Cola se queda como se
-dice en España. La voz se pide frase a frase (`sentence_gap` de `[reel.voices.reflexion]`): dicha
-de una vez, v3 cortaba la última sílaba de cada escena, y se oía como un corte al cambiar de
-diapositiva; y las diapositivas se funden una en otra (`[reel] crossfade`).
+dice en España. Dicha con v3, la voz terminaba cada escena a pleno volumen, cortando la última
+sílaba, y se oía como un corte al cambiar de diapositiva. Se probó a pedirla frase a frase y quedó
+en una versión intermedia; la final es con ElevenLabs v4 (el usuario, 2026-11-03), que dice cada
+escena de un tirón y la acaba entera. Además, en los reels, cada diapositiva se funde en la
+siguiente (`[reel] crossfade`) y cada voz baja a cero en sus últimas centésimas.
 
 ## ¿Oportunidad? (debate, sin recomendar)
 

@@ -141,7 +141,7 @@ def test_a_reel_may_name_another_voice(reel):
     assert scripts.load(reel.script).voice == "reflexion"
     seen = reels.voiced(reel, base)
     assert seen.voice_name != base.for_reels().voice_name and seen.voice_engine == "elevenlabs"
-    assert seen.voice_model == "eleven_v3" and seen.voice_cue.startswith("[")
+    assert seen.voice_model == "eleven_v4" and seen.voice_cue.startswith("[")
     assert seen.language == "es" and seen.reel_seconds == base.reel_seconds
 
 

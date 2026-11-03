@@ -108,3 +108,8 @@ def test_a_dissolve_keeps_the_films_length(tmp_path):
                     "-filter_complex", render.dissolve([1.0, 1.5], 0.3), "-map", "[v]", "-map", "[a]",
                     "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", str(out)], check=True)
     assert abs(render.length(out) - 2.5) < 0.1
+
+
+def test_in_a_reel_each_voice_sinks_to_silence_at_its_very_end():
+    assert render.voice_filter(7.5, dissolving=True) == f"afade=t=out:st={7.5 - render.VOICE_FADE:.3f}:d={render.VOICE_FADE:.3f},apad"
+    assert render.voice_filter(7.5, dissolving=False) == "apad"   # a video's voice is left as it is

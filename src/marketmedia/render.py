@@ -150,6 +150,18 @@ def picture(video: Video, scene: str, short: bool, fps: int, seconds: float) -> 
     return ["-loop", "1", "-framerate", str(fps), "-i", str(video.frame(scene, short))], ""
 
 
+VOICE_FADE = 0.06   # seconds a voice sinks to silence at its very end, in a film whose scenes dissolve
+
+
+def voice_filter(said: float, dissolving: bool) -> str:
+    """How a scene's recording is heard: padded with silence to the scene's length and, where the
+    scenes dissolve (a reel), brought down to silence over its last hundredths, so a breath or a
+    word the voice left unfinished does not click as the slide changes."""
+    if not dissolving or said <= VOICE_FADE:
+        return "apad"
+    return f"afade=t=out:st={said - VOICE_FADE:.3f}:d={VOICE_FADE:.3f},apad"
+
+
 def dissolve(seconds: list[float], fade: float) -> str:
     """The ffmpeg filter that joins the scenes' parts (inputs 0, 1, ...) so that each picture
     dissolves into the next over ``fade`` seconds, while the sound runs on as it is. Each picture
@@ -183,7 +195,7 @@ def film(video: Video, script: Script, channel: Channel, short: bool = False,
     parts.mkdir(parents=True, exist_ok=True)
     tool = ffmpeg()
     for cut in cuts:
-        sound = (["-i", str(cut.voice), "-af", "apad"] if cut.voice
+        sound = (["-i", str(cut.voice), "-af", voice_filter(cut.spoken, channel.crossfade > 0)] if cut.voice
                  else ["-f", "lavfi", "-i", TICK] if cut.scene.sound == "tick"
                  else ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo"])
         source, hold = picture(video, cut.scene.name, short, channel.fps, cut.seconds)

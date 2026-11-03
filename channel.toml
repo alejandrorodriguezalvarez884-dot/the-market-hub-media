@@ -92,12 +92,10 @@ disclaimer = "Contenido informativo de The Market Hub. No es una recomendación 
 # picked this by ear: ElevenLabs v3 told the tone, after multilingual_v2 sounded odd at times).
 [reel.voices.reflexion]
 voice = "5Wn4TM7bYDwN5uDN0DpC"        # Julián
-model = "eleven_v3"
-cue = "[reflexivo, tono de profesor sereno]"   # said to v3 before each scene: how to say it, not words to say
+model = "eleven_v4"                  # every reel on v4 (the owner, 2026-11-03). On v3 Julián cut the last syllable of each
+                                     # scene, heard as a hard cut at each change of slide; v4 ends each scene whole
+cue = "[reflexivo, tono de profesor sereno]"   # said to v3 and v4 before each scene: how to say it, not words to say
 longest_pause = 0.45                 # v3 left pauses of up to a second: cut down, for more pace (the owner, 2026-11-02)
-sentence_gap = 0.15                  # each sentence said on its own (plus ~0.25 s of its own silence): said in one go, v3
-                                     # cuts the last syllable of a long scene, whatever it ends with, and the owner heard it as
-                                     # a cut at each change of slide (2026-11-03). Short, so the joins sound like one voice.
 
 [reel.voices.reflexion.settings]
 stability = 0.5                      # v3's "natural"

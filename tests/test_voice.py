@@ -110,6 +110,7 @@ def test_a_v3_voice_is_told_how_to_speak(channel):
                      voice_model="eleven_v3", voice_cue="[reflexivo]")
     assert voice.eleven_request("Hoy.", eleven)["text"] == "[reflexivo] Hoy."
     assert voice.eleven_request("Hoy.", replace(eleven, voice_model="eleven_multilingual_v2"))["text"] == "Hoy."
+    assert voice.eleven_request("Hoy.", replace(eleven, voice_model="eleven_v4"))["text"] == "[reflexivo] Hoy."
 
 
 def test_long_pauses_are_cut_down_and_short_ones_left():
