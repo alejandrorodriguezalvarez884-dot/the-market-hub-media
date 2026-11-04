@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- What comes, and the question -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .src { font-family: var(--mono); font-size: 22px; letter-spacing: 0.06em; color: var(--muted); }
+  .card .label .logo { font-size: 48px; margin-right: 10px; }
+  .line .name .logo { font-size: 44px; }
+  .line .name .logo img { max-width: 230px; }
+  .quote { font-family: var(--serif); font-size: 54px; line-height: 1.12; font-weight: 600; color: var(--ink-strong); }
+  .who { font-family: var(--mono); font-size: 24px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+  .card.paper .quote { color: #f3f0e9; }
+  .card.paper .who { color: #c9c3b6; }
+  .steps { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .step { display: grid; grid-template-columns: 90px 1fr; gap: 24px; align-items: baseline; }
+  .step b { font-family: var(--serif); font-size: 72px; font-weight: 600; color: var(--amber); }
+  .step p { font-size: 40px; line-height: 1.18; color: var(--ink-strong); font-weight: 600; }
+  .step p small { display: block; font-size: 27px; color: var(--muted); font-weight: 500; margin-top: 4px; }
+  .tbl { display: grid; grid-template-columns: 1fr 210px 230px; gap: 18px 16px; align-items: center; width: 100%; }
+  .tbl .h { font-family: var(--mono); font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: right; }
+  .tbl .n { display: flex; align-items: center; gap: 14px; font-size: 38px; font-weight: 700; color: var(--ink-strong); }
+  .tbl .n .logo { font-size: 44px; }
+  .tbl .n .logo img { max-width: 230px; }
+  .tbl .v { white-space: nowrap; font-family: var(--serif); font-size: 44px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+  .tbl .rule { grid-column: 1 / -1; height: 1px; background: var(--card-line); }
+  .tbl .me .n, .tbl .me.v { }
+  .hot { outline: 3px solid var(--amber); outline-offset: 8px; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .duo .card h2 { font-size: 46px; }
+  .cal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; }
+  .cal .card { padding: 26px 22px; gap: 12px; align-items: flex-start; }
+  .cal .card .logo { font-size: 44px; }
+  .cal .card .logo img { max-width: 220px; }
+  .cal .card h2 { font-size: 40px; white-space: nowrap; }
+  .cal .card .note { font-size: 26px; }
+  .states { font-size: 30px; font-weight: 500; color: var(--muted); line-height: 1.3; }
+  
+</style>
+</head>
+<body class="light essay" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel center">
+<p class="kicker in">Sus resultados</p>
+<div class="cal">
+  <div class="card in" data-say="airen"><span class="logo"><img src="../../../theme/logos/iren.svg" alt="IREN"></span><h2>Jueves 5</h2><p class="note">Tras el cierre</p></div>
+  <div class="card in" data-say="cor"><span class="logo"><img src="../../../theme/logos/coreweave.svg" alt="CoreWeave"></span><h2>Martes 10</h2><p class="note">Tras el cierre</p></div>
+  <div class="card in" data-say="nebius"><span class="logo"><img src="../../../theme/logos/nebius.svg" alt="Nebius"></span><h2>Jueves 12</h2><p class="note">Antes de la apertura</p></div>
+</div>
+<h1 class="small in" data-say="crees">¿Los <span class="y">frena</span>, o los <span class="y">cambia de sitio</span>?</h1>
+<div class="answers">
+  <span class="sticker pop" data-say="frenara">Los frena</span>
+  <em class="fade" data-say="o_solo">o</em>
+  <span class="sticker green pop" data-say="cambiara">Los mueve</span>
+</div>
+<div class="mark in" data-say="comentarios"><img src="../../../channel/instagram-profile.jpg" alt=""><span>Te leo en comentarios</span></div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

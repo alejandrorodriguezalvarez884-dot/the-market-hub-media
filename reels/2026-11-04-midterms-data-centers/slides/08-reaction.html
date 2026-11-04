@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- The reaction: up on Tuesday, given back overnight; Nebius least -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .src { font-family: var(--mono); font-size: 22px; letter-spacing: 0.06em; color: var(--muted); }
+  .card .label .logo { font-size: 48px; margin-right: 10px; }
+  .line .name .logo { font-size: 44px; }
+  .line .name .logo img { max-width: 230px; }
+  .quote { font-family: var(--serif); font-size: 54px; line-height: 1.12; font-weight: 600; color: var(--ink-strong); }
+  .who { font-family: var(--mono); font-size: 24px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+  .card.paper .quote { color: #f3f0e9; }
+  .card.paper .who { color: #c9c3b6; }
+  .steps { display: flex; flex-direction: column; gap: 22px; width: 100%; }
+  .step { display: grid; grid-template-columns: 90px 1fr; gap: 24px; align-items: baseline; }
+  .step b { font-family: var(--serif); font-size: 72px; font-weight: 600; color: var(--amber); }
+  .step p { font-size: 40px; line-height: 1.18; color: var(--ink-strong); font-weight: 600; }
+  .step p small { display: block; font-size: 27px; color: var(--muted); font-weight: 500; margin-top: 4px; }
+  .tbl { display: grid; grid-template-columns: 1fr 210px 230px; gap: 18px 16px; align-items: center; width: 100%; }
+  .tbl .h { font-family: var(--mono); font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: right; }
+  .tbl .n { display: flex; align-items: center; gap: 14px; font-size: 38px; font-weight: 700; color: var(--ink-strong); }
+  .tbl .n .logo { font-size: 44px; }
+  .tbl .n .logo img { max-width: 230px; }
+  .tbl .v { white-space: nowrap; font-family: var(--serif); font-size: 44px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+  .tbl .rule { grid-column: 1 / -1; height: 1px; background: var(--card-line); }
+  .tbl .me .n, .tbl .me.v { }
+  .hot { outline: 3px solid var(--amber); outline-offset: 8px; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .duo .card h2 { font-size: 46px; }
+  .cal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; }
+  .cal .card { padding: 26px 22px; gap: 12px; align-items: flex-start; }
+  .cal .card .logo { font-size: 44px; }
+  .cal .card .logo img { max-width: 220px; }
+  .cal .card h2 { font-size: 40px; white-space: nowrap; }
+  .cal .card .note { font-size: 26px; }
+  .states { font-size: 30px; font-weight: 500; color: var(--muted); line-height: 1.3; }
+  
+</style>
+</head>
+<body class="light essay" data-bg="candles" data-seed="9">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker red in">La reacción</p>
+<h1 class="small in">Suben el martes. <span class="y">De noche, lo devuelven</span></h1>
+<div class="card in" data-say="martes">
+  <div class="tbl">
+  <span></span><span class="h">Martes</span><span class="h">Preapertura</span>
+  <div class="rule"></div>
+  <div class="n fade" data-say="saifer"><span class="logo"><img src="../../../theme/logos/cipher.svg" alt="Cipher"></span></div><span class="v g fade" data-say="subido">▲ 18,4 %</span><span class="v r fade" data-say="saifer">▼ 8,9 %</span>
+  <div class="rule"></div>
+  <div class="n fade" data-say="airen"><span class="logo"><img src="../../../theme/logos/iren.svg" alt="IREN"></span></div><span class="v g fade" data-say="subido">▲ 11,1 %</span><span class="v r fade" data-say="airen">▼ 4,1 %</span>
+  <div class="rule"></div>
+  <div class="n fade" data-say="cor"><span class="logo"><img src="../../../theme/logos/coreweave.svg" alt="CoreWeave"></span></div><span class="v g fade" data-say="subido">▲ 7,2 %</span><span class="v r fade" data-say="cor">▼ 3,4 %</span>
+  <div class="rule"></div>
+  <div class="n fade" data-say="nebius"><span class="logo"><img src="../../../theme/logos/nebius.svg" alt="Nebius"></span></div><span class="v g fade" data-say="subido">▲ 7,2 %</span><span class="v r fade hot" data-say="nebius">▼ 0,9 %</span>
+  </div>
+</div>
+<p class="src fade" data-say="martes">Yahoo Finance · cierre del 3-11 y preapertura del 4-11, 10:25 (Madrid). De noche, según TipRanks: CoreWeave −7 %, IREN −8 %, Nebius −4,5 %</p>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>
