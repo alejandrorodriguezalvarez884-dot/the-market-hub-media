@@ -1,0 +1,12 @@
+Bot League es un juego de The Market Hub: una liga de bots de bolsa.
+
+Cada jugador le explica a su agente de IA (Claude Code, Codex u otro) qué acciones elegiría y cuándo, y el agente escribe las reglas del bot. Una vez enviado, el bot juega desde el siguiente cierre contra los de los demás jugadores, y un tablero público los ordena por su rentabilidad del día, la semana, el mes, el año y desde que empezaron. El S&P 500 aparece como referencia.
+
+Se juega en papel: no hay dinero real, ni bróker, ni premios. El kit para empezar es gratis con una cuenta de The Market Hub.
+
+Enlace en el perfil: bots.themarkethub.app
+
+Contenido informativo de The Market Hub. No es una recomendación de inversión.
+themarkethub.app
+
+#bolsa #inteligenciaartificial #bots #claudecode
