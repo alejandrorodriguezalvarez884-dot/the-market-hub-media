@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- A pattern is not a promise: everything was there, the close under the line too, and still it failed -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker red in">Ojo</p>
+<h1 class="small in">Un patrón <span class="hl" data-say="promesa">no es una promesa</span></h1>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Nvidia (NVDA) · velas diarias ajustadas por splits · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.above }],
+  axis: { at: 0 },
+  marks: [
+    neckline(EPISODE.above, { at: 0, for: 0.01 }),
+    { type: "level", price: EPISODE.headPrice, dash: true, color: "ink", at: 0, label: "50,27 $", labelAt: "2023-09-20", from: EPISODE.head },
+    { type: "ring", day: EPISODE.breakout, where: "close", r: 34, color: "down", label: "Se cumplió", side: "below", say: "todo" },
+    { type: "ring", day: EPISODE.above, where: "close", r: 34, color: "up", label: "Y falló", side: "below", say: "encima" },
+  ],
+}));
+</script>
+</body>
+</html>

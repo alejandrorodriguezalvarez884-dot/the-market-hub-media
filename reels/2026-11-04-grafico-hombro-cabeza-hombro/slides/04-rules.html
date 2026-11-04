@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- The three things that make it: a rise before, a head above two similar shoulders, a neckline -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">Para que cuente</p>
+<div class="checks">
+  <p class="in" data-say="subida">Una subida antes</p>
+  <p class="in" data-say="hombros">Hombros parecidos, cabeza arriba</p>
+  <p class="in" data-say="cuello">Una línea de cuello</p>
+</div>
+<div class="plot short"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "zone", from: EPISODE.rise, to: EPISODE.ls, color: "up", label: "+29 % en 5 semanas", say: "treinta" },
+    { type: "ring", day: EPISODE.ls, where: "high", r: 36, say: "parecidos" },
+    { type: "ring", day: EPISODE.rs, where: "high", r: 36, say: "parecidos" },
+    { type: "note", day: EPISODE.low2, price: 48.6, side: "above", text: "1 % de diferencia", color: "ink", say: "uno" },
+    { type: "ring", day: EPISODE.low1, where: "low", r: 30, color: "sky", say: "minimos" },
+    { type: "ring", day: EPISODE.low2, where: "low", r: 30, color: "sky", say: "minimos" },
+    neckline(EPISODE.ask, { say: "cuello", for: 0.9 }),
+  ],
+}));
+</script>
+</body>
+</html>

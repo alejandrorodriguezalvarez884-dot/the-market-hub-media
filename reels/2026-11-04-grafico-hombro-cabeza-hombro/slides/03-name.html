@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- The pattern's name: a head between two lower shoulders, the shape traced -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">El patrón</p>
+<h1 class="small in">Un <span class="hl" data-say="hombro">hombro-cabeza-hombro</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "ring", day: EPISODE.head, where: "high", label: "Cabeza", side: "below", say: "cabeza" },
+    { type: "ring", day: EPISODE.ls, where: "high", label: "Hombro", side: "above", say: "hombros" },
+    { type: "ring", day: EPISODE.rs, where: "high", label: "Hombro", side: "above", say: "hombros+0.2" },
+    { type: "path", color: "sky", say: "hombros+0.5", for: 1.3, width: 8,
+      points: [[EPISODE.rise, 37.36], [EPISODE.ls, 48.09], [EPISODE.low1, 40.31], [EPISODE.head, 50.27],
+               [EPISODE.low2, 40.98], [EPISODE.rs, 47.61], [EPISODE.ask, 42.10]] },
+  ],
+}));
+</script>
+</body>
+</html>
