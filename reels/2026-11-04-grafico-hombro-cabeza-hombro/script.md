@@ -43,7 +43,7 @@ Al día siguiente, cerró por debajo: el patrón, completo. Bajó unos días má
 
 ## 08-caveat
 
-Un patrón no es una promesa. Aquí se cumplió todo, y aun así, en vez de seguir cayendo, en un mes estaba por encima de la cabeza.
+Un patrón no es una promesa. Aquí se cumplió todo, y falló.
 
 ## 09-worked
 
