@@ -30,6 +30,7 @@
 #   make reelpost REEL=...      publish a reel on Instagram, tell the portal, then its thread on X
 #   make reelx REEL=...         post a reel's thread on X with its film (when reelpost could not)
 #   make candles REEL=... SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10   a chart-reading reel's daily candles (Yahoo Finance) into its data/
+#                (ALSO=1: another stock beside the reel's own, in data/candles-<symbol>.js)
 #
 # Until YouTube has audited the API project, it keeps private whatever make upload sends.
 
@@ -150,4 +151,4 @@ reelx: ## Post the thread of REEL=... on X with its film (paid: about $0.015 a p
 
 candles: ## A chart-reading reel's daily candles from Yahoo Finance into its data/: REEL=... SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10
 	@[ -n "$(REEL)" ] && [ -n "$(SYMBOL)" ] && [ -n "$(FROM)" ] && [ -n "$(TO)" ] || { echo 'make candles REEL=<folder> SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10'; exit 1; }
-	$(RUN) candles $(REEL) '$(SYMBOL)' $(FROM) $(TO)
+	$(RUN) candles $(REEL) '$(SYMBOL)' $(FROM) $(TO) $(if $(ALSO),--also)

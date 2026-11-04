@@ -8,6 +8,10 @@ in the reel's data/ folder, twice:
 - data/candles.js, the same candles as the slides read them: ``window.CANDLES = {...}``, loaded
   by a slide with ``<script src="../data/candles.js"></script>`` before theme/chart.js.
 
+A reel can also show other stocks beside its own (other cases of the same pattern): those are
+kept with ``also=True`` as data/candles-<symbol>.json and data/candles-<symbol>.js, which adds
+them to ``window.MORE_CANDLES["<SYMBOL>"]``; a slide passes them to theme/chart.js as ``data:``.
+
 Yahoo's daily candles are adjusted for splits, not for dividends. Nothing here picks the episode
 or the pattern: that is thought in the session (the skill).
 """
@@ -76,9 +80,16 @@ def chart(answer: dict, read_at: str) -> dict:
     }
 
 
-def keep(folder: Path, symbol: str, start: str, end: str, answer: dict | None = None) -> dict:
+def files(symbol: str, also: bool = False) -> str:
+    """The name, without its extension, of the files in data/ that keep a stock's candles."""
+    if not also:
+        return "candles"
+    return "candles-" + "".join(ch for ch in symbol.lower() if ch.isalnum() or ch in "-.")
+
+
+def keep(folder: Path, symbol: str, start: str, end: str, answer: dict | None = None, also: bool = False) -> dict:
     """Read the candles (or take ``answer``) and leave them in ``folder``/data. Returns what the
-    slides get."""
+    slides get. ``also``: another stock beside the reel's own, kept apart (module docstring)."""
     answer = answer if answer is not None else read(symbol, start, end)
     read_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     given = chart(answer, read_at)
@@ -86,8 +97,11 @@ def keep(folder: Path, symbol: str, start: str, end: str, answer: dict | None = 
         raise ValueError(f"Yahoo Finance gave no candles for {symbol} from {start} to {end}")
     data = folder / "data"
     data.mkdir(parents=True, exist_ok=True)
-    (data / "candles.json").write_text(json.dumps(answer, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
-    (data / "candles.js").write_text(
+    name = files(symbol, also)
+    (data / f"{name}.json").write_text(json.dumps(answer, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    where = (f"(window.MORE_CANDLES = window.MORE_CANDLES || {{}})[{json.dumps(given['symbol'] or symbol)}]"
+             if also else "window.CANDLES")
+    (data / f"{name}.js").write_text(
         "// Read from Yahoo Finance by `make candles` (src/marketmedia/candles.py). Do not edit by hand.\n"
-        f"window.CANDLES = {json.dumps(given, ensure_ascii=False)};\n", encoding="utf-8", newline="\n")
+        f"{where} = {json.dumps(given, ensure_ascii=False)};\n", encoding="utf-8", newline="\n")
     return given

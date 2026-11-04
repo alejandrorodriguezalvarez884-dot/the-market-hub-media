@@ -66,6 +66,22 @@ def test_the_candles_are_kept_as_read_and_as_the_slides_read_them(tmp_path):
     assert slides["source"].endswith("https://finance.yahoo.com/quote/TSLA/history/")
 
 
+def test_another_stock_is_kept_beside_the_reels_own_without_replacing_it(tmp_path):
+    own = candles.keep(tmp_path, "TSLA", "2025-03-31", "2025-04-02", answer=ANSWER)
+    other = json.loads(json.dumps(ANSWER))
+    other["chart"]["result"][0]["meta"]["symbol"] = "NFLX"
+    given = candles.keep(tmp_path, "NFLX", "2025-03-31", "2025-04-02", answer=other, also=True)
+    data = tmp_path / "data"
+    assert json.loads((data / "candles-nflx.json").read_text(encoding="utf-8")) == other
+    script = (data / "candles-nflx.js").read_text(encoding="utf-8")
+    prefix = '(window.MORE_CANDLES = window.MORE_CANDLES || {})["NFLX"] = '
+    assert prefix in script
+    assert json.loads(script.split(prefix, 1)[1].strip().rstrip(";")) == given
+    kept = (data / "candles.js").read_text(encoding="utf-8")
+    assert json.loads(kept.split("window.CANDLES = ", 1)[1].strip().rstrip(";")) == own   # untouched
+    assert candles.files("^GSPC", also=True) == "candles-gspc"
+
+
 def test_no_candles_is_an_error_not_an_empty_chart(tmp_path):
     empty = {"chart": {"result": None, "error": {"description": "No data found"}}}
     try:

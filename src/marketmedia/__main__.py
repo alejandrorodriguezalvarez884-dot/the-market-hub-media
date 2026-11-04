@@ -398,9 +398,9 @@ def _reel(args, channel) -> int:
 def _candles(args, channel) -> int:
     """Read a stock's or an index's daily candles from Yahoo Finance into a reel's data/."""
     reel = reels.find(args.reel)
-    given = candles.keep(reel.path, args.symbol, args.start, args.end)
+    given = candles.keep(reel.path, args.symbol, args.start, args.end, also=args.also)
     rows = given["rows"]
-    print(f"reels/{reel.name}/data/candles.js: {given['name']} ({given['symbol']}), {len(rows)} days, "
+    print(f"reels/{reel.name}/data/{candles.files(args.symbol, args.also)}.js: {given['name']} ({given['symbol']}), {len(rows)} days, "
           f"{rows[0][0]} to {rows[-1][0]}, read {given['read_at']}")
     return 0
 
@@ -535,6 +535,7 @@ def main(argv: list[str] | None = None) -> int:
     reading.add_argument("symbol", help="as Yahoo Finance writes it: TSLA, ^GSPC, ^NDX")
     reading.add_argument("start", help="the first day, like 2025-01-02")
     reading.add_argument("end", help="the last day, like 2025-07-10")
+    reading.add_argument("--also", action="store_true", help="another stock beside the reel's own: data/candles-<symbol>.js")
     args = parser.parse_args(argv)
     from . import cloud
     cloud.credentials()   # in a cloud session, the Google key comes from the environment

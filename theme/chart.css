@@ -55,3 +55,11 @@ body.chart-reel h1.small { font-size: 64px; }
 
 /* Under the chart: where its candles come from. */
 .source { font-family: var(--mono); font-size: 24px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: -12px; }
+
+/* Other cases of the same pattern, after the answer: two small charts, one above the other, each
+   under its name and date. */
+.plot.mini canvas.chart { height: 440px; }
+.case { display: flex; flex-direction: column; gap: 8px; }
+.case-name { margin: 0; font-size: 42px; font-weight: 800; color: var(--ink-strong); }
+.case-name small { margin-left: 14px; font-family: var(--mono); font-size: 24px; font-weight: 700; letter-spacing: 0.08em;
+                   text-transform: uppercase; color: var(--muted); }

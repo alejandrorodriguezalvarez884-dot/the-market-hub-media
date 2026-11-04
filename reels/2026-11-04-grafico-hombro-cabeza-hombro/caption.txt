@@ -2,15 +2,16 @@
 
 Un gráfico real, con el nombre y las fechas tapados. Tenías cinco segundos.
 
-· Es un hombro-cabeza-hombro: un pico alto, la cabeza, entre dos más bajos, los hombros.
-· Lo que se mira: una subida antes (Nvidia subió un 28,7 % entre el 7 de junio y el 14 de julio de 2023), una cabeza más alta que los hombros (50,27 $ el 24 de agosto), dos hombros parecidos (48,09 $ el 14 de julio y 47,61 $ el 12 de octubre, un 1,0 % de diferencia) y la línea de cuello, que une los dos mínimos de en medio (40,31 $ el 14 de agosto y 40,98 $ el 21 de septiembre).
+· Es un hombro-cabeza-hombro: un pico alto, la cabeza, entre dos más bajos, los hombros. Es un patrón bajista, de giro a la baja: se forma tras una subida y avisa de que puede estar acabando.
+· Lo que se mira: una subida antes (Nvidia subió un 28,7 % entre el 7 de junio y el 14 de julio de 2023), dos hombros parecidos (48,09 $ el 14 de julio y 47,61 $ el 12 de octubre, un 1,0 % de diferencia), una cabeza más alta (50,27 $ el 24 de agosto) y la línea de cuello, que une los dos mínimos de en medio (40,31 $ el 14 de agosto y 40,98 $ el 21 de septiembre).
 ▼ El 20 de octubre cerró por debajo de esa línea, a 41,39 $: el patrón, completo. Bajó hasta 39,23 $ el 31 de octubre.
-▲ Y se dio la vuelta: el 20 de noviembre cerró a 50,41 $, un 21,8 % más y por encima de la cabeza.
-· Un patrón no es una promesa. Aquí se cumplió todo, también el cierre bajo la línea, y aun así falló. Unas veces se cumple y otras no.
+▲ Y se dio la vuelta: el 20 de noviembre cerró a 50,41 $, un 21,8 % más y por encima de la cabeza. Esta vez, el patrón falló.
+▼ Otras veces sí se cumplió. Qualcomm cerró bajo su línea de cuello el 19 de julio de 2024, a 186,21 $, y el 5 de agosto llegó a 151,39 $ (un 18,7 % menos). Coinbase, el 7 de enero de 2022, a 232,33 $, y el 15 de marzo llegó a 150,12 $ (un 35,4 % menos).
+· Un patrón no es una promesa: unas veces se cumple y otras no.
 
 ¿Qué habías respondido tú? Te leo en comentarios.
 
-Fuentes: Yahoo Finance, velas diarias de Nvidia (NVDA) de abril a diciembre de 2023, ajustadas por splits; StockCharts ChartSchool, Head and Shoulders Top.
+Fuentes: Yahoo Finance, velas diarias de Nvidia (NVDA, 2023, ajustadas por splits), Qualcomm (QCOM, 2024) y Coinbase (COIN, 2021-2022); StockCharts ChartSchool, Head and Shoulders Top.
 
 Contenido informativo de The Market Hub. No es una recomendación de inversión.
 themarkethub.app
