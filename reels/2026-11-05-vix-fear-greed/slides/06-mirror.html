@@ -1,0 +1,56 @@
+<!doctype html>
+<!-- The VIX usually moves against stocks; yesterday, the Dow's best day since April 2025 and the VIX down 20 % -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .mirror { width: 100%; }
+  .mirror svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .mirror text { font-family: var(--sans); font-weight: 800; font-size: 40px; }
+  .path { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: draw 2s ease-out both; animation-delay: var(--at); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 10px; padding: 26px 30px; }
+  .pair .big.mid { font-size: 96px; }
+  .pair .big.g { color: var(--up); }
+  .pair .big.r { color: var(--down); }
+</style>
+</head>
+<body class="light" data-bg="candles" data-seed="3">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">Al revés que la bolsa</p>
+<h1 class="small in">El índice del <span class="y">miedo</span></h1>
+<div class="mirror in" data-say="reves">
+  <svg viewBox="0 0 860 400" aria-hidden="true">
+    <text x="860" y="34" text-anchor="end" style="fill: var(--muted); font-size: 24px; font-family: var(--mono); letter-spacing: 0.12em">EJEMPLO</text>
+    <path class="path" data-say="reves" d="M 0 90 L 120 80 L 240 110 L 360 200 L 440 300 L 520 250 L 640 160 L 760 120 L 860 100"
+          style="fill: none; stroke: #15120d; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round"/>
+    <path class="path" data-say="caen" d="M 0 330 L 120 340 L 240 310 L 360 220 L 440 110 L 520 170 L 640 270 L 760 300 L 860 320"
+          style="fill: none; stroke: var(--down); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round"/>
+    <text x="0" y="60" style="fill: #15120d">Bolsa</text>
+    <text x="0" y="390" class="fade" data-say="caen" style="fill: var(--down)">VIX</text>
+    <circle cx="440" cy="300" r="14" class="fade" data-say="caen" style="fill: #15120d"/>
+    <circle cx="440" cy="110" r="14" class="fade" data-say="caen" style="fill: var(--down)"/>
+  </svg>
+</div>
+<div class="pair">
+  <div class="card up in" data-say="dow">
+    <p class="label">Dow Jones · 4 nov.</p>
+    <div class="big mid g">+3,03 %</div>
+    <p class="note">Su mejor día desde abril de 2025</p>
+  </div>
+  <div class="card down in" data-say="vix cayo">
+    <p class="label">VIX · 4 nov.</p>
+    <div class="big mid r">−20,3 %</div>
+    <p class="note">De 20,83 a 16,61</p>
+  </div>
+</div>
+<p class="note dim in" data-say="dow" style="font-size: 28px; font-weight: 500;">Cierres. Fuentes: FRED y Yahoo Finance.</p>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

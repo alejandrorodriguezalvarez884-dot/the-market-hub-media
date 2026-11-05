@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- Is 16.6 a lot? The VIX's average since 1990, its low and its panic peaks (FRED, VIXCLS) -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .card.list { gap: 20px; }
+  .line .name { font-size: 40px; }
+  .line .name small { font-size: 26px; }
+  .line .fig { font-size: 50px; }
+  .bar { height: 22px; }
+  .bar i.s { background: var(--sky); }
+  .bar i.k { background: #15120d; }
+</style>
+</head>
+<body class="light" data-bg="grid" data-seed="7">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">¿Mucho o poco?</p>
+<h1 class="small in">El VIX desde <span class="y">1990</span></h1>
+<div class="card list in">
+  <div class="line in" data-say="mucho"><span class="name">Ayer<small>4 nov. 2026</small></span><span class="fig y">16,61</span><span class="bar"><i style="--w: 18.5%"></i></span></div>
+  <div class="line in" data-say="media"><span class="name">La media<small>Desde 1990</small></span><span class="fig">19,4</span><span class="bar"><i class="k" style="--w: 21.6%"></i></span></div>
+  <div class="line in" data-say="minimo"><span class="name">El mínimo<small>3 nov. 2017</small></span><span class="fig g">9,14</span><span class="bar"><i class="g" style="--w: 10.2%"></i></span></div>
+  <div class="line in" data-say="ochenta"><span class="name">Crisis financiera<small>20 nov. 2008</small></span><span class="fig r">80,86</span><span class="bar"><i class="r" style="--w: 89.8%"></i></span></div>
+  <div class="line in" data-say="covid"><span class="name">Covid<small>16 mar. 2020 · el récord</small></span><span class="fig r">82,69</span><span class="bar"><i class="r" style="--w: 91.9%"></i></span></div>
+  <div class="line in" data-say="aranceles"><span class="name">Aranceles<small>8 abr. 2025</small></span><span class="fig r">52,33</span><span class="bar"><i class="r" style="--w: 58.1%"></i></span></div>
+</div>
+<p class="note dim in" data-say="mucho" style="font-size: 28px; font-weight: 500;">Cierres diarios del VIX. Fuente: Reserva Federal de St. Louis (FRED).</p>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- The other four judges: options and the VIX (fear), junk bonds and Treasuries (refuge); all weigh the same -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .group { font-family: var(--mono); font-size: 26px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: -16px; }
+  .judges { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+  .judge { flex-direction: row !important; align-items: center; gap: 24px; padding: 20px 28px !important; }
+  .judge .paddle { flex: 0 0 88px; height: 88px; border-radius: 50%; display: grid; place-items: center;
+                   background: #15120d; color: var(--amber); font-size: 50px; font-weight: 800; }
+  .judge h2 { font-size: 42px; margin-bottom: 2px; }
+  .judge p { font-size: 29px; font-weight: 500; line-height: 1.18; color: var(--ink); }
+</style>
+</head>
+<body class="light" data-bg="tape" data-seed="4">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">Los 7 jueces · 4 a 7</p>
+<p class="group in" data-say="miran el miedo">El miedo</p>
+<div class="judges">
+  <div class="card judge in" data-say="opciones">
+    <span class="paddle">4</span>
+    <div><h2>Opciones</h2><p>Las de protección (puts) frente a las de subida (calls), en 5 días</p></div>
+  </div>
+  <div class="card judge in" data-say="vix frente">
+    <span class="paddle">5</span>
+    <div><h2>VIX</h2><p>Frente a su media de 50 sesiones</p></div>
+  </div>
+</div>
+<p class="group in" data-say="refugio">El refugio</p>
+<div class="judges">
+  <div class="card judge in" data-say="bonos basura">
+    <span class="paddle">6</span>
+    <div><h2>Bonos basura</h2><p>Cuánto pagan de más que los bonos de empresas sólidas</p></div>
+  </div>
+  <div class="card judge in" data-say="tesoro">
+    <span class="paddle">7</span>
+    <div><h2>Refugio</h2><p>Bonos del Tesoro frente a acciones, en 20 sesiones</p></div>
+  </div>
+</div>
+<span class="sticker tag tilt pop" data-say="pesan">0 a 100 · todos pesan igual</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

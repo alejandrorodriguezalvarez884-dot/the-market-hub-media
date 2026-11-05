@@ -1,0 +1,108 @@
+<!doctype html>
+<!-- The VIX taught with an umbrella shop: clear sky, cheap umbrellas; a storm forecast, dear ones -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .example { font-family: var(--mono); font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .shop { width: 100%; }
+  .shop svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .shop text { font-family: var(--sans); font-weight: 800; }
+  .sun { animation: sun-out 0.8s ease both; animation-delay: var(--at); }
+  @keyframes sun-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(60px); } }
+  .cloud { opacity: 0; animation: cloud-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+  @keyframes cloud-in { from { opacity: 0; transform: translateX(260px); } to { opacity: 1; transform: translateX(0); } }
+  .rain { opacity: 0; animation: rain-on 0.4s ease both; animation-delay: var(--at); }
+  @keyframes rain-on { to { opacity: 1; } }
+  .rain line { stroke: var(--sky); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 26 40;
+               animation: fall 0.6s linear infinite; }
+  @keyframes fall { from { stroke-dashoffset: 66; } to { stroke-dashoffset: 0; } }
+  .cheap { animation: tag-off 0.4s ease both; animation-delay: var(--at); }
+  @keyframes tag-off { to { opacity: 0.18; } }
+  .dear { transform-box: fill-box; transform-origin: center; opacity: 0;
+          animation: tag-pop 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) both; animation-delay: var(--at); }
+  @keyframes tag-pop { from { opacity: 0; transform: scale(0.4) rotate(-12deg); } to { opacity: 1; transform: scale(1) rotate(-6deg); } }
+  .crowd { opacity: 0; animation: crowd-in 0.6s ease both; animation-delay: var(--at); }
+  @keyframes crowd-in { from { opacity: 0; transform: translateX(-80px); } to { opacity: 1; transform: translateX(0); } }
+</style>
+</head>
+<body class="light" data-bg="city">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">1 · El VIX</p>
+<h1 class="in">Una tienda de <span class="y">paraguas</span></h1>
+<p class="example in" data-say="imagina">Ejemplo</p>
+<div class="shop in" data-say="imagina">
+  <svg viewBox="0 0 860 820" aria-hidden="true">
+    <!-- the sky: a sun, then a storm -->
+    <g class="sun" data-say="tormenta">
+      <circle cx="700" cy="110" r="62" style="fill: var(--amber)"/>
+      <g style="stroke: var(--amber); stroke-width: 10; stroke-linecap: round">
+        <line x1="700" y1="12" x2="700" y2="30"/><line x1="700" y1="190" x2="700" y2="208"/>
+        <line x1="602" y1="110" x2="620" y2="110"/><line x1="780" y1="110" x2="798" y2="110"/>
+        <line x1="631" y1="41" x2="644" y2="54"/><line x1="756" y1="166" x2="769" y2="179"/>
+        <line x1="769" y1="41" x2="756" y2="54"/><line x1="644" y1="166" x2="631" y2="179"/>
+      </g>
+    </g>
+    <g class="rain" data-say="tormenta">
+      <line x1="560" y1="170" x2="540" y2="250"/><line x1="610" y1="170" x2="590" y2="250"/>
+      <line x1="660" y1="170" x2="640" y2="250"/><line x1="710" y1="170" x2="690" y2="250"/>
+      <line x1="760" y1="170" x2="740" y2="250"/><line x1="810" y1="170" x2="790" y2="250"/>
+    </g>
+    <g class="cloud" data-say="tormenta">
+      <ellipse cx="690" cy="120" rx="150" ry="58" style="fill: #59606b"/>
+      <circle cx="630" cy="92" r="62" style="fill: #59606b"/>
+      <circle cx="720" cy="70" r="74" style="fill: #6b737f"/>
+      <circle cx="790" cy="108" r="52" style="fill: #59606b"/>
+      <path d="M 700 140 L 676 196 L 702 196 L 684 246 L 738 180 L 710 180 L 728 140 Z" style="fill: var(--amber)"/>
+    </g>
+    <!-- the shop -->
+    <rect x="40" y="250" width="620" height="90" rx="14" style="fill: #15120d"/>
+    <text x="350" y="314" text-anchor="middle" style="fill: var(--amber); font-size: 56px; letter-spacing: 0.12em">PARAGUAS</text>
+    <rect x="60" y="340" width="580" height="460" style="fill: #fbf8f2; stroke: #15120d; stroke-width: 6"/>
+    <g>
+      <path d="M 60 340 L 140 340 L 128 410 L 48 410 Z" style="fill: var(--down)"/>
+      <path d="M 140 340 L 220 340 L 208 410 L 128 410 Z" style="fill: #fbf8f2"/>
+      <path d="M 220 340 L 300 340 L 288 410 L 208 410 Z" style="fill: var(--down)"/>
+      <path d="M 300 340 L 380 340 L 368 410 L 288 410 Z" style="fill: #fbf8f2"/>
+      <path d="M 380 340 L 460 340 L 448 410 L 368 410 Z" style="fill: var(--down)"/>
+      <path d="M 460 340 L 540 340 L 528 410 L 448 410 Z" style="fill: #fbf8f2"/>
+      <path d="M 540 340 L 640 340 L 628 410 L 528 410 Z" style="fill: var(--down)"/>
+      <path d="M 48 410 L 628 410" style="stroke: #15120d; stroke-width: 6"/>
+    </g>
+    <!-- the window, with an open umbrella -->
+    <rect x="96" y="450" width="340" height="300" rx="10" style="fill: #dbe8f4; stroke: #15120d; stroke-width: 6"/>
+    <path d="M 136 610 Q 266 470 396 610 Q 374 590 352 610 Q 330 590 308 610 Q 287 590 266 610 Q 244 590 222 610 Q 201 590 180 610 Q 158 590 136 610 Z"
+          style="fill: var(--sky); stroke: #15120d; stroke-width: 5"/>
+    <path d="M 266 520 L 266 700 Q 266 730 240 726" style="fill: none; stroke: #15120d; stroke-width: 8; stroke-linecap: round"/>
+    <!-- the door -->
+    <rect x="476" y="500" width="130" height="300" rx="8" style="fill: #e8dfcb; stroke: #15120d; stroke-width: 6"/>
+    <circle cx="588" cy="660" r="9" style="fill: #15120d"/>
+    <!-- the price tag: cheap, then dear -->
+    <g class="cheap" data-say="precio">
+      <rect x="300" y="640" width="190" height="110" rx="18" style="fill: #fff; stroke: #15120d; stroke-width: 5"/>
+      <text x="395" y="716" text-anchor="middle" style="fill: #15120d; font-size: 64px">5 $</text>
+    </g>
+    <g class="dear" data-say="precio">
+      <rect x="250" y="620" width="290" height="140" rx="22" style="fill: var(--down)"/>
+      <text x="395" y="716" text-anchor="middle" style="fill: #fff; font-size: 80px">▲ 15 $</text>
+    </g>
+    <!-- people running in -->
+    <g class="crowd" data-say="corren">
+      <g style="fill: #15120d">
+        <circle cx="712" cy="560" r="26"/><rect x="694" y="590" width="36" height="110" rx="16"/>
+        <circle cx="790" cy="580" r="24"/><rect x="773" y="608" width="34" height="100" rx="15"/>
+      </g>
+      <g style="stroke: #15120d; stroke-width: 12; stroke-linecap: round">
+        <line x1="702" y1="694" x2="684" y2="780"/><line x1="722" y1="694" x2="744" y2="776"/>
+        <line x1="782" y1="702" x2="766" y2="784"/><line x1="800" y1="702" x2="820" y2="780"/>
+      </g>
+    </g>
+  </svg>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

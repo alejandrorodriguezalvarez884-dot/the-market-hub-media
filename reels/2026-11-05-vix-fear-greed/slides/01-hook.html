@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- The hook: the VIX sank 20 % yesterday, yet CNN's Fear & Greed still reads fear -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 12px; padding: 28px 30px; }
+  .pair .big.mid { font-size: 120px; }
+  .pair .sticker { margin-top: 6px; }
+  .mood { font-size: 54px; font-weight: 800; color: var(--down); }
+</style>
+</head>
+<body class="light" data-bg="grid">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">Concepto de bolsa</p>
+<h1 class="in">Dos índices del <span class="y">miedo</span></h1>
+<div class="pair">
+  <div class="card down in" data-say="indice">
+    <p class="label">VIX · cierre 4 nov.</p>
+    <div class="big mid"><span data-count="16.61" data-from="20.83" data-decimals="2" data-say="hundio"></span></div>
+    <span class="sticker small pop" data-say="veinte">▼ 20,3 %</span>
+  </div>
+  <div class="card amber in" data-say="otro">
+    <p class="label">Fear &amp; Greed · CNN</p>
+    <div class="big mid"><span data-count="35" data-say="marcando"></span></div>
+    <p class="mood fade" data-say="marcando">Miedo</p>
+  </div>
+</div>
+<p class="note dim in" data-say="otro" style="font-size: 28px; font-weight: 500;">El VIX, al cierre del martes y el miércoles (Yahoo Finance). El Fear &amp; Greed, hoy a las 09:15 de España.</p>
+<span class="sticker tag tilt pop" data-say="como puede">¿Cómo puede ser?</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

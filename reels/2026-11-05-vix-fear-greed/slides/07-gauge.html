@@ -1,0 +1,56 @@
+<!doctype html>
+<!-- CNN's Fear & Greed: a needle from 0 (extreme fear) to 100 (extreme greed) that looks at seven things -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .gauge { width: 100%; }
+  .gauge svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .gauge text { font-family: var(--sans); font-weight: 800; }
+  .needle { transform-box: view-box; transform-origin: 430px 440px; transform: rotate(-90deg);
+            animation: sweep 2.6s cubic-bezier(0.45, 0, 0.3, 1) both; animation-delay: var(--at); }
+  @keyframes sweep { 0% { transform: rotate(-90deg); } 45% { transform: rotate(84deg); } 75% { transform: rotate(-30deg); } 100% { transform: rotate(0deg); } }
+  .ends { display: grid; grid-template-columns: 1fr 1fr; width: 100%; margin-top: -10px; }
+  .ends .sticker { justify-self: start; font-size: 44px; }
+  .ends .sticker.green { justify-self: end; }
+</style>
+</head>
+<body class="light" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">2 · El Fear &amp; Greed</p>
+<h1 class="small in">Miedo y <span class="y">codicia</span></h1>
+<div class="gauge in" data-say="aguja">
+  <svg viewBox="0 0 860 520" aria-hidden="true">
+    <g id="arcs"></g>
+    <g class="needle" data-say="aguja">
+      <path d="M 418 440 L 430 150 L 442 440 Z" style="fill: #15120d"/>
+    </g>
+    <circle cx="430" cy="440" r="30" style="fill: #15120d"/>
+    <text x="70" y="500" text-anchor="middle" style="fill: #15120d; font-size: 48px">0</text>
+    <text x="430" y="34" text-anchor="middle" style="fill: #15120d; font-size: 48px">50</text>
+    <text x="790" y="500" text-anchor="middle" style="fill: #15120d; font-size: 48px">100</text>
+  </svg>
+</div>
+<div class="ends">
+  <span class="sticker pop" data-say="cero es">Miedo extremo</span>
+  <span class="sticker green tilt pop" data-say="cien codicia">Codicia extrema</span>
+</div>
+<span class="sticker tag tilt pop" data-say="mira siete">Mira 7 cosas</span>
+<p class="note dim in" data-say="aguja" style="font-size: 28px; font-weight: 500;">El índice de la CNN, de 0 a 100.</p>
+</main>
+<script>
+  // Five bands, as CNN colours its dial: extreme fear, fear, neutral, greed, extreme greed.
+  const bands = [[0, 25, "#d9452f"], [25, 45, "#f08a4b"], [45, 55, "#cbbd96"], [55, 75, "#8cc96b"], [75, 100, "#2fa86a"]];
+  const cx = 430, cy = 440, r = 330;
+  const at = (s) => { const t = Math.PI - (s / 100) * Math.PI; return [cx + r * Math.cos(t), cy - r * Math.sin(t)]; };
+  document.getElementById("arcs").innerHTML = bands.map(([a, b, c]) => {
+    const [x1, y1] = at(a + 0.6), [x2, y2] = at(b - 0.6);
+    return `<path d="M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}" style="fill:none;stroke:${c};stroke-width:96"/>`;
+  }).join("");
+</script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

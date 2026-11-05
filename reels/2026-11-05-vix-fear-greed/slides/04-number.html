@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- How to read the figure: VIX / 16 is the daily move options price in, up or down -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .sum { display: flex; align-items: baseline; gap: 22px; flex-wrap: wrap; }
+  .sum b { font-size: 112px; font-weight: 800; letter-spacing: -0.04em; color: var(--ink-strong); font-variant-numeric: tabular-nums; }
+  .sum b.y { color: var(--amber); }
+  .sum i { font-style: normal; font-size: 84px; font-weight: 700; color: var(--muted); }
+  .band { width: 100%; }
+  .band svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .band text { font-family: var(--sans); font-weight: 800; }
+  .walk { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.2s ease-out both; animation-delay: var(--at); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+</style>
+</head>
+<body class="light" data-bg="tape">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">Cómo se lee</p>
+<h1 class="in">El truco del <span class="y">16</span></h1>
+<div class="card amber in" data-say="cerro">
+  <p class="label">VIX al cierre del 4 nov.</p>
+  <div class="sum">
+    <b>16,61</b>
+    <i class="fade" data-say="dividelo">÷</i><b class="fade" data-say="dividelo">16</b>
+    <i class="fade" data-say="sale">≈</i><b class="fade y" data-say="sale">1,04 %</b>
+  </div>
+  <p class="note fade" data-say="dia normal">Al día, hacia arriba o hacia abajo</p>
+</div>
+<div class="band in" data-say="espera">
+  <svg viewBox="0 0 860 420" aria-hidden="true">
+    <text x="860" y="90" text-anchor="end" style="fill: var(--muted); font-size: 24px; font-family: var(--mono); letter-spacing: 0.12em">EJEMPLO</text>
+    <rect x="0" y="110" width="860" height="200" rx="18" style="fill: rgba(242, 193, 78, 0.28)"/>
+    <line x1="0" y1="110" x2="860" y2="110" style="stroke: var(--amber); stroke-width: 4; stroke-dasharray: 14 12"/>
+    <line x1="0" y1="310" x2="860" y2="310" style="stroke: var(--amber); stroke-width: 4; stroke-dasharray: 14 12"/>
+    <line x1="0" y1="210" x2="860" y2="210" style="stroke: #15120d; stroke-width: 3; opacity: 0.35"/>
+    <text x="20" y="90" style="fill: #15120d; font-size: 44px">+1 %</text>
+    <text x="20" y="370" style="fill: #15120d; font-size: 44px">−1 %</text>
+    <path class="walk" data-say="espera" d="M 0 210 L 70 180 L 130 228 L 200 160 L 260 196 L 330 250 L 400 214 L 470 262 L 540 200 L 610 150 L 680 186 L 750 240 L 860 204"
+          style="fill: none; stroke: var(--sky); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round"/>
+  </svg>
+</div>
+<p class="note dim in" data-say="espera" style="font-size: 28px; font-weight: 500;">El VIX es una cifra anual; entre 16 (la raíz de unas 252 sesiones), da el movimiento diario. Aproximado. Fuente: Charles Schwab.</p>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

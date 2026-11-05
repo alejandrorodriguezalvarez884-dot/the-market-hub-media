@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- Seven judges; three of them look at stocks: momentum, strength and breadth (CNN) -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .judges { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+  .judge { flex-direction: row !important; align-items: center; gap: 26px; padding: 24px 30px !important; }
+  .judge .paddle { flex: 0 0 104px; height: 104px; border-radius: 50%; display: grid; place-items: center;
+                   background: #15120d; color: var(--amber); font-size: 60px; font-weight: 800; }
+  .judge h2 { font-size: 48px; margin-bottom: 4px; }
+  .judge p { font-size: 32px; font-weight: 500; line-height: 1.2; color: var(--ink); }
+  .seven { display: flex; gap: 14px; }
+  .seven i { width: 62px; height: 62px; border-radius: 50%; background: #15120d; display: block;
+             box-shadow: 0 8px 20px rgba(60, 45, 20, 0.2); }
+  .seven i.on { background: var(--amber); }
+</style>
+</head>
+<body class="light" data-bg="city" data-seed="5">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">Los 7 jueces · 1 a 3</p>
+<h1 class="small in">Tres miran las <span class="y">acciones</span></h1>
+<div class="seven in" data-say="siete jueces"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+<div class="judges">
+  <div class="card judge in" data-say="media">
+    <span class="paddle">1</span>
+    <div><h2>Impulso</h2><p>¿Está el S&amp;P 500 por encima de su media de 125 sesiones?</p></div>
+  </div>
+  <div class="card judge in" data-say="maximos">
+    <span class="paddle">2</span>
+    <div><h2>Fuerza</h2><p>Acciones en máximos de un año frente a las que están en mínimos</p></div>
+  </div>
+  <div class="card judge in" data-say="volumen">
+    <span class="paddle">3</span>
+    <div><h2>Amplitud</h2><p>El volumen de las que suben frente al de las que bajan</p></div>
+  </div>
+</div>
+<p class="note dim in" data-say="siete jueces" style="font-size: 28px; font-weight: 500;">Los siete indicadores del Fear &amp; Greed, según la CNN.</p>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

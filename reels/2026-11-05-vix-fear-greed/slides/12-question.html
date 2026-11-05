@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- The closing question: where would you put today's needle? -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .gauge { width: 78%; align-self: center; }
+  .gauge svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .needle { transform-box: view-box; transform-origin: 430px 440px;
+            animation: wobble 2.4s ease-in-out infinite alternate; }
+  @keyframes wobble { from { transform: rotate(-55deg); } to { transform: rotate(55deg); } }
+  .answers .sticker.green { background: var(--up); color: #04130c; }
+</style>
+</head>
+<body class="light" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel center">
+<p class="kicker in">¿Y tú?</p>
+<h1 class="small in">Si pusieras hoy la <span class="y">aguja</span>…</h1>
+<div class="gauge in">
+  <svg viewBox="0 0 860 480" aria-hidden="true">
+    <g id="arcs"></g>
+    <g class="needle"><path d="M 418 440 L 430 150 L 442 440 Z" style="fill: #15120d"/></g>
+    <circle cx="430" cy="440" r="30" style="fill: #15120d"/>
+  </svg>
+</div>
+<div class="answers">
+  <span class="sticker pop" data-say="miedo">Miedo</span>
+  <em class="fade" data-say="miedo">o</em>
+  <span class="sticker green pop" data-say="codicia">Codicia</span>
+</div>
+<div class="mark in" data-say="comentarios"><img src="../../../channel/instagram-profile.jpg" alt=""><span>Te leo en comentarios</span></div>
+</main>
+<script>
+  const bands = [[0, 25, "#d9452f"], [25, 45, "#f08a4b"], [45, 55, "#cbbd96"], [55, 75, "#8cc96b"], [75, 100, "#2fa86a"]];
+  const cx = 430, cy = 440, r = 330;
+  const at = (s) => { const t = Math.PI - (s / 100) * Math.PI; return [cx + r * Math.cos(t), cy - r * Math.sin(t)]; };
+  document.getElementById("arcs").innerHTML = bands.map(([a, b, c]) => {
+    const [x1, y1] = at(a + 0.6), [x2, y2] = at(b - 0.6);
+    return `<path d="M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}" style="fill:none;stroke:${c};stroke-width:96"/>`;
+  }).join("");
+</script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

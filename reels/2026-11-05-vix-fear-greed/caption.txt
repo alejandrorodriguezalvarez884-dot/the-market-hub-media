@@ -1,0 +1,22 @@
+EL VIX Y EL FEAR & GREED, EXPLICADOS CON PARAGUAS Y SIETE JUECES
+
+Qué mide el índice del miedo de Wall Street, cómo se lee su cifra, de qué está hecho el Fear & Greed de la CNN y por qué hoy uno se calma y el otro sigue en miedo.
+
+· El VIX es como el precio de los paraguas: cuando se teme una tormenta, la protección se encarece. Lo calcula Cboe con las opciones sobre el S&P 500, y dice cuánto espera el mercado que se mueva la bolsa en los próximos 30 días.
+· El truco del 16: el VIX es una cifra anual. Dividido entre 16 da el movimiento diario que esperan las opciones. 16,61 / 16 = algo más de un 1 % al día, hacia arriba o hacia abajo.
+· Desde 1990, su media es de 19,4. Mínimo: 9,14 (3 de noviembre de 2017). Picos: 80,86 en la crisis de 2008, 82,69 con la covid (16 de marzo de 2020) y 52,33 con los aranceles (8 de abril de 2025).
+· Ayer, el Dow Jones subió un 3,03 %, su mayor subida desde abril de 2025, y el VIX cayó un 20,3 %, de 20,83 a 16,61.
+· El Fear & Greed de la CNN va de 0 (miedo extremo) a 100 (codicia extrema) y junta siete indicadores con el mismo peso: impulso, fuerza y amplitud de las acciones; opciones de protección frente a las de subida; el VIX frente a su media; bonos basura; y bonos del Tesoro frente a acciones.
+· Hoy, a las 09:15 de España, marca 35: miedo (27 al cierre de ayer, 43 hace un mes). Las opciones, los bonos basura y el refugio están en miedo extremo.
+▲ A las 09:31, el VIX repunta un 3,3 %, hasta 17,16.
+
+Ninguno de los dos dice qué va a pasar: miden cómo se siente el mercado.
+
+¿Y tú? Si tuvieras que poner hoy la aguja, ¿miedo o codicia? Te leo en comentarios.
+
+Fuentes: Market Hub (datos de Yahoo Finance), Yahoo Finance, Reserva Federal de St. Louis (FRED: VIXCLS y DJIA), Cboe, CNN (Fear & Greed Index) y Charles Schwab, el 5 de noviembre de 2026.
+
+Contenido informativo de The Market Hub. No es una recomendación de inversión.
+themarkethub.app
+
+#bolsa #vix #volatilidad #aprendeinversion #wallstreet

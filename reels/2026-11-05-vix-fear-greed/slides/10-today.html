@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- Today: what each of the seven judges says (CNN, 09:15 in Spain), the needle at 35, and the VIX at 17.16 -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .verdicts { gap: 12px !important; padding: 22px 30px !important; }
+  .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px; }
+  .row .name { font-size: 38px; font-weight: 700; color: var(--ink-strong); }
+  .chip { font-size: 30px; font-weight: 800; padding: 8px 18px 9px; border-radius: 12px; white-space: nowrap; }
+  .chip.xf { background: #d9452f; color: #fff; }
+  .chip.f { background: #f08a4b; color: #1a0d05; }
+  .chip.n { background: #cbbd96; color: #15120d; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 8px; padding: 24px 30px; }
+  .pair .big.mid { font-size: 104px; }
+  .mood { font-size: 44px; font-weight: 800; color: #d9452f; }
+</style>
+</head>
+<body class="light" data-bg="grid" data-seed="11">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">Hoy · 5 de noviembre</p>
+<h1 class="small in">¿Por qué sigue en <span class="y">miedo</span>?</h1>
+<div class="card verdicts in" data-say="sigue">
+  <div class="row in" data-say="sigue"><span class="name">1 · Impulso</span><span class="chip f">Miedo</span></div>
+  <div class="row in" data-say="sigue+0.3"><span class="name">2 · Fuerza</span><span class="chip f">Miedo</span></div>
+  <div class="row in" data-say="volumen"><span class="name">3 · Amplitud</span><span class="chip n">Neutral</span></div>
+  <div class="row in" data-say="opciones"><span class="name">4 · Opciones</span><span class="chip xf">Miedo extremo</span></div>
+  <div class="row in" data-say="vix"><span class="name">5 · VIX</span><span class="chip n">Neutral</span></div>
+  <div class="row in" data-say="bonos basura"><span class="name">6 · Bonos basura</span><span class="chip xf">Miedo extremo</span></div>
+  <div class="row in" data-say="refugio"><span class="name">7 · Refugio</span><span class="chip xf">Miedo extremo</span></div>
+</div>
+<div class="pair">
+  <div class="card amber in" data-say="aguja">
+    <p class="label">Fear &amp; Greed</p>
+    <div class="big mid"><span data-count="35" data-from="27" data-say="treinta"></span></div>
+    <p class="mood fade" data-say="treinta">Miedo <span class="note" style="font-size: 28px; font-weight: 500; color: var(--muted)">· 09:15</span></p>
+  </div>
+  <div class="card in" data-say="repunta">
+    <p class="label">VIX · 09:31</p>
+    <div class="big mid">17,16</div>
+    <p class="note"><span class="g">▲ 3,3 %</span> sobre el cierre</p>
+  </div>
+</div>
+<p class="note dim in" data-say="aguja" style="font-size: 26px; font-weight: 500;">Hora de España. Fuentes: CNN y Market Hub (Yahoo Finance).</p>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- In the market the umbrellas are options; the VIX reads their price and turns it into an expected move -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .chain { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+  .chain .card { flex-direction: row; align-items: center; gap: 28px; padding: 26px 32px; }
+  .chain .card h2 { font-size: 48px; }
+  .chain .card .label { margin-bottom: 6px; }
+  .chain .icon { flex: 0 0 110px; height: 110px; }
+  .chain .icon svg { width: 110px; height: 110px; display: block; }
+  .down-arrow { align-self: center; font-size: 54px; font-weight: 800; color: var(--muted); line-height: 1; }
+</style>
+</head>
+<body class="light" data-bg="candles">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">1 · El VIX</p>
+<h1 class="small in">Los paraguas de la bolsa: <span class="y">opciones</span></h1>
+<div class="chain">
+  <div class="card in" data-say="opciones">
+    <div class="icon"><svg viewBox="0 0 110 110"><path d="M 8 60 Q 55 4 102 60 Q 90 50 78 60 Q 66 50 55 60 Q 44 50 32 60 Q 20 50 8 60 Z" style="fill: var(--sky); stroke: #15120d; stroke-width: 4"/><path d="M 55 24 L 55 92 Q 55 104 44 102" style="fill: none; stroke: #15120d; stroke-width: 6; stroke-linecap: round"/></svg></div>
+    <div><p class="label">Opciones sobre el S&amp;P 500</p><h2>Protegen si cae</h2></div>
+  </div>
+  <span class="down-arrow fade" data-say="cuestan">↓</span>
+  <div class="card in" data-say="cuestan">
+    <div class="icon"><svg viewBox="0 0 110 110"><path d="M 14 20 L 62 20 L 98 56 L 56 98 L 14 56 Z" style="fill: var(--amber); stroke: #15120d; stroke-width: 4; stroke-linejoin: round"/><circle cx="36" cy="42" r="8" style="fill: #15120d"/></svg></div>
+    <div><p class="label">El VIX mira</p><h2>Cuánto cuestan</h2></div>
+  </div>
+  <span class="down-arrow fade" data-say="saca">↓</span>
+  <div class="card amber in" data-say="saca">
+    <div class="icon"><svg viewBox="0 0 110 110"><path d="M 6 60 L 24 48 L 38 70 L 54 30 L 70 78 L 86 40 L 104 54" style="fill: none; stroke: var(--down); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round"/></svg></div>
+    <div><p class="label">Y calcula</p><h2>Cuánto se espera que se mueva en <span class="y">30 días</span></h2></div>
+  </div>
+</div>
+<span class="sticker pop" data-say="paraguas caros">Paraguas caros = VIX alto</span>
+<p class="note dim in" data-say="saca" style="font-size: 28px; font-weight: 500;">Cboe, la bolsa que calcula el VIX: con las opciones sobre el S&amp;P 500, a 30 días.</p>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

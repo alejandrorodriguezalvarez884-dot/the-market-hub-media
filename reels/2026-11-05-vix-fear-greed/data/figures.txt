@@ -1,0 +1,28 @@
+Figures used in the reel, read on 2026-11-05 (Madrid time).
+
+VIX (Yahoo Finance ^VIX, data/yahoo-VIX.json; FRED VIXCLS, data/fred-VIXCLS.csv)
+  2026-11-03 close 20.83; 2026-11-04 close 16.61 -> -20.3 %
+  09:31 Madrid, 2026-11-05: 17.16 (+3.3 %), Market Hub overview (data/overview.json, as_of 08:31 UTC)
+  Since 1990-01-02 (FRED, 9,309 closes): mean 19.42, median 17.56
+  Min 9.14 on 2017-11-03; 80.86 on 2008-11-20 (2008 high); max 82.69 on 2020-03-16; 52.33 on 2025-04-08 (2025 high)
+  Rule of 16 (Schwab): 16.61 / 15.87 = 1.05 % expected daily move
+
+Dow Jones (FRED DJIA, data/fred-DJIA.csv)
+  2026-11-03 51,786.72 -> 2026-11-04 53,356.12, +3.03 %; largest one-day gain since 2025-04-09 (+7.87 %)
+
+CNN Fear & Greed (https://edition.cnn.com/markets/fear-and-greed, read in Chrome at about 09:40 Madrid;
+the page said "Last updated Nov 5 at 3:15:46 AM ET" = 09:15 Madrid)
+  Score 34.8 -> "35", fear. Previous close 27 (27.29), 1 week ago 30.8, 1 month ago 43.1, 1 year ago 23.1
+  Indicators (rating, score, last update UTC):
+    market momentum (S&P 500 vs 125-day MA)  fear          26.4   2026-11-04 21:51
+    stock price strength (NYSE 52w highs/lows) fear        44.2   2026-11-05 01:59
+    stock price breadth (McClellan volume)   neutral       50.2   2026-11-05 01:59
+    put/call options (5-day ratio)           extreme fear  17.6   2026-11-04 21:17
+    market volatility (VIX vs 50-day MA)     neutral       50     2026-11-05 08:15
+    junk bond demand (spread)                extreme fear   2.8   2026-11-05 01:00
+    safe haven demand (bonds vs stocks, 20d) extreme fear   9.8   2026-11-04 20:59
+  Bands seen in the last year's daily data: extreme fear 5.2-24.8, fear 25.3-44.9, neutral 45.2-55, greed 56.2-71.2
+  CNN: "seven different indicators", "equal weighting", "a score from 0 to 100, with 100 representing
+  maximum greediness and 0 signaling maximum fear".
+  data/cnn-fear-greed-0131utc.json is the same feed read earlier (01:59 UTC score 28.0); the 08:15 UTC
+  figures above were read on the page.
