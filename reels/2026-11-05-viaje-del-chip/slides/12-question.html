@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- The closing question: which stop did you not know? -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .picks { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; }
+  .picks .sticker { justify-content: center; font-size: 44px; transform: none; }
+  .picks .sticker:nth-child(odd) { rotate: -2deg; } .picks .sticker:nth-child(even) { rotate: 2deg; }
+</style>
+</head>
+<body class="light" data-bg="plain" data-stop="7">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel center">
+<p class="kicker in">¿Y tú?</p>
+<h1 class="in">¿Qué parada <span class="y">no conocías</span>?</h1>
+<div class="picks">
+  <span class="sticker tag pop" style="--at: 0.5s">Zeiss</span>
+  <span class="sticker amber pop" style="--at: 0.65s">ASML</span>
+  <span class="sticker amber pop" style="--at: 0.8s">TSMC</span>
+  <span class="sticker tag pop" style="--at: 0.95s">Nvidia · AMD</span>
+  <span class="sticker tag pop" style="--at: 1.1s">La nube</span>
+  <span class="sticker amber pop" style="--at: 1.25s">Neoclouds</span>
+</div>
+<div class="mark in" data-say="comentarios"><img src="../../../channel/instagram-profile.jpg" alt=""><span>Te leo en comentarios</span></div>
+</main>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

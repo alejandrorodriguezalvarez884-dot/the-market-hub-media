@@ -1,0 +1,68 @@
+<!doctype html>
+<!-- Stop 2, the Netherlands: ASML builds the only machine that draws chips with extreme ultraviolet light; a laser hits tin droplets 50,000 times a second -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .drop { animation: drop 0.9s linear infinite; }
+  @keyframes drop { from { transform: translateY(-40px); opacity: 0; } 15% { opacity: 1; } to { transform: translateY(300px); opacity: 1; } }
+  .hit { opacity: 0; transform-box: fill-box; transform-origin: center; animation: hit 0.45s ease-out infinite; animation-delay: var(--at); }
+  @keyframes hit { 0% { opacity: 0; scale: 0.3; } 20% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 1.8; } }
+  .laser { opacity: 0; animation: laser 0.45s steps(1) infinite; animation-delay: var(--at); }
+  @keyframes laser { 0% { opacity: 1; } 30% { opacity: 0; } }
+  .euv { stroke: #7b4dd6; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 26 22; opacity: 0;
+         animation: euv-on 0.4s ease both, flow 0.6s linear infinite; animation-delay: var(--at), 0s; }
+  @keyframes euv-on { to { opacity: 1; } }
+  @keyframes flow { from { stroke-dashoffset: 48; } to { stroke-dashoffset: 0; } }
+  .count { display: flex; align-items: baseline; gap: 18px; }
+  .count .big { font-size: 140px; }
+  .count span.per { font-size: 44px; font-weight: 800; color: var(--ink-strong); }
+  .facts { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+</style>
+</head>
+<body class="light" data-bg="grid" data-seed="3" data-stop="2">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<div class="route"></div>
+<p class="kicker in">Parada 2 · Veldhoven, Países Bajos</p>
+<h1 class="in">La máquina de <span class="y">luz</span></h1>
+<div class="facts">
+  <span class="logo big pop" data-say="asml" style="font-size: 80px;"><img src="../../../theme/logos/asml.svg" alt="ASML"></span>
+  <span class="sticker tilt pop" data-say="unica">La única del mundo</span>
+</div>
+<div class="scene-art in" data-say="ultravioleta" style="flex: none; height: 400px;">
+  <svg viewBox="0 0 860 400" aria-hidden="true">
+    <!-- the vessel -->
+    <rect x="250" y="10" width="360" height="380" rx="40" style="fill: #e3dccd; stroke: #15120d; stroke-width: 6"/>
+    <rect x="280" y="40" width="300" height="320" rx="24" style="fill: #15120d"/>
+    <!-- tin droplets falling -->
+    <g style="fill: #c9cdd3">
+      <circle class="drop" cx="430" cy="60" r="9"/>
+      <circle class="drop" cx="430" cy="60" r="9" style="animation-delay: -0.3s"/>
+      <circle class="drop" cx="430" cy="60" r="9" style="animation-delay: -0.6s"/>
+    </g>
+    <text x="300" y="80" style="fill: #c9cdd3; font-size: 24px">estaño</text>
+    <!-- the laser, from the left, and the flash where it hits -->
+    <line class="laser" data-say="laser" x1="0" y1="210" x2="430" y2="210" style="stroke: var(--down); stroke-width: 10"/>
+    <rect x="0" y="180" width="130" height="60" rx="12" style="fill: var(--down)"/>
+    <text x="65" y="220" text-anchor="middle" style="fill: #fff; font-size: 28px">LÁSER</text>
+    <circle class="hit" data-say="golpea" cx="430" cy="210" r="46" style="fill: #b58cff"/>
+    <circle class="hit" data-say="golpea" cx="430" cy="210" r="22" style="fill: #fff"/>
+    <!-- the light, out to the mirrors -->
+    <line class="euv" data-say="golpea" x1="460" y1="190" x2="840" y2="60"/>
+    <text x="700" y="160" class="fade" data-say="golpea" style="fill: #7b4dd6; font-size: 30px">luz EUV</text>
+  </svg>
+</div>
+<div class="count in" data-say="cincuenta">
+  <div class="big"><span data-count="50000" data-say="cincuenta"></span></div>
+  <span class="per">veces<br>por segundo</span>
+</div>
+<p class="fine in" data-say="cincuenta">Ultravioleta extrema (EUV). Fuente: ASML.</p>
+</main>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

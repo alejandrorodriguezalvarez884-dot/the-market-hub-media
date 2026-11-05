@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- The hook: you ask an AI something and it answers in seconds; before that, the answer has gone round the world -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .phone-art { display: grid; grid-template-columns: 330px 1fr; gap: 20px; align-items: center; }
+  .phone { width: 330px; height: 560px; border-radius: 52px; background: #15120d; padding: 18px; box-shadow: 0 24px 60px rgba(60, 45, 20, 0.25); }
+  .screen { width: 100%; height: 100%; border-radius: 36px; background: #fbf8f2; padding: 36px 22px; display: flex; flex-direction: column; gap: 20px; }
+  .bubble { padding: 18px 22px; border-radius: 26px; font-size: 27px; line-height: 1.2; font-weight: 700; }
+  .bubble.me { align-self: flex-end; background: var(--sky); color: #fff; border-bottom-right-radius: 6px; }
+  .bubble.ai { align-self: flex-start; background: #e9e1d0; color: #15120d; border-bottom-left-radius: 6px; }
+  .dots { display: inline-flex; gap: 8px; }
+  .dots i { width: 12px; height: 12px; border-radius: 50%; background: #15120d; opacity: 0.3; animation: blink 0.9s ease-in-out infinite; }
+  .dots i:nth-child(2) { animation-delay: 0.15s; } .dots i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes blink { 50% { opacity: 1; } }
+  .globe svg { width: 100%; height: auto; overflow: visible; }
+  .trip { fill: none; stroke: var(--amber); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 1400; stroke-dashoffset: 1400;
+          animation: trip 2.6s cubic-bezier(0.5, 0, 0.3, 1) both; animation-delay: var(--at); }
+  @keyframes trip { to { stroke-dashoffset: 0; } }
+  .pin { opacity: 0; animation: reel-pop 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) both; animation-delay: calc(var(--at) + var(--d)); transform-box: fill-box; transform-origin: center; }
+  .spin { animation: spin 14s linear infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes spin { from { transform: translateX(-30px); } to { transform: translateX(30px); } }
+  .row { display: flex; align-items: center; gap: 22px; }
+</style>
+</head>
+<body class="light" data-bg="grid" data-stop="0">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in">Un viaje · Concepto de bolsa</p>
+<h1 class="in">La fábrica de la <span class="y">IA</span></h1>
+<div class="phone-art">
+  <div class="phone in" data-say="pregunta">
+    <div class="screen">
+      <div class="bubble me pop" data-say="pregunta">¿Cómo se hace un chip?</div>
+      <div class="bubble ai fade" data-say="inteligencia"><span class="dots"><i></i><i></i><i></i></span></div>
+      <div class="bubble ai pop" data-say="responde">Te lo cuento. Empieza con un espejo…</div>
+    </div>
+  </div>
+  <div class="globe in" data-say="vuelta">
+    <svg viewBox="0 0 460 460" aria-hidden="true">
+      <defs><clipPath id="g"><circle cx="230" cy="230" r="200"/></clipPath></defs>
+      <circle cx="230" cy="230" r="200" style="fill: #dbe8f4; stroke: #15120d; stroke-width: 6"/>
+      <g clip-path="url(#g)">
+        <g class="spin" style="fill: #b9d3a8; stroke: #15120d; stroke-width: 3">
+          <path d="M 120 120 q 40 -40 90 -10 q 20 30 -10 60 q -40 20 -50 70 q -30 10 -40 -40 q -10 -50 10 -80 Z"/>
+          <path d="M 250 90 q 50 -20 90 10 q 30 40 0 70 q -40 10 -60 -10 q -30 -30 -30 -70 Z"/>
+          <path d="M 260 200 q 40 -10 70 20 q 20 50 -20 90 q -40 30 -60 -10 q -10 -50 10 -100 Z"/>
+          <path d="M 140 260 q 30 0 40 40 q 0 50 -30 80 q -30 -10 -30 -60 q 0 -40 20 -60 Z"/>
+        </g>
+        <g style="fill: none; stroke: rgba(21,18,13,0.25); stroke-width: 2">
+          <ellipse cx="230" cy="230" rx="200" ry="70"/><ellipse cx="230" cy="230" rx="80" ry="200"/><line x1="30" y1="230" x2="430" y2="230"/>
+        </g>
+      </g>
+      <path class="trip" data-say="vuelta" d="M 60 330 C 20 180 120 30 260 40 C 420 50 470 220 400 330 C 330 430 160 440 110 380"/>
+      <circle class="pin" data-say="vuelta" style="--d: 0.4s; fill: #15120d" cx="60" cy="330" r="14"/>
+      <circle class="pin" data-say="vuelta" style="--d: 1.2s; fill: #15120d" cx="260" cy="40" r="14"/>
+      <circle class="pin" data-say="vuelta" style="--d: 1.9s; fill: #15120d" cx="400" cy="330" r="14"/>
+      <circle class="pin" data-say="vuelta" style="--d: 2.5s; fill: var(--amber); stroke: #15120d; stroke-width: 4" cx="110" cy="380" r="18"/>
+    </svg>
+  </div>
+</div>
+<div class="route in" data-say="subete"></div>
+<div class="row">
+  <span class="sticker amber tilt pop" data-say="subete">Súbete</span>
+  <span class="sticker tag pop" data-say="recorrer">6 paradas</span>
+</div>
+</main>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- Stop 3, Taiwan: TSMC makes chips for others, layer by layer on silicon wafers; 72 of every 100 dollars of the big foundries -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .pair { display: grid; grid-template-columns: 300px 1fr; gap: 36px; align-items: center; width: 100%; }
+  .wafer svg { width: 300px; height: 300px; overflow: visible; }
+  .layer { opacity: 0; animation: layer 0.5s ease both; animation-delay: calc(var(--at) + var(--k) * 0.35s); }
+  @keyframes layer { from { opacity: 0; transform: translateY(-40px); } to { opacity: 0.3; transform: none; } }
+  .waffle { display: grid; grid-template-columns: repeat(10, 22px); gap: 6px; }
+  .waffle i { aspect-ratio: 1; border-radius: 5px; background: rgba(21, 18, 13, 0.1); }
+  .waffle i.on { background: #c8102e; animation: sq-on 0.25s ease both; animation-delay: calc(var(--at) + var(--k) * 0.02s); }
+  @keyframes sq-on { from { background: rgba(21, 18, 13, 0.1); } to { background: #c8102e; } }
+  .share { display: flex; align-items: baseline; gap: 14px; }
+  .share b { font-size: 120px; font-weight: 800; letter-spacing: -0.04em; color: #c8102e; }
+  .share span { font-size: 34px; font-weight: 700; color: var(--ink-strong); line-height: 1.1; }
+  .h1row { display: flex; align-items: center; gap: 26px; }
+  .h1row .logo { font-size: 78px; }
+</style>
+</head>
+<body class="light" data-bg="grid" data-seed="5" data-stop="3">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<div class="route"></div>
+<p class="kicker in">Parada 3 · Taiwán</p>
+<div class="h1row in"><h1>Chips <span class="y">por encargo</span></h1></div>
+<div class="pair">
+  <div class="wafer in" data-say="obleas">
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <defs>
+        <radialGradient id="si" cx="40%" cy="35%" r="75%"><stop offset="0" stop-color="#e9eef5"/><stop offset="0.6" stop-color="#a9b4c6"/><stop offset="1" stop-color="#6d7a92"/></radialGradient>
+        <clipPath id="wc"><circle cx="200" cy="200" r="186"/></clipPath>
+      </defs>
+      <circle cx="200" cy="200" r="190" style="fill: url(#si); stroke: #15120d; stroke-width: 6"/>
+      <g clip-path="url(#wc)">
+        <g id="dies" style="fill: none; stroke: rgba(21,18,13,0.35); stroke-width: 2"></g>
+        <rect class="layer" data-say="capa" style="--k: 0; fill: #2f7fd6" x="0" y="0" width="400" height="400"/>
+        <rect class="layer" data-say="capa" style="--k: 1; fill: #12925c" x="0" y="0" width="400" height="400"/>
+        <rect class="layer" data-say="capa" style="--k: 2; fill: #c27c00" x="0" y="0" width="400" height="400"/>
+        <g id="dies2" style="fill: none; stroke: #15120d; stroke-width: 3"></g>
+      </g>
+      <path d="M 186 386 L 200 372 L 214 386" style="fill: #15120d"/>
+    </svg>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 18px;">
+    <span class="logo big pop" data-say="tsmc" style="font-size: 80px; align-self: flex-start;"><img src="../../../theme/logos/tsmc.svg" alt="TSMC"></span>
+    <p class="fine in" data-say="fabrica">Fabrica los chips que diseñan otros.</p>
+  </div>
+</div>
+<div class="card in" data-say="cada cien" style="gap: 16px;">
+  <p class="label">De cada 100 $ de las 10 mayores fábricas por encargo · abr.–jun. 2026</p>
+  <div style="display: grid; grid-template-columns: 274px 1fr; gap: 40px; align-items: center;">
+    <div class="waffle" id="waffle" data-say="setenta"></div>
+    <div class="share fade" data-say="setenta"><b>72,5 %</b></div>
+  </div>
+  <p class="fine">Fuente: TrendForce.</p>
+</div>
+</main>
+<script>
+  let d = "";
+  for (let x = 20; x < 400; x += 52) for (let y = 20; y < 400; y += 52) d += `<rect x="${x}" y="${y}" width="44" height="44" rx="4"/>`;
+  document.getElementById("dies").innerHTML = d;
+  document.getElementById("dies2").innerHTML = d;
+  document.getElementById("waffle").innerHTML = Array.from({ length: 100 }, (_, k) =>
+    `<i class="${k < 72 ? "on" : ""}" style="--k:${k}"></i>`).join("");
+</script>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

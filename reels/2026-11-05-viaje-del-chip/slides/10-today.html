@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- Today: how the companies of the journey are doing on the stock market, read during the session (Yahoo Finance) -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .board { gap: 6px; padding: 22px 30px; }
+  .row { display: grid; grid-template-columns: 300px 1fr auto; align-items: center; gap: 18px; padding: 9px 0;
+         border-bottom: 1px solid rgba(21, 18, 13, 0.08); }
+  .row:last-child { border-bottom: none; }
+  .row .logo { font-size: 52px; }
+  .row .firm { gap: 16px; font-size: 38px; font-weight: 800; color: var(--ink-strong); }
+  .row .what { font-size: 28px; font-weight: 600; color: var(--muted); }
+  .row b { font-size: 38px; font-weight: 800; color: var(--ink-strong); }
+  .row b small { font-size: 24px; font-weight: 600; color: var(--muted); margin-left: 10px; }
+  .row .pct { font-size: 46px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .row .pct.g { color: var(--up); } .row .pct.r { color: var(--down); }
+</style>
+</head>
+<body class="light" data-bg="candles" data-stop="7">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<p class="kicker in" id="when">Hoy en bolsa</p>
+<h1 class="in small">La cadena, <span class="y">hoy</span></h1>
+<div class="card board in" id="board" data-say="hoy"></div>
+<p class="fine in" id="note"></p>
+</main>
+<script>
+  // Read from data/quotes-*.json during the session; % change against Wednesday's close.
+  const TIME = "16:12";
+  const ROWS = [
+    ["asml", "", "La máquina", -6.7, "chips"],
+    ["tsmc", "", "La fábrica", -7.6, "chips"],
+    ["nvidia", "Nvidia", "El diseño", -6.7, "chips"],
+    ["amd", "AMD", "El diseño", -13.3, "chips"],
+    ["amazon", "Amazon", "La nube", -2.3, "nube"],
+    ["microsoft", "Microsoft", "La nube", -2.1, "nube"],
+    ["google", "Alphabet", "La nube", -1.4, "nube"],
+    ["coreweave", "", "Neocloud", -10.7, "neoclouds"],
+    ["nebius", "", "Neocloud", -15.0, "neoclouds"],
+  ];
+  const fmt = (v) => (v > 0 ? "▲ +" : v < 0 ? "▼ " : "") + v.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " %";
+  document.getElementById("board").innerHTML = ROWS.map(([logo, name, what, pct, cue]) =>
+    `<div class="row fade" data-say="${cue}"><span class="firm"><span class="logo"><img src="../../../theme/logos/${logo}.svg" alt="${name || logo}"></span>${name}</span>` +
+    `<span class="what">${what}</span><span class="pct ${pct > 0 ? "g" : pct < 0 ? "r" : ""}">${fmt(pct)}</span></div>`).join("");
+  document.getElementById("when").textContent = `Hoy en bolsa · ${TIME} en España`;
+  document.getElementById("note").textContent = `Cambio sobre el cierre del miércoles, a las ${TIME} de España. Fuente: Yahoo Finance.`;
+</script>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

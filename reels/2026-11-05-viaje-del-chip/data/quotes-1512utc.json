@@ -1,0 +1,150 @@
+{
+ "read_at_utc": "2026-11-05T15:12:40.948197+00:00",
+ "source": "Yahoo Finance via yfinance",
+ "tickers": {
+  "ASML": {
+   "shortName": "ASML Holding N.V. - New York Re",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 1496.3,
+   "regularMarketPrice": 1396.04,
+   "regularMarketChangePercent": -6.7005286,
+   "regularMarketTime": 1793891561,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "TSM": {
+   "shortName": "Taiwan Semiconductor Manufactur",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 395.75,
+   "regularMarketPrice": 365.77,
+   "regularMarketChangePercent": -7.575492,
+   "regularMarketTime": 1793891562,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "NVDA": {
+   "shortName": "NVIDIA Corporation",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 200.13,
+   "regularMarketPrice": 186.82,
+   "regularMarketChangePercent": -6.650676,
+   "regularMarketTime": 1793891564,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "AMD": {
+   "shortName": "Advanced Micro Devices, Inc.",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 488.78,
+   "regularMarketPrice": 423.93,
+   "regularMarketChangePercent": -13.267729,
+   "regularMarketTime": 1793891565,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "AMZN": {
+   "shortName": "Amazon.com, Inc.",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 266.03,
+   "regularMarketPrice": 259.9201,
+   "regularMarketChangePercent": -2.2964354,
+   "regularMarketTime": 1793891567,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "MSFT": {
+   "shortName": "Microsoft Corporation",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 555.8,
+   "regularMarketPrice": 544.38,
+   "regularMarketChangePercent": -2.054693,
+   "regularMarketTime": 1793891567,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "GOOGL": {
+   "shortName": "Alphabet Inc.",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 288.93,
+   "regularMarketPrice": 284.82,
+   "regularMarketChangePercent": -1.4224849,
+   "regularMarketTime": 1793891567,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "CRWV": {
+   "shortName": "CoreWeave, Inc.",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 48.42,
+   "regularMarketPrice": 43.2401,
+   "regularMarketChangePercent": -10.693453,
+   "regularMarketTime": 1793891568,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "NBIS": {
+   "shortName": "Nebius Group N.V.",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 141.52,
+   "regularMarketPrice": 120.25,
+   "regularMarketChangePercent": -15.029681,
+   "regularMarketTime": 1793891568,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "^SOX": {
+   "shortName": "PHLX Semiconductor",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 10268.654,
+   "regularMarketPrice": 9430.305,
+   "regularMarketChangePercent": -8.164896,
+   "regularMarketTime": 1793891569,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "^GSPC": {
+   "shortName": "S&P 500",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 7688.62,
+   "regularMarketPrice": 7528.4,
+   "regularMarketChangePercent": -2.083916,
+   "regularMarketTime": 1793891569,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  },
+  "^NDX": {
+   "shortName": "NASDAQ-100",
+   "currency": "USD",
+   "marketState": "REGULAR",
+   "regularMarketPreviousClose": 28437.166,
+   "regularMarketPrice": 27224.404,
+   "regularMarketChangePercent": -4.2640796,
+   "regularMarketTime": 1793891570,
+   "preMarketPrice": null,
+   "preMarketChangePercent": null,
+   "preMarketTime": null
+  }
+ }
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- Stop 4, California: Nvidia and AMD design the chips but have TSMC make them; Nvidia's data-centre quarter -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .flow { display: grid; grid-template-columns: 1fr 120px 220px; gap: 14px; align-items: center; width: 100%; }
+  .blueprint { height: 300px; border-radius: 26px; background: #123a6b; position: relative; overflow: hidden;
+               background-image: linear-gradient(rgba(255,255,255,0.09) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.09) 2px, transparent 2px);
+               background-size: 30px 30px; box-shadow: 0 18px 50px rgba(18, 58, 107, 0.3); }
+  .blueprint svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .draw { fill: none; stroke: #dfeeff; stroke-width: 4; stroke-dasharray: 900; stroke-dashoffset: 900;
+          animation: draw 1.8s ease both; animation-delay: var(--at); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .who { position: absolute; left: 18px; top: 16px; display: flex; gap: 12px; }
+  .who .logo { font-size: 56px; }
+  .arrow svg { width: 120px; height: 80px; }
+  .maker { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .maker .logo { font-size: 74px; }
+  .maker p { font-size: 26px; font-weight: 700; color: var(--muted); }
+  .nofab { font-size: 34px; }
+  .line .fig small { font-size: 0.5em; color: var(--muted); font-weight: 700; }
+</style>
+</head>
+<body class="light" data-bg="city" data-seed="6" data-stop="4">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<div class="route"></div>
+<p class="kicker in">Parada 4 · Santa Clara, California</p>
+<h1 class="in">Diseñan, <span class="y">no fabrican</span></h1>
+<div class="flow">
+  <div class="blueprint in" data-say="dibuja">
+    <svg viewBox="0 0 440 300" aria-hidden="true">
+      <rect class="draw" data-say="dibuja" x="120" y="70" width="200" height="200" rx="10"/>
+      <rect class="draw" data-say="dibuja" x="150" y="100" width="60" height="60"/>
+      <rect class="draw" data-say="dibuja" x="230" y="100" width="60" height="60"/>
+      <rect class="draw" data-say="dibuja" x="150" y="180" width="140" height="60"/>
+      <path class="draw" data-say="dibuja" d="M 120 110 H 80 M 120 150 H 80 M 120 190 H 80 M 120 230 H 80 M 320 110 H 360 M 320 150 H 360 M 320 190 H 360 M 320 230 H 360"/>
+    </svg>
+    <div class="who">
+      <span class="logo pop" data-say="nvidia"><img src="../../../theme/logos/nvidia.svg" alt="Nvidia"></span>
+      <span class="logo pop" data-say="amd"><img src="../../../theme/logos/amd.svg" alt="AMD"></span>
+    </div>
+  </div>
+  <div class="arrow fade" data-say="encargan">
+    <svg viewBox="0 0 120 80" aria-hidden="true"><path d="M 6 40 H 96 M 72 16 L 100 40 L 72 64" style="fill: none; stroke: #15120d; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round"/></svg>
+  </div>
+  <div class="maker pop" data-say="encargan">
+    <span class="logo big"><img src="../../../theme/logos/tsmc.svg" alt="TSMC"></span>
+    <p>la fabrica</p>
+  </div>
+</div>
+<div class="card in" data-say="trimestre" style="gap: 20px;">
+  <p class="label">Ingresos por centros de datos, en un trimestre</p>
+  <div class="line">
+    <span class="name"><span class="firm"><span class="logo"><img src="../../../theme/logos/nvidia.svg" alt=""></span>Nvidia</span><small>may.–jul. 2026 · +117 %</small></span>
+    <span class="fig"><span data-count="89000" data-say="ochenta"></span> <small>M$</small></span>
+    <div class="bar"><i class="g" style="--w: 100%"></i></div>
+  </div>
+  <div class="line fade" data-say="ochenta">
+    <span class="name"><span class="firm"><span class="logo"><img src="../../../theme/logos/amd.svg" alt=""></span>AMD</span><small>jul.–sep. 2026 · +97 %</small></span>
+    <span class="fig">8.500 <small>M$</small></span>
+    <div class="bar"><i class="g" style="--w: 9.6%"></i></div>
+  </div>
+  <p class="fine">Fuentes: Nvidia (26 ago.) y AMD (3 nov.).</p>
+</div>
+</main>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

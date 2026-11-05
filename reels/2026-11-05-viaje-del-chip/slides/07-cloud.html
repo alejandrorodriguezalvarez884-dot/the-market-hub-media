@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- Stop 5, the data centres: halls full of chips, cables and cooling, built by Amazon, Microsoft and Google; what the three invested from July to September -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .hall { width: 100%; height: 250px; border-radius: 26px; background: #15120d; overflow: hidden; position: relative; }
+  .hall svg { width: 100%; height: 100%; display: block; }
+  .led { animation: led 1.2s steps(2) infinite; animation-delay: var(--d); }
+  @keyframes led { 0% { opacity: 1; } 50% { opacity: 0.2; } }
+  .cool { stroke: var(--sky); stroke-width: 6; stroke-dasharray: 18 14; fill: none; animation: flow 0.9s linear infinite; opacity: 0.8; }
+  @keyframes flow { from { stroke-dashoffset: 32; } to { stroke-dashoffset: 0; } }
+  .who { display: flex; gap: 16px; }
+  .who .logo { font-size: 72px; }
+  .total { display: flex; align-items: baseline; gap: 14px; }
+  .total .big { font-size: 112px; }
+  .total > span { font-size: 32px; font-weight: 700; color: var(--muted); }
+  .line .fig small { font-size: 0.5em; color: var(--muted); font-weight: 700; }
+  .card .line .name { font-size: 40px; }
+  .card .line .fig { font-size: 46px; }
+</style>
+</head>
+<body class="light" data-bg="grid" data-seed="7" data-stop="5">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<div class="route"></div>
+<p class="kicker in">Parada 5 · Los centros de datos</p>
+<h1 class="in small">Naves llenas de <span class="y">chips</span></h1>
+<div class="hall in" data-say="naves" id="hall"></div>
+<div class="who">
+  <span class="logo pop" data-say="amazon"><img src="../../../theme/logos/amazon.svg" alt="Amazon"></span>
+  <span class="logo pop" data-say="microsoft"><img src="../../../theme/logos/microsoft.svg" alt="Microsoft"></span>
+  <span class="logo pop" data-say="google"><img src="../../../theme/logos/googlecloud.svg" alt="Google Cloud"></span>
+</div>
+<div class="card in" data-say="julio" style="gap: 14px; padding: 24px 32px;">
+  <p class="label">Inversión, de julio a septiembre de 2026</p>
+  <div class="line"><span class="name">Amazon</span><span class="fig">77.300 <small>M$</small></span><div class="bar"><i style="--w: 100%"></i></div></div>
+  <div class="line"><span class="name">Google <small style="display: inline; font-size: 26px;">(Alphabet)</small></span><span class="fig">51.400 <small>M$</small></span><div class="bar"><i style="--w: 66.5%"></i></div></div>
+  <div class="line"><span class="name">Microsoft</span><span class="fig">45.200 <small>M$</small></span><div class="bar"><i style="--w: 58.5%"></i></div></div>
+  <div class="total fade" data-say="ciento"><div class="big"><span data-count="173900" data-say="ciento"></span></div><span>M$ en 3 meses</span></div>
+  <p class="fine">Fuentes: CNBC (Amazon, Microsoft, con arrendamientos) y Alphabet.</p>
+</div>
+</main>
+<script>
+  // The hall: three rows of racks in perspective, each with blinking lights, and a cooling line.
+  let g = "";
+  const rows = [[40, 1], [120, 0.82], [190, 0.66]];
+  for (const [y, s] of rows) {
+    for (let k = 0; k < 9; k++) {
+      const x = 30 + k * 92 * s + (1 - s) * 400, w = 72 * s, h = 120 * s;
+      g += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" style="fill:#2a2620;stroke:#4a443a;stroke-width:2"/>`;
+      for (let j = 0; j < 5; j++) {
+        const c = (k + j) % 3 === 0 ? "#35c98f" : (k + j) % 3 === 1 ? "#63b3ff" : "#f2c14e";
+        g += `<rect class="led" style="--d:${-((k * 5 + j) % 7) * 0.17}s;fill:${c}" x="${x + 8 * s}" y="${y + (14 + j * 20) * s}" width="${w - 16 * s}" height="${6 * s}" rx="2"/>`;
+      }
+    }
+  }
+  g += `<path class="cool" d="M 0 310 H 880"/><path class="cool" d="M 0 24 H 880" style="animation-direction: reverse"/>`;
+  document.getElementById("hall").innerHTML = `<svg viewBox="0 0 860 330" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${g}</svg>`;
+</script>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

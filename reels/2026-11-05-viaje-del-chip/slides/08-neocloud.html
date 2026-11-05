@@ -1,0 +1,53 @@
+<!doctype html>
+<!-- Still at stop 5: the neoclouds, companies that only rent out computing power for AI, such as CoreWeave or Nebius -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .yard { width: 100%; }
+  .yard svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .sign { transform-box: fill-box; transform-origin: top center; animation: swing 2.4s ease-in-out infinite alternate; }
+  @keyframes swing { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+  .names { display: flex; gap: 24px; align-items: center; }
+  .names .logo { font-size: 100px; }
+  .names .logo img { height: 100%; }
+</style>
+</head>
+<body class="light" data-bg="city" data-seed="8" data-stop="5" data-stay>
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<div class="route"></div>
+<p class="kicker in">Parada 5 · Las neoclouds</p>
+<h1 class="in">Nubes solo para la <span class="y">IA</span></h1>
+<div class="yard in" data-say="neoclouds">
+  <svg viewBox="0 0 860 470" aria-hidden="true">
+    <!-- two halls -->
+    <rect x="20" y="170" width="380" height="270" rx="10" style="fill: #e3dccd; stroke: #15120d; stroke-width: 6"/>
+    <rect x="460" y="210" width="380" height="230" rx="10" style="fill: #e3dccd; stroke: #15120d; stroke-width: 6"/>
+    <g style="fill: #15120d"><rect x="60" y="230" width="300" height="24" rx="4"/><rect x="60" y="280" width="300" height="24" rx="4"/><rect x="60" y="330" width="300" height="24" rx="4"/>
+      <rect x="500" y="265" width="300" height="24" rx="4"/><rect x="500" y="315" width="300" height="24" rx="4"/></g>
+    <g style="fill: #35c98f"><circle cx="340" cy="242" r="6"/><circle cx="340" cy="292" r="6"/><circle cx="340" cy="342" r="6"/><circle cx="780" cy="277" r="6"/><circle cx="780" cy="327" r="6"/></g>
+    <line x1="0" y1="440" x2="860" y2="440" style="stroke: #15120d; stroke-width: 6"/>
+    <!-- the sign: for rent -->
+    <g class="pop" data-say="alquilan">
+      <line x1="430" y1="20" x2="430" y2="440" style="stroke: #15120d; stroke-width: 10"/>
+      <g class="sign">
+        <rect x="300" y="40" width="260" height="120" rx="14" style="fill: var(--amber); stroke: #15120d; stroke-width: 6"/>
+        <text x="430" y="92" text-anchor="middle" style="fill: #15120d; font-size: 38px">SE ALQUILA</text>
+        <text x="430" y="138" text-anchor="middle" style="fill: #15120d; font-size: 30px; font-weight: 700">potencia para IA</text>
+      </g>
+    </g>
+  </svg>
+</div>
+<div class="names">
+  <span class="logo big pop" data-say="coreweave"><img src="../../../theme/logos/coreweave.svg" alt="CoreWeave"></span>
+  <span class="logo big pop" data-say="nebius"><img src="../../../theme/logos/nebius.svg" alt="Nebius"></span>
+</div>
+</main>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- The recap: the six stops lit one by one, as the voice names them -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .stops { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+  .stops .card { flex-direction: row; align-items: center; gap: 22px; padding: 18px 26px; }
+  .stops .n { width: 56px; height: 56px; border-radius: 50%; background: var(--amber); color: #15120d; display: grid; place-items: center;
+              font-size: 30px; font-weight: 800; flex: none; }
+  .stops b { font-size: 40px; font-weight: 800; color: var(--ink-strong); }
+  .stops span.where { font-size: 30px; font-weight: 600; color: var(--muted); margin-left: auto; }
+  .stops .logo { font-size: 46px; }
+</style>
+</head>
+<body class="light" data-bg="plain" data-stop="7">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<div class="route" data-lit="espejos|maquina|fabrica|diseno|nube|modelo"></div>
+<p class="kicker in">Repaso</p>
+<div class="stops">
+  <div class="card in" data-say="espejos"><span class="n">1</span><b>Espejos</b><span class="logo"><img src="../../../theme/logos/zeiss.svg" alt="Zeiss"></span><span class="where">Alemania</span></div>
+  <div class="card in" data-say="maquina"><span class="n">2</span><b>Máquina</b><span class="logo"><img src="../../../theme/logos/asml.svg" alt="ASML"></span><span class="where">Países Bajos</span></div>
+  <div class="card in" data-say="fabrica"><span class="n">3</span><b>Fábrica</b><span class="logo"><img src="../../../theme/logos/tsmc.svg" alt="TSMC"></span><span class="where">Taiwán</span></div>
+  <div class="card in" data-say="diseno"><span class="n">4</span><b>Diseño</b><span class="logo"><img src="../../../theme/logos/nvidia.svg" alt="Nvidia"></span><span class="logo"><img src="../../../theme/logos/amd.svg" alt="AMD"></span><span class="where">California</span></div>
+  <div class="card in" data-say="nube"><span class="n">5</span><b>Nube</b><span class="logo"><img src="../../../theme/logos/amazon.svg" alt="Amazon"></span><span class="logo"><img src="../../../theme/logos/microsoft.svg" alt="Microsoft"></span><span class="logo"><img src="../../../theme/logos/googlecloud.svg" alt="Google Cloud"></span><span class="where">El mundo</span></div>
+  <div class="card in" data-say="modelo"><span class="n">6</span><b>Modelo</b><span class="where">Tu pantalla</span></div>
+</div>
+<span class="sticker amber tilt pop" data-say="una respuesta">Seis paradas, una respuesta</span>
+</main>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

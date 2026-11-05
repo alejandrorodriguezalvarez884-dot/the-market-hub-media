@@ -1,0 +1,20 @@
+UN VIAJE POR LA FÁBRICA DE LA IA
+
+Detrás de cada respuesta de una inteligencia artificial hay una cadena que da la vuelta al mundo. La recorremos parada a parada.
+
+· Parada 1, Oberkochen (Alemania): Zeiss pule los espejos. Según Zeiss, si uno midiera lo que mide Alemania, su mayor bache sería de 0,1 mm.
+· Parada 2, Veldhoven (Países Bajos): ASML monta la única máquina del mundo que dibuja chips con luz ultravioleta extrema (EUV). Un láser golpea gotas de estaño 50.000 veces por segundo. Cuesta unos 250 millones de dólares y viaja en unos 40 contenedores, en aviones de carga (Reuters).
+· Parada 3, Taiwán: TSMC fabrica los chips que diseñan otros. De abril a junio, el 72,5 % de lo que facturaron las diez mayores fábricas por encargo fue suyo (TrendForce).
+· Parada 4, California: Nvidia y AMD diseñan, pero no fabrican. Ingresos por centros de datos: Nvidia, 89.000 millones de dólares de mayo a julio (+117 %); AMD, 8.500 millones de julio a septiembre (+97 %).
+· Parada 5, los centros de datos: de julio a septiembre, Amazon invirtió 77.300 millones de dólares, Alphabet 51.400 millones y Microsoft 45.200 millones (con arrendamientos): 173.900 millones en tres meses. Y las neoclouds, como CoreWeave o Nebius, alquilan potencia solo para IA.
+· Parada 6, el modelo: se entrena en esos centros con miles de chips a la vez, y ahí responde a tu pregunta.
+· Y hoy, a las 16:12 de España, toda la cadena cae en bolsa sobre el cierre del miércoles: ASML −6,7 %, TSMC −7,6 %, Nvidia −6,7 %, AMD −13,3 %; Amazon −2,3 %, Microsoft −2,1 %, Alphabet −1,4 %; CoreWeave −10,7 %, Nebius −15,0 % (Yahoo Finance).
+
+¿Qué parada no conocías? Te leo en comentarios.
+
+Fuentes: Zeiss (entrevista en World of Photonics), ASML (su web y su informe anual), Reuters, TrendForce, Nvidia, AMD (8-K y 10-K en la SEC), Alphabet (8-K en la SEC), CNBC, CoreWeave, Nebius y Market Hub (datos de Yahoo Finance), el 5 de noviembre de 2026.
+
+Contenido informativo de The Market Hub. No es una recomendación de inversión.
+themarkethub.app
+
+#bolsa #semiconductores #chips #inteligenciaartificial #aprendeinversion

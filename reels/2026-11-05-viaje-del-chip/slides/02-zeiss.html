@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- Stop 1, Oberkochen: Zeiss polishes the mirrors; scaled to Germany, the largest bump would be 0.1 mm -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="journey.css">
+<style>
+  .beam { stroke: var(--sky); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 30 26; animation: flow 0.7s linear infinite; }
+  @keyframes flow { from { stroke-dashoffset: 56; } to { stroke-dashoffset: 0; } }
+  .shine { animation: shine 3s ease-in-out infinite alternate; }
+  @keyframes shine { from { opacity: 0.25; transform: translateX(-60px); } to { opacity: 0.7; transform: translateX(60px); } }
+  .scale { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+  .scale .card { gap: 10px; padding: 24px 30px; }
+  .scale .q { font-size: 36px; font-weight: 800; color: var(--ink-strong); line-height: 1.15; }
+  .mm { font-size: 112px; font-weight: 800; letter-spacing: -0.04em; color: var(--amber); line-height: 1; }
+  .mm small { font-size: 0.36em; color: var(--ink-strong); letter-spacing: 0; }
+  .lens svg { width: 210px; height: 210px; overflow: visible; }
+  .h1row { display: flex; align-items: center; gap: 24px; }
+  .h1row .logo { font-size: 70px; }
+</style>
+</head>
+<body class="light" data-bg="city" data-stop="1">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Aprende</header>
+<main class="reel">
+<div class="route"></div>
+<p class="kicker in">Parada 1 · Oberkochen, Alemania</p>
+<h1 class="in">Espejos <span class="y">perfectos</span></h1>
+<div class="scene-art in" data-say="espejos" style="flex: none; height: 360px;">
+  <span class="logo big pop" data-say="zeiss" style="position: absolute; right: 0; top: -10px; font-size: 84px;"><img src="../../../theme/logos/zeiss.svg" alt="Zeiss"></span>
+  <svg viewBox="0 0 860 360" aria-hidden="true">
+    <defs>
+      <radialGradient id="m" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset="0.55" stop-color="#cfd6de"/><stop offset="1" stop-color="#8c96a3"/></radialGradient>
+      <linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <clipPath id="mc"><ellipse cx="560" cy="200" rx="250" ry="120"/></clipPath>
+    </defs>
+    <!-- the light, in and out -->
+    <line class="beam" x1="20" y1="40" x2="520" y2="190"/>
+    <line class="beam" x1="520" y1="190" x2="60" y2="340" style="animation-delay: -0.35s"/>
+    <!-- the mirror: a polished disc on its stand -->
+    <ellipse cx="560" cy="214" rx="258" ry="128" style="fill: #4d545e"/>
+    <ellipse cx="560" cy="200" rx="250" ry="120" style="fill: url(#m); stroke: #15120d; stroke-width: 6"/>
+    <g clip-path="url(#mc)"><rect class="shine" x="400" y="40" width="120" height="340" transform="rotate(20 465 210)" style="fill: url(#sh)"/></g>
+    <circle cx="520" cy="190" r="16" style="fill: var(--amber)"/>
+  </svg>
+</div>
+<div class="scale">
+  <div class="card amber in" data-say="alemania">
+    <p class="label">Según Zeiss</p>
+    <p class="q">Si el espejo midiera lo que mide Alemania…</p>
+    <p class="fine fade" data-say="bache">su mayor bache sería de</p>
+    <div class="mm pop" data-say="decima">0,1 <small>mm</small></div>
+  </div>
+  <div class="lens pop" data-say="bache">
+    <svg viewBox="0 0 210 210" aria-hidden="true">
+      <circle cx="90" cy="90" r="70" style="fill: #fff; stroke: #15120d; stroke-width: 12"/>
+      <path d="M 40 100 L 70 100 Q 85 100 90 88 Q 95 100 110 100 L 140 100" style="fill: none; stroke: var(--down); stroke-width: 6; stroke-linecap: round"/>
+      <line x1="140" y1="140" x2="196" y2="196" style="stroke: #15120d; stroke-width: 22; stroke-linecap: round"/>
+    </svg>
+  </div>
+</div>
+</main>
+<script src="journey.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>
