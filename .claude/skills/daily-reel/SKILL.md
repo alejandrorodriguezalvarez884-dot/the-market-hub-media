@@ -195,6 +195,18 @@ make reelcheck REEL=<folder>
 make reelpost REEL=<folder>
 ```
 
+**A reel the user asked for goes up at 19:30 Madrid time, Monday to Friday, and only one a day**
+(the owner, 2026-11-06, after reading their numbers: `docs/instagram-strategy.md`). At 19:30 it
+is evening in Spain and midday in Latin America, and it falls about three hours after the open's
+reel (up between 16:00 and 16:50) and three before the close's (about 22:25). Before posting, look at `uploaded_utc` in the `instagram.json` of
+every folder in `reels/`: if a reel went up less than **two hours** ago, or another reel the user
+asked for already went up today, do not post. The reels of 2026-11-02 to 11-05 that went up within
+an hour of another, or as the fourth of the day, reached 54 to 631 accounts; most others, over 1.000.
+So when the user says "súbelo" and it is not 19:30 yet, leave it made, tell them it is ready and
+goes at 19:30, and post it when they confirm at that time. An hour the user gives ("súbelo ya",
+"a las 21:00") wins over this; say what the rule would have been. Asked on a Saturday or a
+Sunday, it waits for Monday at 19:30 unless the user says otherwise. The daily reels keep their own times.
+
 `make reelpost` publishes it once (the film goes through the bucket of `channel.toml` and leaves
 it), writes `instagram.json` and tells the portal's Media page. If Instagram refuses (an expired
 token, a limit), **do not try again**: leave the folder as it is and report what Instagram
@@ -232,7 +244,18 @@ bubble behaves). They follow this skill with these differences:
   Copy the slides of `reels/2026-11-02-not-a-bubble/`.
 - It may defend an opinion, said as one ("no parece una burbuja"), with the facts that support it
   and what would contradict it; never advice, never a price prediction.
-- It is published when the user's request says so ("súbelo"), and only then, with `make reelpost`.
+- **90 seconds at most** (the owner, 2026-11-06; `asked_seconds` in `channel.toml`,
+  and `make reelcheck` says so): about 1.000 to 1.300 characters spoken, 8 to 10 scenes. On
+  2026-11-02 to 11-05 the reflective and didactic reels ran 2:08 to 2:58, and people watched about
+  30 s of them, as much as of a daily one of 90 s: 18 % of the reel against 30 %. Instagram shows
+  further the reels people watch to the end. So one thesis and its best three facts, not the whole story; what does
+  not fit goes to the caption.
+- **The first two seconds hook without the sound**: a figure, a chart or a logo of today's market
+  on screen from frame 0, with a headline of four to six words. Most accounts Instagram shows
+  the reels to are not Spanish speakers (in November 2026, India, the UK and the US first), and
+  they decide with their eyes.
+- It is published when the user's request says so ("súbelo"), and only then, with `make reelpost`,
+  at the time step 6 says (19:30, one a day).
   **No story through the API**: the user shares the reel to their story from the app, so that
   tapping it opens the reel (the API cannot), and keeps it in the highlight "A fondo". Tell them
   to do so in the report.

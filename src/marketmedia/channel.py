@@ -77,7 +77,7 @@ class Channel:
     # The daily reels (reels.py): their own language, length, pace and voice
     reel_language: str = "es"
     reel_seconds: tuple[float, float] = (60.0, 100.0)
-    reel_asked_seconds: tuple[float, float] = (40.0, 180.0)   # a reel the owner asks for, not a daily one
+    reel_asked_seconds: tuple[float, float] = (40.0, 90.0)    # a reel the owner asks for, not a daily one
     reel_words_per_minute: int = 175
     reel_gap_seconds: float = 0.2
     reel_crossfade: float = 0.0
@@ -170,7 +170,7 @@ def load(path: Path | None = None) -> Channel:
         x_handle=x.get("handle", ""),
         reel_language=reel.get("language", "es"),
         reel_seconds=_range(reel.get("seconds"), (60, 100)),
-        reel_asked_seconds=_range(reel.get("asked_seconds"), (40, 180)),
+        reel_asked_seconds=_range(reel.get("asked_seconds"), (40, 90)),
         reel_words_per_minute=int(reel.get("words_per_minute", 175)),
         reel_gap_seconds=float(reel.get("gap_seconds", 0.2)),
         reel_crossfade=float(reel.get("crossfade", 0)),

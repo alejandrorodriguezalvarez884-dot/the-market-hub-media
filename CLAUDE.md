@@ -42,7 +42,7 @@ de Madrid; horas del usuario, 2026-11-02), más el repaso de la semana los sába
 futuros y la semana que viene la noche del domingo al lunes a la 01:05, que corren con el ordenador apagado (`docs/reels.md`; las
 tareas del Mac que lo hacían antes están en pausa). Sustituyen a los dos carruseles diarios de
 `autopost`. El formato se parece al de los reels de `@h.analistasoficial`, que el usuario dio de
-referencia, pero todo se dibuja aquí: vertical, 60 a 100 segundos los diarios y nunca más de 180 los demás (el usuario, 2026-11-03: pasados los 180 un reel sale de la pestaña Reels), voz en off en español, voz de ElevenLabs (abajo, "La voz"), fondo
+referencia, pero todo se dibuja aquí: vertical, 60 a 100 segundos los diarios y **90 como mucho los que pide el usuario** (el usuario, 2026-11-06, al ver que los de casi 3 minutos llegaban a mucha menos gente; antes, 180 como mucho), voz en off en español, voz de ElevenLabs (abajo, "La voz"), fondo
 oscuro dibujado en movimiento (`theme/reel.js`: cinta de cifras, velas, cuadrícula, ciudad), una
 etiqueta arriba, un titular grande con una o dos palabras en color, tarjetas y pegatinas que
 entran cuando la voz las nombra, y una pregunta al final para los comentarios. **No lleva
@@ -60,7 +60,11 @@ tres diferencias: la carpeta es `reels/<fecha>-<unas-palabras>/`; el guion dice 
 que es **Julián** con "un poco más de entusiasmo, no te pases" (`[reel.voices.reflexion]`); y el
 aspecto es **claro**, no tan oscuro, y de ensayo (`<body class="light essay">`, abajo). Pueden defender una tesis (opinar sí),
 nunca aconsejar ni predecir precios, y se publican cuando el usuario lo pide en la misma petición:
-el reel en el feed (`make reelpost`). **La historia la hace el usuario desde la app**, compartiendo
+el reel en el feed (`make reelpost`). **Todos los reels a demanda** (reflexión, didácticos y Lee
+el gráfico) salen **a las 19:30 de Madrid, de lunes a viernes, uno al día como mucho y a dos horas
+o más de cualquier otro reel**, y empiezan con algo del mercado de hoy que se entiende sin sonido
+(el usuario, 2026-11-06; skill `daily-reel`, paso 6, y `docs/instagram-strategy.md`). Si se piden
+antes, se dejan montados y se suben a esa hora; una hora que diga el usuario manda. **La historia la hace el usuario desde la app**, compartiendo
 el reel ("Añadir a tu historia"), para que al tocarla se vaya al reel ("quiero que en la historia
 se pueda hacer click e ir al reel. Es como resubirlo", 2026-11-02), y la guarda en la destacada
 "A fondo". La API no puede: no se publican historias por la API para estos reels (ni el reel

@@ -12,20 +12,25 @@ Todas las horas son **de Madrid**. Desde el 2026-10-25 Madrid está en UTC+1, y 
 1. **Seguir con los dos diarios** de lunes a viernes, a las **15:45 (apertura)** y a las **22:05
    (cierre)**. Su hora la marca el mercado. Además, las 22:05 caen en la tarde de Latinoamérica
    (15:05 en Ciudad de México).
-2. **Como mucho un reel a demanda al día**, a las **19:30**, solo de martes a jueves. Uno por
-   línea: martes **Aprende**, miércoles **Lee el gráfico**, jueves **A fondo**. A esa hora empieza
+2. **Como mucho un reel a demanda al día**, a las **19:30**, de lunes a viernes. **Hecho el
+   2026-11-06, por decisión del usuario** (la propuesta era de martes a jueves, uno por línea:
+   martes **Aprende**, miércoles **Lee el gráfico**, jueves **A fondo**). A esa hora empieza
    la tarde en España y es mediodía en Latinoamérica (12:30 en Ciudad de México, 15:30 en Buenos
    Aires). No se publican a demanda por la mañana: entonces es de madrugada en América.
-3. **Dejar al menos dos horas entre dos reels.** No consta que publicar varios seguidos reste
-   alcance. Pero si salen juntos, no hay forma de saber qué hora funcionó.
+3. **Dejar al menos dos horas entre dos reels.** **Hecho el 2026-11-06, por decisión del usuario**:
+   los que salieron a menos de una hora de otro, o como cuarto del día, fueron los que menos
+   llegaron (abajo, "Revisión del 2026-11-06").
 4. **Pasar el repaso del sábado de las 10:00 a las 18:00.** A las 10:00 son las 03:00 en Ciudad de
    México. La noche del domingo (01:05) se queda: allí es domingo por la tarde. **Hecho el
    2026-11-03, por decisión del usuario**: la rutina corre ya a las 18:00, y la primera es el
    2026-11-07.
 5. **Ningún reel de más de 180 segundos.** Por encima ya no entran en la pestaña Reels. Los diarios,
-   entre 60 y 100 segundos. Los a demanda, 150 como mucho. **Hecho el 2026-11-03, por decisión del
-   usuario**: `[reel] seconds = [60, 100]` y `asked_seconds = [40, 180]` en `channel.toml`.
-   `make reelcheck` lo comprueba.
+   entre 60 y 100 segundos. **Los a demanda, 90 como mucho** (2026-11-06, por decisión del usuario;
+   del 2026-11-03 al 11-06 el tope fue 180): `[reel] seconds = [60, 100]` y
+   `asked_seconds = [40, 90]` en `channel.toml`. `make reelcheck` lo comprueba.
+   **Los a demanda empiezan además con algo del mercado de hoy que se entiende sin sonido**
+   (2026-11-06, por decisión del usuario): una cifra, un gráfico o un logotipo desde el primer
+   fotograma.
 6. **Historias**: compartir cada reel en historias, como ahora, y nada más. **Carruseles**: ninguno
    por ahora. Se vuelve a mirar al llegar a 1.000 seguidores.
 7. **Medir cada reel a las 24 horas y a las 72**, y revisar dos veces: el **2026-11-17** y el
@@ -33,7 +38,7 @@ Todas las horas son **de Madrid**. Desde el 2026-10-25 Madrid está en UTC+1, y 
    la audiencia y de qué país es; entonces se revisan las horas con esos datos.
 
 En total, unos **12 o 13 reels a la semana**: 10 diarios, el del sábado, el de la noche del domingo
-y hasta 3 a demanda. Es el tramo de "10 o más a la semana", el que más crece en el estudio de
+y hasta 3 a demanda (desde el 2026-11-06, hasta 5: uno cada día laborable). Es el tramo de "10 o más a la semana", el que más crece en el estudio de
 Buffer, y es una carga que se puede sostener.
 
 ## Qué se publica hoy
@@ -42,11 +47,11 @@ Buffer, y es una carga que se puede sostener.
 |---|---|---|---|
 | Apertura de Wall Street | 15:45, de lunes a viernes | 5 a la semana | Rutina en la nube |
 | Cierre de Wall Street | 22:05, de lunes a viernes | 5 a la semana | Rutina en la nube |
-| Repaso de la semana | Sábado, 10:00 | 1 | Rutina en la nube |
+| Repaso de la semana | Sábado, 18:00 (antes, 10:00) | 1 | Rutina en la nube |
 | Futuros y la semana que viene | Lunes, 01:05 | 1 | Rutina en la nube |
-| Aprende (didáctico) | Cuando el usuario lo pide | Sin fija | A mano |
-| A fondo (reflexión) | Cuando el usuario lo pide | Sin fija | A mano |
-| Lee el gráfico | Cuando el usuario lo pide | Sin fija | A mano |
+| Aprende (didáctico) | Cuando el usuario lo pide; sale a las 19:30, de lunes a viernes | Uno al día entre los tres, como mucho | A mano |
+| A fondo (reflexión) | Igual | Igual | A mano |
+| Lee el gráfico | Igual | Igual | A mano |
 | Historias | Cada reel lo comparte el usuario desde la app | 1 por reel | A mano |
 | Carruseles | Ninguno desde el 2026-11-02 (los sustituyeron los reels) | — | — |
 
@@ -245,6 +250,68 @@ en América.
   en octubre 22 carruseles alcanzaron a 3 cuentas.
 - Al llegar a 1.000 seguidores, se puede probar **un carrusel a la semana** de los que se guardan
   (un concepto o un patrón en diapositivas), el jueves a las 19:30 en vez del A fondo.
+
+## Revisión del 2026-11-06
+
+Leída de la API de Instagram el 2026-11-06 hacia las 11:30 de Madrid, solo leyendo: los 18 reels
+en español y la audiencia de la cuenta. El usuario tenía la impresión de que los diarios
+funcionaban mejor que los que pide él; la revisión lo matiza, y de ella salen las reglas que aprobó
+ese día (arriba, puntos 2, 3 y 5).
+
+| Publicado (Madrid) | Reel | Dura | Alcance | Tiempo medio visto | Me gusta | Guardados | Compartidos |
+|---|---|---|---|---|---|---|---|
+| 02/11 17:59 | Apertura (`open`) | 101 s | **1.623** | 17,8 s (18 %) | 33 | 9 | 10 |
+| 02/11 18:54 | Aprende (`bond-yields-vs-stocks`) | 175 s | **1.194** | 33,9 s (19 %) | 39 | 11 | 5 |
+| 02/11 19:19 | A fondo (`not-a-bubble`) | 128 s | **190** | 9,9 s (8 %) | 5 | 2 | 1 |
+| 02/11 22:52 | Cierre (`close`) | 106 s | **54** | 24,3 s (23 %) | 6 | 3 | 2 |
+| 03/11 10:20 | Lee el gráfico, con 15 € de promoción (`grafico-doble-suelo`) | 78 s | **1.390** | 22,6 s (29 %) | 36 | 9 | 2 |
+| 03/11 11:45 | A fondo (`ai-cheaper-than-classics`) | 152 s | **631** | 28,3 s (19 %) | 20 | 8 | 5 |
+| 03/11 16:00 | Apertura (`open`) | 98 s | **166** | 6,8 s (7 %) | 5 | 2 | 0 |
+| 03/11 17:02 | Especial (`midterms`) | 155 s | **1.376** | 28,6 s (18 %) | 27 | 9 | 4 |
+| 03/11 22:31 | Cierre (`close`) | ~88 s | **1.388** | 21,6 s (25 %) | 34 | 6 | 1 |
+| 04/11 10:52 | A fondo (`midterms-data-centers`) | 172 s | **1.789** | 68,0 s (39 %) | 80 | 16 | 21 |
+| 04/11 16:06 | Apertura (`open`) | ~94 s | **2.152** | 29,7 s (32 %) | 75 | 15 | 17 |
+| 04/11 17:02 | Lee el gráfico (`grafico-hombro-cabeza-hombro`) | 90 s | **1.445** | 27,7 s (31 %) | 38 | 15 | 8 |
+| 04/11 22:25 | Cierre (`close`) | ~92 s | **1.561** | 19,1 s (21 %) | 33 | 6 | 2 |
+| 05/11 11:01 | Aprende (`vix-fear-greed`) | 178 s | **1.110** | 33,7 s (19 %) | 29 | 17 | 5 |
+| 05/11 16:02 | Apertura (`open`) | ~96 s | **3.211** | 30,0 s (31 %) | 67 | 21 | 38 |
+| 05/11 16:50 | Aprende (`viaje-del-chip`) | 172 s | **241** | 16,3 s (9 %) | 6 | 2 | 5 |
+| 05/11 22:24 | Cierre (`close`) | ~93 s | **4.040** | 29,9 s (32 %) | 96 | 29 | 20 |
+| 06/11 11:02 | A fondo (`ai-crash`) | 178 s | **17** | 27,5 s (15 %) | 2 | 2 | 1 |
+
+Una duración con `~` está calculada por la longitud del guion (unos 14 caracteres por segundo):
+esos reels se montaron en la nube y su vídeo no está en este equipo. Las cifras son de por vida, así
+que los reels más viejos llevan más días sumando; el del 2026-11-06 llevaba 40 minutos.
+
+- **Seguidores: 218** (25 el 2026-11-03 por la mañana). Los que más, de España (56), Chile (15),
+  Argentina (13), México (11) y Colombia (9).
+- **Pero a quien llegan los reels es a otros**: este mes, las cuentas alcanzadas son sobre todo de
+  India (411), Reino Unido (296), EE. UU. (281), Australia (181) y Alemania (142). Instagram enseña
+  los reels a gente que no habla español, y esa gente decide con los ojos. La API no da los países
+  de cada reel, así que no se puede ver si les pasa más a unos reels que a otros.
+
+**Qué se ve, con muy pocos casos:**
+
+- **Los diarios llegan a más gente**: mediana de unas 1.600 cuentas, frente a unas 1.200 de los a
+  demanda. Pero la diferencia solo es clara el 2026-11-05; el 03 y el 04 los a demanda llegaron
+  igual o más.
+- **Los a demanda no gustan menos a quien los ve**: guardados y compartidos por cuenta alcanzada,
+  iguales o más que los diarios. El reel con más tiempo visto (68 s, el 39 %) y más compartidos
+  (21) fue un A fondo, el de las elecciones y los centros de datos.
+- **Los que se hundieron salieron pegados a otro**: el de la burbuja (25 min después del de bonos:
+  190), el cierre del 02 (cuarto del día: 54), el de la IA barata (85 min después del doble suelo
+  con promoción: 631), la apertura del 03 (una hora antes del especial: 166) y el viaje del chip
+  (48 min después de la apertura: 241). Una excepción: el hombro-cabeza-hombro, 56 min después de la
+  apertura, llegó a 1.445.
+- **La gente ve unos 30 segundos de casi todo**: un diario de 90 s se ve en un 30 %; uno a demanda
+  de casi 3 minutos, en un 18 %. Por eso los a demanda bajan a 90 segundos.
+- **La hora no explica nada**: los a demanda de la mañana (10:20 a 11:45) llegaron a 631-1.789
+  cuentas, y los de la tarde (16:50 a 19:19), a 190-1.445. Las 19:30 se eligen porque quedan a más
+  de dos horas de los dos diarios y caen de día en España y en América.
+
+Son cinco días y 18 reels: indicios, no pruebas. La revisión del 2026-11-17 dirá si las reglas
+nuevas cambian algo. El script que leyó estas cifras no está en el repo: hacerlo comando
+(`make igstats`, abajo) es el paso siguiente si el usuario lo quiere.
 
 ## Cómo saber si funciona
 

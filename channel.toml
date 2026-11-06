@@ -72,7 +72,7 @@ seconds = 12                         # held at least this long: YouTube's end sc
 [reel]
 language = "es"
 seconds = [60, 100]                  # how long a daily reel runs (the owner, 2026-11-03: docs/instagram-strategy.md)
-asked_seconds = [40, 180]            # how long a reel the owner asks for may run; never past 180: longer reels leave the Reels tab
+asked_seconds = [40, 90]             # how long a reel the owner asks for may run (the owner, 2026-11-06: at about 3 minutes they reached far fewer than the daily ones; docs/instagram-strategy.md)
 words_per_minute = 175               # the pace assumed for a scene whose narration is not made yet
 gap_seconds = 0.2                    # silence left after each scene: a reel keeps moving
 crossfade = 0.3                      # each slide dissolves into the next, instead of a cut: "se escuchan unos cortes muy

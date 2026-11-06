@@ -92,6 +92,14 @@ def test_a_reel_runs_what_the_channel_says(reel, channel):
     assert len(found) == 1 and found[0].startswith("the reel runs ") and found[0].endswith("a reel runs 40 to 100 s")
 
 
+def test_a_reel_the_owner_asks_for_runs_at_most_90_seconds(tmp_path, reel, channel):
+    assert channels.load(REPO / "channel.toml").for_reels().reel_asked_seconds == (40, 90)
+    asked = tmp_path / "reels" / "2026-11-06-ai-crash"
+    shutil.copytree(reel.path, asked)
+    found = reels.problems(reels.Reel(asked), replace(channel, reel_asked_seconds=(40, 90)))
+    assert len(found) == 1 and found[0].endswith("a reel runs 40 to 90 s")
+
+
 def test_a_reel_scene_needs_its_drawing_and_nothing_from_the_network(reel, channel):
     (reel.path / "slides" / "02-oil.html").unlink()
     (reel.path / "slides" / "01-hook.html").write_text('<img src="https://example.com/logo.png">', encoding="utf-8")

@@ -35,7 +35,7 @@ Everything in `CLAUDE.md` holds. Above all, for this line:
 
 ## The format (approved by the user, 2026-11-03)
 
-Upright, **50 to 80 seconds**, the light look of the on-demand reels with a plain paper
+Upright, **50 to 80 seconds** (published at 19:30, one asked reel a day: `daily-reel`, step 6), the light look of the on-demand reels with a plain paper
 background (`<body class="light chart-reel" data-bg="plain">`), the brand line `The Market Hub ·
 Lee el gráfico`, the voice of the line: **Rafalupi** (`voice: grafico`, `[reel.voices.grafico]` in
 `channel.toml`; the user asked for "una voz que enganche mucho y que sea didáctica… una nueva" and

@@ -68,7 +68,14 @@ Basta con decirlo en una sesión de Claude Code abierta en el workspace, con el 
 
 Claude sigue la skill `daily-reel` (su última parte): busca las fuentes, escribe el guion, dibuja
 las diapositivas, pone la voz, monta, revisa cada fotograma y, si la petición dice "súbelo", lo
-publica con `make reelpost`. Sin "súbelo" lo deja montado y lo enseña. Los diarios no se piden: los
+publica con `make reelpost`. Sin "súbelo" lo deja montado y lo enseña.
+
+**Las reglas de los reels a demanda** (el usuario, 2026-11-06, tras ver sus números en
+`docs/instagram-strategy.md`): duran **90 segundos como mucho** (`make reelcheck` lo comprueba);
+empiezan con algo del mercado de hoy que se entiende **sin sonido**; y salen **a las 19:30 de
+Madrid, de lunes a viernes, uno al día como mucho y a dos horas o más de cualquier otro reel**.
+"Súbelo" pedido antes de esa hora deja el reel montado para las 19:30; una hora que diga el usuario
+manda. Los diarios no se piden: los
 hacen las tareas programadas (abajo). Uno de reflexión puede defender una opinión; ninguno
 aconseja ni predice precios.
 
