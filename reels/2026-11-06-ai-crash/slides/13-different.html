@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- Unlike 2000: Cisco above 160 times earnings in 2000 (Motley Fool) vs Nvidia 25.3 trailing on 5 Nov 2026 (Yahoo Finance); Cisco FY2000 sales $18.93bn (Cisco) vs Nvidia $96.2bn in Q2 FY2027 (8-K) -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+  .pair .card { gap: 8px; padding: 24px 30px; }
+  .who { font-family: var(--serif); font-size: 44px; font-weight: 600; color: var(--ink-strong); }
+  .fig2 { font-family: var(--serif); font-size: 84px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; }
+  .pair .note { font-size: 26px; }
+  .sub { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: -18px; }
+</style>
+</head>
+<body class="light essay" data-bg="grid">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker green in">En qué no se parece</p>
+<h1 class="small in">Cisco en 2000, <span class="y">Nvidia hoy</span></h1>
+<p class="sub in">Veces sus beneficios</p>
+<div class="pair">
+  <div class="card down in" data-say="cisco"><span class="who">Cisco</span><span class="fig2 r" data-count="160" data-prefix="&gt;" data-say="ciento"></span><span class="note">2000 · Motley Fool</span></div>
+  <div class="card up in" data-say="veinticinco"><span class="who"><span class="logo"><img src="../../../theme/logos/nvidia.svg" alt="Nvidia"></span> Nvidia</span><span class="fig2 g" data-count="25" data-say="veinticinco"></span><span class="note">5 nov 2026 · Yahoo</span></div>
+</div>
+<p class="sub in" data-say="vendia">Ventas · miles de millones de $</p>
+<div class="pair">
+  <div class="card in" data-say="vendia"><span class="who">Cisco</span><span class="fig2" data-count="18.9" data-decimals="1" data-say="diecinueve"></span><span class="note">Todo el ejercicio 2000</span></div>
+  <div class="card amber in" data-say="noventa"><span class="who"><span class="logo"><img src="../../../theme/logos/nvidia.svg" alt="Nvidia"></span> Nvidia</span><span class="fig2" style="color: var(--amber)" data-count="96.2" data-decimals="1" data-say="noventa"></span><span class="note">Un trimestre: may-jul 2026</span></div>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

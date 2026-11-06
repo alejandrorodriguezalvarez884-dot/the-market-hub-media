@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Since the Nasdaq 100's peak (close of 6 Oct 2026) to the close of 5 Nov 2026 (Yahoo Finance: ^SOX, NVDA, XLK, ^NDX, ^GSPC, XLU, XLV, XLP) -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .card .line { gap: 2px 20px; }
+  .line .name { font-size: 40px; }
+  .line .fig { font-size: 44px; }
+  .bar { height: 12px; }
+</style>
+</head>
+<body class="light essay" data-bg="candles">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker red in">El último mes</p>
+<h1 class="small in">El dinero <span class="y">cambia de sitio</span></h1>
+<div class="card in">
+  <p class="label">6-10-2026 → 5-11-2026 · Yahoo Finance</p>
+  <div class="line" data-say="chips"><span class="name">Chips <small>Índice SOX</small></span><span class="fig r" data-count="31.8" data-decimals="1" data-prefix="−" data-suffix=" %" data-say="chips"></span><span class="bar"><i class="r" style="--w: 100%"></i></span></div>
+  <div class="line" data-say="envidia"><span class="name"><span class="logo"><img src="../../../theme/logos/nvidia.svg" alt="Nvidia"></span>Nvidia</span><span class="fig r" data-count="24.1" data-decimals="1" data-prefix="−" data-suffix=" %" data-say="envidia"></span><span class="bar"><i class="r" style="--w: 76%"></i></span></div>
+  <div class="line" data-say="veinticuatro+0.6"><span class="name">Nasdaq 100</span><span class="fig r" data-count="14.7" data-decimals="1" data-prefix="−" data-suffix=" %" data-say="veinticuatro+0.6"></span><span class="bar"><i class="r" style="--w: 46%"></i></span></div>
+  <div class="line" data-say="salud"><span class="name">Salud <small>XLV</small></span><span class="fig g" data-count="10.7" data-decimals="1" data-prefix="+" data-suffix=" %" data-say="salud"></span><span class="bar"><i class="g" style="--w: 34%"></i></span></div>
+  <div class="line" data-say="consumo"><span class="name">Consumo básico <small>XLP</small></span><span class="fig g" data-count="11.6" data-decimals="1" data-prefix="+" data-suffix=" %" data-say="consumo"></span><span class="bar"><i class="g" style="--w: 36%"></i></span></div>
+</div>
+<span class="sticker pop" data-say="jueves">5 nov · chips −12,2 %</span>
+<span class="sticker small tag pop" data-say="peor">Su peor día desde 2020</span>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

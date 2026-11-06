@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- Capital spending of Microsoft, Alphabet, Amazon and Meta (purchases of property and equipment, SEC filings): ~$151bn in 2022, ~$376bn in 2025, ~$497bn from January to September 2026 -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); align-items: end; gap: 34px; height: 520px; padding-top: 10px; }
+  .col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 14px; height: 100%; }
+  .col b { font-family: var(--serif); font-size: 54px; font-weight: 600; color: var(--ink-strong); }
+  .col span { min-height: 62px; font-family: var(--mono); font-size: 24px; letter-spacing: 0.08em; color: var(--muted); text-align: center; }
+  .col i { display: block; width: 100%; background: var(--amber); height: var(--h); transform-origin: bottom;
+           animation: grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+  .col i.dim { background: #b9b2a3; }
+  @keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  .logos { display: flex; gap: 18px; font-size: 70px; }
+</style>
+</head>
+<body class="light essay" data-bg="grid">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker in">La carrera</p>
+<h1 class="small in">Centros de datos, <span class="y">a lo grande</span></h1>
+<div class="logos in" data-say="microsoft">
+  <span class="logo"><img src="../../../theme/logos/microsoft.svg" alt="Microsoft"></span>
+  <span class="logo"><img src="../../../theme/logos/google.svg" alt="Alphabet"></span>
+  <span class="logo"><img src="../../../theme/logos/amazon.svg" alt="Amazon"></span>
+  <span class="logo"><img src="../../../theme/logos/meta.svg" alt="Meta"></span>
+</div>
+<div class="card in">
+  <p class="label">Inversión de las cuatro · miles de millones de $ · SEC</p>
+  <div class="cols">
+    <div class="col fade" data-say="ciento"><b>151</b><i class="dim" style="--h: 30%"></i><span>2022</span></div>
+    <div class="col fade" data-say="este"><b>376</b><i class="dim" style="--h: 76%"></i><span>2025</span></div>
+    <div class="col fade" data-say="quinientos"><b>497</b><i style="--h: 100%"></i><span>2026<br>ene-sep</span></div>
+  </div>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

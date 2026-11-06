@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- S&P 500 forward 12-month P/E (FactSet): 17.6 on 2 Dec 2022, 23.1 on 29 Oct 2025, 18.7 on 30 Oct 2026 (before the fall), 24.4 on 24 Mar 2000. Shiller P/E (multpl): 38.8 on 5 Nov 2026, 44.2 in Dec 1999 -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<style>
+  .card .line { gap: 2px 20px; }
+  .line .name { font-size: 40px; }
+  .line .fig { font-size: 46px; }
+  .bar { height: 12px; }
+</style>
+</head>
+<body class="light essay" data-bg="candles">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Reflexión</header>
+<main class="reel">
+<p class="kicker in">¿Y está cara?</p>
+<h1 class="small in">Veces los beneficios <span class="y">esperados</span></h1>
+<div class="card in" data-say="caida">
+  <p class="label">S&amp;P 500 · PER a doce meses · FactSet</p>
+  <div class="line"><span class="name">Al salir ChatGPT <small>2 dic 2022</small></span><span class="fig dim">17,6x</span><span class="bar"><i style="--w: 72%"></i></span></div>
+  <div class="line"><span class="name">Máximo del ciclo <small>29 oct 2025</small></span><span class="fig">23,1x</span><span class="bar"><i style="--w: 95%"></i></span></div>
+  <div class="line" data-say="diecinueve"><span class="name">Antes de la caída <small>30 oct 2026</small></span><span class="fig g" data-count="18.7" data-decimals="1" data-suffix="x" data-say="diecinueve"></span><span class="bar"><i class="g" style="--w: 77%"></i></span></div>
+  <div class="line" data-say="marzo"><span class="name">Marzo de 2000</span><span class="fig r" data-count="24.4" data-decimals="1" data-suffix="x" data-say="veinticuatro"></span><span class="bar"><i class="r" style="--w: 100%"></i></span></div>
+</div>
+<div class="card down in" data-say="shiller">
+  <p class="label">PER de Shiller · 10 años de beneficios · multpl</p>
+  <div class="line"><span class="name">5 nov 2026</span><span class="fig r">38,8x</span></div>
+  <div class="line"><span class="name">Récord, dic 1999</span><span class="fig">44,2x</span></div>
+</div>
+</main>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+¿Se pincha la IA? Desde que salió ChatGPT, Nvidia ha multiplicado su precio por 11,6. En un mes ha perdido un 24 %. Y el 5 de noviembre, el Nasdaq 100 vivió su peor día desde 2020. Una reflexión sobre tres años de IA en bolsa.
+---
+No todos subieron igual. Desde el 29-11-2022: chips +237 %, S&P 500 +86 %, el S&P 500 de igual peso +49 %. Y la marea se retira por partes: Oracle −65 % desde su máximo, los chips −38 %, Nvidia −24 %.
+---
+¿Es el año 2000? El S&P 500 cotizaba a 18,7 veces los beneficios esperados antes de la caída; en marzo de 2000, a 24,4. Cisco cotizaba a más de 160 veces beneficios; Nvidia, a 25. Y Nvidia vende en un trimestre cinco veces lo que Cisco en todo 2000.
