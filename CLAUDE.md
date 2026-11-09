@@ -99,7 +99,29 @@ es una promesa. Voz **Rafalupi** (`voice: grafico`), elegida por él de oído; a
 pregunta es de lectura, nunca "¿compras o vendes?", y nada de señales, objetivos ni porcentajes de
 acierto. Se publica solo cuando él lo pide ("súbelo"), como los otros a demanda.
 
-Cada tema da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
+**Y cada reel que pide el usuario trae su vídeo largo en YouTube** (decisión del usuario,
+2026-11-09: "automatizar la creación de videos largos de 10/12 mins a youtube cada vez que te pida
+un reel que no sea de los automatizados"), con su propia skill,
+[`long-video`](.claude/skills/long-video/SKILL.md). Vale para todo reel a demanda (reflexión,
+didáctico, Lee el gráfico o uno especial suelto) y **nunca para los diarios** (apertura, cierre,
+semana y futuros), que siguen como están. Se hace **por defecto, en la misma sesión, después del
+reel**, sin preguntar si hacerlo: más investigación a partir de las fuentes y los datos del reel,
+un guion de **10 a 12 minutos** en capítulos, una diapositiva por escena, miniatura y título y
+descripción de YouTube. Lo que eligió el usuario (2026-11-09): **en español, con la voz del reel**
+(la misma `voice:`, ElevenLabs v4: unos 10.000 a 13.000 caracteres por vídeo) y **el aspecto del
+reel en horizontal** (`theme/reel.css` más `theme/long.css`), sin presentador, sin la intro ni el
+cierre del canal y sin Short (el reel es su pieza corta). Es una carpeta `videos/<la del reel>/`
+con `kind: long` y `reel: <la carpeta del reel>` en el guion; `make longnew REEL=...` la empieza y
+`make check` exige que dure de 10 a 12 minutos, que tenga cinco capítulos o más y que su reel sea
+uno a demanda. **Subirlo es decisión del usuario, vídeo a vídeo**: se le enseña hecho y se le
+pregunta; solo se sube tras un sí explícito a ese vídeo (el "súbelo" del reel es del reel).
+**Y nada que suene o parezca hecho por una IA** (el usuario, 2026-11-09: "quiero que le quites todo
+el AI slop posible"): ni muletillas ("en un mundo donde", "no es solo X, es Y", "¿El resultado?
+Subió", "cabe destacar", "revolucionario", "la respuesta te sorprenderá"), ni relleno para llegar
+a los diez minutos, ni diapositivas todas iguales o con adornos que no dicen nada. `make check`
+rechaza las más claras en un vídeo largo (`SLOP` en `script.py`); el resto, la skill (paso 3b).
+
+Cada tema del canal en inglés (las series como Money 101) da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
 y la misma voz, dibujadas de nuevo en vertical). El canal es **en inglés**.
 
@@ -146,7 +168,8 @@ Reglas que no se negocian:
   story (`make story`, una imagen dibujada aquí en `stories/`) se publica igual: solo el que él pida. El
   token de Instagram lo genera y lo guarda él en `.secrets/`; no se le pide en el chat.
 - **No se gasta sin preguntar.** Los servicios de pago decididos son la voz (abajo), ElevenLabs para
-  la voz de los reels diarios (decisión del usuario, 2026-11-02) y la API de
+  la voz de los reels diarios (decisión del usuario, 2026-11-02) y de los vídeos largos de los
+  reels a demanda (2026-11-09) y la API de
   X para publicar (arriba: los posts que pide el usuario y los cinco diarios sin enlace). Cualquier
   otro (imágenes, música, otra voz) no se usa sin que el usuario lo decida antes.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.
@@ -247,7 +270,8 @@ montaje deja la escena en silencio el tiempo que tardarían en decirse sus palab
 ## Convenciones
 
 - Hablar con el usuario en español. Guiones y textos en pantalla, en el idioma del canal
-  (`channel.toml`; hoy, inglés), salvo los reels diarios, que van en español (`[reel]`). Código y comentarios, en inglés.
+  (`channel.toml`; hoy, inglés), salvo los reels y los vídeos largos de los reels, que van en
+  español (`[reel]`, `[long]`). Código y comentarios, en inglés.
 - Python 3.12 con `uv`. `make test` para los tests; `make check` antes de publicar, siempre.
 - Cada cambio en una regla de `make check` o en el montaje lleva su test en `tests/`.
 - Al terminar una tarea relevante, actualizar "Dónde estamos" en `docs/HANDOFF.md`.

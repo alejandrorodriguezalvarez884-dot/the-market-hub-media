@@ -72,8 +72,10 @@
   const seed = seedOf(kind + (document.body.dataset.seed || location.pathname.split("/").pop()));
   let paint = () => {};
   if (canvas) {
-    canvas.width = 1160;
-    canvas.height = 2000;
+    // Upright for a reel; wide for a long video (theme/long.css), whose window is wider than tall.
+    const WIDE = window.innerWidth > window.innerHeight;
+    canvas.width = WIDE ? 2000 : 1160;
+    canvas.height = WIDE ? 1160 : 2000;
     const ctx = canvas.getContext("2d");
     const W = canvas.width, H = canvas.height;
     const rnd = random(seed);
@@ -96,7 +98,7 @@
     };
     const put = (c, x, y) => ctx.drawImage(c, x, y, c.w, c.h);
     if (kind === "tape") {
-      const cols = Array.from({ length: 7 }, (_, i) => ({
+      const cols = Array.from({ length: WIDE ? 12 : 7 }, (_, i) => ({
         x: 40 + i * 168 + rnd() * 30, speed: 18 + rnd() * 40, size: 34 + rnd() * 26,
         cells: Array.from({ length: 40 }, () => ({ v: (rnd() * 99).toFixed(rnd() < 0.5 ? 2 : 1), tint: rnd() })),
       }));
@@ -192,7 +194,7 @@
     } else if (kind === "city") {
       const towers = [], stars = [];
       let x = -20;
-      while (x < W) { const w = 70 + rnd() * 120; towers.push({ x, w, h: 380 + rnd() * 760, lit: rnd() }); x += w + 6; }
+      while (x < W) { const w = 70 + rnd() * 120; towers.push({ x, w, h: (380 + rnd() * 760) * (WIDE ? 0.55 : 1), lit: rnd() }); x += w + 6; }
       for (let i = 0; i < 120; i++) stars.push({ x: rnd() * W, y: rnd() * H * 0.45, r: rnd() * 2 + 0.5, p: rnd() * 6 });
       paint = (t) => {
         const g = ctx.createLinearGradient(0, 0, 0, H);

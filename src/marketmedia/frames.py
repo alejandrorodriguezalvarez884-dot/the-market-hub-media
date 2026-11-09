@@ -106,13 +106,14 @@ def told(script: Script, channel: Channel, cut: render.Cut, start: float, total:
 def drawings(video: Video, script: Script, channel: Channel) -> list[tuple]:
     """What is drawn for a film: (the drawing's name, its still frame, the folder of its frames,
     the window, what it is told), for the video and its Short and the thumbnail, or, for a daily
-    reel, its scenes upright and nothing else."""
+    reel, its scenes upright and nothing else, or, for a long video, its scenes wide and its thumbnail."""
     wide = {"width": channel.width, "height": channel.height}
     upright = {"width": channel.short_width, "height": channel.short_height}
     wanted = []
     voices: dict[str, dict] = {}
-    # A daily reel is upright only, and has no thumbnail.
-    shapes = ((True, upright),) if script.kind == "reel" else ((False, wide), (True, upright))
+    # A daily reel is upright only, and has no thumbnail; a long video is wide only (its reel is its short piece).
+    shapes = ((True, upright),) if script.kind == "reel" else ((False, wide),) if script.kind == "long" \
+        else ((False, wide), (True, upright))
     for short, viewport in shapes:
         cuts = render.plan(video, script, channel, short)
         total = sum(c.seconds for c in cuts)

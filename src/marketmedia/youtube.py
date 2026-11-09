@@ -28,6 +28,8 @@ from .script import Script
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.force-ssl"]
 DESCRIPTION_MAX = 5000  # YouTube's own limit
 CHAPTER_MIN = 10        # seconds: YouTube ignores chapters when one is shorter
+# The headings of a description, in the language of the video (a long video is in Spanish).
+LABELS = {"en": {"chapters": "Chapters", "sources": "Sources"}, "es": {"chapters": "Capítulos", "sources": "Fuentes"}}
 
 
 def _secrets() -> tuple[Path, Path]:
@@ -58,11 +60,12 @@ def chapters(script: Script, cuts: list) -> str:
 def description(script: Script, channel: Channel, chapters: str = "") -> str:
     """What goes under the video: its description, its chapters, where its facts come from, and
     the notice."""
+    said = LABELS.get(channel.language, LABELS["en"])
     parts = [script.description]
     if chapters:
-        parts.append("Chapters:\n" + chapters)
+        parts.append(f"{said['chapters']}:\n" + chapters)
     if script.sources:
-        parts.append("Sources:\n" + "\n".join(f"- {label}: {address}" for label, address in script.sources))
+        parts.append(f"{said['sources']}:\n" + "\n".join(f"- {label}: {address}" for label, address in script.sources))
     if channel.disclaimer:
         parts.append(channel.disclaimer)
     if channel.site:

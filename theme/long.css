@@ -1,0 +1,61 @@
+/* The reels' look, drawn wide: the long video on YouTube that goes with a reel the owner asked for
+   (kind: long; skill long-video). A slide loads the reels' style and then this one, and keeps the
+   body of its reel's line, so the long video looks like its reel:
+
+     <link rel="stylesheet" href="../../../theme/reel.css">
+     <link rel="stylesheet" href="../../../theme/long.css">
+     <body class="light essay" data-bg="grid">    the reel's own: dark, light, light essay...
+     <canvas class="bg"></canvas>
+     <main class="reel">
+       <p class="kicker">Capítulo 2 · El ciclo</p>
+       <h1>Tres años de <span class="y">ChatGPT</span></h1>
+       <div class="cols"> <div>...</div> <div class="card">...</div> </div>
+     </main>
+     <footer class="brand">The Market Hub · A fondo</footer>
+     <script src="../../../theme/reel.js"></script>
+
+   Drawn for 1920x1080 (the thumbnail, 1280x720, takes the same pieces). Nothing of Instagram's
+   frame applies: the scene uses the whole screen, with a margin all round, and YouTube draws its
+   controls over the bottom 120 px only when the viewer moves the mouse. Each part of the video has
+   a wide screen to fill: put things side by side (.cols), not one under the other. */
+
+html, body { width: 100vw; height: 100vh; }
+body { font-size: 36px; }
+.bg { inset: -40px; width: calc(100vw + 80px); height: calc(100vh + 80px); }
+body::before {
+  background:
+    linear-gradient(90deg, rgba(6, 7, 8, 0.86) 0%, rgba(6, 7, 8, 0.55) 45%, rgba(6, 7, 8, 0.62) 70%, rgba(6, 7, 8, 0.9) 100%),
+    radial-gradient(90% 120% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.55) 100%); }
+body.light::before {
+  background: linear-gradient(90deg, rgba(242, 237, 227, 0.94) 0%, rgba(242, 237, 227, 0.62) 45%, rgba(242, 237, 227, 0.7) 70%, rgba(242, 237, 227, 0.95) 100%); }
+body.essay::before {
+  background: linear-gradient(90deg, rgba(243, 240, 233, 0.96) 0%, rgba(243, 240, 233, 0.78) 45%, rgba(243, 240, 233, 0.82) 70%, rgba(243, 240, 233, 0.97) 100%); }
+
+/* The scene: the whole screen but a margin, from the top down. */
+.reel { left: 140px; right: 140px; top: 160px; bottom: 130px; gap: 30px; }
+.reel.wide { right: 140px; }
+.brand { left: 140px; top: 74px; font-size: 24px; }
+
+/* Side by side: what the scene says on the left, its figure or its card on the right. */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; width: 100%; align-items: center; }
+.cols.left { grid-template-columns: 1.35fr 1fr; }
+.cols.right { grid-template-columns: 1fr 1.35fr; }
+.cols.three { grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: stretch; }
+.cols > * { min-width: 0; display: flex; flex-direction: column; gap: 26px; align-items: flex-start; }
+.cols > .card { align-items: stretch; }
+
+h1 { font-size: 96px; }
+h1.small { font-size: 76px; }
+body.essay h1 { font-size: 90px; }
+body.essay h1.small { font-size: 72px; }
+p.lead { font-size: 44px; max-width: 30ch; }
+.cols p.lead { max-width: none; }
+.big { font-size: 190px; }
+
+/* A line of a chapter's place in the video, under the kicker: "2 / 6". */
+.chapter { font-family: var(--mono); font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+/* The thumbnail: the same pieces, larger for its size, read at the size of a stamp. */
+body.thumb .reel { left: 80px; right: 80px; top: 90px; bottom: 80px; justify-content: center; gap: 24px; }
+body.thumb .brand { left: 80px; top: 40px; font-size: 20px; }
+body.thumb h1 { font-size: 104px; line-height: 0.98; }

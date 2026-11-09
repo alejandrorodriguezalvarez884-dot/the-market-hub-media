@@ -46,6 +46,21 @@ def _clock(seconds: float) -> str:
     return f"{int(seconds) // 60}:{int(seconds) % 60:02d}"
 
 
+def _seen(video, channel):
+    """The channel as this video sees it: a long video's is its reel's voice, language and pace,
+    with [long]'s length (Channel.for_script); any other video's is the channel as it is."""
+    if not video.script.is_file():
+        return channel
+    try:
+        script = scripts.load(video.script)
+    except scripts.Invalid:
+        return channel
+    try:
+        return channel.for_script(script.kind, script.voice)
+    except ValueError:   # a voice channel.toml does not have: make check says so
+        return channel.for_script(script.kind)
+
+
 def _new(args, channel) -> int:
     video = videos.new(args.title)
     print(f"videos/{video.name}")
@@ -58,9 +73,11 @@ def _status(args, channel) -> int:
         if video.script.is_file():
             try:
                 script = scripts.load(video.script)
-                seconds = sum(c.seconds for c in render.plan(video, script, channel))
-                short = sum(c.seconds for c in render.plan(video, script, channel, short=True))
-                line += f" {len(script.scenes):>3} scenes {script.words:>5} words {_clock(seconds)}  short {_clock(short)}"
+                seen = _seen(video, channel)
+                seconds = sum(c.seconds for c in render.plan(video, script, seen))
+                short = sum(c.seconds for c in render.plan(video, script, seen, short=True))
+                line += f" {len(script.scenes):>3} scenes {script.words:>5} words {_clock(seconds)}" + \
+                    (f"  long, of reels/{script.reel}" if script.kind == "long" else f"  short {_clock(short)}")
             except (scripts.Invalid, ValueError):
                 line += " script cannot be read"
         record = video.record()
@@ -74,7 +91,7 @@ def _check(args, channel) -> int:
     wanted = [videos.find(args.video)] if args.video else [v for v in videos.every() if v.stage() != "brief"]
     bad = 0
     for video in wanted:
-        found = check.problems(video, channel)
+        found = check.problems(video, _seen(video, channel))
         bad += bool(found)
         print(f"{video.name}: {'ok' if not found else ''}")
         for problem in found:
@@ -84,6 +101,7 @@ def _check(args, channel) -> int:
 
 def _frames(args, channel) -> int:
     video = videos.find(args.video)
+    channel = _seen(video, channel)
     drawn = frames.draw(video, scripts.load(video.script), channel, everything=args.all)
     print(f"{drawn} drawn" if drawn else "Every frame is up to date.")
     return 0
@@ -91,13 +109,15 @@ def _frames(args, channel) -> int:
 
 def _voice(args, channel) -> int:
     video = videos.find(args.video)
+    channel = _seen(video, channel)
     script = scripts.load(video.script)
     todo = voice.pending(video, script, channel)
     if not todo:
         print("Every scene has its voice.")
         return 0
-    characters = sum(len(s.narration) for s in todo)
-    print(f"{len(todo)} scenes to speak, {characters} characters, with {channel.voice_name}")
+    characters = voice.to_pay(video, script, channel) if channel.voice_engine == "elevenlabs" else sum(len(s.narration) for s in todo)
+    print(f"{len(todo)} scenes to speak, {characters} characters{' to pay for' if channel.voice_engine == 'elevenlabs' else ''}, "
+          f"with {channel.voice_name} ({channel.voice_engine})")
     if args.dry_run:
         return 0
     voice.make(video, script, channel)
@@ -106,6 +126,7 @@ def _voice(args, channel) -> int:
 
 def _render(args, channel) -> int:
     video = videos.find(args.video)
+    channel = _seen(video, channel)
     script = scripts.load(video.script)
     frames.draw(video, script, channel)
     for short in (False, True):
@@ -134,6 +155,7 @@ def _unfit(video, channel) -> bool:
 
 def _kit(args, channel) -> int:
     video = videos.find(args.video)
+    channel = _seen(video, channel)
     if _unfit(video, channel):
         return 1
     script = scripts.load(video.script)
@@ -161,6 +183,7 @@ def _upload(args, channel) -> int:
     """The video and then its Short. What is up is written down at once, so an upload that stops
     half way is taken up where it stopped."""
     video = videos.find(args.video)
+    channel = _seen(video, channel)
     script = scripts.load(video.script)
     record = {} if args.again else (video.record() or {})
     todo = [short for short in (False, True) if not record.get("short_url" if short else "url") and (not short or script.short)]
@@ -209,8 +232,12 @@ def _instagram(args, channel) -> int:
     if not args.video:
         raise ValueError("which video? (or --check)")
     video = videos.find(args.video)
+    channel = _seen(video, channel)
     script = scripts.load(video.script)
     record = video.record() or {}
+    if script.kind == "long":
+        print(f"A long video has no Short: its reel, reels/{script.reel}, is what goes to Instagram (make reelpost).")
+        return 1
     if record.get("instagram") and not args.again:
         print(f"{video.name} is already on Instagram: {record.get('instagram_url') or record['instagram']['id']}  (--again to publish it once more)")
         return 1
@@ -353,6 +380,12 @@ def _xposted(args, channel) -> int:
 def _reelnew(args, channel) -> int:
     reel = reels.new(args.moment, day=args.date)
     print(f"reels/{reel.name}")
+    return 0
+
+
+def _longnew(args, channel) -> int:
+    video = reels.new_long(reels.find(args.reel))
+    print(f"videos/{video.name}")
     return 0
 
 
@@ -521,6 +554,7 @@ def main(argv: list[str] | None = None) -> int:
     starting.add_argument("moment", help="open, close, or a few words for a reel asked for by hand")
     starting.add_argument("--date", help="the day, like 2026-11-02 (today if not said)")
     commands.add_parser("reelcheck").add_argument("reel", nargs="?")
+    commands.add_parser("longnew").add_argument("reel", help="the reel the owner asked for, whose long video this is")
     making = commands.add_parser("reel")
     making.add_argument("reel")
     making.add_argument("--dry-run", action="store_true", help="say what would be spoken, and spend nothing")
@@ -542,7 +576,7 @@ def main(argv: list[str] | None = None) -> int:
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
            "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront,
-           "reelnew": _reelnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx, "candles": _candles}[args.command]
+           "reelnew": _reelnew, "longnew": _longnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx, "candles": _candles}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:

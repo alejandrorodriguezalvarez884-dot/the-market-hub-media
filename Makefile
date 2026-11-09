@@ -25,6 +25,8 @@
 #   make xposted POST=... URL=...  write down where a post went on X (put there by hand), and tell the portal
 #   make xfront [TO=...]        tell the portal's Media page what the account last posted on X
 #   make reelnew MOMENT=open|close [DATE=...]   a daily reel's folder in reels/, from the template
+#   make longnew REEL=...       the folder of the long YouTube video that goes with a reel the owner asked for
+#                (videos/<the reel's name>, kind: long; then check, voice, render, kit and upload as any video)
 #   make reelcheck [REEL=...]   what stops a daily reel from going on Instagram
 #   make reel REEL=... [DRY=1]  speak a daily reel, draw it and make its film
 #   make reelpost REEL=...      publish a reel on Instagram, tell the portal, then its thread on X
@@ -36,7 +38,7 @@
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew reelcheck reel reelpost reelx candles
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew longnew reelcheck reel reelpost reelx candles
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(or $(GOOGLE_CLOUD_PROJECT),$(shell gcloud config get-value project 2>/dev/null))
@@ -68,7 +70,7 @@ check: ## What stops a video from being published (every video past its brief, o
 frames: ## Draw the frames and the thumbnail of VIDEO=... (ALL=1 to draw them all again)
 	$(RUN) frames $(VIDEO) $(if $(ALL),--all)
 
-voice: ## Speak the scenes of VIDEO=... that need it (DRY=1 to see what it would send, and spend nothing)
+voice: ## Speak the scenes of VIDEO=... that need it: Google, or a long video's reel voice on ElevenLabs (DRY=1 to see what it would send, and spend nothing)
 	GOOGLE_CLOUD_PROJECT=$(GCP_PROJECT) $(RUN) voice $(VIDEO) $(if $(DRY),--dry-run)
 
 render: ## Make the video, the Short and the captions of VIDEO=...
@@ -133,6 +135,10 @@ xfront: ## Leave the account's latest posts on X where the portal's Media page r
 reelnew: ## A daily reel's folder: MOMENT=open|close [DATE=2026-11-02]
 	@[ -n "$(MOMENT)" ] || { echo 'Which one? make reelnew MOMENT=open|close'; exit 1; }
 	$(RUN) reelnew $(MOMENT) $(if $(DATE),--date $(DATE))
+
+longnew: ## The long YouTube video of REEL=... (a reel the owner asked for): videos/<its name>, with the reel's voice, sources and look
+	@[ -n "$(REEL)" ] || { echo 'Which reel? make longnew REEL=2026-11-06-ai-crash'; exit 1; }
+	$(RUN) longnew $(REEL)
 
 reelcheck: ## What stops a daily reel from going on Instagram (every one not yet up, or REEL=...)
 	$(RUN) reelcheck $(REEL)

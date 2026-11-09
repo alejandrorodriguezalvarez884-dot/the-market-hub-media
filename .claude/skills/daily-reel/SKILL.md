@@ -1,6 +1,6 @@
 ---
 name: daily-reel
-description: Market Hub's reels on Instagram, in Spanish. The two daily ones - Wall Street's open ("open") and its close ("close") - made and published with nobody watching by two Claude cloud routines on weekdays (docs/reels.md); and the ones the user asks for on demand with a topic - a reflective reel ("haz un reel de reflexión sobre X") or a didactic one ("haz un reel didáctico sobre X"). Find the facts, write the script, draw the slides, speak it, make the film, check it and publish it when asked. See docs/reels.md.
+description: Market Hub's reels on Instagram, in Spanish. The two daily ones - Wall Street's open ("open") and its close ("close") - made and published with nobody watching by two Claude cloud routines on weekdays (docs/reels.md); and the ones the user asks for on demand with a topic - a reflective reel ("haz un reel de reflexión sobre X") or a didactic one ("haz un reel didáctico sobre X"), each followed by its long YouTube video (skill long-video). Find the facts, write the script, draw the slides, speak it, make the film, check it and publish it when asked. See docs/reels.md.
 ---
 
 # A daily reel
@@ -236,6 +236,14 @@ git push
 The user also asks for reels one by one, "more reflective" (2026-11-02): a thesis about the
 markets, argued with sources (for example, that the reaction to big tech's results is not how a
 bubble behaves). They follow this skill with these differences:
+
+- **It comes with a long video on YouTube** (the user, 2026-11-09: "automatizar la creación de
+  videos largos de 10/12 mins a youtube cada vez que te pida un reel que no sea de los
+  automatizados"). Every reel the user asks for, of any line or a special one-off, has one: once
+  the reel is made and committed (and up, if they said "súbelo"), make it in the same session with
+  the skill `long-video`, without asking whether to. It is 10 to 12 minutes in Spanish, with this
+  reel's voice and look drawn wide; it is uploaded only after the user's explicit yes to it. The
+  report covers both. The daily reels (`open`, `close`, `week`, `ahead`) never have one.
 
 - The folder is `reels/<date>-<a-few-words>/` (`make reelnew MOMENT=<a-few-words>`).
 - The script says `voice: reflexion` (Julián on ElevenLabs v3, as a calm, reflective teacher).

@@ -1,6 +1,6 @@
 ---
 name: chart-reel
-description: Market Hub's chart-reading reels on Instagram, in Spanish, "Lee el gráfico" - a real chart of a real stock or index with its name and dates hidden, a question to the viewer ("¿qué crees que pasó después?"), five seconds of countdown to think, and then the answer explained - the pattern, what happened in that case and why a pattern is not a promise. Use when the user asks for one ("haz un reel de Lee el gráfico", "un reel de un patrón: doble techo", "otro reel de gráfico con un hombro-cabeza-hombro"). Find a real episode in Yahoo Finance's candles, write the script, draw the slides with theme/chart.js, speak it with the line's voice, make the film, check it, and publish only when asked. See docs/reels.md.
+description: Market Hub's chart-reading reels on Instagram, in Spanish, "Lee el gráfico" - a real chart of a real stock or index with its name and dates hidden, a question to the viewer ("¿qué crees que pasó después?"), five seconds of countdown to think, and then the answer explained - the pattern, what happened in that case and why a pattern is not a promise. Use when the user asks for one ("haz un reel de Lee el gráfico", "un reel de un patrón: doble techo", "otro reel de gráfico con un hombro-cabeza-hombro"). Find a real episode in Yahoo Finance's candles, write the script, draw the slides with theme/chart.js, speak it with the line's voice, make the film, check it, and publish only when asked; then its long YouTube video (skill long-video). See docs/reels.md.
 ---
 
 # A chart-reading reel: "Lee el gráfico"
@@ -216,6 +216,13 @@ git push
 ```
 
 `build/` and `voice/` stay out of git.
+
+## 7. Its long video on YouTube
+
+Every reel the user asks for has a long video on YouTube, 10 to 12 minutes in Spanish (the user,
+2026-11-09): once this reel is made and committed, make it in the same session with the skill
+`long-video` (`make longnew REEL=<folder>`), unasked: the pattern at length, this case and two or
+three more real ones, one where it failed. It is uploaded only after the user's explicit yes.
 
 ## Never
 

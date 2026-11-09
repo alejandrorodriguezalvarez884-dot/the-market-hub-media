@@ -38,6 +38,10 @@ description of the video gets them with their times, for YouTube to cut the vide
 it. "kind: trailer" is for a video that presents the channel or a series instead of explaining
 something: it is short (channel.toml's [trailer]) and, having no figures, needs no sources.
 
+"kind: long" is the long video on YouTube that goes with a reel the owner asked for (channel.toml's
+[long]; skill long-video): "reel:" names that reel's folder in reels/, "voice:" the reel's voice,
+and it has chapters and no Short (the reel is its short piece, on Instagram).
+
 ``load`` reads one, and refuses it when it cannot be read as a script. ``problems`` says what
 stops a script that can be read from being published.
 """
@@ -53,13 +57,42 @@ HEADING = re.compile(r"##\s+(\S.*?)\s*$")
 # YouTube's own limits.
 TITLE_MAX = 100
 TAGS_MAX = 500
-KINDS = ("", "trailer", "reel")
+KINDS = ("", "trailer", "reel", "long")
+LONG_CHAPTERS = 5    # the fewest chapters a long video is cut into
 # A video argues and explains; it does not tell a viewer what to do with their money.
 ADVICE = re.compile(
     r"\b(you should (buy|sell|hold)|we recommend|(buy|sell|hold) rating|strong buy|price target of|our (price )?target"
     r"|time to (buy|sell)|must[- ]own|top picks?|buy (it |them )?now|guaranteed returns?"
     r"|deber[ií]as (comprar|vender|mantener)|recomendamos (comprar|vender|mantener)|nuestro precio objetivo"
     r"|momento de (comprar|vender)|compra ya|rentabilidad garantizada)\b", re.I)
+# What makes a long video's Spanish sound machine-made (the owner, 2026-11-09: "quiero que le quites
+# todo el AI slop posible"): stock openings and closings, filler, inflated words, the "it is not X,
+# it is Y" turn, a question of one or two words that the next sentence answers, and the long dash.
+# make check refuses them in a long video (kind: long); the skill long-video says what to write instead.
+SLOP = (
+    (r"en un mundo (donde|en el que)|en la era de", "a stock opening"),
+    (r"(vertiginoso|apasionante|fascinante|complejo) mundo", "a stock opening"),
+    (r"sumérge(te|nos)|adentr(émonos|ámonos|arnos)|acompáñame|abr[óo]chate el cinturón|redoble de tambores", "a showman's line"),
+    (r"(hoy|en este vídeo) (vamos a|te voy a|os voy a)|¡vamos (allá|a ello)!|bienvenid[oa]s? a", "a presenter's opening"),
+    (r"no es (solo|sólo|simplemente|únicamente)\b[^.?!]{0,80}[,;.]\s*(es|sino)\b", "the 'not only X, it is Y' turn"),
+    (r"no se trata (solo|sólo|de)\b[^.?!]{0,80}[,;.]\s*se trata", "the 'not only X, it is Y' turn"),
+    (r"¿(y )?(el|la|los|las) [a-záéíóúñ]+( [a-záéíóúñ]+)?\?", "a question of a word or two that the next sentence answers"),
+    (r"en (definitiva|conclusión|resumen)|(cabe|es importante|vale la pena) (destacar|señalar|mencionar|recordar)", "filler"),
+    (r"sin lugar a dudas|más que nunca|sin precedentes", "an inflated word"),
+    (r"revolucion(ario|aria|arios|arias|ó|ar)\b|cambio de paradigma|(cambia|cambió) las reglas del juego", "an inflated word"),
+    (r"un antes y un después|tormenta perfecta|elefante en la habitación|la punta del iceberg", "a stock image"),
+    (r"la respuesta (te|os) sorprenderá|pero eso no es todo|y aquí (viene|es donde)|spoiler|dato curioso", "a teaser line"),
+    (r"desbloque(ar|a|an)|navegar (la|esta|un|el) (incertidumbre|mercado|panorama)|panorama (actual|económico|financiero)", "a stock phrase"),
+    ("—", "a long dash, which the voice does not say"),
+)
+SLOP = tuple((re.compile(pattern, re.I), why) for pattern, why in SLOP)
+
+
+def slop(text: str) -> list[str]:
+    """What in ``text`` sounds machine-made, each as it is written and why."""
+    return [f"{m.group(0)!r} ({why})" for pattern, why in SLOP for m in pattern.finditer(text)]
+
+
 WORD = re.compile(r"[\w'’\-]+")
 SOUNDS = ("tick",)   # what a scene where nothing is said may sound like (render.py makes it)
 
@@ -96,6 +129,7 @@ class Script:
     kind: str = ""               # "" for a video, "trailer" for one that presents a series, "reel" for a daily reel
     chapters: tuple[tuple[str, str], ...] = ()   # (the scene it starts at, its title)
     voice: str = ""              # a reel's voice, one of [reel.voices] in channel.toml ("" for the reels' own)
+    reel: str = ""               # a long video's reel: its folder's name in reels/
 
     def cut(self, short: bool = False) -> list[Scene]:
         """The scenes of the video, or those of its Short. A daily reel is upright and whole: every
@@ -207,6 +241,7 @@ def parse(text: str, name: str = "script.md") -> Script:
         episode=int(_text(data.get("episode"))) if _text(data.get("episode")).isdigit() else None,
         kind=_text(data.get("kind")).lower(),
         voice=_text(data.get("voice")).lower(),
+        reel=_text(data.get("reel")),
     )
 
 
@@ -231,7 +266,7 @@ def problems(script: Script) -> list[str]:
     if len(",".join(script.tags)) > TAGS_MAX:
         found.append(f"the tags add up to more than {TAGS_MAX} characters")
     if script.kind not in KINDS:
-        found.append(f"'kind: {script.kind}' is not a kind of video; leave it out, or 'trailer' or 'reel'")
+        found.append(f"'kind: {script.kind}' is not a kind of video; leave it out, or 'trailer', 'reel' or 'long'")
     if len(script.sources) < 2 and script.kind != "trailer":
         found.append("fewer than two sources: every figure, date and quotation needs one")
     for label, address in script.sources:
@@ -263,7 +298,16 @@ def problems(script: Script) -> list[str]:
     for scene, title in script.chapters:
         if scene not in names or not title:
             found.append(f"a chapter is not 'a scene of the script | its title': {scene!r}")
-    if not script.short and script.kind != "reel":
+    if script.kind == "long":
+        if not script.reel:
+            found.append("a long video names its reel: 'reel: <its folder in reels/>'")
+        if script.short:
+            found.append("a long video has no Short ('short:'): its reel is its short piece")
+        if len(script.chapters) < LONG_CHAPTERS:
+            found.append(f"a long video has {LONG_CHAPTERS} chapters at least ('chapters:'); it has {len(script.chapters)}")
+    elif script.reel:
+        found.append("'reel:' is for a long video (kind: long)")
+    if not script.short and script.kind not in ("reel", "long"):
         found.append("no 'short:' line: name the scenes that make the Short")
     for name in script.short:
         if name not in names:
@@ -274,6 +318,8 @@ def problems(script: Script) -> list[str]:
     spoken = "\n".join([script.title, script.short_title, script.description, *(s.narration for s in script.scenes)])
     for match in ADVICE.finditer(spoken):
         found.append(f"reads as advice: {match.group(0)!r}")
+    if script.kind == "long":
+        found += [f"sounds machine-made: {what}" for what in slop(spoken)]
     if "TODO" in spoken or any("TODO" in part for source in script.sources for part in source):
         found.append("the script still has TODO in it")
     return found

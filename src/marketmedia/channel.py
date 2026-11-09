@@ -99,9 +99,25 @@ class Channel:
     reel_voice_model: str = ""
     reel_voice_settings: tuple = ()
     reel_voices: tuple = ()                # (name, voice, model, settings, cue, longest pause, sentence gap, sentence pause): other voices a reel may ask for
+    # The long video that goes with a reel the owner asks for ([long]; kind: long in its script)
+    long_minutes: tuple[float, float] = (10.0, 12.0)
+    long_gap_seconds: float = 0.35
+    long_crossfade: float = 0.3
+    long_disclaimer: str = ""
 
     def reel_voice_names(self) -> list[str]:
         return [name for name, *_ in self.reel_voices]
+
+    def for_long(self, voice: str = "") -> "Channel":
+        """The channel as a long video sees it: the voice, language and pace of its reel (``voice``,
+        a script's "voice:", as for_reels), drawn wide, for [long]'s length, with no intro and no
+        outro, and the notice in Spanish."""
+        return replace(self.for_reels(voice), minutes=self.long_minutes, gap_seconds=self.long_gap_seconds,
+                       crossfade=self.long_crossfade, disclaimer=self.long_disclaimer or self.reel_disclaimer or self.disclaimer)
+
+    def for_script(self, kind: str, voice: str = "") -> "Channel":
+        """The channel as a video of this kind sees it: a long video its own way, any other as it is."""
+        return self.for_long(voice) if kind == "long" else self
 
     def for_reels(self, voice: str = "") -> "Channel":
         """The channel as a reel sees it: its voice, its language and its pace. ``voice`` names
@@ -138,7 +154,7 @@ def _shared(data: dict, name: str, scene: str) -> Shared | None:
 
 def load(path: Path | None = None) -> Channel:
     data = tomllib.loads((path or ROOT / "channel.toml").read_text(encoding="utf-8"))
-    video, short, voice, youtube, instagram, x, reel = (data.get(k, {}) for k in ("video", "short", "voice", "youtube", "instagram", "x", "reel"))
+    video, short, voice, youtube, instagram, x, reel, long = (data.get(k, {}) for k in ("video", "short", "voice", "youtube", "instagram", "x", "reel", "long"))
     return Channel(
         name=data["name"],
         language=data.get("language", "en"),
@@ -185,4 +201,8 @@ def load(path: Path | None = None) -> Channel:
                            float(v.get("longest_pause", 0)), float(v.get("sentence_gap", 0)),
                            float(v.get("sentence_pause", 0)))
                           for name, v in reel.get("voices", {}).items()),
+        long_minutes=_range(long.get("minutes"), (10, 12)),
+        long_gap_seconds=float(long.get("gap_seconds", 0.35)),
+        long_crossfade=float(long.get("crossfade", 0.3)),
+        long_disclaimer=" ".join(str(long.get("disclaimer", "")).split()),
     )

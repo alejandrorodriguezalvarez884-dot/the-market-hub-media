@@ -21,7 +21,8 @@ def _clock(seconds: float) -> str:
 
 
 def problems(video: Video, channel: Channel) -> list[str]:
-    """Empty when nothing stops this video from being published."""
+    """Empty when nothing stops this video from being published. ``channel`` is the channel as
+    this video sees it (Channel.for_script): a long video's is its reel's, with [long]'s length."""
     if not video.script.is_file():
         return ["no script.md"]
     try:
@@ -32,6 +33,11 @@ def problems(video: Video, channel: Channel) -> list[str]:
     if script.series and script.series not in channel.series:
         found.append(f"'series: {script.series}' is not a series of channel.toml"
                      + (f" ({', '.join(channel.series)})" if channel.series else ""))
+
+    if script.kind == "long" and script.reel:
+        found += _reel_problems(script.reel, video)
+    if script.kind == "long" and script.voice and script.voice not in channel.reel_voice_names():
+        found.append(f"'voice: {script.voice}' is not one of [reel.voices] in channel.toml")
 
     length = len(youtube.description(script, channel))
     if length > youtube.DESCRIPTION_MAX:
@@ -70,6 +76,8 @@ def problems(video: Video, channel: Channel) -> list[str]:
         low, high = channel.trailer_seconds if trailer else (m * 60 for m in channel.minutes)
         if not low <= seconds <= high:
             found.append(f"the trailer runs {_clock(seconds)}; a trailer runs {_clock(low)} to {_clock(high)}" if trailer else
+                         f"the long video runs {_clock(seconds)}; a long video runs {_clock(low)} to {_clock(high)}"
+                         if script.kind == "long" else
                          f"the video runs {_clock(seconds)}; the channel's videos run {_clock(low)} to {_clock(high)}")
     if script.cut(short=True):
         seconds = sum(c.seconds for c in render.plan(video, script, channel, short=True))
@@ -77,3 +85,19 @@ def problems(video: Video, channel: Channel) -> list[str]:
         if not low <= seconds <= high:
             found.append(f"the Short runs {_clock(seconds)}; a Short runs {_clock(low)} to {_clock(high)}")
     return found
+
+
+def _reel_problems(name: str, video: Video) -> list[str]:
+    """What is wrong with the reel a long video names: it must be a reel the owner asked for, in
+    reels/ of the same repo. The daily ones (open, close, week, ahead) have no long video."""
+    from . import reels
+    root = video.path.parent.parent
+    try:
+        reel = reels.find(name, root)
+    except LookupError:
+        return [f"'reel: {name}' is not a folder in reels/"]
+    if reel.name != name:
+        return [f"'reel: {name}' must be the reel's whole folder name: {reel.name}"]
+    if reel.daily:
+        return [f"'reel: {name}' is a daily reel; only the reels the owner asks for have a long video"]
+    return []

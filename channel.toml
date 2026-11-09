@@ -67,6 +67,19 @@ after = 0                            # how many of the video's own scenes play b
 narration = "Thanks for watching. The next video is right here. And subscribe, so you don't miss the one after it."
 seconds = 12                         # held at least this long: YouTube's end screen takes 5 to 20 seconds
 
+# The long video on YouTube that goes with every reel the owner asks for (kind: long in its script;
+# skill long-video): the same subject, told at length, in Spanish, with the reel's voice and the reel's
+# look drawn wide (the owner, 2026-11-09: "automatizar la creación de videos largos de 10/12 mins a
+# youtube cada vez que te pida un reel que no sea de los automatizados"). The daily reels have none.
+# Its voice, language and pace are the reel's ([reel] and [reel.voices]); what differs is here.
+[long]
+minutes = [10, 12]                   # how long a long video runs
+gap_seconds = 0.35                   # silence left after each scene: a little more room than a reel
+crossfade = 0.3                      # each slide dissolves into the next, as in the reels
+disclaimer = """
+Contenido informativo y educativo de The Market Hub. No es una recomendación de inversión: nada de \
+lo que se dice es una invitación a comprar, vender o mantener ningún valor."""
+
 # The daily reels on Instagram: Wall Street's open and close, told in Spanish (the owner, 2026-11-02).
 # Each is a folder in reels/ (skill daily-reel), upright only, with no presenter: a format of its own.
 [reel]

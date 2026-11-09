@@ -14,6 +14,9 @@ that presents the channel or a series) is made the same way, but runs thirty to 
 states no figures and needs no sources. Publishing is the user's decision, video by video:
 without their word for this video, this skill stops at the films and uploads nothing.
 
+The long video that goes with a reel the user asked for (10 to 12 minutes, in Spanish, `kind:
+long`) is not made here: it has its own skill, `long-video`.
+
 Work from the root of the `the-market-hub-media` repo. Read `CLAUDE.md` there first: its rules are
 not negotiable. Then read the video's `brief.md`. If its verdict is not **make it**, or it still
 has open questions the user has not answered, say so and stop.

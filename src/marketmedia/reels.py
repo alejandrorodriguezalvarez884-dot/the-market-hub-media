@@ -231,3 +231,39 @@ def cover(reel: Reel, scene: str) -> Path:
 
 def remember(reel: Reel, record: dict) -> None:
     reel.published.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+
+
+# A long video's look, by its reel's voice (the reel's line): the body of its slides, the background
+# and the brand line. A special reel with a look of its own (reels/2026-11-09-jensen-huang) gets the
+# essay look here, and its long video's slides then take the reel's own style instead.
+LOOKS = {
+    "": ("", "tape", "Al día"),
+    "reflexion": ("light essay", "grid", "A fondo"),
+    "didactico": ("light", "grid", "Aprende"),
+    "grafico": ("light", "plain", "Lee el gráfico"),
+}
+
+
+def new_long(reel: Reel, root: Path | None = None) -> Video:
+    """The folder of the long video that goes with ``reel`` (one the owner asked for): videos/ with
+    the reel's name, copied from templates/long, with the reel's title, voice and sources in its
+    script and the look of the reel's line on its slides. The daily reels have none."""
+    if reel.daily:
+        raise ValueError(f"reels/{reel.name} is a daily reel; only the reels the owner asks for have a long video")
+    from . import videos
+    script = scripts.load(reel.script)
+    path = videos.folder(root) / reel.name
+    if path.exists():
+        raise ValueError(f"videos/{reel.name} is there already")
+    look, background, line = LOOKS.get(script.voice, LOOKS["reflexion"])
+    sources = "\n".join(f"  - {label} | {address}" for label, address in script.sources) or "  - TODO lo que dice | https://"
+    fill = {"{{title}}": script.title, "{{reel}}": reel.name, "{{voice}}": script.voice, "{{sources}}": sources,
+            "{{look}}": look, "{{background}}": background, "{{line}}": line}
+    shutil.copytree((root or ROOT) / "templates" / "long", path)
+    for file in path.rglob("*"):
+        if file.is_file() and file.suffix in (".md", ".html", ".svg"):
+            text = file.read_text(encoding="utf-8")
+            for key, value in fill.items():
+                text = text.replace(key, value)
+            file.write_text(text.replace(' class=""', "").replace('class=" thumb"', 'class="thumb"'), encoding="utf-8", newline="\n")
+    return Video(path)

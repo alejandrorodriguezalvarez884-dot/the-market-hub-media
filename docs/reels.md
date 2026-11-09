@@ -68,7 +68,8 @@ Basta con decirlo en una sesión de Claude Code abierta en el workspace, con el 
 
 Claude sigue la skill `daily-reel` (su última parte): busca las fuentes, escribe el guion, dibuja
 las diapositivas, pone la voz, monta, revisa cada fotograma y, si la petición dice "súbelo", lo
-publica con `make reelpost`. Sin "súbelo" lo deja montado y lo enseña.
+publica con `make reelpost`. Sin "súbelo" lo deja montado y lo enseña. Después, en la misma sesión, hace su
+vídeo largo de YouTube (abajo, "El vídeo largo de cada reel a demanda") y pregunta si se sube.
 
 **Las reglas de los reels a demanda** (el usuario, 2026-11-06, tras ver sus números en
 `docs/instagram-strategy.md`): duran **90 segundos como mucho** (`make reelcheck` lo comprueba);
@@ -78,6 +79,41 @@ Madrid, de lunes a viernes, uno al día como mucho y a dos horas o más de cualq
 manda. Los diarios no se piden: los
 hacen las tareas programadas (abajo). Uno de reflexión puede defender una opinión; ninguno
 aconseja ni predice precios.
+
+## El vídeo largo de cada reel a demanda, en YouTube
+
+Desde el 2026-11-09 (el usuario: "automatizar la creación de videos largos de 10/12 mins a youtube
+cada vez que te pida un reel que no sea de los automatizados"), **cada reel que pide el usuario
+trae un vídeo largo en YouTube sobre el mismo tema**, hecho por defecto en la misma sesión,
+después del reel, con la skill [`long-video`](../.claude/skills/long-video/SKILL.md). No hace falta
+pedirlo; si un reel no lo quiere, basta con decirlo ("sin vídeo largo"). **Los diarios no lo
+tienen** (apertura, cierre, semana y futuros): siguen como están.
+
+| | El reel | Su vídeo largo |
+|---|---|---|
+| Dónde | Instagram (y X) | YouTube |
+| Duración | 90 s como mucho | **10 a 12 minutos**, en cinco a ocho capítulos |
+| Idioma y voz | Español, la voz de su línea | La misma: español, la misma `voice:` (ElevenLabs v4) |
+| Aspecto | Vertical | El mismo, en horizontal: `theme/reel.css` + `theme/long.css`, sin presentador |
+| Carpeta | `reels/<fecha>-<palabras>/` | `videos/<fecha>-<palabras>/` (el mismo nombre), `kind: long`, `reel: <carpeta del reel>` |
+| Se publica | Con "súbelo", a las 19:30 | **Solo tras un sí explícito a ese vídeo**, cuando el usuario lo ha visto |
+
+Cómo va: el reel primero (con su hora); después `make longnew REEL=<carpeta>`, que empieza el
+vídeo con el título, la voz, el aspecto y todas las fuentes del reel; más investigación (el
+contexto, cómo funciona, las cifras que no cupieron, la mejor objeción); el guion de unas 1.800 a
+2.050 palabras; una diapositiva por escena dibujada en horizontal; `make check` y `make render`
+(sin voz, para mirarlo antes de pagar); la voz (`make voice`, unos 10.000 a 13.000 caracteres de
+ElevenLabs); otra vez `make render` y `make check`; y la pregunta al usuario: "¿lo subo a
+YouTube?". Mientras YouTube no apruebe la auditoría de la API, lo que sube la API se queda en
+privado, así que con su sí se sube a mano en YouTube Studio (`make kit` y el navegador, dejándole
+solo elegir el archivo y publicar) y se apunta con `make published`.
+
+Sin "AI slop" (el usuario, 2026-11-09): ni frases hechas, ni preguntas de dos palabras que se
+contestan solas, ni relleno, ni diapositivas repetidas o con adornos; `make check` rechaza las
+muletillas más claras y la skill (paso 3b) dice el resto.
+
+Lo eligió el usuario el 2026-11-09: en español con la voz del reel (no en inglés como los vídeos
+del canal ni con la voz de Google) y con el aspecto del reel (no el del canal con presentador).
 
 ## Lo que hace siempre el usuario, en la app
 
@@ -216,6 +252,8 @@ dentro de `the-market-hub-media/`:
   usuario. Dos diarios al día son unos 70.000 caracteres al mes, más los que se pidan.
 - **Instagram**: gratis. El vídeo pasa unos minutos por el bucket
   `arctic-robot-474306-g3-market-hub-reels` y se borra.
+- **El vídeo largo de cada reel a demanda**: unos 10.000 a 13.000 caracteres de ElevenLabs por
+  vídeo (unos siete reels). YouTube, gratis.
 - **Claude**: cada reel lo piensa una sesión de Claude Code, con la cuota del usuario.
 
 ## Comandos
@@ -225,6 +263,11 @@ make reelnew MOMENT=open                 # o close, o unas-palabras para uno a d
 make reelcheck REEL=<carpeta>            # lo que impide publicarlo
 make reel REEL=<carpeta> [DRY=1]         # voz, fotogramas y build/reel.mp4
 make reelpost REEL=<carpeta> [AGAIN=1]   # publicarlo (AGAIN=1: otra vez, si el usuario borró el primero)
+make longnew REEL=<carpeta>              # el vídeo largo de un reel a demanda, en videos/<carpeta>/
+make check VIDEO=<carpeta>               # lo que impide publicarlo (10 a 12 minutos, capítulos, su reel)
+make voice VIDEO=<carpeta> [DRY=1]       # su voz, la del reel (DRY=1: cuántos caracteres, sin gastar)
+make render VIDEO=<carpeta>              # fotogramas y build/video.mp4
+make kit VIDEO=<carpeta>                 # el texto para YouTube Studio, solo tras el sí del usuario
 make story STORY=stories/<carpeta>/story.html [DRAW=1]   # una historia suelta (imagen), solo si el usuario la pide
 make elevenkey                           # la clave de ElevenLabs, en un ordenador nuevo
 make candles REEL=<carpeta> SYMBOL=TSLA FROM=2024-12-02 TO=2025-07-15   # las velas de un reel de Lee el gráfico (Yahoo Finance)

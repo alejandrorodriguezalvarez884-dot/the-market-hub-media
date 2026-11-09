@@ -16,6 +16,12 @@ they named YouTube alone.
 
 Work from the root of the `the-market-hub-media` repo. Read `CLAUDE.md` there first.
 
+**A long video** (`kind: long`, the one that goes with a reel the user asked for; skill
+`long-video`) is published the same way, with three differences: it has no Short, so everything
+below about the Short does not apply; its Instagram piece is its reel, already posted on its own,
+so "The reel on Instagram" does not apply either; and it goes up only after the user's explicit
+yes to it, given once they have seen it.
+
 ## 1. See that it is ready
 
 ```bash
