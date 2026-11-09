@@ -2,6 +2,7 @@
 title: El caso Jensen Huang. Lo que se sabe y lo que pudo pasar
 description: Un reel especial, suelto (9 de noviembre de 2026): la reconstrucción del caso del jefe de Nvidia y la presunta espía china, separando lo que confirman Nvidia y Huang, lo que cuenta la prensa y lo que son solo hipótesis.
 kind: reel
+voice: reflexion
 tags: bolsa, wall street, nvidia, jensen huang, gobierno corporativo
 sources:
   - Yahoo Finance, Nvidia (NVDA) cada cinco minutos con el preapertura, leído el 9 de noviembre de 2026 a las 10:30 de España (data/yahoo-5m-NVDA.json), frente al cierre del viernes 6 (data/yahoo-3mo-NVDA.json) | https://finance.yahoo.com/quote/NVDA/
@@ -20,7 +21,7 @@ Nvidia cae un cinco por ciento antes de abrir. Su jefe ha confesado una infideli
 
 ## 02-rules
 
-Reconstruyamos qué pudo pasar. En verde, lo confirmado. En ámbar, la prensa. En violeta, hipótesis: no son hechos.
+Reconstruyamos qué pudo pasar. En verde, lo confirmado. En amarillo, la prensa. Y a lápiz, las hipótesis: no son hechos.
 
 ## 03-client
 
