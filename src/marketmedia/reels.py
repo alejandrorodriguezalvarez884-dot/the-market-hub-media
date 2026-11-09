@@ -204,11 +204,10 @@ def problems(reel: Reel, channel: Channel) -> list[str]:
             found.append(f"slides/{drawing.name} still has TODO in it")
     from . import remotion
     found += [p for p in remotion.problems(reel, script) if "TODO" not in p and "network" not in p]
-    if reel.daily and script.scenes and not any("one way" in p for p in found):
-        drawn = "remotion" if remotion.used(reel, script) else "html"
-        if drawn != channel.reel_daily_drawing:
-            found.append(f"a daily reel is drawn as {channel.reel_daily_drawing} ([reel] daily_drawing in channel.toml), "
-                         f"and these slides are {'.tsx' if drawn == 'remotion' else '.html'} (docs/remotion.md)")
+    # The scheduled reels are never drawn with Remotion (the owner, 2026-11-09: "para los vídeos
+    # programados no quiero usar remotion"): HTML pages, as the cloud routines make them.
+    if reel.daily and script.scenes and not any("one way" in p for p in found) and remotion.used(reel, script):
+        found.append("a daily reel is drawn as HTML pages, never with Remotion (the owner, 2026-11-09; docs/remotion.md)")
     slides = reel.path / "slides"
     for file in sorted(slides.iterdir()) if slides.is_dir() else []:
         if file.suffix in DRAWINGS and file.stem not in scenes:

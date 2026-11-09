@@ -466,44 +466,6 @@ def _film(args, channel) -> int:
     return 0
 
 
-def _remotiontest(args, channel) -> int:
-    """Try Remotion on this machine (the cloud routines' first): Node, its packages, its Chrome,
-    and a whole daily reel drawn with it, silent (remotion/examples/2026-11-09-open, whose voice
-    is not in git). It speaks nothing, spends nothing and publishes nothing."""
-    import subprocess
-    import time
-    from pathlib import Path
-    try:
-        print(f"Node {subprocess.run([remotion.node(), '--version'], capture_output=True, text=True).stdout.strip()}")
-        remotion.ready()
-    except remotion.Missing as exc:
-        print(f"Remotion is not ready here: {exc}")
-        return 1
-    path = remotion.HOME / "examples" / "2026-11-09-open"
-    piece = reels.Reel(path)
-    script = scripts.load(piece.script)
-    seen = channel.for_reels(script.voice)
-    if not remotion.used(piece, script) or remotion.problems(piece, script):
-        print(f"{path}: not a piece drawn with Remotion")
-        return 1
-    started = time.monotonic()
-    try:
-        film = remotion.film(piece, script, seen, short=True)
-    except RuntimeError as exc:
-        print(str(exc))
-        return 1
-    took = time.monotonic() - started
-    seconds = render.length(film)
-    stills = sorted(piece.frame(c.scene.name, short=True) for c in render.plan(piece, script, seen, short=True))
-    missing = [s.name for s in stills if not s.is_file()]
-    print(f"{film.relative_to(channels.ROOT).as_posix()}: {_clock(seconds)}, {film.stat().st_size / 1e6:.1f} MB, drawn in {took:.0f} s")
-    if missing:
-        print(f"  no still for: {', '.join(missing)}")
-        return 1
-    print(f"Remotion works here: {len(stills)} stills in {stills[0].parent.relative_to(channels.ROOT).as_posix()}/")
-    return 0
-
-
 def _candles(args, channel) -> int:
     """Read a stock's or an index's daily candles from Yahoo Finance into a reel's data/."""
     reel = reels.find(args.reel)
@@ -634,7 +596,6 @@ def main(argv: list[str] | None = None) -> int:
     filming = commands.add_parser("film")
     filming.add_argument("piece")
     filming.add_argument("--stills", action="store_true", help="only each scene's still, as its narration ends")
-    commands.add_parser("remotiontest")
     making = commands.add_parser("reel")
     making.add_argument("reel")
     making.add_argument("--dry-run", action="store_true", help="say what would be spoken, and spend nothing")
@@ -656,7 +617,7 @@ def main(argv: list[str] | None = None) -> int:
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
            "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront,
-           "reelnew": _reelnew, "longnew": _longnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx, "candles": _candles, "film": _film, "remotiontest": _remotiontest}[args.command]
+           "reelnew": _reelnew, "longnew": _longnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx, "candles": _candles, "film": _film}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:

@@ -154,23 +154,19 @@ def test_the_kit_and_the_example_are_in_the_repo():
     assert remotion.used(piece, script) and remotion.problems(piece, script) == []
 
 
-def test_a_daily_reel_is_drawn_as_channel_toml_says(tmp_path, channel):
-    """Until Remotion has passed a test run in the cloud, a daily reel in .tsx is refused, and
-    once [reel] daily_drawing says remotion, one in .html is."""
+def test_a_daily_reel_is_never_drawn_with_remotion(tmp_path, channel):
+    """The scheduled reels stay HTML pages (the owner, 2026-11-09): make reelcheck refuses one in .tsx."""
     path = tmp_path / "reels" / "2026-11-09-open"
     (path / "slides").mkdir(parents=True)
     (path / "script.md").write_text(SCRIPT, encoding="utf-8")
     for name in ("01-hook", "02-count", "03-question"):
         (path / "slides" / f"{name}.tsx").write_text(SCENE, encoding="utf-8")
     reel = reels.Reel(path)
-    assert channels.load(REPO / "channel.toml").reel_daily_drawing == "html"
-    assert any("daily_drawing" in p for p in reels.problems(reel, channel))
-    assert not any("daily_drawing" in p for p in reels.problems(reel, replace(channel, reel_daily_drawing="remotion")))
+    assert any("never with Remotion" in p for p in reels.problems(reel, channel))
     for name in ("01-hook", "02-count", "03-question"):
         (path / "slides" / f"{name}.tsx").rename(path / "slides" / f"{name}.html")
-    assert not any("daily_drawing" in p for p in reels.problems(reel, channel))
-    assert any("daily_drawing" in p for p in reels.problems(reel, replace(channel, reel_daily_drawing="remotion")))
+    assert not any("Remotion" in p for p in reels.problems(reel, channel))
 
 
-def test_a_reel_the_owner_asks_for_may_be_drawn_either_way(piece, channel):
-    assert not any("daily_drawing" in p for p in reels.problems(piece, channel))
+def test_a_reel_the_owner_asks_for_may_be_drawn_with_remotion(piece, channel):
+    assert not any("never with Remotion" in p for p in reels.problems(piece, channel))

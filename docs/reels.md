@@ -17,8 +17,8 @@ En época de resultados, los resultados van primero en los cuatro (el usuario, 2
 
 **Cómo se dibujan** (desde el 2026-11-09; el usuario: «usar remotion para los videos»): los
 reels a demanda de reflexión, didácticos y especiales, y los vídeos largos, con **Remotion**
-(escenas en React, `slides/<escena>.tsx`, con el kit de `remotion/src/kit/`); los diarios y Lee el
-gráfico, todavía como páginas HTML. Qué cambia, el kit y lo que falta para pasar los diarios de la
+(escenas en React, `slides/<escena>.tsx`, con el kit de `remotion/src/kit/`); los diarios (siempre: el usuario
+no quiere Remotion en los programados) y Lee el gráfico, como páginas HTML. Qué cambia, el kit y lo que falta para pasar los diarios de la
 nube: [docs/remotion.md](remotion.md). Las órdenes no cambian: `make reel` elige solo.
 
 **Todas las voces hablan con el modelo `eleven_v4` de ElevenLabs** desde el 2026-11-03 (el usuario:
@@ -199,7 +199,6 @@ Lo que una sesión en la nube no tiene, y cómo lo suple el repo (`src/marketmed
 | `.secrets/instagram-token.txt` | `INSTAGRAM_TOKEN_SECRET`: el token vive en Secret Manager (`market-hub-instagram-token`) y la nube lo renueva allí, porque su disco no dura |
 | `.secrets/elevenlabs-key.txt` | Un secreto de red del entorno para `api.elevenlabs.io` (cabecera `xi-api-key`) y `ELEVENLABS_KEY_BY_PROXY=1` |
 | Chrome y San Francisco | `MEDIA_BROWSER=chromium` y las tipografías Inter, JetBrains Mono y Noto Serif (`scripts/cloud-setup.sh`) |
-| Node.js (Remotion) | Node.js 22 desde `scripts/cloud-setup.sh` (desde el 2026-11-09, para cuando los diarios pasen a Remotion: `docs/remotion.md`) |
 
 **Puesta en marcha, una vez**:
 

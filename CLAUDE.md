@@ -130,9 +130,9 @@ tres aspectos, los fondos, las piezas que entran con la voz y las tres marcas de
 e hipótesis), y Remotion dibuja y monta la película en este ordenador. El guion, la voz, los
 tiempos de cada palabra y las comprobaciones siguen en Python, y `make reel` y `make render` eligen
 solos el motor. Gratis por su licencia (hasta tres personas); nada de Remotion Lambda ni otro
-servicio de pago sin preguntar. **Los reels diarios siguen en HTML** hasta preparar y probar
-Remotion en las rutinas de la nube, y Lee el gráfico también, hasta que su gráfico de velas esté en
-el kit.
+servicio de pago sin preguntar. **Los reels diarios, los programados, se quedan siempre en HTML**
+(el usuario, 2026-11-09: «para los vídeos programados no quiero usar remotion»), y Lee el gráfico
+también, hasta que su gráfico de velas esté en el kit.
 
 Cada tema del canal en inglés (las series como Money 101) da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras

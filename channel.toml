@@ -90,10 +90,6 @@ words_per_minute = 175               # the pace assumed for a scene whose narrat
 gap_seconds = 0.2                    # silence left after each scene: a reel keeps moving
 crossfade = 0.3                      # each slide dissolves into the next, instead of a cut: "se escuchan unos cortes muy
                                      # bruscos cuando se cambia la diapositiva" (the owner, 2026-11-03)
-# How the daily reels are drawn: "html" (pages, theme/reel.css) until Remotion has passed a test
-# run in the cloud routines that make them, then "remotion" (slides/<scene>.tsx; docs/remotion.md).
-# The reels the owner asks for are drawn with Remotion already (the owner, 2026-11-09).
-daily_drawing = "html"
 # The narration: ElevenLabs (the owner, 2026-11-02, after the Google voice sounded flat), with the
 # voice "Dani - Energetic Spanish YouTuber", picked by ear from eight samples. Its key is the
 # owner's, in .secrets/elevenlabs-key.txt (from Secret Manager, ELEVENLABS_API_KEY of llamazo-prod).

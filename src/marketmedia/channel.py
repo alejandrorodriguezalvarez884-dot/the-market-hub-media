@@ -81,9 +81,6 @@ class Channel:
     reel_words_per_minute: int = 175
     reel_gap_seconds: float = 0.2
     reel_crossfade: float = 0.0
-    # How the daily reels (open, close, week, ahead) are drawn: "html" pages, or "remotion" (.tsx)
-    # once Remotion has been tried in the cloud routines that make them (docs/remotion.md).
-    reel_daily_drawing: str = "html"
     # How one scene gives way to the next in the film: 0 is a cut; a reel dissolves ([reel] crossfade)
     crossfade: float = 0.0             # seconds one scene's picture takes to dissolve into the next (0: a cut)
     reel_voice_name: str = ""
@@ -194,7 +191,6 @@ def load(path: Path | None = None) -> Channel:
         reel_words_per_minute=int(reel.get("words_per_minute", 175)),
         reel_gap_seconds=float(reel.get("gap_seconds", 0.2)),
         reel_crossfade=float(reel.get("crossfade", 0)),
-        reel_daily_drawing=str(reel.get("daily_drawing", "html")),
         reel_voice_name=reel.get("voice", ""),
         reel_voice_language=reel.get("voice_language", "es-ES"),
         reel_voice_rate=float(reel.get("rate", 1.0)),
