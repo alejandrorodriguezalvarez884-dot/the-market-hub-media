@@ -165,3 +165,22 @@ def test_a_long_video_may_not_sound_machine_made():
     # A reel is not held to it: its lines keep their own voice.
     assert not [p for p in scripts.problems(scripts.parse(text.replace("kind: long", "kind: reel").replace("reel: 2026-11-06-ai-crash\n", "")))
                 if p.startswith("sounds machine-made")]
+
+
+def test_the_description_is_measured_as_it_goes_up(long):
+    """With its chapters and in bytes: YouTube refused the first long video's description at 5,176
+    characters, which make check had measured without its chapters."""
+    text = long.script.read_text(encoding="utf-8")
+    start = text.index("sources:\n") + len("sources:\n")
+    end = text.index("\n---\n")
+    channel = seen(minutes=(0, 12))
+    for count in range(60, 0, -1):   # as many sources as fit when measured the old way: in characters, with no chapters
+        many = "\n".join(f"  - Fuente número {n}, con tildes: áéíóú | https://example.com/{'x' * 60}/{n}" for n in range(count))
+        long.script.write_text(text[:start] + many + text[end:], encoding="utf-8")
+        script = scripts.load(long.script)
+        if len(youtube.description(script, channel)) <= youtube.DESCRIPTION_MAX:
+            break
+    plain = len(youtube.description(script, channel))
+    whole = youtube.description(script, channel, youtube.chapters(script, render.plan(long, script, channel)))
+    assert plain <= youtube.DESCRIPTION_MAX < len(whole.encode("utf-8"))
+    assert any("bytes; YouTube takes 5000" in p for p in check.problems(long, channel))

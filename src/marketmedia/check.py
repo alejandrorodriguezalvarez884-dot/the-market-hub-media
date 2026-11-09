@@ -39,9 +39,11 @@ def problems(video: Video, channel: Channel) -> list[str]:
     if script.kind == "long" and script.voice and script.voice not in channel.reel_voice_names():
         found.append(f"'voice: {script.voice}' is not one of [reel.voices] in channel.toml")
 
-    length = len(youtube.description(script, channel))
+    # As it goes up: with its chapters, its sources and the notice. YouTube counts bytes, and an accent takes two.
+    cuts = render.plan(video, script, channel) if script.scenes else []
+    length = len(youtube.description(script, channel, youtube.chapters(script, cuts)).encode("utf-8"))
     if length > youtube.DESCRIPTION_MAX:
-        found.append(f"the description, with its sources and the notice, has {length} characters; "
+        found.append(f"the description, with its chapters, its sources and the notice, has {length} bytes; "
                      f"YouTube takes {youtube.DESCRIPTION_MAX}")
 
     drawings = {"thumbnail": video.drawing("thumbnail")}

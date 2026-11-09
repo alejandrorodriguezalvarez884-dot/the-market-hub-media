@@ -156,8 +156,10 @@ Reglas que no se negocian:
   aprobar un brief o un guion, o pedir solo el vídeo, no es pedir la publicación. Se sube con
   `make upload` (la API de YouTube; `make auth` la deja lista, una vez, y lo lanza él), con la
   visibilidad que él diga y, si no dice ninguna, en público (`[youtube] privacy` en
-  `channel.toml`; decisión suya, 2026-10-07). Mientras YouTube no haya
-  auditado el proyecto de la API, lo que se sube por ella queda en privado, y se le dice. A mano
+  `channel.toml`; decisión suya, 2026-10-07). Desde el 2026-11-09 la API sube en público (Google
+  cerró la auditoría el 2026-10-30 diciendo que no hacía falta; el primer vídeo largo salió así);
+  `make upload` dice la visibilidad que dio YouTube. El permiso de `make auth` caduca a los 7 días
+  mientras la app de Google esté en «Prueba» (`docs/youtube-audit.md`). A mano
   sigue pudiéndose: `make kit` deja el texto que pegar en YouTube Studio y `make published`
   apunta la dirección. **Instagram** (cuenta `the_market_hub_app`, desde el 2026-10-08) va igual:
   el Short se publica como reel con `make instagram`, solo cuando él lo pida para ese vídeo.

@@ -240,9 +240,12 @@ Upload only after an explicit yes to this video ("sí, súbelo", "súbelo a YouT
 `publish-video`, without the Short and without the reel on Instagram (the reel is already its
 own post):
 
-- If YouTube has approved the API project's audit, `make upload VIDEO=<name>` (public unless the
-  user said another visibility).
-- While the audit is pending, whatever the API uploads stays locked private, so it goes by hand:
+- `make upload VIDEO=<name>` (public unless the user said another visibility): since 2026-11-09
+  the API uploads in public (the Huang case went up that way). If it fails for the sign-in
+  (`invalid_grant`), `make auth` is the user's to run, ticking every box Google shows; while the
+  Google app is in "Testing" the sign-in lasts seven days (`docs/youtube-audit.md`). Make sure
+  the description fits: `make check` measures it as it goes up, chapters included, in bytes.
+- If YouTube ever keeps it private again, or the API cannot be used, it goes by hand:
   `make kit VIDEO=<name>`, then drive YouTube Studio in the browser to the upload screen, fill in
   everything from `build/youtube.txt` (title, description with chapters and sources, thumbnail,
   captions `captions.srt` in Spanish, not made for kids, category Education, language Spanish),

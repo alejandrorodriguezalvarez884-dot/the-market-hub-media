@@ -7,8 +7,9 @@ description: Publish a finished video of The Market Hub's channel, and its Short
 
 There are two ways, and the user says which: uploading through the API ("súbelo", `make
 upload`), or by hand in YouTube Studio, for which this skill prepares everything to paste and
-afterwards records where the video is. YouTube keeps private whatever an API project uploads
-until the project passes its audit: while that is so, say it before uploading that way. Either
+afterwards records where the video is. Since 2026-11-09 the API uploads in public (Google closed
+the audit request on 2026-10-30 saying none was needed); `make upload` prints the visibility
+YouTube gave, and if it is ever private again, say so. Either
 is done only when the user asks for it, for the video they name. Asking for a video to be
 published is asking for Instagram too (the user, 2026-10-13: "súbelo" means both): once the
 video is public on YouTube, its Short goes up as a reel ("The reel on Instagram", below), unless

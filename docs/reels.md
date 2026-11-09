@@ -104,9 +104,10 @@ contexto, cómo funciona, las cifras que no cupieron, la mejor objeción); el gu
 2.050 palabras; una diapositiva por escena dibujada en horizontal; `make check` y `make render`
 (sin voz, para mirarlo antes de pagar); la voz (`make voice`, unos 10.000 a 13.000 caracteres de
 ElevenLabs); otra vez `make render` y `make check`; y la pregunta al usuario: "¿lo subo a
-YouTube?". Mientras YouTube no apruebe la auditoría de la API, lo que sube la API se queda en
-privado, así que con su sí se sube a mano en YouTube Studio (`make kit` y el navegador, dejándole
-solo elegir el archivo y publicar) y se apunta con `make published`.
+YouTube?". Con su sí, `make upload` lo sube en público por la API (así salió el primero, el caso
+Jensen Huang, el 2026-11-09: https://www.youtube.com/watch?v=oLFyoiVBUi8), y se añade a la lista
+«A fondo» de la página Media del portal. Si el permiso de YouTube ha caducado, `make auth` lo
+renueva el usuario (`docs/youtube-audit.md`); a mano en YouTube Studio queda como alternativa.
 
 Sin "AI slop" (el usuario, 2026-11-09): ni frases hechas, ni preguntas de dos palabras que se
 contestan solas, ni relleno, ni diapositivas repetidas o con adornos; `make check` rechaza las

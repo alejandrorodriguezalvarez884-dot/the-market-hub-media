@@ -1,6 +1,6 @@
 ---
 title: El caso Jensen Huang, a fondo: lo que se sabe, lo que cuenta la prensa y lo que no
-description: El jefe de Nvidia confesó una infidelidad y su consejo le investiga porque, según la prensa, ella sería una espía china. Reconstruimos el caso con monigotes y separamos lo confirmado, lo que cuenta la prensa y las hipótesis: quién es Huang, por qué importa Megaspeed, qué pudo pasar y cuánto pesa un jefe en la empresa que más vale en bolsa.
+description: El jefe de Nvidia confesó una infidelidad y su consejo le investiga porque, según la prensa, ella sería una espía china. Reconstruimos el caso con monigotes, separando lo confirmado, lo que cuenta la prensa y las hipótesis.
 kind: long
 reel: 2026-11-09-jensen-huang
 voice: reflexion
@@ -15,9 +15,8 @@ chapters:
   - 50-weigh | Cuánto pesa un jefe
   - 60-unknown | Lo que no sabemos
 sources:
-  - Yahoo Finance, NVDA cada 5 minutos, 9-11-2026 | https://finance.yahoo.com/quote/NVDA/
-  - Consejo de Nvidia, comunicado, 8-11 | https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors
-  - CNBC, el correo de Huang, 8-11 | https://www.cnbc.com/2026/11/08/nvidia-jensen-huang-email-board-of-directors-statement.html
+  - Yahoo Finance, NVDA, 9-11 | https://finance.yahoo.com/quote/NVDA/
+  - CNBC, el correo y el consejo, 8-11 | https://www.cnbc.com/2026/11/08/nvidia-jensen-huang-email-board-of-directors-statement.html
   - CNBC, el Congreso, 8-11 | https://www.cnbc.com/2026/11/08/jensen-huang-nvidia-china-spy-congress.html
   - CNBC, 9-11 | https://www.cnbc.com/2026/11/09/nvidia-jensen-huang-chinese-spy-investigation.html
   - TechCrunch, el informe, 7-11 | https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo/

@@ -26,7 +26,7 @@ from .script import Script
 
 # Uploading a film, and (force-ssl) its captions and its place in a playlist.
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.force-ssl"]
-DESCRIPTION_MAX = 5000  # YouTube's own limit
+DESCRIPTION_MAX = 5000  # YouTube's own limit, in bytes of UTF-8
 CHAPTER_MIN = 10        # seconds: YouTube ignores chapters when one is shorter
 # The headings of a description, in the language of the video (a long video is in Spanish).
 LABELS = {"en": {"chapters": "Chapters", "sources": "Sources"}, "es": {"chapters": "Capítulos", "sources": "Fuentes"}}

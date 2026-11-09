@@ -139,7 +139,8 @@ of the owner's own Google Cloud project:
 4. `make auth`: it opens the browser to sign in with the channel's account and keeps the token
    in `.secrets/youtube-token.json`. While the consent screen is in "Testing", the sign-in lasts
    seven days: publish the app ("In production") for one that lasts.
-5. Ask for the audit, with the form above. Until it is passed, uploads stay private.
+5. The audit was asked for on 2026-10-17 and Google closed it on 2026-10-30 saying uploads are not
+   made private; since 2026-11-09 they go up public (`docs/youtube-audit.md`).
 
 ## Instagram
 
