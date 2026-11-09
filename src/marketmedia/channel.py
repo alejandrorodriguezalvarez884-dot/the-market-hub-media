@@ -98,7 +98,8 @@ class Channel:
     reel_voice_engine: str = "google"
     reel_voice_model: str = ""
     reel_voice_settings: tuple = ()
-    reel_voices: tuple = ()                # (name, voice, model, settings, cue, longest pause, sentence gap, sentence pause): other voices a reel may ask for
+    reel_voices: tuple = ()                # (name, voice, model, settings, cue, longest pause, sentence gap, sentence pause,
+                                           # words a minute): other voices a reel may ask for
     # The long video that goes with a reel the owner asks for ([long]; kind: long in its script)
     long_minutes: tuple[float, float] = (10.0, 12.0)
     long_gap_seconds: float = 0.35
@@ -127,10 +128,10 @@ class Channel:
             if not found:
                 raise ValueError(f"'voice: {voice}' is not one of [reel.voices] in channel.toml"
                                  + (f" ({', '.join(self.reel_voice_names())})" if self.reel_voices else ""))
-            _, name, model, settings, cue, pause, gap, stop = found[0]
+            _, name, model, settings, cue, pause, gap, stop, pace = found[0]
             return replace(self.for_reels(), voice_name=name, voice_model=model or self.reel_voice_model,
                            voice_settings=settings, voice_cue=cue, voice_pause=pause, voice_sentence_gap=gap,
-                           voice_sentence_pause=stop)
+                           voice_sentence_pause=stop, words_per_minute=pace or self.reel_words_per_minute)
         return replace(self, language=self.reel_language, words_per_minute=self.reel_words_per_minute,
                        gap_seconds=self.reel_gap_seconds, crossfade=self.reel_crossfade, voice_name=self.reel_voice_name,
                        voice_language=self.reel_voice_language, voice_rate=self.reel_voice_rate,
@@ -199,7 +200,7 @@ def load(path: Path | None = None) -> Channel:
         reel_voice_settings=tuple(sorted(reel.get("settings", {}).items())),
         reel_voices=tuple((name, v.get("voice", ""), v.get("model", ""), tuple(sorted(v.get("settings", {}).items())), v.get("cue", ""),
                            float(v.get("longest_pause", 0)), float(v.get("sentence_gap", 0)),
-                           float(v.get("sentence_pause", 0)))
+                           float(v.get("sentence_pause", 0)), int(v.get("words_per_minute", 0)))
                           for name, v in reel.get("voices", {}).items()),
         long_minutes=_range(long.get("minutes"), (10, 12)),
         long_gap_seconds=float(long.get("gap_seconds", 0.35)),

@@ -109,6 +109,8 @@ model = "eleven_v4"                  # every reel on v4 (the owner, 2026-11-03).
                                      # scene, heard as a hard cut at each change of slide; v4 ends each scene whole
 cue = "[reflexivo, tono de profesor sereno]"   # said to v3 and v4 before each scene: how to say it, not words to say
 longest_pause = 0.45                 # v3 left pauses of up to a second: cut down, for more pace (the owner, 2026-11-02)
+words_per_minute = 163               # Julián's own pace: 157 on his reels, 167 on the long video of the Huang case (2026-11-09): what a scene
+                                     # with no voice yet is held for, so a long video is timed right before it is spoken
 
 [reel.voices.reflexion.settings]
 stability = 0.5                      # v3's "natural"
@@ -119,6 +121,7 @@ speed = 1.08                         # "un pelín más de ritmo" (the owner, 202
 [reel.voices.didactico]
 voice = "iJQjCIhyynnZMKT6NN3H"        # Rafa
 model = "eleven_v4"                  # every reel on v4 (the owner, 2026-11-03)
+words_per_minute = 146               # Rafa's own pace, measured on the reels he has said (2026-11-09)
 
 [reel.voices.didactico.settings]
 stability = 0.4

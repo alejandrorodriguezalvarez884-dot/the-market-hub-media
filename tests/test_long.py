@@ -76,6 +76,7 @@ def test_a_long_video_sees_the_channel_as_its_reel_does_but_wide_and_long():
     assert (long.language, long.voice_engine, long.voice_name, long.voice_model) == \
         (reel.language, reel.voice_engine, reel.voice_name, reel.voice_model) == ("es", "elevenlabs", reel.voice_name, "eleven_v4")
     assert long.minutes == (10, 12)
+    assert long.words_per_minute == 163   # Julián's own pace, so a script is timed right before it is spoken
     assert (long.width, long.height) == (1920, 1080)
     assert long.intro is None and long.outro is None
     assert "No es una recomendación de inversión" in long.disclaimer

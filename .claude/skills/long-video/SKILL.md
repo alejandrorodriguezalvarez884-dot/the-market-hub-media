@@ -92,14 +92,22 @@ By line:
   rate without a named source. Check that `theme/chart.js` fills the wide frame: look at the frames.
 - **A special one-off** (like `reels/2026-11-09-jensen-huang/`): its own angle, kept; a
   reconstruction keeps apart what is confirmed, what is reported and what is only a hypothesis,
-  as its reel did, and says which is which out loud.
+  as its reel did, and says which is which out loud. Its long video, `videos/2026-11-09-jensen-huang/`, is the
+  example to copy: the reel's storyboard drawn wide (`slides/wide.css`, `slides/storyboard.js`)
+  and **stick figures** for the people of the story (`slides/figures.js`, the user's request:
+  "con monigotes que simulan a Jensen y la amante y tal"): lines only, no face, one trait each
+  (his black jacket; her bob and badge) and the name written under every figure; a hypothesis
+  drawn in grey dashes (`class="fig sketch"`). Someone not charged with anything is not named,
+  and a relationship is two figures and what the source says, nothing more.
 
 ## 3. The script
 
 `script.md`, the data on top and then the scenes, like a reel's but long:
 
-- **Length: 10 to 12 minutes**, about **1.800 to 2.050 words** at the reels' pace (some 175 words a
-  minute, plus a pause after each scene). `make check` measures it, with the voice once it is made,
+- **Length: 10 to 12 minutes**, at the pace of its voice: `words_per_minute` of the voice in
+  `channel.toml` (Julián 163, Rafa 146, the reels' own 175), plus a pause after each scene. With
+  Julián that is about **1.650 to 1.950 words**; the first long video (the Huang case) had 1.650
+  and ran 10:09 once spoken, so aim for the middle, not the edge. `make check` measures it, with the voice once it is made,
   and refuses a long video outside 10:00 to 12:00. Do not pad to reach ten minutes: if the
   subject runs short, find more of it (step 2), never more words for the same thing.
 - **Structure**: a hook in the first fifteen seconds (the reel's own hook usually works: the fact

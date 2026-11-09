@@ -98,7 +98,13 @@ def sign_in() -> Path:
     client, token = _secrets()
     if not client.is_file():
         raise FileNotFoundError(f"no OAuth client at {client}: see 'Publishing' in the README")
+    # Google lets the owner tick only some of the permissions asked for: take what was given, then say what is missing.
+    os.environ.setdefault("OAUTHLIB_RELAX_TOKEN_SCOPE", "1")
     credentials = InstalledAppFlow.from_client_secrets_file(str(client), SCOPES).run_local_server(port=0)
+    missing = set(SCOPES) - set(credentials.granted_scopes or credentials.scopes or [])
+    if missing:
+        raise PermissionError("Google gave only part of the permissions: run 'make auth' again and tick every box "
+                              f"on its screen (missing: {', '.join(sorted(missing))}, for the captions and the playlists)")
     token.parent.mkdir(parents=True, exist_ok=True)
     token.write_text(credentials.to_json(), encoding="utf-8")
     return token

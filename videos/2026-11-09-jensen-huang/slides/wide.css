@@ -1,0 +1,137 @@
+/* The reel's storyboard (reels/2026-11-09-jensen-huang/slides/storyboard.css), drawn wide for the
+   long video on YouTube (1920x1080). Loaded after it. The sheet keeps its parts:
+
+     header.sheet   on top: STORYBOARD, the case, the chapter and the sheet's number, with a pencil
+                    progress line (storyboard.js)
+     div.key        the three marks, top right
+     main.stage     the panel: on the left, the slug line, the headline and the notes (.copy); on
+                    the right, the drawing (.art), with the stick figures of figures.js
+     div.film       at the foot: the strip of film with the case's dates
+
+   The three marks are still materials that never mix: green underline what Nvidia or Huang
+   confirm, yellow highlighter what the press reports, pencil (grey, dashed) a hypothesis. */
+
+html, body { width: 100vw; height: 100vh; }
+body { font-size: 34px; }
+
+.sheet { left: 70px; right: 70px; top: 34px; }
+.sheet .row { font-size: 24px; gap: 22px; }
+.sheet .case { font-size: 34px; }
+.sheet .chap { font-family: var(--hand); font-size: 26px; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.key { left: auto; right: 70px; top: 104px; gap: 22px; font-size: 24px; }
+
+.stage { left: 70px; right: 70px; top: 152px; height: 712px; padding: 34px 48px; display: grid;
+         grid-template-columns: 0.95fr 1.05fr; gap: 48px; align-items: center; }
+.stage.solo { grid-template-columns: 1fr; }
+.stage.art-left { grid-template-columns: 1.05fr 0.95fr; }
+.stage .copy { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.stage .art { position: relative; height: 100%; min-width: 0; display: flex; align-items: flex-end; justify-content: center; }
+.stage.solo .copy { align-items: flex-start; }
+.slug { font-size: 22px; }
+h1 { font-size: 84px; }
+h1.mid { font-size: 70px; }
+h1.big { font-size: 112px; }
+.hand { font-size: 36px; }
+.hand.small { font-size: 30px; }
+.hand .src, .src { font-size: 18px; }
+.pen-note { font-size: 34px; }
+.fall { font-size: 190px; }
+.letter { font-size: 32px; }
+.ask { font-size: 54px; }
+.question { font-size: 76px; }
+.cal .day b { font-size: 96px; }
+
+.film { top: 900px; height: 118px; transform: rotate(-0.6deg); }
+.film .frames { grid-template-columns: repeat(var(--frames, 9), 1fr); }
+.film .f { font-size: 18px; }
+.film .f.now { font-size: 19px; }
+
+/* The stick figures (figures.js): a figure stands on the floor of its panel, with its name under it. */
+.fig { position: relative; display: inline-flex; flex-direction: column; align-items: center; flex: none; }
+.fig svg { width: var(--w, 210px); height: calc(var(--w, 210px) * 1.55); overflow: visible; filter: url(#rough); }
+.fig svg * { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round;
+             stroke-dasharray: 1; stroke-dashoffset: 1; animation: sb-line 1s cubic-bezier(0.4, 0, 0.2, 1) both; animation-delay: var(--at); }
+.fig svg .solid { fill: var(--ink); }
+.fig svg .lapel { stroke: var(--paper); stroke-width: 4; }
+.fig svg .jacket { fill: var(--ink); fill-opacity: 0; animation: sb-line 1s cubic-bezier(0.4, 0, 0.2, 1) both, fig-fill 0.6s ease both;
+                   animation-delay: var(--at), calc(var(--at) + 0.7s); }
+@keyframes fig-fill { to { fill-opacity: 0.85; } }
+.fig.sketch svg * { stroke: var(--graphite); stroke-width: 4; stroke-dasharray: 0.035 0.02; stroke-dashoffset: 0; animation: sb-fade 0.8s ease both; animation-delay: var(--at); }
+.fig.sketch svg .jacket { fill: var(--graphite); animation: sb-fade 0.8s ease both, fig-fill 0.6s ease both; animation-delay: var(--at), var(--at); }
+@keyframes fig-fill-pencil { to { fill-opacity: 0.35; } }
+.fig.sketch svg .jacket { animation-name: sb-fade, fig-fill-pencil; }
+.fig .name { margin-top: 6px; font-family: var(--hand); font-weight: 700; font-size: 28px; line-height: 1.1; text-align: center;
+             animation: sb-fade 0.5s ease both; animation-delay: calc(var(--at) + 0.4s); }
+.fig .name small { display: block; font-family: var(--script); font-weight: 400; font-size: 17px; color: var(--graphite); }
+.fig.sketch .name { color: var(--graphite); font-weight: 400; }
+.fig.small { --w: 120px; }
+.fig.tiny { --w: 84px; }
+.fig.tiny .name { font-size: 20px; }
+.fig.big { --w: 260px; }
+.fig.walk-in { animation: fig-walk 1.4s cubic-bezier(0.3, 0.7, 0.3, 1) both; animation-delay: var(--at); }
+.fig.walk-in.from-right { animation-name: fig-walk-right; }
+@keyframes fig-walk { from { transform: translateX(-260px); opacity: 0; } 20% { opacity: 1; } to { transform: none; } }
+@keyframes fig-walk-right { from { transform: translateX(260px); opacity: 0; } 20% { opacity: 1; } to { transform: none; } }
+
+/* A row of figures on the panel's floor, with props between them. */
+.floor { position: relative; width: 100%; display: flex; align-items: flex-end; justify-content: space-around; gap: 20px; padding-bottom: 8px; }
+.floor::after { content: ""; position: absolute; left: 0; right: 0; bottom: 56px; height: 0; border-top: 4px solid rgba(28, 27, 31, 0.5); filter: url(#rough); z-index: -1; }
+.floor.no-line::after { display: none; }
+.prop { flex: none; filter: url(#rough); margin-bottom: 52px; }
+.prop.up { margin-bottom: 0; align-self: center; }
+.prop svg { width: var(--w, 150px); height: var(--h, 150px); overflow: visible; }
+.prop svg * { fill: none; stroke: var(--ink); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round;
+              stroke-dasharray: 1; stroke-dashoffset: 1; animation: sb-line 1s cubic-bezier(0.4, 0, 0.2, 1) both; animation-delay: var(--at); }
+.prop.sketch svg * { stroke: var(--graphite); stroke-dasharray: 0.03 0.02; stroke-dashoffset: 0; animation: sb-fade 0.8s ease both; animation-delay: var(--at); }
+.prop.red svg * { stroke: var(--red); }
+.prop.ok svg * { stroke: var(--ok); }
+.prop text { fill: var(--ink); stroke: none; font-family: var(--hand); font-size: 20px; font-weight: 700; animation: sb-fade 0.5s ease both; animation-delay: calc(var(--at) + 0.5s); }
+.prop.sketch text { fill: var(--graphite); }
+
+/* A speech bubble over a figure, written in the mark of what is said. */
+.bubble { position: absolute; padding: 14px 20px; background: #fffdf7; font-family: var(--hand); font-weight: 700; font-size: 28px; line-height: 1.2;
+          max-width: 420px; border-radius: 22px; animation: sb-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--at); }
+.bubble::before { content: ""; position: absolute; inset: 0; border: 4px solid var(--ink); border-radius: 22px; filter: url(#rough); }
+.bubble::after { content: ""; position: absolute; left: var(--tail, 40px); bottom: -22px; width: 26px; height: 26px; background: #fffdf7;
+                 border-right: 4px solid var(--ink); border-bottom: 4px solid var(--ink); transform: rotate(45deg) skew(10deg, 10deg); }
+.bubble.sketch { color: var(--graphite); font-weight: 400; }
+.bubble.sketch::before { border: 3px dashed var(--soft); }
+.bubble.sketch::after { border-color: var(--soft); border-style: dashed; }
+
+/* A dashed link between two figures, for what is only reported or supposed. */
+.link { position: absolute; height: 0; border-top: 5px dashed var(--soft); filter: url(#rough);
+        transform-origin: left; animation: fig-link 0.9s ease both; animation-delay: var(--at); }
+.link.press { border-top-color: #e0b400; }
+@keyframes fig-link { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.link-label { position: absolute; font-family: var(--hand); font-size: 26px; text-align: center; animation: sb-fade 0.5s ease both; animation-delay: calc(var(--at) + 0.6s); }
+
+/* A simple chart drawn in ink (the price), as the hook of the reel. */
+.price { width: 100%; height: 100%; overflow: visible; filter: url(#rough); }
+.price .axis { stroke: rgba(28, 27, 31, 0.35); stroke-width: 2; fill: none; }
+.price .line { stroke: var(--ink); stroke-width: 5; fill: none; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1;
+               animation: sb-line 1.6s cubic-bezier(0.4, 0, 0.2, 1) both; animation-delay: var(--at); }
+.price .red { stroke: var(--red); }
+.price text { font-family: var(--hand); font-size: 24px; fill: var(--graphite); animation: sb-fade 0.5s ease both; animation-delay: var(--at); }
+.price text.big { font-family: var(--marker); font-size: 40px; fill: var(--ink); }
+
+/* A sheet of the timeline (chapter 1): dates down a pencil line. */
+.steps { display: flex; flex-direction: column; gap: 18px; }
+.steps .step { display: grid; grid-template-columns: 200px 1fr; gap: 22px; align-items: baseline; }
+.steps .step b { font-family: var(--marker); font-weight: 400; font-size: 40px; line-height: 1; }
+.steps .step span { font-family: var(--hand); font-size: 30px; line-height: 1.25; }
+
+/* The thumbnail (1280x720). */
+body.thumb .stage { top: 110px; height: 520px; left: 50px; right: 50px; padding: 26px 36px; }
+body.thumb .sheet { left: 50px; right: 50px; top: 24px; }
+body.thumb .key, body.thumb .film { display: none; }
+body.thumb h1 { font-size: 96px; }
+
+/* Labels under props are words, not lines: never stroked or drawn on. */
+.prop svg text { stroke: none !important; stroke-dasharray: none !important; }
+/* The pencil note's label on a line of its own. */
+.pencil .label { display: block; margin-top: 6px; }
+/* The two dates (the last chapter). */
+.cal .day { min-height: 300px; }
+.cal .day b { font-size: 170px; }
+.cal .day p { font-size: 40px; }
+.cal .day i { font-style: normal; }

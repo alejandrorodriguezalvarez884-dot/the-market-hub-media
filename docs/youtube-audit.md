@@ -8,6 +8,22 @@ de Google, cuando haya leído lo que se declara en su nombre.
 
 Las respuestas van en inglés, como el formulario. `[TÚ]` es lo que solo sabe el usuario.
 
+## La respuesta de Google (2026-10-30)
+
+Google contestó al correo del usuario y **cerró la petición** sin pedir nada más: «Please be advised
+that videos uploaded via the API are not automatically marked as private». O sea: para ellos no
+hace falta la auditoría para que lo que sube la API salga en público. La subida de prueba del
+2026-10-17 sí quedó en privado, así que la primera subida de verdad lo dirá (`make upload` imprime
+la visibilidad que YouTube dio y la que se pidió).
+
+Visto el 2026-11-09, al preparar la subida del primer vídeo largo: **el permiso guardado en
+`.secrets/youtube-token.json` ya no vale** (Google contesta `invalid_grant` al renovarlo). Es lo
+que pasa cuando el cliente OAuth está en modo de prueba (los permisos caducan a los 7 días) o
+cuando se revoca. Antes de subir, el usuario lanza `make auth` y entra con la cuenta del canal. Si
+el cliente sigue en modo de prueba, eso habrá que repetirlo cada semana; para que no caduque, la
+pantalla de consentimiento tiene que pasar a «En producción» (Google Auth Platform, Audience), y
+eso es decisión del usuario: es el mismo proyecto que da el login de Google del portal.
+
 ## Enviado el 2026-10-17
 
 El usuario lo envió ese día desde el navegador de la app, con la cuenta dueña del proyecto
