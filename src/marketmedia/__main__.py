@@ -38,7 +38,7 @@ import sys
 from pathlib import Path
 
 from . import channel as channels
-from . import candles, check, frames, instagram, posts, reels, render, videos, voice, xapi, xposts, youtube
+from . import candles, check, frames, instagram, posts, reels, remotion, render, videos, voice, xapi, xposts, youtube
 from . import script as scripts
 
 
@@ -128,12 +128,16 @@ def _render(args, channel) -> int:
     video = videos.find(args.video)
     channel = _seen(video, channel)
     script = scripts.load(video.script)
-    frames.draw(video, script, channel)
+    drawn_with_remotion = remotion.used(video, script)
+    frames.draw(video, script, channel)   # with Remotion, only the thumbnail (an HTML page)
     for short in (False, True):
         if short and not script.cut(short=True):
             continue
+        if short and drawn_with_remotion:
+            print("Short: not made; a film drawn with Remotion has no Short cut from it (docs/remotion.md)")
+            continue
         print("Short:" if short else "Video:")
-        film = render.film(video, script, channel, short)
+        film = remotion.film(video, script, channel, short) if drawn_with_remotion else render.film(video, script, channel, short)
         seconds = sum(c.seconds for c in render.plan(video, script, channel, short))
         print(f"  {film.relative_to(channels.ROOT).as_posix()}  {_clock(seconds)}")
     return 0
@@ -421,10 +425,44 @@ def _reel(args, channel) -> int:
     elif args.dry_run:
         print("Every scene has its voice.")
         return 0
-    frames.draw(reel, script, channel)
-    film = render.film(reel, script, channel, short=True)
+    if remotion.used(reel, script):
+        print("Drawn with Remotion:")
+        film = remotion.film(reel, script, channel, short=True)
+    else:
+        frames.draw(reel, script, channel)
+        film = render.film(reel, script, channel, short=True)
     seconds = sum(c.seconds for c in render.plan(reel, script, channel, short=True))
     print(f"  {film.relative_to(channels.ROOT).as_posix()}  {_clock(seconds)}")
+    return 0
+
+
+def _film(args, channel) -> int:
+    """Draw a piece with Remotion, from its folder (a reel, a long video, or an example in
+    remotion/examples/): its film, or with --stills only each scene's still as its narration ends."""
+    from pathlib import Path
+    path = Path(args.piece).resolve()
+    if not (path / "script.md").is_file():
+        print(f"{args.piece}: no script.md there")
+        return 1
+    script = scripts.load(path / "script.md")
+    piece = reels.Reel(path) if script.kind == "reel" else videos.Video(path)
+    short = script.kind == "reel"
+    channel = channel.for_reels(script.voice) if short else channel.for_script(script.kind, script.voice)
+    if not remotion.used(piece, script):
+        print(f"{args.piece}: its slides are not .tsx; it is drawn with make reel or make render (docs/remotion.md)")
+        return 1
+    found = remotion.problems(piece, script)
+    for problem in found:
+        print(f"  - {problem}")
+    if found:
+        return 1
+    if args.stills:
+        folder = remotion.stills(piece, script, channel, short)
+        print(f"  {folder}")
+        return 0
+    film = remotion.film(piece, script, channel, short)
+    seconds = sum(c.seconds for c in render.plan(piece, script, channel, short))
+    print(f"  {film}  {_clock(seconds)}")
     return 0
 
 
@@ -555,6 +593,9 @@ def main(argv: list[str] | None = None) -> int:
     starting.add_argument("--date", help="the day, like 2026-11-02 (today if not said)")
     commands.add_parser("reelcheck").add_argument("reel", nargs="?")
     commands.add_parser("longnew").add_argument("reel", help="the reel the owner asked for, whose long video this is")
+    filming = commands.add_parser("film")
+    filming.add_argument("piece")
+    filming.add_argument("--stills", action="store_true", help="only each scene's still, as its narration ends")
     making = commands.add_parser("reel")
     making.add_argument("reel")
     making.add_argument("--dry-run", action="store_true", help="say what would be spoken, and spend nothing")
@@ -576,7 +617,7 @@ def main(argv: list[str] | None = None) -> int:
     run = {"new": _new, "status": _status, "check": _check, "frames": _frames, "voice": _voice, "render": _render,
            "kit": _kit, "published": _published, "auth": _auth, "upload": _upload, "instagram": _instagram,
            "story": _story, "carousel": _carousel, "posts": _posts, "xcheck": _xcheck, "xpost": _xpost, "xwho": _xwho, "xposted": _xposted, "xfront": _xfront,
-           "reelnew": _reelnew, "longnew": _longnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx, "candles": _candles}[args.command]
+           "reelnew": _reelnew, "longnew": _longnew, "reelcheck": _reelcheck, "reel": _reel, "reelpost": _reelpost, "reelx": _reelx, "candles": _candles, "film": _film}[args.command]
     try:
         return run(args, channels.load())
     except (LookupError, ValueError, FileNotFoundError, PermissionError, RuntimeError, scripts.Invalid, xposts.Invalid) as exc:

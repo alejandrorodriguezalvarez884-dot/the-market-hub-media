@@ -123,6 +123,17 @@ Subió", "cabe destacar", "revolucionario", "la respuesta te sorprenderá"), ni 
 a los diez minutos, ni diapositivas todas iguales o con adornos que no dicen nada. `make check`
 rechaza las más claras en un vídeo largo (`SLOP` en `script.py`); el resto, la skill (paso 3b).
 
+**Los reels a demanda y sus vídeos largos se dibujan con Remotion** (el usuario, 2026-11-09:
+«usar remotion para los videos»; todo en [docs/remotion.md](docs/remotion.md)): cada escena es
+un componente de React (`slides/<escena>.tsx`) con el kit de Market Hub (`remotion/src/kit/`: los
+tres aspectos, los fondos, las piezas que entran con la voz y las tres marcas de confirmado, prensa
+e hipótesis), y Remotion dibuja y monta la película en este ordenador. El guion, la voz, los
+tiempos de cada palabra y las comprobaciones siguen en Python, y `make reel` y `make render` eligen
+solos el motor. Gratis por su licencia (hasta tres personas); nada de Remotion Lambda ni otro
+servicio de pago sin preguntar. **Los reels diarios siguen en HTML** hasta preparar y probar
+Remotion en las rutinas de la nube, y Lee el gráfico también, hasta que su gráfico de velas esté en
+el kit.
+
 Cada tema del canal en inglés (las series como Money 101) da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
 y la misma voz, dibujadas de nuevo en vertical). El canal es **en inglés**.
@@ -144,7 +155,7 @@ Reglas que no se negocian:
   usuario, 2026-11-02, para todos los vídeos y reels): cuando una escena nombra a una empresa, su
   logotipo, siempre desde `theme/logos/` (Simple Icons, CC0, o dibujado aquí; ver
   `theme/logos/SOURCES.md`), nunca cargado de la red. Cada diapositiva y cada miniatura se dibujan aquí, como
-  código (HTML o SVG), y se convierten en imagen con el Chrome de esta máquina. No se usa ningún
+  código (HTML o SVG, o React con Remotion), y se convierten en imagen con el Chrome de esta máquina. No se usa ningún
   servicio ni modelo de generación de imágenes.
 - **El presentador es un dibujo hecho aquí** (`theme/presenter.js`): medio cuerpo, con manos, que
   mueve la boca con la voz y gesticula (saluda, explica, señala, cuenta con los dedos). No es la

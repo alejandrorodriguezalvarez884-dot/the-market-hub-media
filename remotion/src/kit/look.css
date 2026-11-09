@@ -1,0 +1,200 @@
+/* Market Hub's look for films drawn with Remotion: the pieces of theme/reel.css (the reels drawn as
+   HTML pages) as classes scoped to .mh, with no CSS animation at all. Remotion photographs each
+   frame on its own, so anything that moves is moved by the kit's components from the frame number
+   (motion.tsx), never by @keyframes.
+
+     <Look look="dark|light|essay" bg="tape|candles|grid|city|plain">   the frame, the background
+       <main class="reel">                                              the scene's column
+         <p class="kicker">, <h1>, <p class="lead">, .card, .line, .big, .sticker, .clock, .answers
+
+   dark is the portal's own palette (market-hub-landing/site/src/styles/global.css); light is warm
+   paper for the didactic reels; essay is ink and paper with serif headlines, for the reflective
+   ones. A wide frame (a long video, 1920x1080) gets .wide on its own (theme/long.css). Colours:
+   .y (amber) for what the scene is about, .g and .r only for what went up or down. */
+
+.mh {
+  --page: #0b0c0d; --deep: #070808; --panel: #101213; --line-c: #222528; --line-strong: #3a3e42;
+  --ink: #c9c7c1; --ink-strong: #f2f0ea; --muted: #8c8b86; --faint: #5f5f5b;
+  --card: rgba(16, 18, 19, 0.88); --card-line: rgba(255, 255, 255, 0.13);
+  --amber: #e0b341; --tag: #ecd29a; --on-tag: #17130a;
+  --up: #35c98f; --down: #ff6b57; --sky: #63b3ff;
+  /* The three marks (the Jensen Huang reel's code): confirmed, reported by the press, a hypothesis. */
+  --ok: #35c98f; --ok-hl: rgba(53, 201, 143, 0.38); --press-hl: rgba(255, 214, 10, 0.78); --press-ink: #15120d;
+  --maybe: #8c8b86; --maybe-line: #5f5f5b;
+  --sans: -apple-system, BlinkMacSystemFont, "Inter", "IBM Plex Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
+  --serif: ui-serif, "New York", "Iowan Old Style", "Source Serif 4", "Noto Serif", Georgia, "Times New Roman", serif;
+  position: absolute; inset: 0; overflow: hidden; isolation: isolate;
+  background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 40px; font-weight: 600; line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+}
+.mh * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.mh.light { --page: #f2ede3; --ink: #3a352c; --ink-strong: #15120d; --muted: #6f695d; --faint: #a39d90;
+            --card: rgba(255, 255, 255, 0.92); --card-line: rgba(21, 18, 13, 0.1); --amber: #c27c00;
+            --tag: #15120d; --on-tag: #f6f1e7; --up: #12925c; --down: #e0442f; --sky: #2f7fd6;
+            --ok: #1f9d63; --ok-hl: rgba(46, 196, 120, 0.42); --press-hl: rgba(255, 214, 10, 0.72);
+            --maybe: #6c6a66; --maybe-line: #9a958a; }
+.mh.essay { --page: #f3f0e9; --ink: #2b2a27; --ink-strong: #121110; --muted: #6b6760; --faint: #9c978d;
+            --card: rgba(251, 249, 244, 0.94); --card-line: rgba(18, 17, 16, 0.16); --amber: #8a5a14;
+            --tag: transparent; --on-tag: #121110; --up: #2f6b4f; --down: #8c2f2f; --sky: #2c4a6b;
+            --ok: #1f9d63; --ok-hl: rgba(46, 196, 120, 0.42); --press-hl: rgba(255, 214, 10, 0.72);
+            --maybe: #6c6a66; --maybe-line: #9a958a; }
+
+/* The background (Backdrop, canvas) and the veil over it, so the words read. */
+.mh .bg { position: absolute; z-index: -3; }
+.mh .veil { position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(11, 12, 13, 0.82) 0%, rgba(11, 12, 13, 0.42) 34%, rgba(11, 12, 13, 0.5) 62%, rgba(11, 12, 13, 0.92) 100%),
+    radial-gradient(120% 70% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.6) 100%); }
+.mh.light .veil { background: linear-gradient(180deg, rgba(242, 237, 227, 0.9) 0%, rgba(242, 237, 227, 0.55) 34%, rgba(242, 237, 227, 0.6) 62%, rgba(242, 237, 227, 0.94) 100%); }
+.mh.essay .veil { background: linear-gradient(180deg, rgba(243, 240, 233, 0.94) 0%, rgba(243, 240, 233, 0.72) 40%, rgba(243, 240, 233, 0.78) 65%, rgba(243, 240, 233, 0.96) 100%); }
+.mh.plain { background: radial-gradient(90% 60% at 50% 30%, #17191c, var(--page) 75%); }
+.mh.light.plain { background: radial-gradient(90% 60% at 50% 30%, #fbf8f2, #ece5d7 75%); }
+.mh.essay.plain { background: radial-gradient(90% 60% at 50% 30%, #f9f7f2, #ebe6db 75%); }
+
+/* The scene: upright, everything inside the part of the screen Instagram leaves free (230 to 1450
+   px from the top, clear of the buttons on the right). */
+.mh .reel { position: absolute; left: 72px; right: 150px; top: 250px; bottom: 470px;
+            display: flex; flex-direction: column; align-items: flex-start; gap: 34px; }
+.mh .reel.center { justify-content: center; }
+.mh .reel.full { right: 72px; }
+
+.mh .kicker { display: inline-block; padding: 10px 20px 9px; border-radius: 8px; background: var(--tag); color: var(--on-tag);
+              font-family: var(--mono); font-size: 30px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.15; }
+.mh .kicker.red { background: var(--down); color: #fff; }
+.mh .kicker.green { background: var(--up); color: #06140e; }
+.mh .kicker.sky { background: var(--sky); color: #06101c; }
+
+.mh h1 { font-size: 92px; line-height: 1.02; font-weight: 800; letter-spacing: -0.035em; color: var(--ink-strong);
+         text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55); }
+.mh h1.small { font-size: 74px; }
+.mh h2 { font-size: 60px; line-height: 1.06; font-weight: 800; letter-spacing: -0.03em; color: var(--ink-strong); }
+.mh p.lead { font-size: 46px; line-height: 1.18; font-weight: 600; color: var(--ink-strong); text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6); }
+.mh .y { color: var(--amber); }
+.mh .g { color: var(--up); }
+.mh .r { color: var(--down); }
+.mh .s { color: var(--sky); }
+.mh .dim { color: var(--muted); }
+.mh .mono { font-family: var(--mono); }
+.mh .note { font-size: 28px; font-weight: 500; color: var(--muted); line-height: 1.3; }
+
+.mh .sticker { display: inline-flex; align-items: center; gap: 0.3em; padding: 14px 30px 16px; border-radius: 18px;
+               font-size: 60px; font-weight: 800; letter-spacing: -0.02em; color: #fff; background: var(--down);
+               box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45); white-space: nowrap; }
+.mh .sticker.green { background: var(--up); color: #04130c; }
+.mh .sticker.amber { background: var(--amber); color: #1a1205; }
+.mh .sticker.tag { background: var(--tag); color: var(--on-tag); }
+.mh .sticker.small { font-size: 42px; padding: 10px 22px 12px; }
+
+.mh .card { width: 100%; padding: 30px 36px; border-radius: 28px; background: var(--card); border: 2px solid var(--card-line);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45); display: flex; flex-direction: column; gap: 22px; }
+.mh .card.up { border-color: color-mix(in srgb, var(--up) 70%, transparent); }
+.mh .card.down { border-color: color-mix(in srgb, var(--down) 70%, transparent); }
+.mh .card.amber { border-color: color-mix(in srgb, var(--amber) 70%, transparent); }
+.mh .card .label, .mh .label { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+.mh .line { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 6px 24px; }
+.mh .line .name { font-size: 46px; font-weight: 700; color: var(--ink-strong); }
+.mh .line .name small { display: block; font-size: 28px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+.mh .line .fig { font-size: 52px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.mh .bar { grid-column: 1 / -1; height: 20px; border-radius: 10px; background: rgba(255, 255, 255, 0.09); overflow: hidden; }
+.mh .bar i { display: block; height: 100%; border-radius: 10px; background: var(--amber); transform-origin: left; }
+.mh .bar i.g { background: var(--up); }
+.mh .bar i.r { background: var(--down); }
+
+.mh .big { font-size: 170px; line-height: 0.95; font-weight: 800; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; color: var(--ink-strong); }
+.mh .big.mid { font-size: 128px; }
+.mh .big small { font-size: 0.34em; letter-spacing: 0; font-weight: 700; color: var(--muted); margin-left: 12px; }
+
+.mh .clock { display: flex; align-items: baseline; gap: 18px; }
+.mh .clock b { font-family: var(--mono); font-size: 110px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink-strong); }
+.mh .clock span { font-family: var(--mono); font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+.mh .answers { display: flex; align-items: center; gap: 28px; }
+.mh .answers em { font-style: normal; font-size: 44px; color: var(--muted); }
+
+/* Whose film this is, on top. */
+.mh .brand { position: absolute; left: 72px; top: 170px; display: flex; align-items: center; gap: 14px;
+             font-family: var(--mono); font-size: 26px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); }
+.mh .brand::before { content: ""; width: 16px; height: 16px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 18px var(--amber); }
+
+/* A company's logo (theme/logos/<name>.svg) on a white tile, so every brand colour reads. */
+.mh .logo { display: inline-flex; align-items: center; justify-content: center; gap: 14px; height: 1.05em; min-width: 1.05em;
+            padding: 0.14em; border-radius: 0.22em; background: #fff; vertical-align: -0.12em; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); }
+.mh .logo img { height: 100%; width: auto; display: block; }
+.mh .logo.big { font-size: 120px; border-radius: 26px; }
+
+/* The highlighter (Mark): drawn on by its background's width. */
+.mh .hl { padding: 0 0.12em; margin: 0 -0.04em; border-radius: 0.1em; background-repeat: no-repeat; background-position: 0 60%;
+          -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* The three marks: what a company or a person confirms is underlined in green; what the press
+   reports is highlighted in yellow; a hypothesis is written in pencil, grey and dashed. They are
+   materials, so they never mix, and a scene never shows a hypothesis in green or yellow. */
+.mh .ok { background-image: linear-gradient(transparent 60%, var(--ok-hl) 60%, var(--ok-hl) 94%, transparent 94%); }
+.mh .press { color: var(--press-ink); background-image: linear-gradient(transparent 14%, var(--press-hl) 14%, var(--press-hl) 90%, transparent 90%); }
+.mh .maybe { position: relative; color: var(--maybe); font-weight: 500; padding: 18px 24px; }
+.mh .maybe::before { content: ""; position: absolute; inset: 0; border: 3px dashed var(--maybe-line); border-radius: 10px; }
+.mh .src { display: block; margin-top: 4px; font-family: var(--mono); font-size: 20px; font-weight: 500; color: var(--faint); line-height: 1.3; }
+.mh .key { display: flex; gap: 26px; align-items: center; font-size: 28px; color: var(--muted); }
+.mh .key > span { padding: 0 6px; color: var(--ink); }
+.mh .key > span.press { color: var(--press-ink); }
+.mh .key > span.maybe { padding: 0 12px; color: var(--maybe); }
+.mh .key > span.maybe::before { border-radius: 8px; }
+.mh .key > span.off { opacity: 0.35; }
+
+/* The essay look: serif headlines, hairline rules, square corners, nothing tilted. */
+.mh.essay h1, .mh.essay h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -0.015em; line-height: 1.06; }
+.mh.essay h1 { font-size: 86px; }
+.mh.essay h1.small { font-size: 70px; }
+.mh.essay .y { font-style: italic; }
+.mh.essay .kicker { padding: 0 0 12px; border-radius: 0; border-bottom: 2px solid var(--ink-strong); background: none; color: var(--ink-strong); font-size: 26px; letter-spacing: 0.22em; }
+.mh.essay .kicker.red { color: var(--down); border-color: var(--down); }
+.mh.essay .kicker.green { color: var(--up); border-color: var(--up); }
+.mh.essay .kicker.sky { color: var(--sky); border-color: var(--sky); }
+.mh.essay .card { border-radius: 4px; border: 1px solid var(--card-line); box-shadow: none; }
+.mh.essay .card.up { border-left: 6px solid var(--up); }
+.mh.essay .card.down { border-left: 6px solid var(--down); }
+.mh.essay .card.amber { border-left: 6px solid var(--amber); }
+.mh.essay .sticker { border-radius: 3px; box-shadow: none; font-family: var(--serif); font-weight: 600; font-size: 50px; letter-spacing: -0.01em;
+                     padding: 12px 26px 14px; background: var(--down); color: #fbf9f4; }
+.mh.essay .sticker.green { background: var(--up); color: #fbf9f4; }
+.mh.essay .sticker.amber { background: var(--amber); color: #fbf9f4; }
+.mh.essay .sticker.tag { background: #1b1a18; color: #f3f0e9; }
+.mh.essay .big, .mh.essay .line .fig { font-family: var(--serif); font-weight: 600; letter-spacing: -0.03em; }
+.mh.essay .bar { height: 10px; border-radius: 0; }
+.mh.essay .bar i { border-radius: 0; }
+.mh.essay .logo { box-shadow: none; border: 1px solid var(--card-line); border-radius: 0.12em; }
+.mh.essay .brand::before { background: var(--ink-strong); box-shadow: none; border-radius: 0; width: 22px; height: 3px; }
+.mh.light h1, .mh.light p.lead, .mh.essay h1, .mh.essay p.lead { text-shadow: none; }
+.mh.light .card { box-shadow: 0 18px 50px rgba(60, 45, 20, 0.12); }
+.mh.light .brand, .mh.essay .brand { color: rgba(21, 18, 13, 0.7); }
+.mh.light .bar, .mh.essay .bar { background: rgba(21, 18, 13, 0.08); }
+.mh.light .sticker { box-shadow: 0 12px 30px rgba(60, 45, 20, 0.18); }
+.mh.light .sticker.tag { background: #15120d; color: #f6f1e7; }
+
+/* Drawn wide: a long video on YouTube (1920x1080). The whole screen but a margin; put things side
+   by side (.cols), not one under the other. */
+.mh.wide { font-size: 36px; }
+.mh.wide .veil { background:
+    linear-gradient(90deg, rgba(11, 12, 13, 0.86) 0%, rgba(11, 12, 13, 0.55) 45%, rgba(11, 12, 13, 0.62) 70%, rgba(11, 12, 13, 0.9) 100%),
+    radial-gradient(90% 120% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.55) 100%); }
+.mh.wide.light .veil { background: linear-gradient(90deg, rgba(242, 237, 227, 0.94) 0%, rgba(242, 237, 227, 0.62) 45%, rgba(242, 237, 227, 0.7) 70%, rgba(242, 237, 227, 0.95) 100%); }
+.mh.wide.essay .veil { background: linear-gradient(90deg, rgba(243, 240, 233, 0.96) 0%, rgba(243, 240, 233, 0.78) 45%, rgba(243, 240, 233, 0.82) 70%, rgba(243, 240, 233, 0.97) 100%); }
+.mh.wide .reel { left: 140px; right: 140px; top: 160px; bottom: 130px; gap: 30px; }
+.mh.wide .brand { left: 140px; top: 74px; font-size: 24px; }
+.mh.wide h1 { font-size: 96px; }
+.mh.wide h1.small { font-size: 76px; }
+.mh.wide.essay h1 { font-size: 90px; }
+.mh.wide.essay h1.small { font-size: 72px; }
+.mh.wide p.lead { font-size: 44px; max-width: 30ch; }
+.mh.wide .big { font-size: 190px; }
+.mh .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; width: 100%; align-items: center; }
+.mh .cols.left { grid-template-columns: 1.35fr 1fr; }
+.mh .cols.right { grid-template-columns: 1fr 1.35fr; }
+.mh .cols.three { grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: stretch; }
+.mh .cols > * { min-width: 0; display: flex; flex-direction: column; gap: 26px; align-items: flex-start; }
+.mh .cols > .card { align-items: stretch; }
+.mh .cols p.lead { max-width: none; }
+.mh .chapter { font-family: var(--mono); font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }

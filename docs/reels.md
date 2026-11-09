@@ -15,6 +15,12 @@ automático, qué se pide a mano y cómo dejarlo todo listo.
 
 En época de resultados, los resultados van primero en los cuatro (el usuario, 2026-11-02).
 
+**Cómo se dibujan** (desde el 2026-11-09; el usuario: «usar remotion para los videos»): los
+reels a demanda de reflexión, didácticos y especiales, y los vídeos largos, con **Remotion**
+(escenas en React, `slides/<escena>.tsx`, con el kit de `remotion/src/kit/`); los diarios y Lee el
+gráfico, todavía como páginas HTML. Qué cambia, el kit y lo que falta para pasar los diarios de la
+nube: [docs/remotion.md](remotion.md). Las órdenes no cambian: `make reel` elige solo.
+
 **Todas las voces hablan con el modelo `eleven_v4` de ElevenLabs** desde el 2026-11-03 (el usuario:
 "para estos reels y para todos uses el modelo de v4"): el `model` de `[reel]` y de cada
 `[reel.voices.*]` en `channel.toml`.
@@ -232,7 +238,8 @@ Si el token de Instagram se genera de nuevo algún día, se guarda también en e
 Desde la raíz del workspace (`scripts/sync.sh` deja cada submódulo en la punta de `main`), y luego
 dentro de `the-market-hub-media/`:
 
-1. `make install` (Python 3.12 con `uv`; Chrome instalado: dibuja los fotogramas).
+1. `make install` (Python 3.12 con `uv`; Chrome instalado: dibuja los fotogramas) y `make remotion`
+   (Node.js 18 o más; instala Remotion en `remotion/`, y la primera película descarga su Chrome).
 2. `gcloud auth login` y `gcloud auth application-default login` con la cuenta del usuario, y
    `gcloud config set project arctic-robot-474306-g3` (el bucket de los reels y la voz de Google).
 3. **La voz de los reels**: `make elevenkey` trae la clave de ElevenLabs de Secret Manager
@@ -272,5 +279,7 @@ make render VIDEO=<carpeta>              # fotogramas y build/video.mp4
 make kit VIDEO=<carpeta>                 # el texto para YouTube Studio, solo tras el sí del usuario
 make story STORY=stories/<carpeta>/story.html [DRAW=1]   # una historia suelta (imagen), solo si el usuario la pide
 make elevenkey                           # la clave de ElevenLabs, en un ordenador nuevo
+make film PIECE=reels/<carpeta> STILLS=1   # con Remotion: solo la imagen de cada escena, para mirarlas antes
+make remotion                            # instalar Remotion en un ordenador nuevo (npm ci en remotion/; necesita Node)
 make candles REEL=<carpeta> SYMBOL=TSLA FROM=2024-12-02 TO=2025-07-15   # las velas de un reel de Lee el gráfico (Yahoo Finance)
 ```

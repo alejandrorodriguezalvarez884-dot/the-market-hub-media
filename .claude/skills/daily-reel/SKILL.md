@@ -121,6 +121,16 @@ Then the scenes, `## 01-hook` to `## 09-question`, each with what is said.
 
 ## 4. The slides
 
+**Two ways of drawing, by line** (the user, 2026-11-09: "usar remotion para los videos";
+`docs/remotion.md`). **A reel the user asks for** (reflexión, didáctico, a special one) is drawn
+with **Remotion**: one React component per scene, `slides/<scene>.tsx`, with the kit `@mh/kit`
+(`Look`, `Column`, `Reveal say=...`, `Count`, `Mark`, `Logo`, the three marks); copy
+`remotion/examples/2026-11-09-jensen-huang/` and `remotion/examples/kit/`. The rules below (what
+goes on a slide, where, the logos, nothing from the network) are the same; only the code differs:
+`say="palabra"` instead of `data-say`, and nothing moves with CSS. **The daily reels** (open,
+close, week, ahead) are still drawn as HTML pages, as follows, until Remotion is set up and tried
+in the cloud routines (`docs/remotion.md`, last section): do not draw a daily reel in .tsx.
+
 One page per scene, `slides/<scene>.html`, upright at 1080 × 1920, with `theme/reel.css` and
 `theme/reel.js` (read the comments at the top of both). Start from the slides of the last reel:
 the same pieces in another order is the format. Each scene:
@@ -179,7 +189,10 @@ make reelcheck REEL=<folder>
 make reel REEL=<folder>
 ```
 
-`make reel` speaks what is not spoken yet (ElevenLabs, the voice Dani the user chose: about 1.600
+`make reel` picks the way of drawing from the slides (all `.tsx`: Remotion; `.html`: the page
+montage). With Remotion, `make film PIECE=reels/<folder> STILLS=1` draws only each scene's still, to
+look at the slides before the film (and before paying for the voice: without it each scene lasts
+what its words would take). `make reel` speaks what is not spoken yet (ElevenLabs, the voice Dani the user chose: about 1.600
 characters a reel, paid by the character on the user's ElevenLabs account), draws every frame and makes `build/reel.mp4`. It says each scene's
 length; the whole must be 60 to 100 seconds (`make reelcheck` says so too). If it prints that a
 slide "waits for" a word its narration does not say, fix the `data-say`.
@@ -245,8 +258,9 @@ bubble behaves). They follow this skill with these differences:
   The daily reels (`open`, `close`, `week`, `ahead`) never have one, and nothing is asked.
 
 - The folder is `reels/<date>-<a-few-words>/` (`make reelnew MOMENT=<a-few-words>`).
+- **Drawn with Remotion**: `slides/<scene>.tsx` (step 4, `docs/remotion.md`).
 - The script says `voice: reflexion` (Julián on ElevenLabs v3, as a calm, reflective teacher).
-- The look is an essay: `<body class="light essay" data-bg="...">` (serif headlines, ink and
+- The look is an essay: `<Look look="essay" bg="...">` in Remotion (as an HTML page it was `<body class="light essay" data-bg="...">`) (serif headlines, ink and
   paper, nothing tilted: "más serio y reflexivo", the user, 2026-11-02), unlike the didactic ones.
   Copy the slides of `reels/2026-11-02-not-a-bubble/`.
 - It may defend an opinion, said as one ("no parece una burbuja"), with the facts that support it
@@ -279,7 +293,7 @@ The user also asks for **didactic reels**, one by one (2026-11-02): one stock-ma
 explained (the first: bond yields against stocks, `reels/2026-11-02-bond-yields-vs-stocks/`,
 the example to copy). Same differences as above (their own folder, the light look), and:
 
-- The script says `voice: didactico` (Rafa).
+- The script says `voice: didactico` (Rafa). Drawn with Remotion, `<Look look="light" ...>` (step 4).
 - Teach first with something anyone can picture (a loan, a seesaw), drawn on the slide and
   marked "Ejemplo" when its numbers are made up; the real figures come after, with sources.
   One idea per scene, a question before each answer, and a recap before the closing question.

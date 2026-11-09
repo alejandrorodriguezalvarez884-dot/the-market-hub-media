@@ -145,6 +145,10 @@ sound: tick
 
 ## 3. The slides: theme/chart.js
 
+These reels are still drawn as HTML pages, not with Remotion (`docs/remotion.md`): their candle
+chart (`theme/chart.js`) is not in the Remotion kit yet. Their long video is drawn with Remotion
+(skill `long-video`), with a chart of its own in .tsx from the same `data/`.
+
 Each scene is `slides/<scene>.html` with `theme/reel.css` and `theme/chart.css`, and these
 scripts at the end, in this order (the test checks it):
 

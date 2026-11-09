@@ -145,6 +145,8 @@ def draw(video: Video, script: Script, channel: Channel, everything: bool = Fals
     for name, target, moving, viewport, scene in wanted:
         source = video.drawing(name)
         voice = video.voice(name) if moving else None
+        if source and source.suffix == ".tsx":   # drawn with Remotion, not photographed here (remotion.py)
+            continue
         if source and (everything or max(_age(source), shared, _age(voice) if voice else 0.0) > _age(target)):
             todo.append((source, target, moving, viewport, scene))
     if not todo:

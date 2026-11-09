@@ -182,15 +182,20 @@ On screen:
 
 ## 4. The slides
 
-One drawing per scene, `slides/<scene>.html`, drawn as code; `slides/01-hook.html` from the
-template is the pattern: `theme/reel.css`, then `theme/long.css`, the body of the reel's line,
-`<canvas class="bg">`, the brand line, `<main class="reel">`, and `theme/reel.js` last. Copy the
-reel's slides as a starting point for the pieces (cards, stickers, logos, `data-say`,
-`data-count`), but **draw them again for a wide screen**: what is stacked in the reel goes side by
+One drawing per scene, **drawn with Remotion** (the user, 2026-11-09: "usar remotion para los
+videos"; `docs/remotion.md`): `slides/<scene>.tsx`, a React component with the kit `@mh/kit`.
+`slides/01-hook.tsx` from the template is the pattern: `<Look look="..." bg="..." brand="...">`
+with the reel's line already filled in by `make longnew`, `<Column>`, and inside it the pieces
+(`kicker`, `h1`, `card`, `sticker`, `Reveal say=...`, `Count`, `Logo`, the three marks). Every
+scene of a film is `.tsx`, or none (`make check` says so); the thumbnail stays `thumbnail.html`.
+`remotion/examples/kit-wide/` shows the kit drawn wide. Copy the reel's slides as a starting point
+for the pieces (if the reel was drawn as HTML, translate: `data-say` is `say`, `data-count` is
+`<Count>`, `.in`/`.pop` are `<Reveal how=...>`), but **draw them again for a wide screen**: what is stacked in the reel goes side by
 side here (`.cols`, `.cols.left`, `.cols.right`, `.cols.three`), headlines are shorter, and the
 frame has to be filled across, not down. A reel with a look of its own (the storyboard of
-`reels/2026-11-09-jensen-huang/`) keeps it: link its style from `../../../reels/<reel>/slides/` and
-adapt it to the wide frame in a `<style>` of the slide.
+`reels/2026-11-09-jensen-huang/`) keeps it: its look in Remotion goes in `slides/look/` (as in
+`remotion/examples/2026-11-09-jensen-huang/slides/look/`), adapted to the wide frame. The long
+videos made before 2026-11-09 (the Huang one) stay HTML pages, and `make render` still draws them.
 
 - Nothing on screen before the voice names it (`data-say`, as in the reels); everything at rest
   before the scene ends.

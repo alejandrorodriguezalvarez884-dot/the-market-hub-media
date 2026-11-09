@@ -1,0 +1,21 @@
+{
+  "name": "market-hub-remotion",
+  "private": true,
+  "description": "Market Hub's films drawn with Remotion (React): the reels the owner asks for and their long videos. Run from Python (src/marketmedia/remotion.py) through render.mjs.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.542",
+    "@remotion/cli": "4.0.542",
+    "@remotion/renderer": "4.0.542",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.542"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "typescript": "5.9.3"
+  }
+}

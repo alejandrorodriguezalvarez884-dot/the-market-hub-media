@@ -31,6 +31,9 @@
 #   make reel REEL=... [DRY=1]  speak a daily reel, draw it and make its film
 #   make reelpost REEL=...      publish a reel on Instagram, tell the portal, then its thread on X
 #   make reelx REEL=...         post a reel's thread on X with its film (when reelpost could not)
+#   make remotion               install Remotion (remotion/: npm ci) and check its kit and every .tsx slide (docs/remotion.md)
+#   make film PIECE=<folder> [STILLS=1]   draw a piece whose slides are .tsx with Remotion: its film, or only its stills
+#                (make reel and make render do it on their own for a reel or a long video drawn that way)
 #   make candles REEL=... SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10   a chart-reading reel's daily candles (Yahoo Finance) into its data/
 #                (ALSO=1: another stock beside the reel's own, in data/candles-<symbol>.js)
 #
@@ -38,7 +41,7 @@
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew longnew reelcheck reel reelpost reelx candles
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew longnew reelcheck reel reelpost reelx candles remotion film
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(or $(GOOGLE_CLOUD_PROJECT),$(shell gcloud config get-value project 2>/dev/null))
@@ -158,3 +161,10 @@ reelx: ## Post the thread of REEL=... on X with its film (paid: about $0.015 a p
 candles: ## A chart-reading reel's daily candles from Yahoo Finance into its data/: REEL=... SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10
 	@[ -n "$(REEL)" ] && [ -n "$(SYMBOL)" ] && [ -n "$(FROM)" ] && [ -n "$(TO)" ] || { echo 'make candles REEL=<folder> SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10'; exit 1; }
 	$(RUN) candles $(REEL) '$(SYMBOL)' $(FROM) $(TO) $(if $(ALSO),--also)
+
+remotion: ## Install Remotion (npm ci in remotion/) and type-check its kit and every slide drawn with it
+	cd remotion && npm ci --no-fund --no-audit && npx tsc --noEmit -p .
+
+film: ## Draw PIECE=<folder> (slides in .tsx) with Remotion: its film, or STILLS=1 for each scene's still only
+	@[ -n "$(PIECE)" ] || { echo 'Which one? make film PIECE=reels/<folder> (or remotion/examples/<folder>)'; exit 1; }
+	$(RUN) film "$(PIECE)" $(if $(STILLS),--stills)

@@ -70,6 +70,8 @@ def problems(video: Video, channel: Channel) -> list[str]:
             found.append(f"{where} loads something from the network")
         if "TODO" in text:
             found.append(f"{where} still has TODO in it")
+    from . import remotion
+    found += [p for p in remotion.problems(video, script) if "TODO" not in p and "network" not in p]
 
     # How long each runs: with the narration that is made, and the channel's pace for the rest.
     if script.scenes:

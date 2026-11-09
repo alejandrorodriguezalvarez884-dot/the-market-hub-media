@@ -25,3 +25,7 @@ dist/
 # A daily reel's film and narration, like a video's
 reels/*/build/
 reels/*/voice/
+
+# Remotion: its Chrome Headless Shell and the bundler's cache (remotion/, docs/remotion.md)
+.remotion/
+.cache/

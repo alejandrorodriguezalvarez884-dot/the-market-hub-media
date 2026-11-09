@@ -5,6 +5,7 @@ from dataclasses import replace
 
 import pytest
 
+from marketmedia import remotion
 from marketmedia import channel as channels
 from marketmedia import check, frames, reels, render, youtube
 from marketmedia import script as scripts
@@ -142,8 +143,10 @@ def test_longnew_starts_it_from_its_reel(root):
     script = scripts.load(video.script)
     assert (script.kind, script.reel, script.voice, script.title) == ("long", "2026-11-06-ai-crash", "reflexion", "¿Se pincha la IA?")
     assert script.sources == scripts.parse(REEL).sources
-    slide = (video.path / "slides" / "01-hook.html").read_text(encoding="utf-8")
-    assert 'class="light essay"' in slide and "theme/long.css" in slide and "A fondo" in slide
+    # Its slides are drawn with Remotion, in the look of the reel's line (docs/remotion.md)
+    slide = (video.path / "slides" / "01-hook.tsx").read_text(encoding="utf-8")
+    assert 'look="essay"' in slide and 'bg="grid"' in slide and "A fondo" in slide and "@mh/kit" in slide
+    assert remotion.used(video, script)
     assert "{{" not in slide and "{{" not in (video.path / "thumbnail.html").read_text(encoding="utf-8")
     assert (video.path / "brief.md").is_file()
     with pytest.raises(ValueError, match="there already"):

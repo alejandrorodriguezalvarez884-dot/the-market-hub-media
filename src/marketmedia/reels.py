@@ -202,6 +202,8 @@ def problems(reel: Reel, channel: Channel) -> list[str]:
             found.append(f"slides/{drawing.name} loads something from the network")
         if "TODO" in text:
             found.append(f"slides/{drawing.name} still has TODO in it")
+    from . import remotion
+    found += [p for p in remotion.problems(reel, script) if "TODO" not in p and "network" not in p]
     slides = reel.path / "slides"
     for file in sorted(slides.iterdir()) if slides.is_dir() else []:
         if file.suffix in DRAWINGS and file.stem not in scenes:
@@ -247,7 +249,8 @@ LOOKS = {
 def new_long(reel: Reel, root: Path | None = None) -> Video:
     """The folder of the long video that goes with ``reel`` (one the owner asked for): videos/ with
     the reel's name, copied from templates/long, with the reel's title, voice and sources in its
-    script and the look of the reel's line on its slides. The daily reels have none."""
+    script and the look of the reel's line on its slides (drawn with Remotion, .tsx; the thumbnail
+    is an HTML page). The daily reels have none."""
     if reel.daily:
         raise ValueError(f"reels/{reel.name} is a daily reel; only the reels the owner asks for have a long video")
     from . import videos
@@ -257,11 +260,12 @@ def new_long(reel: Reel, root: Path | None = None) -> Video:
         raise ValueError(f"videos/{reel.name} is there already")
     look, background, line = LOOKS.get(script.voice, LOOKS["reflexion"])
     sources = "\n".join(f"  - {label} | {address}" for label, address in script.sources) or "  - TODO lo que dice | https://"
+    tone = "essay" if "essay" in look else "light" if "light" in look else "dark"   # the look's name in the Remotion kit
     fill = {"{{title}}": script.title, "{{reel}}": reel.name, "{{voice}}": script.voice, "{{sources}}": sources,
-            "{{look}}": look, "{{background}}": background, "{{line}}": line}
+            "{{look}}": look, "{{background}}": background, "{{line}}": line, "{{tone}}": tone}
     shutil.copytree((root or ROOT) / "templates" / "long", path)
     for file in path.rglob("*"):
-        if file.is_file() and file.suffix in (".md", ".html", ".svg"):
+        if file.is_file() and file.suffix in (".md", ".html", ".svg", ".tsx"):
             text = file.read_text(encoding="utf-8")
             for key, value in fill.items():
                 text = text.replace(key, value)

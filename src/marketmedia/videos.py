@@ -23,7 +23,7 @@ from pathlib import Path
 from .channel import ROOT, SHARED
 
 NAME = re.compile(r"(\d{4}-\d{2}-\d{2})-([a-z0-9][a-z0-9\-]{2,70})")
-DRAWINGS = (".html", ".svg")
+DRAWINGS = (".html", ".svg", ".tsx")   # .tsx: a scene drawn with Remotion (remotion.py)
 AUDIO = (".wav", ".mp3", ".m4a")
 
 
