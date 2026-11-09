@@ -104,11 +104,39 @@ title, a one-line description, a few tags and **every source**, each "what it is
 Then the scenes, `## 01-hook` to `## 09-question`, each with what is said.
 
 - **A story, not a list** (the user, 2026-11-02, after the first reel: "inspírate más en el reel").
-  One thread for the day, told with tension and turns: a hook that raises a question ("Hoy...
-  rebota. ¿Se acabó el miedo?"), going back to explain it ("Para entenderlo, hay que volver al
-  viernes"), a turn ("Pero hoy el protagonista es otro"), and a question before each answer
-  ("¿Por qué?", "¿Y quién gana?", "¿Su secreto?"). Short sentences, an ellipsis where the voice
-  should hold: that is what gives the voice its intonation. See `reels/2026-11-02-open/script.md`.
+  One thread for the day, told with tension and turns. The tension comes from the facts put side
+  by side, not from tricks: "Wall Street abre en verde. Nvidia, en cambio, cae un cinco por ciento"
+  says the turn without "Pero el protagonista va al revés". Short sentences, an ellipsis only where
+  the voice really holds (three at most).
+- **No AI slop** (the user, 2026-11-09: "quiero que los mejores un poco... que le quites algo de AI
+  slop, sin cambiar mucho el estilo"). The format stays (hook, the indices, the thread, what comes
+  next, a question to close); what goes is the formula every reel had repeated by then:
+  - the hook ending in "¿Qué está pasando?", "¿Qué ha pasado?" or "¿Cómo se explica?": end it on
+    the fact, or on a question that only today could ask;
+  - a question of a word or two that the next sentence answers ("¿Por qué?", "¿Y ahora?", "¿Y
+    quién gana?", "¿Su secreto?", "¿Y el consejo?"): say the answer ("Sus rivales suben", "La
+    razón: ..."). Two questions at most before the closing scene;
+  - the stock connectors: "Para entenderlo, hay que volver...", "Pero ojo", "no es poca cosa",
+    "montaña rusa", "echan leña", "el dato de la semana", "Así que te pregunto";
+  - the same closing question every day ("¿un susto... o el principio de algo más?"): ask about
+    today's own thing, in today's words;
+  - starting every sentence with "Y" or "Pero", and the "Y" before the last of every list.
+  `make reelcheck` refuses the clearest (`DAILY_SLOP` in `reels.py`, and the long videos' list in
+  `script.py`), before the voice is paid for; the rest is judgement. Before and after, the open
+  of 2026-11-09:
+
+  ```text
+  Antes:  Lunes. Wall Street abre en verde. Pero Nvidia... se hunde. ¿Por qué va a contracorriente?
+          [...] Pero el protagonista va al revés. Nvidia cae un cinco y medio por ciento. ¿Por qué?
+          Su consejo investiga a su jefe, Jensen Huang. [...] ¿Y quién gana? Sus rivales. AMD sube
+          casi un ocho por ciento. [...] ¿Y ahora? Mañana [...] llega la inflación. El dato de la
+          semana. Así que te pregunto: ¿qué pesará más esta semana... el rebote o Nvidia?
+  Después: Lunes. Wall Street abre en verde. Nvidia, en cambio... cae más de un cinco por ciento:
+          su consejo investiga a su jefe. [...] Nvidia cae un cinco y medio por ciento. Su consejo
+          investiga a Jensen Huang. [...] Sus rivales suben. AMD, casi un ocho por ciento. [...]
+          Mañana, a las dos y media en España, se publica la inflación de octubre en Estados
+          Unidos. ¿Pesará más el rebote, o lo de Nvidia? Te leo en comentarios.
+  ```
 - **Spanish from Spain**, spoken, short sentences: a reel runs **60 to 100 seconds** (the owner, 2026-11-03; the reference ran
   1:37 to 1:43), about 170 to 250 words. Numbers as they are said ("un seis por ciento", "ciento quince mil millones"),
   rounded as a person would say them; the exact figure goes on the slide.
@@ -142,6 +170,9 @@ the same pieces in another order is the format. Each scene:
 - A `.kicker` on top (what part of the story this is: "Lo que mueve hoy", "El viernes", "Esta
   noche"), a large `h1` with a word or two in `.y` (amber), and below it one or two `.card`s or
   `.sticker`s that come in when the voice says their word (`data-say`, classes `.in`, `.pop`).
+- A kicker names what the scene is about ("Los índices", "Nvidia", "Mañana"), and a sticker
+  carries a figure or a fact; neither repeats a line of the narration nor a stock phrase ("Pero
+  el protagonista va al revés", "El dato de la semana", "¿Por qué va a contracorriente?").
 - `.g` / `.r` and `▲` / `▼` only for what went up or down. Figures in the Spanish way
   (28,6 %; 115.000), `data-count` for one that counts up. Every figure on screen says when it is
   from if it is not the time of the reel.

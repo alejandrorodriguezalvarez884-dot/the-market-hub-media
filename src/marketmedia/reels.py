@@ -187,6 +187,8 @@ def problems(reel: Reel, channel: Channel) -> list[str]:
     except scripts.Invalid as exc:
         return [str(exc)]
     found = scripts.problems(script)
+    if reel.daily:
+        found += sounds_made(script)
     if script.voice and script.voice not in channel.reel_voice_names():
         found.append(f"'voice: {script.voice}' is not one of [reel.voices] in channel.toml")
     if script.kind != "reel":
@@ -220,6 +222,41 @@ def problems(reel: Reel, channel: Channel) -> list[str]:
     found += caption_problems(reel.caption.read_text(encoding="utf-8") if reel.caption.is_file() else "", channel)
     found += ["no x.txt: every reel goes to X too, with its thread (the owner, 2026-11-02)"] if not reel.thread_file.is_file() \
         else thread_problems(reel.thread())
+    return found
+
+
+# What makes the daily reels sound machine-made (the owner, 2026-11-09: "quiero que los mejores un
+# poco... que le quites algo de AI slop, sin cambiar mucho el estilo"). By 2026-11-09 every daily
+# reel had the same moves: a hook ending in "¿Qué está pasando?", two or three questions of a word
+# or two that the next sentence answers, dramatic ellipses, the same connectors and the same closing
+# question. On top of the long videos' list (script.SLOP), these; make reelcheck refuses them in a
+# daily reel, before its voice is paid for. The style stays: a hook, a thread, a question to close.
+DAILY_SLOP = tuple((re.compile(pattern, re.I), why) for pattern, why in (
+    (r"¿(y )?(qué está pasando|qué ha pasado|qué pasa|cómo se explica)\?", "the hook's stock question"),
+    (r"¿(y )?(su secreto|el resultado|y ahora|ahora qué|quién gana|buena noticia|por qué)\?", "a stock question the next sentence answers"),
+    (r"pero ojo|así que te pregunto|no es poca cosa|montaña rusa|ech(a|an|ó|aron) leña|para entenderlo,? hay que", "a stock phrase of the daily reels"),
+    (r"(el|un) principio de algo más|el dato (de la semana|del día)|el protagonista (es otro|va al revés)", "a stock phrase of the daily reels"),
+))
+ELLIPSES = 3      # "..." in a daily reel's narration, at most: a hold of the voice, not a drum roll
+QUESTIONS = 2     # questions before the closing scene, at most
+
+
+def sounds_made(script: scripts.Script) -> list[str]:
+    """What in a daily reel's narration sounds machine-made: stock phrases, too many ellipses, too
+    many questions before the last scene (the closing question is the reel's own)."""
+    said = [s.narration for s in script.scenes if s.narration.strip()]
+    if not said:
+        return []
+    text = "\n".join(said)
+    found = [f"sounds machine-made: {what}" for what in scripts.slop(text)]
+    found += [f"sounds machine-made: {m.group(0)!r} ({why})" for pattern, why in DAILY_SLOP for m in pattern.finditer(text)]
+    ellipses = len(re.findall(r"\.\.\.|…", text))
+    if ellipses > ELLIPSES:
+        found.append(f"sounds machine-made: {ellipses} ellipses; {ELLIPSES} at most, where the voice really holds")
+    asked = re.findall(r"¿[^?]*\?", "\n".join(said[:-1]))
+    if len(asked) > QUESTIONS:
+        found.append(f"sounds machine-made: {len(asked)} questions before the last scene ({', '.join(asked)}); "
+                     f"{QUESTIONS} at most: say the answer as a fact")
     return found
 
 
