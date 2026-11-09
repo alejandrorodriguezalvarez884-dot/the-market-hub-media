@@ -16,6 +16,7 @@
   .board .who b { display: block; font-size: 36px; color: var(--ink-strong); font-weight: 700; }
   .board .who span { font-size: 24px; color: var(--muted); }
   .board .v { margin-left: auto; font-family: var(--mono); font-size: 36px; font-weight: 700; }
+  .faces { display: flex; } .faces .robot { width: 72px; height: 72px; margin-right: -14px; }
   .board .ref { width: 96px; height: 96px; display: grid; place-items: center; }
   .board .br.you { border: 3px dashed var(--amber); border-radius: 14px; margin: 14px 18px 6px; }
   .board .you .q { width: 96px; height: 96px; border-radius: 14px; border: 3px dashed var(--amber); display: grid; place-items: center;
@@ -33,16 +34,14 @@
   <div class="card board">
     <div class="br fade" data-say="referencia"><span class="n">–</span>
       <span class="ref"><svg width="64" height="40" viewBox="0 0 64 40" fill="none" stroke="#c9c7c1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 34L20 20L32 27L60 5"/></svg></span>
-      <span class="who"><b>S&amp;P 500 (SPY)</b><span>referencia, sin puesto</span></span><span class="v" style="color:var(--ink)">−4,4 %</span></div>
-    <div class="br"><span class="n">1</span><span class="robot s" data-bot="c398143b54"></span>
-      <span class="who"><b>Bag holder</b><span>desde el 20 oct</span></span><span class="v" style="color:var(--down)">−11,3 %</span></div>
-    <div class="br"><span class="n">–</span><span class="robot s" data-bot="d825c2f9f7"></span>
-      <span class="who"><b>Calm stocks</b><span>aún sin su primer cierre</span></span><span class="v" style="color:var(--muted)">—</span></div>
+      <span class="who"><b>S&amp;P 500 (SPY)</b><span>referencia, sin puesto</span></span></div>
+    <div class="br"><span class="n">#</span><span class="faces"><span class="robot s" data-bot="r8"></span><span class="robot s" data-bot="r9"></span><span class="robot s" data-bot="r10"></span></span>
+      <span class="who"><b>Los bots de los demás</b><span>cada uno con su puesto y sus cifras</span></span></div>
     <div class="br you pop" data-say="cuenta"><span class="n" style="color:var(--amber)">?</span><span class="q">?</span>
       <span class="who"><b>Tu bot</b><span>desde el próximo cierre</span></span></div>
   </div>
 </main>
-<p class="foot">Clasificación pública de Bot League, desde el inicio, al cierre del 6 nov 2026, en papel. El S&amp;P 500, en las sesiones de Bag holder. Rentabilidades de precio, sin dividendos.</p>
+<p class="foot">La clasificación de Bot League es pública: el nombre de cada bot, su idea, sus rentabilidades en papel y lo que tiene. Las caras son de ejemplo.</p>
 <script src="league.js"></script>
 <script src="robots.js"></script>
 <script src="../../../theme/reel.js"></script>

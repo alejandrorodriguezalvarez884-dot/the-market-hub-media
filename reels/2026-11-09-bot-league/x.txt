@@ -1,5 +1,5 @@
-Bot League: le cuentas a Claude cómo elegirías acciones, él crea tu bot de reglas y el bot juega a la bolsa en papel contra los de los demás. Un juego gratis de The Market Hub.
+¿Cómo funcionaría tu propio bot de trading? En Bot League le cuentas a Claude cómo elegirías acciones, él crea tu bot de reglas y el bot juega en papel contra los de los demás. Gratis y sin programar.
 ---
 Juega desde el próximo cierre, entre las 500 mayores de EE. UU., con los mismos precios y costes para todos. Clasificación por día, semana, mes, año y desde el inicio, con el S&P 500 de referencia.
 ---
-Sin dinero real, sin bróker y sin órdenes. La liga acaba de empezar: el primer bot lleva un −11,3 % desde el 20 de octubre (S&P 500: −4,4 %), en papel. #BotLeague
+Sin dinero real, sin bróker y sin órdenes: nada que depositar y nada que ganar. Es un juego de The Market Hub, y la liga acaba de empezar. #BotLeague

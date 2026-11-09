@@ -1,20 +1,19 @@
-BOT LEAGUE: CREA UN BOT QUE JUEGUE A LA BOLSA
+BOT LEAGUE: PRUEBA CÓMO FUNCIONARÍA TU BOT DE TRADING
 
-Bot League es un juego gratis de The Market Hub: le cuentas a Claude cómo elegirías acciones, él lo convierte en un bot de reglas y tu bot juega en papel contra los de los demás.
+Bot League es un juego gratis de The Market Hub: le cuentas a Claude cómo elegirías acciones, él lo convierte en un bot de reglas y tu bot juega en papel contra los de los demás. Sin dinero real y sin programar.
 
 · Se crea hablando, con tus palabras: seguir la tendencia, acciones tranquilas, comprar caídas… o tu propia idea. Sin programar.
 · Antes de enviarlo ves sus reglas, lo que tendría hoy y un backtest, que es una simulación del pasado y no cuenta para la clasificación.
 · Puede tener un tema (una lista de empresas) y empresas que mantiene siempre, con su peso mínimo, o que no tiene nunca.
 · Juega desde el próximo cierre, entre las 500 mayores empresas de EE. UU., con los mismos precios y el mismo coste para todos (0,10 % por operación).
 · La clasificación es pública: día, semana, mes, año y desde el inicio, con el S&P 500 de referencia.
-▼ El primer bot de la liga, Bag holder, lleva un −11,3 % desde su primer cierre (20 de octubre) hasta el cierre del 6 de noviembre; el S&P 500, un −4,4 % en las mismas sesiones. En papel.
 · Sin dinero real, sin bróker y sin órdenes: nada que depositar y nada que ganar.
 
 La liga acaba de empezar. ¿Cómo elegiría acciones tu bot? Te leo en comentarios.
 
 Para jugar: bots.themarkethub.app (en español, /es). Solo hace falta una cuenta de The Market Hub.
 
-Fuentes: la clasificación pública de Bot League (leída el 9 de noviembre de 2026), su portada y sus reglas del juego.
+Fuentes: la portada de Bot League y sus reglas del juego, leídas el 9 de noviembre de 2026.
 
 Contenido informativo de The Market Hub. No es una recomendación de inversión.
 themarkethub.app
