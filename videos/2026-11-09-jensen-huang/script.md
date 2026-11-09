@@ -1,5 +1,5 @@
 ---
-title: El caso Jensen Huang, a fondo: lo que se sabe, lo que cuenta la prensa y lo que no
+title: Jensen Huang, Nvidia y la presunta espía china: lo que se sabe y lo que no
 description: El jefe de Nvidia confesó una infidelidad y su consejo le investiga porque, según la prensa, ella sería una espía china. Reconstruimos el caso con monigotes, separando lo confirmado, lo que cuenta la prensa y las hipótesis.
 kind: long
 reel: 2026-11-09-jensen-huang
