@@ -15,6 +15,14 @@ automático, qué se pide a mano y cómo dejarlo todo listo.
 
 En época de resultados, los resultados van primero en los cuatro (el usuario, 2026-11-02).
 
+**Los diarios, sin fórmula** (el usuario, 2026-11-09: «quiero que los mejores un poco… que le
+quites algo de AI slop, sin cambiar mucho el estilo»): el mismo formato, contado con los hechos en
+vez de con trucos. Fuera el gancho que acaba en «¿Qué está pasando?», las preguntas de una o dos
+palabras que se contestan solas («¿Por qué?», «¿Y ahora?», «¿Su secreto?»; dos preguntas como mucho
+antes del final), los puntos suspensivos de redoble (tres como mucho), las muletillas («Pero ojo»,
+«no es poca cosa», «el dato de la semana») y la misma pregunta final cada día. `make reelcheck` lo
+rechaza antes de pagar la voz; la skill `daily-reel` (paso 3) tiene el antes y el después.
+
 **Cómo se dibujan** (desde el 2026-11-09; el usuario: «usar remotion para los videos»): los
 reels a demanda de reflexión, didácticos y especiales, y los vídeos largos, con **Remotion**
 (escenas en React, `slides/<escena>.tsx`, con el kit de `remotion/src/kit/`); los diarios (siempre: el usuario

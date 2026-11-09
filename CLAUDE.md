@@ -122,6 +122,10 @@ el AI slop posible"): ni muletillas ("en un mundo donde", "no es solo X, es Y", 
 Subió", "cabe destacar", "revolucionario", "la respuesta te sorprenderá"), ni relleno para llegar
 a los diez minutos, ni diapositivas todas iguales o con adornos que no dicen nada. `make check`
 rechaza las más claras en un vídeo largo (`SLOP` en `script.py`); el resto, la skill (paso 3b).
+**Los reels diarios, también sin fórmula** (el usuario, 2026-11-09: «quiero que le quites algo de AI
+slop, sin cambiar mucho el estilo»): mismo formato, pero sin el «¿Qué está pasando?» del gancho, sin
+preguntas de una o dos palabras que se contestan solas, sin muletillas y sin la misma pregunta final
+cada día; `make reelcheck` rechaza las más claras (`DAILY_SLOP` en `reels.py`) antes de pagar la voz.
 
 **Los reels a demanda y sus vídeos largos se dibujan con Remotion** (el usuario, 2026-11-09:
 «usar remotion para los videos»; todo en [docs/remotion.md](docs/remotion.md)): cada escena es
