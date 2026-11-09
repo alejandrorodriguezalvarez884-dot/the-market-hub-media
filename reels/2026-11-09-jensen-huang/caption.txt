@@ -2,7 +2,7 @@ EL CASO JENSEN HUANG: LO QUE SE SABE Y LO QUE PUDO PASAR
 
 Una reconstrucción del caso del jefe de Nvidia que separa tres cosas: lo que confirman Nvidia y Huang, lo que cuenta la prensa y lo que solo son hipótesis.
 
-▼ Nvidia (NVDA) a 176,79 $ a las 10:30 de España del 9 de noviembre, antes de abrir: un 5,3 % por debajo del cierre del viernes (186,64 $).
+▼ Nvidia (NVDA) a 176,30 $ a las 13:40 de España del 9 de noviembre, antes de abrir: un 5,5 % por debajo del cierre del viernes (186,64 $).
 · Confirmado: el 8 de noviembre Huang escribe a la plantilla que fue infiel a su mujer. No nombra a nadie.
 · Confirmado: el consejo abre una investigación independiente, dice no tener motivos para creer que se comprometieran secretos de Nvidia ni la seguridad nacional, y confía en Huang, que sigue al frente.
 · Según la prensa: un informe de inteligencia que circuló en Washington esta primavera dice que el espionaje chino reclutó a una directiva de Megaspeed, un gran cliente de Nvidia en Singapur, para acercarse a Huang. La embajada china lo niega.

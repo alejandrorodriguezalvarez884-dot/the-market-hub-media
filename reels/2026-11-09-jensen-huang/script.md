@@ -5,7 +5,7 @@ kind: reel
 voice: reflexion
 tags: bolsa, wall street, nvidia, jensen huang, gobierno corporativo
 sources:
-  - Yahoo Finance, Nvidia (NVDA) cada cinco minutos con el preapertura, leído el 9 de noviembre de 2026 a las 10:30 de España (data/yahoo-5m-NVDA.json), frente al cierre del viernes 6 (data/yahoo-3mo-NVDA.json) | https://finance.yahoo.com/quote/NVDA/
+  - Yahoo Finance, Nvidia (NVDA) cada cinco minutos con el preapertura, leído el 9 de noviembre de 2026 a las 13:40 de España (data/yahoo-5m-NVDA.json), frente al cierre del viernes 6 (data/yahoo-3mo-NVDA.json) | https://finance.yahoo.com/quote/NVDA/
   - CNBC, el correo de Jensen Huang a la plantilla y el comunicado del consejo de Nvidia, 8 de noviembre de 2026 | https://www.cnbc.com/2026/11/08/nvidia-jensen-huang-email-board-of-directors-statement.html
   - CNBC, Nvidia investiga la relación de Huang con una presunta espía china, 8 de noviembre de 2026 (Megaspeed, sospechas de saltarse las restricciones, el informe de inteligencia) | https://www.cnbc.com/2026/11/08/nvidia-jensen-huang-investigation-china-spy.html
   - CNBC, el Congreso pide explicaciones a Huang (sesión a puerta cerrada el 18 de noviembre; el memorando de la primavera; el Times lo publicó el viernes 6) | https://www.cnbc.com/2026/11/08/jensen-huang-nvidia-china-spy-congress.html
@@ -17,7 +17,7 @@ sources:
 
 ## 01-hook
 
-Nvidia cae un cinco por ciento antes de abrir. Su jefe ha confesado una infidelidad. Según la prensa… con una presunta espía china.
+Nvidia cae más de un cinco por ciento antes de abrir. Su jefe ha confesado una infidelidad. Según la prensa… con una presunta espía china.
 
 ## 02-rules
 
