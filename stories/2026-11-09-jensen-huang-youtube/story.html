@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- An Instagram story, 1080 by 1920, that takes the reel's viewers to the long video on YouTube
+     (https://www.youtube.com/watch?v=oLFyoiVBUi8). The user asked for it on 2026-11-09: "Una
+     historia de Instagram con la pegatina de enlace al vídeo («El caso completo, 10 minutos, en
+     YouTube»). Hazlo". The API cannot put a link sticker on a story, so the user posts this picture
+     from the app and lays the link sticker in the room left for it, under the red arrow (about 1300
+     to 1440 px from the top). Drawn in the look of the reel and the video (the storyboard on drawing
+     paper, the stick figures of the video, the executive unnamed); no figures, so no sources.
+     Everything sits between 250 and 1450 px from the top. A still: nothing moves.
+
+       make story STORY=stories/2026-11-09-jensen-huang-youtube/story.html DRAW=1   # story.jpg, to post by hand -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../reels/2026-11-09-jensen-huang/slides/storyboard.css">
+<link rel="stylesheet" href="../../videos/2026-11-09-jensen-huang/slides/wide.css">
+<style>
+  html, body { width: 1080px; height: 1920px; }
+  /* A still: every line drawn, nothing waiting for a voice. */
+  *, *::before, *::after { animation: none !important; }
+  .fig svg *, .prop svg * { stroke-dashoffset: 0 !important; }
+  .fig svg .jacket { fill-opacity: 0.85; }
+  .fig .name { opacity: 1; }
+  .top { position: absolute; left: 80px; right: 80px; top: 262px; font-family: var(--script); font-weight: 700;
+         font-size: 30px; letter-spacing: 0.08em; text-transform: uppercase; display: flex; gap: 20px; align-items: baseline; }
+  .top .case { font-family: var(--marker); font-weight: 400; font-size: 42px; letter-spacing: 0; text-transform: none; }
+  .top::after { content: ""; position: absolute; left: 0; right: 0; top: 62px; border-top: 3px solid rgba(28, 27, 31, 0.25); }
+  .panel { position: absolute; left: 70px; right: 70px; top: 360px; height: 880px; padding: 54px 56px 30px; }
+  .panel::before { content: ""; position: absolute; inset: 0; border: 6px solid var(--ink); border-radius: 6px; filter: url(#rough);
+                   background: rgba(255, 255, 255, 0.4); z-index: -1; }
+  h1 { font-size: 132px; line-height: 0.92; }
+  .sub { margin-top: 26px; font-family: var(--hand); font-weight: 700; font-size: 64px; line-height: 1.1; }
+  .sub .yt { color: var(--red); }
+  .marks { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: var(--hand); font-size: 36px; color: var(--graphite); }
+  .marks .ok { color: var(--ink); background: linear-gradient(transparent 60%, var(--ok-hl) 60%, var(--ok-hl) 94%, transparent 94%); }
+  .marks .press { color: var(--ink); background: linear-gradient(transparent 14%, var(--press-hl) 14%, var(--press-hl) 90%, transparent 90%); padding: 0 6px; }
+  .marks .maybe { border: 3px dashed var(--soft); border-radius: 8px; padding: 0 12px; }
+  .floor { position: absolute; left: 56px; right: 56px; bottom: 26px; width: auto; justify-content: space-evenly; }
+  .fig { --w: 165px; }
+  .fig .name { font-size: 34px; }
+  .fig .name small { font-size: 20px; }
+  .tap { position: absolute; left: 0; right: 0; top: 1262px; text-align: center; font-family: var(--marker); font-size: 46px; color: var(--red); }
+  .tap svg { display: block; margin: 4px auto 0; width: 60px; height: 70px; overflow: visible; filter: url(#rough); }
+  .tap svg path { fill: none; stroke: var(--red); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="7"/>
+  <feDisplacementMap in="SourceGraphic" scale="5"/></filter></svg>
+<div class="paper"></div>
+<header class="top"><span>Storyboard</span><span class="case">El caso Jensen Huang</span></header>
+<main class="panel">
+  <h1>El caso <span class="pen">completo</span></h1>
+  <p class="sub">10 minutos, en <span class="yt">YouTube</span></p>
+  <p class="marks"><span class="ok">Lo confirmado</span><span class="press">lo que cuenta la prensa</span><span class="maybe">y lo que no</span></p>
+  <div class="floor">
+    <div class="fig" data-who="huang" data-pose="talk" data-label="Huang" data-sub="Nvidia" data-say="0"></div>
+    <div class="fig sketch" data-who="exec" data-pose="stand" data-face="left" data-label="Directiva" data-sub="Megaspeed · sin nombre" data-say="0"></div>
+  </div>
+</main>
+<div class="tap">Toca el enlace<svg viewBox="0 0 60 70"><path d="M30 4 V60 M10 42 L30 64 L50 42"/></svg></div>
+<script src="../../videos/2026-11-09-jensen-huang/slides/figures.js"></script>
+</body>
+</html>
