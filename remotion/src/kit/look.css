@@ -82,6 +82,11 @@
 .mh .sticker { display: inline-flex; align-items: center; gap: 0.3em; padding: 14px 30px 16px; border-radius: 18px;
                font-size: 60px; font-weight: 800; letter-spacing: -0.02em; color: #fff; background: var(--down);
                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45); white-space: nowrap; }
+/* Stuck on slightly turned, as in the daily reels (the CSS property rotate, so it adds to what
+   Reveal moves); .tilt the other way; flat in a row of answers and in the essay look. */
+.mh .sticker { rotate: -3deg; }
+.mh .sticker.tilt { rotate: 3deg; }
+.mh .answers .sticker, .mh.essay .sticker { rotate: none; }
 .mh .sticker.green { background: var(--up); color: #04130c; }
 .mh .sticker.amber { background: var(--amber); color: #1a1205; }
 .mh .sticker.tag { background: var(--tag); color: var(--on-tag); }
@@ -113,6 +118,11 @@
 
 .mh .answers { display: flex; align-items: center; gap: 28px; }
 .mh .answers em { font-style: normal; font-size: 44px; color: var(--muted); }
+
+/* The account's own picture and a line beside it, to close a reel (Profile). */
+.mh .mark { display: flex; align-items: center; gap: 24px; font-size: 44px; font-weight: 700; color: var(--ink-strong); }
+.mh .mark img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.25); }
+.mh.light .mark img, .mh.essay .mark img { border-color: rgba(21, 18, 13, 0.2); }
 
 /* Whose film this is, on top. */
 .mh .brand { position: absolute; left: 72px; top: 170px; display: flex; align-items: center; gap: 14px;

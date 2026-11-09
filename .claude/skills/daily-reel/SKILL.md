@@ -128,8 +128,14 @@ with **Remotion**: one React component per scene, `slides/<scene>.tsx`, with the
 `remotion/examples/2026-11-09-jensen-huang/` and `remotion/examples/kit/`. The rules below (what
 goes on a slide, where, the logos, nothing from the network) are the same; only the code differs:
 `say="palabra"` instead of `data-say`, and nothing moves with CSS. **The daily reels** (open,
-close, week, ahead) are still drawn as HTML pages, as follows, until Remotion is set up and tried
-in the cloud routines (`docs/remotion.md`, last section): do not draw a daily reel in .tsx.
+close, week, ahead) are drawn as `[reel] daily_drawing` in `channel.toml` says: **`html`** (today):
+HTML pages, as follows; **`remotion`** (once Remotion has passed its test run in the cloud
+routines, `docs/remotion.md`, last section): `.tsx` scenes, copying the last daily reel drawn
+that way or `remotion/examples/2026-11-09-open/` (the open of 2026-11-09, the same pieces as the
+HTML ones: `Look bg=...`, `kicker`, `h1`, `card` with `line`s, `Count`, `Bar`, stickers, `Logo`,
+`Profile` to close). `make reelcheck` refuses a daily reel drawn the other way. If `make reel`
+fails in Remotion itself (Node, `npm ci`, its Chrome), do not publish half a reel: report what
+it said, as with any other failure.
 
 One page per scene, `slides/<scene>.html`, upright at 1080 × 1920, with `theme/reel.css` and
 `theme/reel.js` (read the comments at the top of both). Start from the slides of the last reel:

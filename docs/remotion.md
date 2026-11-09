@@ -14,7 +14,7 @@ guion y `make check`/`make reelcheck`, la voz (ElevenLabs y Google), cuándo se 
 |---|---|
 | **Reels a demanda** (reflexión, didácticos, especiales como el de Jensen Huang) | **Remotion**: `slides/<escena>.tsx` |
 | **Vídeos largos de YouTube** de esos reels (skill `long-video`) | **Remotion**, en horizontal; la miniatura sigue siendo `thumbnail.html` |
-| Reels diarios automáticos (apertura, cierre, semana, futuros) | **HTML, como antes**, hasta probar Remotion en la nube (abajo) |
+| Reels diarios automáticos (apertura, cierre, semana, futuros) | **HTML, como antes**, hasta probar Remotion en la nube; lo dice `[reel] daily_drawing` en `channel.toml` (abajo) |
 | Lee el gráfico (`chart-reel`) | HTML, como antes: su gráfico de velas (`theme/chart.js`) aún no está en el kit |
 | Vídeos del canal en inglés con presentador, Shorts recortados, historias y carruseles | HTML, como antes |
 
@@ -39,6 +39,7 @@ remotion/
   src/root.tsx, src/Film.tsx        la película: una escena tras otra, su voz, el fundido
   src/kit/                          el kit de Market Hub (abajo)
   examples/2026-11-09-jensen-huang  el reel de Huang rehecho con Remotion (el ejemplo que copiar)
+  examples/2026-11-09-open          el diario de apertura del 2026-11-09 rehecho con el kit (el modelo de los diarios)
   examples/kit, examples/kit-wide   las piezas del kit en los tres aspectos, en vertical y en horizontal
 src/marketmedia/remotion.py         calcula la película y llama a render.mjs
 ```
@@ -79,6 +80,8 @@ export default () => (
 );
 ```
 
+- Las pegatinas (`sticker`) van un poco inclinadas, como en los diarios (`tilt` hacia el otro
+  lado); planas en una fila de respuestas (`answers`) y en el aspecto de ensayo.
 - **Nada se mueve con CSS** (`@keyframes`, `transition`): Remotion fotografía cada fotograma
   por separado y una animación de CSS saldría distinta cada vez. Lo que se mueve lo mueven los
   componentes del kit a partir del número de fotograma.
@@ -107,6 +110,7 @@ export default () => (
 | `Bar w say tone="g\|r"` | Una barra que crece. |
 | `Type say takes` | Letras que se escriben como a máquina. |
 | `Sparkline values after say labels` | Una línea de precios con datos reales, que se dibuja al decirse; `after`, lo que sigue (la preapertura), a trazos. |
+| `Profile` | La foto de la cuenta con una línea al lado («Te leo en comentarios»), para cerrar un reel. |
 | `Confirmed`, `Reported`, `Hypothesis`, `MarksKey` | **Las tres marcas** del reel de Huang: lo que confirma la empresa o la persona, subrayado en verde; lo que cuenta la prensa, en amarillo; una hipótesis, a lápiz, gris y a trazos. Cada una con su fuente debajo (`src`). Nunca se mezclan. |
 | `useSay`, `useProgress`, `useSeconds`, `useDrawn`, `later` | Para dibujar algo propio que se mueva con la voz. |
 
@@ -118,6 +122,7 @@ make film PIECE=reels/<carpeta> STILLS=1        # solo la imagen de cada escena,
 make film PIECE=reels/<carpeta>                 # la película (lo mismo que hace make reel con una pieza en .tsx)
 make reel REEL=<carpeta>                        # como siempre: voz, y luego Remotion si sus diapositivas son .tsx
 make render VIDEO=<carpeta>                     # como siempre: la miniatura (HTML) y la película con Remotion
+make remotiontest                               # probar Remotion en esta máquina: un diario entero sin voz; no gasta ni publica
 ```
 
 `make film` también vale para los ejemplos (`PIECE=remotion/examples/2026-11-09-jensen-huang`;
@@ -135,15 +140,36 @@ Instagram.
 
 ## Los reels diarios, en la nube
 
-Los diarios siguen con el montaje HTML porque los hacen rutinas en la nube de Claude con el
-entorno «Market Hub reels» (`docs/reels.md`), cuyo script de preparación no instala Node. Para
-pasarlos a Remotion hace falta, en este orden:
+Los diarios los hacen rutinas en la nube de Claude con el entorno «Market Hub reels»
+(`docs/reels.md`). Siguen dibujándose en HTML hasta que Remotion pase una prueba allí. Cómo se
+dibujan lo dice una línea, `[reel] daily_drawing` en `channel.toml`: hoy `"html"`; con
+`"remotion"`, la skill `daily-reel` dibuja los diarios en `.tsx` (copiando
+`remotion/examples/2026-11-09-open/`, el diario de apertura del 2026-11-09 rehecho con el kit), y
+`make reelcheck` rechaza un diario dibujado de la otra forma, así que nunca se mezclan.
 
-1. Que el usuario añada Node al script de preparación del entorno en claude.ai (copiando el nuevo
-   `scripts/cloud-setup.sh` cuando se cambie) y que `npm ci` en `remotion/` y la descarga de
-   Chrome Headless Shell funcionen allí.
-2. Pasar los diarios a `.tsx` (el kit ya tiene todas sus piezas, también los fondos).
-3. Una rutina de prueba que **no publique** (que pare tras `make reel`) y mirar su película.
-4. Solo entonces cambiar la skill `daily-reel` para los diarios.
+Lo que ya está preparado (2026-11-09):
 
-Hasta entonces un reel diario nuevo se dibuja en HTML, como dice `daily-reel`.
+- `scripts/cloud-setup.sh` instala Node.js 22 si el entorno no tiene uno de 18 o más. `make reel`
+  hace `npm ci` en `remotion/` la primera vez y Remotion descarga su Chrome Headless Shell (unos
+  140 MB); las bibliotecas de sistema que necesita son las del Chromium que ya instala el script.
+  El archivo de dependencias trae los binarios de Linux de Remotion y de esbuild.
+- `make remotiontest`: prueba Remotion en la máquina donde corre. Dibuja el diario de ejemplo entero,
+  sin voz, con todos sus fondos, y dice cuánto ha tardado. **No dice nada en voz, no gasta y no
+  publica.** En este Mac: 1:27 de reel en 110 s.
+
+Lo que falta, en este orden:
+
+1. **El usuario** pega el nuevo `scripts/cloud-setup.sh` en el script de preparación del entorno
+   «Market Hub reels» (claude.ai/code, ajustes del entorno). Las rutinas lo usan desde su
+   siguiente ejecución, y no cambia nada más: siguen dibujando en HTML.
+2. **Una prueba que no publique**, en ese entorno y sin conectores: una sesión en la nube, o una
+   rutina de una sola vez con «Run now» que después se borra, con este texto:
+
+   ```text
+   Try Remotion in this environment, and publish nothing. Work in the repo the-market-hub-media: run `uv sync`, then `make remotiontest`. It draws a whole daily reel with no voice; it speaks nothing, spends nothing and publishes nothing. Do not run make reel, make reelpost, make xpost or anything that speaks or publishes, and do not commit or push. Report in Spanish: the Node version, whether it worked, how long the drawing took, and the last 30 lines of its output if it failed.
+   ```
+
+3. Si sale bien y en un tiempo que quepa en la rutina (el montaje HTML de un reel de 1:41 tardó
+   allí 7 min 53 s), se cambia `daily_drawing = "remotion"` en `channel.toml` (un commit) y se
+   mira el primer diario que salga así. Si sale mal, todo sigue en HTML y se arregla lo que diga
+   la prueba.

@@ -34,6 +34,7 @@
 #   make remotion               install Remotion (remotion/: npm ci) and check its kit and every .tsx slide (docs/remotion.md)
 #   make film PIECE=<folder> [STILLS=1]   draw a piece whose slides are .tsx with Remotion: its film, or only its stills
 #                (make reel and make render do it on their own for a reel or a long video drawn that way)
+#   make remotiontest           try Remotion here (the cloud's first): a whole daily reel drawn silent; speaks, spends and publishes nothing
 #   make candles REEL=... SYMBOL=TSLA FROM=2025-01-02 TO=2025-07-10   a chart-reading reel's daily candles (Yahoo Finance) into its data/
 #                (ALSO=1: another stock beside the reel's own, in data/candles-<symbol>.js)
 #
@@ -41,7 +42,7 @@
 
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew longnew reelcheck reel reelpost reelx candles remotion film
+.PHONY: help install test new status check frames voice render kit published auth upload instagram story carousel posts xcheck xpost xwho xkeys xposted xfront elevenkey reelnew longnew reelcheck reel reelpost reelx candles remotion film remotiontest
 
 # The Google Cloud project that pays for the narration.
 GCP_PROJECT ?= $(or $(GOOGLE_CLOUD_PROJECT),$(shell gcloud config get-value project 2>/dev/null))
@@ -168,3 +169,6 @@ remotion: ## Install Remotion (npm ci in remotion/) and type-check its kit and e
 film: ## Draw PIECE=<folder> (slides in .tsx) with Remotion: its film, or STILLS=1 for each scene's still only
 	@[ -n "$(PIECE)" ] || { echo 'Which one? make film PIECE=reels/<folder> (or remotion/examples/<folder>)'; exit 1; }
 	$(RUN) film "$(PIECE)" $(if $(STILLS),--stills)
+
+remotiontest: ## Try Remotion on this machine: Node, its packages, its Chrome and a whole daily reel drawn silent (speaks, spends and publishes nothing)
+	$(RUN) remotiontest

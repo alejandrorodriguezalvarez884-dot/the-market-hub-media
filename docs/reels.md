@@ -199,6 +199,7 @@ Lo que una sesión en la nube no tiene, y cómo lo suple el repo (`src/marketmed
 | `.secrets/instagram-token.txt` | `INSTAGRAM_TOKEN_SECRET`: el token vive en Secret Manager (`market-hub-instagram-token`) y la nube lo renueva allí, porque su disco no dura |
 | `.secrets/elevenlabs-key.txt` | Un secreto de red del entorno para `api.elevenlabs.io` (cabecera `xi-api-key`) y `ELEVENLABS_KEY_BY_PROXY=1` |
 | Chrome y San Francisco | `MEDIA_BROWSER=chromium` y las tipografías Inter, JetBrains Mono y Noto Serif (`scripts/cloud-setup.sh`) |
+| Node.js (Remotion) | Node.js 22 desde `scripts/cloud-setup.sh` (desde el 2026-11-09, para cuando los diarios pasen a Remotion: `docs/remotion.md`) |
 
 **Puesta en marcha, una vez**:
 

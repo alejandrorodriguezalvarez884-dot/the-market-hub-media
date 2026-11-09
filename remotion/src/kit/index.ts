@@ -20,6 +20,6 @@ export type { How } from "./motion";
 export { Backdrop } from "./backdrop";
 export type { Background, Tone } from "./backdrop";
 export { Look, Column } from "./look";
-export { Logo, logoUrl } from "./logo";
+export { Logo, logoUrl, Profile } from "./logo";
 export { Confirmed, Reported, Hypothesis, MarksKey } from "./marks";
 export { Sparkline } from "./chart";
