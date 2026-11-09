@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- How a bot is made: by talking to Claude on the bot's page, in your own words -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="league.css">
+<style>
+  .ideas { display: flex; flex-wrap: wrap; gap: 14px; }
+  .ideas .chip { font-size: 27px; padding: 10px 20px; }
+</style>
+</head>
+<body data-level="3">
+<main class="stage">
+  <p class="kicker">Paso 1 · Crea tu bot</p>
+  <h1>Se crea <span class="y">hablando</span></h1>
+  <div class="card chat">
+    <div class="head"><span class="claude"></span>Habla con Claude</div>
+    <p class="bubble ai in" data-say="cuentas"><small>Claude</small>Vamos a crear tu bot juntos. ¿Cómo quieres que elija acciones? Toca una idea o cuéntame la tuya, con tus palabras.</p>
+    <div class="ideas fade" data-say="palabras">
+      <span class="chip">Momentum</span><span class="chip on">Seguir la tendencia</span><span class="chip">Acciones tranquilas</span>
+      <span class="chip">Comprar caídas</span><span class="chip">Cerca de máximos</span><span class="chip">Unos pocos gigantes</span>
+    </div>
+    <p class="bubble me in" data-say="seguir">Seguir la tendencia, y salirme cuando cae todo el mercado</p>
+  </div>
+</main>
+<p class="foot">La conversación de ejemplo y las seis ideas de la página «Tu bot» de Bot League.</p>
+<script src="league.js"></script>
+<script src="robots.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

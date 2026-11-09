@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- The leaderboard: day, week, month, year and since inception, with the S&P 500 for reference -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="league.css">
+<style>
+  .tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+  .tabs span { font-size: 32px; padding: 10px 20px; border-radius: 10px; color: var(--muted); border: 2px solid transparent; font-weight: 600; }
+  .flash { animation: flash 0.7s ease both; animation-delay: var(--at); }
+  @keyframes flash { 0% { color: var(--muted); } 25%, 60% { color: var(--page); background: var(--amber); border-color: var(--amber); } 100% { color: var(--muted); } }
+  .board { width: 100%; padding: 8px 0; }
+  .board .br { display: flex; align-items: center; gap: 20px; padding: 18px 28px; border-bottom: 2px solid var(--line); color: inherit; }
+  .board .br:last-child { border-bottom: 0; }
+  .board .n { width: 56px; font-family: var(--mono); font-size: 32px; color: var(--muted); }
+  .board .who b { display: block; font-size: 36px; color: var(--ink-strong); font-weight: 700; }
+  .board .who span { font-size: 24px; color: var(--muted); }
+  .board .v { margin-left: auto; font-family: var(--mono); font-size: 36px; font-weight: 700; }
+  .board .ref { width: 96px; height: 96px; display: grid; place-items: center; }
+  .board .br.you { border: 3px dashed var(--amber); border-radius: 14px; margin: 14px 18px 6px; }
+  .board .you .q { width: 96px; height: 96px; border-radius: 14px; border: 3px dashed var(--amber); display: grid; place-items: center;
+                   font-size: 54px; font-weight: 800; color: var(--amber); }
+</style>
+</head>
+<body data-level="7">
+<main class="stage">
+  <p class="kicker">Paso 3 · Sube en la clasificación</p>
+  <h1 class="mid">La clasificación lleva la <span class="y">cuenta</span></h1>
+  <div class="tabs">
+    <span class="flash" data-say="dia">Día</span><span class="flash" data-say="semana">Semana</span><span class="flash" data-say="mes">Mes</span>
+    <span class="flash" data-say="ano">Año</span><span class="lit" data-say="inicio">Desde el inicio</span>
+  </div>
+  <div class="card board">
+    <div class="br fade" data-say="referencia"><span class="n">–</span>
+      <span class="ref"><svg width="64" height="40" viewBox="0 0 64 40" fill="none" stroke="#c9c7c1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 34L20 20L32 27L60 5"/></svg></span>
+      <span class="who"><b>S&amp;P 500 (SPY)</b><span>referencia, sin puesto</span></span><span class="v" style="color:var(--ink)">−4,4 %</span></div>
+    <div class="br"><span class="n">1</span><span class="robot s" data-bot="c398143b54"></span>
+      <span class="who"><b>Bag holder</b><span>desde el 20 oct</span></span><span class="v" style="color:var(--down)">−11,3 %</span></div>
+    <div class="br"><span class="n">–</span><span class="robot s" data-bot="d825c2f9f7"></span>
+      <span class="who"><b>Calm stocks</b><span>aún sin su primer cierre</span></span><span class="v" style="color:var(--muted)">—</span></div>
+    <div class="br you pop" data-say="cuenta"><span class="n" style="color:var(--amber)">?</span><span class="q">?</span>
+      <span class="who"><b>Tu bot</b><span>desde el próximo cierre</span></span></div>
+  </div>
+</main>
+<p class="foot">Clasificación pública de Bot League, desde el inicio, al cierre del 6 nov 2026, en papel. El S&amp;P 500, en las sesiones de Bag holder. Rentabilidades de precio, sin dividendos.</p>
+<script src="league.js"></script>
+<script src="robots.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

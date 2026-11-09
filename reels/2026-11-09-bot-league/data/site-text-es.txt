@@ -1,0 +1,174 @@
+===== https://bots.themarkethub.app/es/ (read 2026-11-09 16:23 Madrid)
+Bot League · El juego de bolsa en el que juegas con un bot
+Bot League
+de The Market Hub
+Clasificación
+Cómo se juega
+Reglas
+Tu bot
+Clasificación
+Cómo se juega
+Reglas
+The Market Hub
+Un juego gratis de The Market Hub
+Crea un bot.
+Déjalo jugar.
+Sube en la clasificación.
+Cuéntale a Claude cómo elegirías acciones y él crea tu bot. Desde el próximo cierre juega en papel contra los de los demás, y la clasificación lleva la cuenta.
+✳
+Crea tu bot con Claude
+Gratis
+Sin dinero real
+Sin programar
+Mira quién va delante ↓
+La clasificación
+Quién va delante ahora mismo.
+cargando
+La clasificación entera →
+Cómo se juega
+Tres pasos y una conversación con Claude.
+1
+Crea tu bot
+Entra con tu cuenta de Market Hub y elige una de seis ideas o cuenta la tuya. Claude la convierte en reglas y te enseña lo que tendría el bot hoy.
+2
+Juega en cada cierre
+Envíalo y entra en el juego en el próximo cierre, en papel, con los mismos precios y costes que los demás bots.
+3
+Sube en la clasificación
+Se clasifica por día, semana, mes, año y desde que empezó. Puedes seguir cambiándolo hablando con Claude, una vez al día.
+✳
+Créalo con Claude
+Tu bot
+Seguir la tendencia, y salirme cuando cae todo el mercado
+Claude
+Aquí tienes un primer intento: las más fuertes de las 300 mayores empresas por encima de su media de 200 sesiones, y liquidez mientras el S&P 500 esté por debajo de la suya. ¿Cuántas acciones quieres?
+Borrador 1 · Seguidor de tendencia
+comprobado: 6 reglas · hoy tendría 15 acciones
+Quince está bien. Que revise cada semana
+Borrador 2 · Seguidor de tendencia
+revisa la cartera en el primer cierre de cada semana
+Backtest del borrador 2, 3 años
+contra el S&P 500 · una simulación del pasado
+Enviarlo
+Empieza en el próximo cierre.
+Las reglas
+Mismos precios, mismos costes, mismo comienzo.
+Todas las reglas →
+Solo en papel
+Sin dinero, sin bróker, sin órdenes. Nada que depositar y nada que ganar.
+Las 500 mayores de EE. UU.
+Solo posiciones largas. Hasta 50 valores, sin fondos.
+0,10 % por operación
+Sobre lo que cambia de manos en cada rebalanceo.
+Desde el próximo cierre
+Lo anterior no cuenta. Un backtest es para ti.
+Un bot por jugador
+Uno nuevo lo sustituye y empieza de cero.
+Tus reglas son tuyas
+La clasificación es pública: nombre, idea, rentabilidades, posiciones.
+Preguntas
+Antes de jugar
+¿Necesito saber programar?
++
+No. Un bot es un archivo corto de reglas, y Claude lo escribe contigo en tu página de Bot League, con tus palabras. Solo necesitas una cuenta en The Market Hub.
+¿Qué cifras puede usar un bot?
++
+Siete, todas calculadas con los cierres diarios: momentum, tendencia, un cruce de medias móviles, volatilidad, RSI, distancia al máximo y beta al S&P 500. Puede filtrar por ellas, puntuar con ellas, limitar sus pesos y apartarse cuando cae el índice.
+¿Puedo cambiar mi bot cuando ya juega?
++
+Sí, hablando con Claude o regla a regla, una vez al día. El cambio entra en el próximo cierre y su historial sigue. También puedes ponerlo en pausa o excluir una empresa.
+Tu idea, en el juego en el próximo cierre.
+Cuéntale a Claude cómo elegirías acciones, mira lo que construye y envíalo.
+Crea tu bot con Claude
+Bot League es un juego gratis de
+The Market Hub
+. Bots de reglas, construidos hablando con Claude, que juegan en papel: sin dinero, sin bróker, sin órdenes.
+Nada de lo que hay aquí es asesoramiento de inversión ni una recomendación de comprar o vender nada. Las rentabilidades pasadas no dicen nada de las futuras.
+Clasificación
+Reglas
+Privacidad
+Condiciones
+The Market Hub
+English
+·
+Español
+
+===== https://bots.themarkethub.app/es/rules/ (read 2026-11-09 16:23 Madrid)
+Reglas del juego · Bot League
+Bot League
+de The Market Hub
+Clasificación
+Cómo se juega
+Reglas
+Tu bot
+Clasificación
+Cómo se juega
+Reglas
+The Market Hub
+Reglas del juego
+Mismos precios, mismos costes y el mismo comienzo para todos los bots.
+Un bot es un archivo de reglas
+No es código. El formato es markethub-bot/1, aquí abajo. Claude lo escribe contigo en tu página, con tus palabras; el servicio comprueba cada campo y rechaza todo lo que el formato no describe.
+Solo en papel
+Bot League es un juego: ejecuta todos los bots sin dinero, sin bróker y sin órdenes, y no hay nada que ganar. En las sesiones en las que un bot revisa la cartera, decide al cierre y opera a ese mismo cierre.
+Las 500 mayores empresas de EE. UU.
+Un bot elige entre ellas, sin fondos, de la lista del día en que se envía. Tiene de 1 a 50, solo posiciones largas: sin ventas en corto y sin préstamos.
+Costes y rentabilidades
+Cada rebalanceo paga el 0,10 % de lo que cambia de manos. Las rentabilidades son de precio, sin dividendos, y la liquidez no rinde nada.
+Clasificado desde el próximo cierre
+El historial de un bot empieza en el primer cierre tras su envío. Lo anterior no cuenta: un backtest es una simulación del pasado, solo para su dueño.
+Día, semana, mes, año y desde el inicio
+En las últimas 1, 5, 21 y 252 sesiones, y desde que empezó cada bot, cada periodo clasificado entre los bots que llevan ese tiempo. El S&P 500 (SPY) está en la clasificación como referencia y nunca ocupa un puesto.
+Un bot por jugador
+Enviar otro lo sustituye y su historial empieza de cero. Retirarlo lo borra junto con su historial.
+Lo que ve todo el mundo
+La clasificación es pública: cualquiera, haya entrado o no, ve el nombre con el que sales, el nombre y la idea del bot, sus rentabilidades, su curva y lo que tiene. Sus reglas son solo tuyas.
+Para curiosos
+Lo que puede decir un bot
+El formato de un bot, campo a campo ›
+universe
+·
+{"largest": 20–500}
+o una lista de 2 a 100 tickers entre las mayores (un tema, como IA y chips), y una lista
+exclude
+: las empresas que no tiene nunca.
+always
+· hasta 10 empresas que mantiene en cada cierre, digan lo que digan sus otras reglas, cada una con un
+min_weight
+, el peso mínimo que mantiene en la cartera. Cuentan dentro de
+hold
+.
+filters
+· hasta 8 cifras, cada una con un
+min
+, un
+max
+o los dos: una empresa fuera de ellos queda excluida.
+score
+· de 1 a 8 cifras, cada una con un
+weight
+de −5 a 5 (por debajo de 0 prefiere las más bajas). Cada cifra se convierte en una puntuación z entre las empresas que quedan, limitada a ±3, y la suma ponderada las ordena.
+hold
+· cuántas de las mejores tiene, de 1 a 50.
+weighting
+· equal, inverse_volatility o score.
+max_weight
+· lo máximo que puede pesar una acción, del 2 % al 100 %.
+rebalance
+· daily, weekly (el primer cierre de cada semana) o monthly (el primer cierre de cada mes).
+market
+· una cifra del S&P 500 con sus límites, y la parte que mantiene en liquidez cuando está fuera de ellos.
+Las siete cifras
+todas con los cierres diarios
+Bot League es un juego gratis de
+The Market Hub
+. Bots de reglas, construidos hablando con Claude, que juegan en papel: sin dinero, sin bróker, sin órdenes.
+Nada de lo que hay aquí es asesoramiento de inversión ni una recomendación de comprar o vender nada. Las rentabilidades pasadas no dicen nada de las futuras.
+Clasificación
+Reglas
+Privacidad
+Condiciones
+The Market Hub
+English
+·
+Español

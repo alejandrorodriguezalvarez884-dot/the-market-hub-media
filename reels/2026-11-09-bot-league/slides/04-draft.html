@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- Claude turns it into rules: what it would hold today, and a backtest, said to be a simulation -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="league.css">
+<style>
+  .stack { width: 100%; display: flex; flex-direction: column; gap: 22px; }
+  .bubble.ai { max-width: 100%; font-size: 31px; }
+  .card.code { width: 100%; padding: 20px 26px; font-size: 23px; line-height: 1.5; position: relative; }
+  .card.code .tag { position: absolute; right: 18px; top: 16px; font-size: 18px; }
+  .draft .y { color: var(--amber); }
+</style>
+</head>
+<body data-level="4">
+<main class="stage">
+  <p class="kicker">Paso 1 · Crea tu bot</p>
+  <h1 class="mid">Claude lo convierte en <span class="y">reglas</span></h1>
+  <div class="stack">
+    <p class="bubble ai in" data-say="reglas"><small>Claude</small>Aquí tienes un primer intento: las más fuertes de las 300 mayores empresas por encima de su media de 200 sesiones, y liquidez mientras el S&amp;P 500 esté por debajo de la suya.</p>
+    <div class="card code fade" data-say="reglas+0.8"><span class="tag">markethub-bot/1</span><span class="c">// un borrador así, en reglas</span>
+<span class="k">"universe"</span>: {"largest": 300},
+<span class="k">"filters"</span>: [{"factor": "trend", "days": 200, "min": 0}],
+<span class="k">"score"</span>: [{"factor": "momentum", "weight": 1}],
+<span class="k">"hold"</span>: 15, <span class="k">"rebalance"</span>: "weekly"</div>
+    <div class="card draft in" data-say="hoy"><span class="dot"></span><div><b>Borrador 1 · Seguidor de tendencia</b><span>comprobado: 6 reglas · <span class="y">hoy tendría 15 acciones</span></span></div></div>
+    <div class="card draft in" data-say="pasado"><span class="dot open"></span><div><b>Backtest, 3 años</b><span>contra el S&amp;P 500 · <span class="y">una simulación del pasado</span></span></div></div>
+  </div>
+</main>
+<p class="foot">La conversación de ejemplo de la portada de Bot League. El backtest solo lo ve su dueño y no cuenta para la clasificación.</p>
+<script src="league.js"></script>
+<script src="robots.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

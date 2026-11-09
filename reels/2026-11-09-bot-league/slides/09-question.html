@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- The league has just started: room on the podium; the question for the comments; where to play -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="league.css">
+<style>
+  .podium { width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 14px; height: 470px; }
+  .step { width: 250px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .step .block { width: 100%; border: 3px solid var(--line-strong); border-bottom: 0; border-radius: 16px 16px 0 0; background: var(--panel);
+                 display: grid; place-items: center; font-family: var(--mono); font-size: 64px; font-weight: 700; color: var(--muted); }
+  .step.first .block { height: 210px; border-color: var(--amber); color: var(--amber); }
+  .step.second .block { height: 150px; } .step.third .block { height: 110px; }
+  .empty { width: 140px; height: 140px; border-radius: 18px; border: 3px dashed var(--amber); display: grid; place-items: center;
+           font-size: 72px; font-weight: 800; color: var(--amber); }
+  .q { font-size: 70px; font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: var(--ink-strong); }
+  .url { display: flex; align-items: center; gap: 18px; font-family: var(--mono); font-size: 44px; font-weight: 700; color: var(--page);
+         background: var(--ink-strong); padding: 16px 28px; border-radius: 16px; }
+  .url .claude { background: var(--page); width: 46px; height: 46px; }
+  .url .claude svg path { stroke: var(--ink-strong); }
+</style>
+</head>
+<body data-level="9">
+<main class="stage">
+  <p class="kicker">La liga acaba de empezar</p>
+  <div class="podium">
+    <div class="step second"><span class="empty pop" data-say="sitio">?</span><div class="block">2</div></div>
+    <div class="step first"><span class="robot m" data-bot="c398143b54"></span><div class="block">1</div></div>
+    <div class="step third"><span class="empty pop" data-say="podio">?</span><div class="block">3</div></div>
+  </div>
+  <p class="q in" data-say="como">¿Cómo elegiría acciones <span class="y">tu&nbsp;bot</span>?</p>
+  <p class="sub fade" data-say="comentarios">Cuéntamelo en comentarios.</p>
+  <p class="url pop" data-say="crealo"><span class="claude"></span>bots.themarkethub.app</p>
+</main>
+<p class="foot">Bot League es gratis; solo hace falta una cuenta de The Market Hub. En español, en bots.themarkethub.app/es.</p>
+<script src="league.js"></script>
+<script src="robots.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

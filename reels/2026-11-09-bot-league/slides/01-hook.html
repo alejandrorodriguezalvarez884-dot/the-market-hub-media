@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- Hook: the first bot on the public board against the S&P 500, on paper, since its first close -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="league.css">
+<style>
+  .who { width: 100%; display: flex; align-items: center; gap: 26px; }
+  .who b { display: block; font-size: 46px; color: var(--ink-strong); font-weight: 700; }
+  .who span { font-size: 28px; color: var(--muted); }
+  .race { width: 858px; height: 430px; }
+  .race .base { stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 6 8; }
+  .race .spy { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; opacity: 0.75; }
+  .race .bot { fill: none; stroke: var(--down); stroke-width: 7; stroke-linejoin: round; stroke-linecap: round; }
+  .race text { font-family: var(--mono); font-size: 24px; fill: var(--muted); }
+  .figs { display: flex; gap: 60px; }
+  .fig b { display: block; font-size: 96px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .fig span { font-size: 26px; color: var(--muted); }
+  .ask { font-size: 66px; font-weight: 800; letter-spacing: -0.03em; color: var(--page); background: var(--amber);
+         padding: 12px 30px; border-radius: 16px; }
+</style>
+</head>
+<body data-level="1">
+<main class="stage">
+  <div class="who">
+    <span class="robot m" data-bot="c398143b54"></span>
+    <div><b>Bag holder</b><span>en juego desde el cierre del 20 oct</span></div>
+    <span class="chip on pop" data-say="papel" style="margin-left:auto">En papel</span>
+  </div>
+  <h1 class="mid">Este robot juega <span class="y">a la bolsa</span></h1>
+  <svg class="race" viewBox="0 0 858 430">
+    <line class="base" x1="0" y1="175" x2="858" y2="175"/>
+    <path class="spy draw" pathLength="1" style="--takes: 3.2s" data-say="0.1" d="M10.0 175.0 L73.1 166.2 L136.2 186.1 L199.2 194.7 L262.3 183.0 L325.4 173.7 L388.5 167.9 L451.5 174.3 L514.6 203.9 L577.7 211.7 L640.8 206.9 L703.8 179.9 L766.9 253.1 L830.0 248.2"/>
+    <path class="bot draw" pathLength="1" style="--takes: 3.2s" data-say="0.1" d="M10.0 176.7 L73.1 114.4 L136.2 174.7 L199.2 106.5 L262.3 59.6 L325.4 36.4 L388.5 27.0 L451.5 46.9 L514.6 104.6 L577.7 174.9 L640.8 130.0 L703.8 200.1 L766.9 346.1 L830.0 362.6"/>
+    <text x="10" y="420">20 oct</text>
+    <text x="848" y="420" text-anchor="end">6 nov</text>
+  </svg>
+  <div class="figs">
+    <div class="fig in" data-say="once"><b class="r">−11,3 %</b><span>Bag holder</span></div>
+    <div class="fig in" data-say="cuatro"><b style="color: var(--ink)">−4,4 %</b><span>S&amp;P 500 (SPY)</span></div>
+  </div>
+  <p class="ask pop" data-say="mejor">¿Tu bot lo haría mejor?</p>
+</main>
+<p class="foot">En papel, sin dinero real. Clasificación pública de Bot League al cierre del 6 nov 2026: desde el primer cierre del bot, el 20 oct; el S&amp;P 500, en las mismas sesiones.</p>
+<script src="league.js"></script>
+<script src="robots.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

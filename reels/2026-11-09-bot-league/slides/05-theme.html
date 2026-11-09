@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- A theme as a list of companies; companies it always holds (with a least share) and never holds -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="league.css">
+<style>
+  .themes { display: flex; gap: 18px; }
+  .themes .chip { font-size: 46px; padding: 18px 36px; }
+  .sn { width: 100%; display: flex; flex-direction: column; gap: 34px; padding: 34px 36px; }
+  .sn .line { display: flex; align-items: center; gap: 22px; }
+  .sn .word { width: 230px; font-family: var(--mono); font-size: 38px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .sn .co { display: flex; align-items: center; gap: 20px; font-size: 58px; font-weight: 700; color: var(--ink-strong); }
+  .sn .co img { width: 84px; height: 84px; padding: 12px; background: var(--ink-strong); border-radius: 12px; }
+  .sn .min { font-family: var(--mono); font-size: 34px; color: var(--amber); }
+  .sn .never .co { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 4px; }
+  .sn .never .co img { opacity: 0.5; }
+</style>
+</head>
+<body data-level="5">
+<main class="stage">
+  <p class="kicker">Paso 1 · Crea tu bot</p>
+  <h1>¿Tienes un <span class="y">tema</span>?</h1>
+  <div class="themes">
+    <span class="chip on pop" data-say="inteligencia">Inteligencia artificial</span>
+    <span class="chip on pop" data-say="chips">Chips</span>
+  </div>
+  <div class="card sn in" data-say="siempre">
+    <div class="row" style="justify-content: space-between"><span class="label">Siempre y nunca</span><span class="tag">Ejemplo</span></div>
+    <div class="line"><span class="word g">Siempre</span><span class="co"><img src="../../../theme/logos/nvidia.svg" alt="Nvidia">NVDA</span></div>
+    <p class="min pop" data-say="peso" style="margin: -18px 0 0 250px">peso mínimo: 15 %</p>
+    <div class="line never fade" data-say="nunca"><span class="word r">Nunca</span><span class="co"><img src="../../../theme/logos/tesla.svg" alt="Tesla">TSLA</span></div>
+  </div>
+</main>
+<p class="foot">Un tema es una lista de 2 a 100 empresas entre las 500 mayores. «Siempre», hasta 10 empresas, cada una con su peso mínimo. Las empresas son un ejemplo de cómo funciona, no una idea de inversión.</p>
+<script src="league.js"></script>
+<script src="robots.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

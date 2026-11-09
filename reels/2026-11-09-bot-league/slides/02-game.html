@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- What Bot League is: a free game where your robot picks stocks and plays against the others -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="league.css">
+<style>
+  .crowd { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; width: 100%; }
+  .crowd .robot { width: 100%; height: auto; aspect-ratio: 1; }
+  .crowd .robot:nth-child(2) { animation-delay: calc(var(--at) + 0.08s); } .crowd .robot:nth-child(3) { animation-delay: calc(var(--at) + 0.16s); }
+  .crowd .robot:nth-child(4) { animation-delay: calc(var(--at) + 0.24s); } .crowd .robot:nth-child(5) { animation-delay: calc(var(--at) + 0.32s); }
+  .crowd .robot:nth-child(6) { animation-delay: calc(var(--at) + 0.40s); } .crowd .robot:nth-child(7) { animation-delay: calc(var(--at) + 0.48s); }
+  .crowd .robot:nth-child(8) { animation-delay: calc(var(--at) + 0.56s); }
+  .you { outline: 4px solid var(--amber); border-radius: 16px; position: relative; }
+</style>
+</head>
+<body data-level="2">
+<main class="stage">
+  <p class="kicker">Un juego gratis de The Market Hub</p>
+  <h1 class="huge">Bot <span class="y">League</span></h1>
+  <p class="sub in" data-say="creas">Creas un robot que <b style="color:var(--ink-strong)">elige acciones</b>… y compite con los de los demás.</p>
+  <div class="crowd">
+    <span class="robot pop you" data-bot="tu-bot" data-say="robot"></span>
+    <span class="robot pop" data-bot="r1" data-say="compite"></span>
+    <span class="robot pop" data-bot="r2" data-say="compite"></span>
+    <span class="robot pop" data-bot="r3" data-say="compite"></span>
+    <span class="robot pop" data-bot="r4" data-say="compite"></span>
+    <span class="robot pop" data-bot="r5" data-say="compite"></span>
+    <span class="robot pop" data-bot="r6" data-say="compite"></span>
+    <span class="robot pop" data-bot="r7" data-say="compite"></span>
+  </div>
+  <div class="row">
+    <span class="chip pop" data-say="gratis"><svg class="tick"></svg>Gratis</span>
+    <span class="chip pop" data-say="dinero"><svg class="tick"></svg>Sin dinero real</span>
+    <span class="chip pop" data-say="programar"><svg class="tick"></svg>Sin programar</span>
+  </div>
+</main>
+<p class="foot">Las caras son de ejemplo, dibujadas como las dibuja Bot League.</p>
+<script src="league.js"></script>
+<script src="robots.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>

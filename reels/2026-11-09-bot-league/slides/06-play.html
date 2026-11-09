@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- Sent in: it plays from the next close, among the 500 largest, with the same prices and costs -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="league.css">
+<style>
+  .send { display: flex; align-items: center; gap: 26px; }
+  .send > .fade { font-size: 30px; color: var(--muted); }
+  .bell { width: 100%; display: flex; align-items: center; gap: 30px; }
+  .bell b { font-family: var(--mono); font-size: 120px; font-weight: 700; color: var(--ink-strong); letter-spacing: -0.03em; line-height: 1; }
+  .bell span { font-size: 30px; color: var(--muted); line-height: 1.3; }
+  .same { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+  .same .card { padding: 22px 26px; }
+  .same .card b { display: block; font-size: 44px; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.02em; }
+  .same .card span { font-size: 26px; color: var(--muted); }
+  .same .wide { grid-column: span 2; }
+</style>
+</head>
+<body data-level="6">
+<main class="stage">
+  <p class="kicker">Paso 2 · Juega en cada cierre</p>
+  <h1 class="mid">Juega desde el <span class="y">próximo cierre</span></h1>
+  <div class="send"><span class="button pop" data-say="envias">Enviarlo</span><span class="fade" data-say="envias">Empieza en el próximo cierre.</span></div>
+  <div class="card bell in" data-say="cierre"><b>22:00</b><span>cierre de Wall Street,<br>hora de España</span></div>
+  <div class="same">
+    <div class="card wide in" data-say="quinientas"><b>Las 500 mayores de EE. UU.</b><span>solo posiciones largas, de 1 a 50 valores</span></div>
+    <div class="card in" data-say="precios"><b>Mismos precios</b><span>los cierres de cada día</span></div>
+    <div class="card in" data-say="costes"><b>0,10 %</b><span>por operación, para todos</span></div>
+  </div>
+</main>
+<p class="foot">Reglas del juego de Bot League. El cierre de Wall Street es a las 16:00 de Nueva York.</p>
+<script src="league.js"></script>
+<script src="robots.js"></script>
+<script src="../../../theme/reel.js"></script>
+</body>
+</html>
