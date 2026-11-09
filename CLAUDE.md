@@ -99,13 +99,15 @@ es una promesa. Voz **Rafalupi** (`voice: grafico`), elegida por él de oído; a
 pregunta es de lectura, nunca "¿compras o vendes?", y nada de señales, objetivos ni porcentajes de
 acierto. Se publica solo cuando él lo pide ("súbelo"), como los otros a demanda.
 
-**Y cada reel que pide el usuario trae su vídeo largo en YouTube** (decisión del usuario,
-2026-11-09: "automatizar la creación de videos largos de 10/12 mins a youtube cada vez que te pida
-un reel que no sea de los automatizados"), con su propia skill,
+**Y cada reel que pide el usuario puede traer su vídeo largo en YouTube, si él lo quiere**
+(decisión del usuario, 2026-11-09: "automatizar la creación de videos largos de 10/12 mins a
+youtube cada vez que te pida un reel que no sea de los automatizados", y ese mismo día: "Quiero
+que me preguntes para generar el video de youtube después del reel"), con su propia skill,
 [`long-video`](.claude/skills/long-video/SKILL.md). Vale para todo reel a demanda (reflexión,
 didáctico, Lee el gráfico o uno especial suelto) y **nunca para los diarios** (apertura, cierre,
-semana y futuros), que siguen como están. Se hace **por defecto, en la misma sesión, después del
-reel**, sin preguntar si hacerlo: más investigación a partir de las fuentes y los datos del reel,
+semana y futuros), que siguen como están y sin pregunta. **Al terminar el reel se le pregunta en una
+línea si se hace su vídeo largo, y solo con su sí se hace**, en la misma sesión: más investigación
+a partir de las fuentes y los datos del reel,
 un guion de **10 a 12 minutos** en capítulos, una diapositiva por escena, miniatura y título y
 descripción de YouTube. Lo que eligió el usuario (2026-11-09): **en español, con la voz del reel**
 (la misma `voice:`, ElevenLabs v4: unos 10.000 a 13.000 caracteres por vídeo) y **el aspecto del

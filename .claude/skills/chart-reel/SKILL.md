@@ -219,10 +219,10 @@ git push
 
 ## 7. Its long video on YouTube
 
-Every reel the user asks for has a long video on YouTube, 10 to 12 minutes in Spanish (the user,
-2026-11-09): once this reel is made and committed, make it in the same session with the skill
-`long-video` (`make longnew REEL=<folder>`), unasked: the pattern at length, this case and two or
-three more real ones, one where it failed. It is uploaded only after the user's explicit yes.
+Once this reel is made and committed, ask the user in one short line whether to make its long
+video on YouTube, 10 to 12 minutes in Spanish (the user, 2026-11-09: "Quiero que me preguntes para generar el video de youtube después del reel"). Only on a yes, the
+skill `long-video` (`make longnew REEL=<folder>`): the pattern at length, this case and two or
+three more real ones, one where it failed. Uploading it is a second yes.
 
 ## Never
 

@@ -237,13 +237,12 @@ The user also asks for reels one by one, "more reflective" (2026-11-02): a thesi
 markets, argued with sources (for example, that the reaction to big tech's results is not how a
 bubble behaves). They follow this skill with these differences:
 
-- **It comes with a long video on YouTube** (the user, 2026-11-09: "automatizar la creación de
-  videos largos de 10/12 mins a youtube cada vez que te pida un reel que no sea de los
-  automatizados"). Every reel the user asks for, of any line or a special one-off, has one: once
-  the reel is made and committed (and up, if they said "súbelo"), make it in the same session with
-  the skill `long-video`, without asking whether to. It is 10 to 12 minutes in Spanish, with this
-  reel's voice and look drawn wide; it is uploaded only after the user's explicit yes to it. The
-  report covers both. The daily reels (`open`, `close`, `week`, `ahead`) never have one.
+- **It may come with a long video on YouTube, if the user says so** (the user, 2026-11-09:
+  "Quiero que me preguntes para generar el video de youtube después del reel"). Every reel the user asks for, of any line or a special one-off: once the reel is made
+  and committed (and up, if they said "súbelo"), ask in one short line whether to make its long
+  video, and only on a yes make it in the same session with the skill `long-video`: 10 to 12
+  minutes in Spanish, with this reel's voice and look drawn wide. Uploading it is a second yes.
+  The daily reels (`open`, `close`, `week`, `ahead`) never have one, and nothing is asked.
 
 - The folder is `reels/<date>-<a-few-words>/` (`make reelnew MOMENT=<a-few-words>`).
 - The script says `voice: reflexion` (Julián on ElevenLabs v3, as a calm, reflective teacher).

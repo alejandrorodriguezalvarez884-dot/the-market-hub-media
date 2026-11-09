@@ -68,8 +68,9 @@ Basta con decirlo en una sesión de Claude Code abierta en el workspace, con el 
 
 Claude sigue la skill `daily-reel` (su última parte): busca las fuentes, escribe el guion, dibuja
 las diapositivas, pone la voz, monta, revisa cada fotograma y, si la petición dice "súbelo", lo
-publica con `make reelpost`. Sin "súbelo" lo deja montado y lo enseña. Después, en la misma sesión, hace su
-vídeo largo de YouTube (abajo, "El vídeo largo de cada reel a demanda") y pregunta si se sube.
+publica con `make reelpost`. Sin "súbelo" lo deja montado y lo enseña. Después pregunta si se hace su
+vídeo largo de YouTube (abajo, "El vídeo largo de cada reel a demanda"); solo con un sí lo hace, y
+después pregunta aparte si se sube.
 
 **Las reglas de los reels a demanda** (el usuario, 2026-11-06, tras ver sus números en
 `docs/instagram-strategy.md`): duran **90 segundos como mucho** (`make reelcheck` lo comprueba);
@@ -83,11 +84,11 @@ aconseja ni predice precios.
 ## El vídeo largo de cada reel a demanda, en YouTube
 
 Desde el 2026-11-09 (el usuario: "automatizar la creación de videos largos de 10/12 mins a youtube
-cada vez que te pida un reel que no sea de los automatizados"), **cada reel que pide el usuario
-trae un vídeo largo en YouTube sobre el mismo tema**, hecho por defecto en la misma sesión,
-después del reel, con la skill [`long-video`](../.claude/skills/long-video/SKILL.md). No hace falta
-pedirlo; si un reel no lo quiere, basta con decirlo ("sin vídeo largo"). **Los diarios no lo
-tienen** (apertura, cierre, semana y futuros): siguen como están.
+cada vez que te pida un reel que no sea de los automatizados"; y ese mismo día: "Quiero que me preguntes para generar el video de youtube después del reel"),
+**después de cada reel que pide el usuario se le pregunta, en una línea, si se hace su vídeo
+largo en YouTube** sobre el mismo tema; solo con su sí se hace, en la misma sesión, con la skill
+[`long-video`](../.claude/skills/long-video/SKILL.md). Subirlo es otro sí aparte. **Los diarios no
+lo tienen** (apertura, cierre, semana y futuros): siguen como están y no se pregunta nada.
 
 | | El reel | Su vídeo largo |
 |---|---|---|
@@ -98,7 +99,7 @@ tienen** (apertura, cierre, semana y futuros): siguen como están.
 | Carpeta | `reels/<fecha>-<palabras>/` | `videos/<fecha>-<palabras>/` (el mismo nombre), `kind: long`, `reel: <carpeta del reel>` |
 | Se publica | Con "súbelo", a las 19:30 | **Solo tras un sí explícito a ese vídeo**, cuando el usuario lo ha visto |
 
-Cómo va: el reel primero (con su hora); después `make longnew REEL=<carpeta>`, que empieza el
+Cómo va: el reel primero (con su hora); la pregunta; con el sí, `make longnew REEL=<carpeta>`, que empieza el
 vídeo con el título, la voz, el aspecto y todas las fuentes del reel; más investigación (el
 contexto, cómo funciona, las cifras que no cupieron, la mejor objeción); el guion de unas 1.800 a
 2.050 palabras; una diapositiva por escena dibujada en horizontal; `make check` y `make render`

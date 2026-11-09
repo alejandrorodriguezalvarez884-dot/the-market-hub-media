@@ -1,15 +1,16 @@
 ---
 name: long-video
-description: The long YouTube video, 10 to 12 minutes in Spanish, that goes with every reel the user asks for (reflexión, didáctico, Lee el gráfico, or a special one-off like the Jensen Huang case) - made by default in the same session, right after the reel, without the user asking for it - the deeper research, the script, the slides in the reel's look drawn wide, the thumbnail, the voice of the reel, the YouTube title and description - then shown to the user and uploaded to YouTube only after their explicit yes. Not for the daily reels (open, close, week, ahead). Use it after making any reel on demand, and when the user says "haz el vídeo largo de X", "rehaz el vídeo largo" or "sube el vídeo largo". The argument is the reel's folder in reels/.
+description: The long YouTube video, 10 to 12 minutes in Spanish, that goes with every reel the user asks for (reflexión, didáctico, Lee el gráfico, or a special one-off like the Jensen Huang case) - offered after every reel the user asks for: once the reel is done, ask them in one short line whether to make it, and make it only after their yes - the deeper research, the script, the slides in the reel's look drawn wide, the thumbnail, the voice of the reel, the YouTube title and description - then shown to the user and uploaded to YouTube only after their explicit yes. Not for the daily reels (open, close, week, ahead). Use it when the user says yes to that question after a reel on demand, and when the user says "haz el vídeo largo de X", "rehaz el vídeo largo" or "sube el vídeo largo". The argument is the reel's folder in reels/.
 ---
 
 # The long video of a reel
 
 The user decided on 2026-11-09: *"automatizar la creación de videos largos de 10/12 mins a youtube
-cada vez que te pida un reel que no sea de los automatizados"*. So **every reel the user asks for
-has a long video on YouTube on the same subject**, and this skill makes it. It is part of making
-the reel: the user does not ask for it, and you do not ask whether to make it. The reel says the
-thing in 90 seconds; the long video tells the whole of it in 10 to 12 minutes.
+cada vez que te pida un reel que no sea de los automatizados"*, and later the same day: *"Quiero que me preguntes para generar el video de youtube después del reel"*.
+So **after every reel the user asks for, ask them, in one short line, whether to make its long
+video on YouTube** on the same subject, and make it with this skill **only after their yes**. The
+reel says the thing in 90 seconds; the long video tells the whole of it in 10 to 12 minutes. A
+"no", or no answer, means no long video for that reel; do not ask twice.
 
 What the user decided about it (2026-11-09, asked once):
 
@@ -39,9 +40,11 @@ scheduled. Work from the root of `the-market-hub-media`.
 1. The reel first, as its skill says (`daily-reel`, "A reel the user asks for"; `chart-reel`): it
    is short and it has its time (19:30). If the user said "súbelo", it goes up at its time,
    whatever the long video's state.
-2. Then, in the same session, this skill. Commit the reel before starting it.
-3. At the end, one report with both: the reel (up, or waiting for 19:30) and the long video
-   (made, and the question of whether to upload it).
+2. Commit the reel, report it, and ask in one short line whether to make its long video
+   ("¿Hago también el vídeo largo de YouTube sobre esto?"). Nothing of it is started before the
+   answer.
+3. On a yes, this skill, in the same session. At the end, show the long video and ask, apart,
+   whether to upload it: making it is one yes, uploading it is another.
 
 The reel's caption is not changed to point at the long video (it may be up before the video
 exists). The long video's description names the reel's subject, not its address.
