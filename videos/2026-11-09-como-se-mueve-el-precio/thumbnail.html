@@ -1,0 +1,79 @@
+<!doctype html>
+<!-- The thumbnail, in the look of the film ("El libro"): the question, the two queues of the book and the last deal between them -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #07080b; }
+  svg { display: block; }
+  text { font-family: system-ui, -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; font-weight: 700; font-variant-numeric: tabular-nums; }
+  text.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 500; }
+</style>
+</head>
+<body>
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="sell" cx="78%" cy="-8%" r="70%">
+      <stop offset="0" stop-color="#ff6b61" stop-opacity="0.42" /><stop offset="1" stop-color="#ff6b61" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="buy" cx="78%" cy="108%" r="70%">
+      <stop offset="0" stop-color="#34e3a1" stop-opacity="0.4" /><stop offset="1" stop-color="#34e3a1" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="rim" cx="50%" cy="45%" r="75%">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0" /><stop offset="1" stop-color="#000" stop-opacity="0.55" />
+    </radialGradient>
+    <linearGradient id="word" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#9db8ff" /><stop offset="1" stop-color="#cdb8ff" />
+    </linearGradient>
+    <linearGradient id="trail" gradientUnits="userSpaceOnUse" x1="72" x2="800" y1="0" y2="0">
+      <stop offset="0" stop-color="#9db8ff" stop-opacity="0" /><stop offset="0.35" stop-color="#9db8ff" stop-opacity="0.7" /><stop offset="1" stop-color="#f5f7fa" />
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="14" /></filter>
+    <filter id="soft" x="-10%" y="-40%" width="120%" height="180%"><feGaussianBlur stdDeviation="6" /></filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="#07080b" />
+  <rect width="1280" height="720" fill="url(#sell)" />
+  <rect width="1280" height="720" fill="url(#buy)" />
+  <rect width="1280" height="720" fill="url(#rim)" />
+
+  <!-- the brand -->
+  <text class="mono" x="72" y="86" font-size="22" letter-spacing="3.6" fill="#98a2b3">THE MARKET HUB · APRENDE</text>
+
+  <!-- the question -->
+  <text x="66" y="290" font-size="124" letter-spacing="-3.2" fill="#f5f7fa">¿Quién pone</text>
+  <text x="66" y="420" font-size="124" letter-spacing="-3.2" fill="url(#word)">el precio?</text>
+
+  <!-- the price so far, deal by deal, up to the last one -->
+  <polyline points="72,612 150,612 150,570 250,570 250,632 350,632 350,584 450,584 450,540 550,540 550,596 650,596 650,520 740,520 740,360 812,360"
+    fill="none" stroke="#9db8ff" stroke-opacity="0.5" stroke-width="14" stroke-linejoin="round" stroke-linecap="round" filter="url(#soft)" />
+  <polyline points="72,612 150,612 150,570 250,570 250,632 350,632 350,584 450,584 450,540 550,540 550,596 650,596 650,520 740,520 740,360 812,360"
+    fill="none" stroke="url(#trail)" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
+
+  <!-- the book: those who sell above, those who buy below -->
+  <g>
+    <rect x="852" y="70" width="356" height="96" rx="24" fill="#ff6b61" fill-opacity="0.16" stroke="#ff6b61" stroke-opacity="0.6" stroke-width="2" />
+    <circle cx="900" cy="118" r="15" fill="#ff6b61" /><circle cx="944" cy="118" r="15" fill="#ff6b61" /><circle cx="988" cy="118" r="15" fill="#ff6b61" />
+    <text x="1180" y="136" text-anchor="end" font-size="54" fill="#ff6b61">103</text>
+
+    <rect x="852" y="186" width="356" height="96" rx="24" fill="#ff6b61" fill-opacity="0.2" stroke="#ff6b61" stroke-opacity="0.7" stroke-width="2" />
+    <circle cx="900" cy="234" r="15" fill="#ff6b61" /><circle cx="944" cy="234" r="15" fill="#ff6b61" />
+    <text x="1180" y="252" text-anchor="end" font-size="54" fill="#ff6b61">102</text>
+
+    <rect x="852" y="438" width="356" height="96" rx="24" fill="#34e3a1" fill-opacity="0.2" stroke="#34e3a1" stroke-opacity="0.7" stroke-width="2" />
+    <circle cx="900" cy="486" r="15" fill="#34e3a1" /><circle cx="944" cy="486" r="15" fill="#34e3a1" />
+    <text x="1180" y="504" text-anchor="end" font-size="54" fill="#34e3a1">100</text>
+
+    <rect x="852" y="554" width="356" height="96" rx="24" fill="#34e3a1" fill-opacity="0.16" stroke="#34e3a1" stroke-opacity="0.6" stroke-width="2" />
+    <circle cx="900" cy="602" r="15" fill="#34e3a1" /><circle cx="944" cy="602" r="15" fill="#34e3a1" /><circle cx="988" cy="602" r="15" fill="#34e3a1" />
+    <text x="1180" y="620" text-anchor="end" font-size="54" fill="#34e3a1">99</text>
+  </g>
+
+  <!-- the last deal, the one white pill -->
+  <rect x="812" y="304" width="420" height="112" rx="56" fill="#fff" fill-opacity="0.55" filter="url(#glow)" />
+  <rect x="812" y="304" width="420" height="112" rx="56" fill="#f5f7fa" />
+  <circle cx="872" cy="360" r="19" fill="#34e3a1" /><circle cx="920" cy="360" r="19" fill="#ff6b61" />
+  <text x="1196" y="384" text-anchor="end" font-size="72" letter-spacing="-2" fill="#07080b">101</text>
+</svg>
+</body>
+</html>
