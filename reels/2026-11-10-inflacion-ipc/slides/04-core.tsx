@@ -1,47 +1,41 @@
-// Food and energy swing a lot; without them, core inflation: 2.6 % a year in September against 3.7 % for the whole CPI
+// Index 2 of 4: food and energy swing a lot; without them, core inflation, 2.6 % a year in September against 3.7 % for the whole CPI
 import React from "react";
-import { useSay, useSeconds } from "@mh/kit";
-import { ACC, Board, Card, DIM, FG, Head, Hi, Panel, SELL, Src, Stage, Svg, Tag, ease, glow, prog } from "./look/libro";
-
-const W = 520; // the width of a 5 % bar
+import { Bar, Column, Look, Reveal, useSay, useSeconds } from "@mh/kit";
+import { Row, useIn } from "./look/ipc";
 
 export default () => {
   const t = useSeconds();
-  const swing = useSay("suben"), core = useSay("subyacente"), all = useSay("frente");
-  const out = ease(prog(t, core - 0.2, 0.6));
-  const wob = (k: number) => Math.sin(t * 5 + k * 2) * 26 * prog(t, swing - 0.2, 0.3) * (1 - out);
-  const bar = (v: number, at: number) => (v / 5) * W * ease(prog(t, at, 0.7));
+  const swing = useSay("suben");
+  const out = useIn("sin", 0.5);
+  const chip = (label: string, k: number) => {
+    const wob = Math.sin((t - swing) * 6 + k * 2) * 10 * Math.min(1, Math.max(0, (t - swing) / 0.3)) * (1 - out);
+    return (
+      <span key={label} style={{ position: "relative", display: "inline-block", padding: "12px 26px", borderRadius: 16, fontSize: 44, fontWeight: 800,
+        background: "var(--page)", border: "2px solid rgba(21,18,13,0.15)", color: "var(--ink-strong)", transform: `translateY(${wob.toFixed(1)}px)`, opacity: 1 - out * 0.55 }}>
+        {label}
+        <i style={{ position: "absolute", left: 14, right: 14, top: "52%", height: 6, borderRadius: 3, background: "var(--down)", transformOrigin: "left", transform: `scaleX(${out})` }} />
+      </span>
+    );
+  };
   return (
-    <Board lean={-0.3}>
-      <Head><h1 className="mid">Sin comida ni energía:<br />la <Hi say="subyacente">subyacente</Hi></h1></Head>
-      <Stage>
-        <Svg>
-          <Panel h={300} />
-          {[["COMIDA", 150], ["ENERGÍA", 360]].map(([label, x], k) => (
-            <g key={label as string} transform={`translate(0, ${wob(k).toFixed(1)})`} opacity={1 - out * 0.7}>
-              <rect x={(x as number) - 90} y={90} width={180} height={110} rx={16} fill={SELL} fillOpacity={0.16} stroke={SELL} strokeWidth={2} />
-              <text className="mono" x={x as number} y={152} textAnchor="middle" fontSize={22} fill={FG} letterSpacing="0.12em">{label}</text>
-              <line x1={(x as number) - 100} x2={(x as number) - 100 + 200 * out} y1={145} y2={145} stroke={SELL} strokeWidth={5} strokeLinecap="round" />
-            </g>
-          ))}
-          <rect x={530} y={90} width={290} height={110} rx={16} fill={ACC} fillOpacity={0.16 + 0.3 * out} stroke={ACC} strokeWidth={2} />
-          <text className="mono" x={675} y={140} textAnchor="middle" fontSize={22} fill={FG} letterSpacing="0.12em">EL RESTO</text>
-          <text className="mono" x={675} y={172} textAnchor="middle" fontSize={18} fill={DIM} letterSpacing="0.1em">ROPA, CASA, COCHE…</text>
-          <Tag x={250} y={256} w={430} h={50} size={20} tone="sell" show={ease(prog(t, swing + 0.3, 0.4)) * (1 - out)}>GASOLINA: +37,4 % EN UN AÑO</Tag>
-          <Tag x={675} y={256} w={290} h={50} size={20} tone="key" show={out}>= SUBYACENTE</Tag>
-        </Svg>
-        <Card say={core + 0.6} style={{ left: 0, top: 330, width: 860, padding: "24px 28px" }}>
-          <span className="lab">En un año, septiembre de 2026</span>
-          {[["Subyacente", 2.6, core + 0.9, ACC, "2,6 %"], ["IPC entero", 3.7, all, FG, "3,7 %"]].map(([name, v, at, c, txt]) => (
-            <div key={name as string} style={{ display: "flex", alignItems: "center", gap: 18, marginTop: 18 }}>
-              <span style={{ width: 210, fontSize: 32, color: FG }}>{name}</span>
-              <div style={{ height: 44, width: bar(v as number, at as number), background: c as string, borderRadius: 10, boxShadow: `0 0 18px ${c === FG ? "rgba(255,255,255,0.4)" : "rgba(157,184,255,0.5)"}` }} />
-              <b style={{ fontSize: 44, opacity: ease(prog(t, (at as number) + 0.3, 0.3)) }}>{txt}</b>
-            </div>
-          ))}
-        </Card>
-      </Stage>
-      <Src>IPC y IPC sin comida ni energía, sin desestacionalizar, septiembre de 2026 contra septiembre de 2025: FRED (BLS), cálculo propio. Gasolina, octubre de 2026 contra octubre de 2025: BLS.</Src>
-    </Board>
+    <Look look="light" bg="tape" brand="The Market Hub · Aprende">
+      <Column>
+        <Reveal as="p" className="kicker green">Índice 2 de 4 · la de fondo</Reveal>
+        <h1>La <span className="y">subyacente</span></h1>
+        <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+          {chip("Comida", 0)}{chip("Energía", 1)}
+          <Reveal say="subyacente" how="fade" style={{ fontSize: 44, fontWeight: 800, color: "var(--muted)" }}>= fuera</Reveal>
+        </div>
+        <Reveal say="subyacente" className="card" style={{ gap: 18 }}>
+          <p className="label">En un año · septiembre de 2026</p>
+          <Row name="Subyacente" small="sin comida ni energía" fig="2,6 %" tone="y" />
+          <Bar w={52} say="dos" />
+          <Reveal say="frente"><Row name="IPC entero" fig="3,7 %" /></Reveal>
+          <Bar w={74} say="frente" />
+          <p className="note">IPC sin desestacionalizar: BLS vía FRED, cálculo propio.</p>
+        </Reveal>
+        <Reveal say="suben+0.4" how="pop" tilt={3} className="sticker amber small">Gasolina: +37,4 % en un año</Reveal>
+      </Column>
+    </Look>
   );
 };
