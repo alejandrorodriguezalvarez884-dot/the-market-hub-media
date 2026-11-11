@@ -1,0 +1,23 @@
+LAS FÁBRICAS DE LA IA SE ALQUILAN. ¿LES SALEN LAS CUENTAS?
+
+Una reflexión sobre los neoclouds, las empresas que compran chips de Nvidia, los meten en naves con mucha electricidad y alquilan esa potencia, tras los resultados de CoreWeave (10 de noviembre) y de IREN (5 de noviembre).
+
+▲ CoreWeave sube un 21,0 % hoy, a las 16:33 de España, tras sus resultados.
+▲ CoreWeave, tercer trimestre: ingresos de 3.661 M$, frente a 1.365 M$ un año antes.
+· Cartera firmada: unos 132.500 M$, unas diez veces lo que prevé ingresar en 2026 (13.000 a 13.300 M$).
+· Electricidad: más de 1,7 GW en marcha y más de 4,6 GW contratados.
+▼ Las cuentas del trimestre: 2.256 M$ antes de amortizar (EBITDA ajustado), 1.889 M$ de amortizaciones (los chips se amortizan en seis años), 846 M$ de intereses y una pérdida neta de 709 M$.
+▼ Deuda de CoreWeave: unos 46.900 M$ a 30 de septiembre, frente a 35.100 M$ tres meses antes.
+▲ IREN, que nació minando bitcoin: 200 de sus 228 M$ de ingresos del trimestre ya vienen de su nube de IA; 20.300 M$ de cartera, con un contrato de unos 9.700 M$ con Microsoft a cinco años.
+· Nebius presenta sus resultados mañana, jueves 12, antes de la apertura (conferencia a las 14:00 de España). En 2026, a las 16:33 de hoy: Nebius +84,2 %, CoreWeave −17,7 %, IREN −44,8 %.
+
+Nuestra opinión: las cuentas pueden salir. Pierden dinero porque construyen más rápido de lo que amortizan, como una eléctrica a velocidad de startup; el riesgo es la deuda. Y sin estas naves, la IA no tiene dónde funcionar.
+
+¿Serán estas naves las eléctricas de la próxima década? Te leo en comentarios.
+
+Fuentes: CoreWeave, IREN y Nebius (SEC y sus webs); Yahoo Finance.
+
+Contenido informativo de The Market Hub. No es una recomendación de inversión.
+themarkethub.app
+
+#bolsa #inteligenciaartificial #coreweave #nebius #centrosdedatos

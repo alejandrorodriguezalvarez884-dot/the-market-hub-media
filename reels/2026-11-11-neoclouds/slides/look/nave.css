@@ -1,0 +1,117 @@
+/* "La nave": the look of the reel on the neoclouds (2026-11-11). A data hall at night, drawn here
+   in CSS 3D: rows of racks whose lights come on, GPU modules turning under a cold light, towers of
+   figures standing on the hall's floor. Headlines in a serif (the reflective line's essay voice),
+   figures in Bahnschrift (an engineering face, lining numerals), labels in Consolas.
+   Scoped to .nv, with no CSS animation: everything that moves is moved by look/nave.tsx from the
+   frame. Upright (a reel), 1080 x 1920; .nv.wide is the same look on 1920 x 1080. */
+
+.nv {
+  --bg: #04060b; --fg: #f3f6fb; --soft: #c9d2df; --dim: #8a96a8; --hair: rgba(190, 215, 255, 0.16);
+  --ice: #7fe3ff; --ice-2: #c7f4ff; --amber: #ffb547; --up: #3ee6a0; --down: #ff6a5e;
+  --serif: Georgia, "Iowan Old Style", "Noto Serif", serif;
+  --fig: Bahnschrift, "DIN Alternate", "Segoe UI", sans-serif;
+  --mono: Consolas, ui-monospace, Menlo, monospace;
+  position: absolute; inset: 0; overflow: hidden; isolation: isolate; background: var(--bg);
+  color: var(--fg); font-family: var(--fig); font-weight: 400; font-size: 34px; line-height: 1.22;
+  -webkit-font-smoothing: antialiased;
+}
+.nv * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* The world: a 3D stage that fills the frame behind the words. */
+.nv .world { position: absolute; inset: 0; perspective: 1500px; z-index: 0; }
+.nv .world .cam, .nv .world .cam * { transform-style: preserve-3d; }
+.nv .world .cam { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.nv .face { position: absolute; backface-visibility: visible; }
+/* What is drawn on a face lies flat on it: as layers of their own in the same plane, the 3D sorting cut holes in them. */
+.nv .world .cam .face, .nv .world .cam .face * { transform-style: flat; }
+
+/* Over the world: the haze that keeps the words readable, and the grain. */
+.nv .haze { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.nv .grain { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: overlay; }
+
+.nv .over { position: absolute; inset: 0; z-index: 3; }
+
+/* On top: the brand, the line and a bar per scene that fills as the scene is told. */
+.nv .hud { position: absolute; left: 72px; right: 150px; top: 250px; }
+.nv .hud .row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 21px; line-height: 1;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+.nv .hud .row b { color: var(--fg); font-weight: 400; }
+.nv .hud .bars { display: flex; gap: 6px; margin-top: 16px; }
+.nv .hud .bars i { flex: 1; height: 4px; background: rgba(255, 255, 255, 0.15); position: relative; overflow: hidden; }
+.nv .hud .bars i span { position: absolute; inset: 0; background: var(--ice-2); transform-origin: left center; }
+
+/* The headline: serif, white, with the words that carry it lit in ice. */
+.nv .head { position: absolute; left: 72px; right: 150px; top: 330px; }
+.nv .kick { display: inline-block; font-family: var(--mono); font-size: 23px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ice); padding-bottom: 10px; margin-bottom: 18px; border-bottom: 2px solid rgba(127, 227, 255, 0.55); }
+.nv .kick.amber { color: var(--amber); border-color: rgba(255, 181, 71, 0.6); }
+.nv .kick.up { color: var(--up); border-color: rgba(62, 230, 160, 0.6); }
+.nv h1 { font-family: var(--serif); font-weight: 700; font-size: 92px; line-height: 1.02; letter-spacing: -0.02em; color: var(--fg);
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.7); }
+.nv h1.mid { font-size: 80px; }
+.nv h1.big { font-size: 112px; }
+.nv h1 i { font-style: italic; font-weight: 400; }
+.nv .hi { display: inline-block; white-space: nowrap; padding: 0 0.05em 0.1em; margin: 0 -0.05em -0.1em;
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* A figure that carries a scene: big, in the engineering face. */
+.nv .num { font-family: var(--fig); font-weight: 600; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.02em; line-height: 0.95; white-space: nowrap; }
+
+/* A panel of glass, placed with left/top in its style. */
+.nv .card { position: absolute; padding: 22px 28px; font-size: 32px; line-height: 1.2; color: var(--soft);
+  background: linear-gradient(180deg, rgba(160, 200, 255, 0.11), rgba(160, 200, 255, 0.03)), rgba(6, 9, 15, 0.82);
+  border: 1.5px solid var(--hair); border-radius: 6px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.nv .card b { color: var(--fg); font-weight: 600; }
+.nv .card .lab { display: block; font-family: var(--mono); font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase;
+  line-height: 1.15; color: var(--dim); margin-bottom: 10px; }
+.nv .card .num { display: block; font-size: 120px; color: var(--fg); }
+.nv .card .num.mid { font-size: 88px; }
+.nv .card .num.sm { font-size: 64px; }
+.nv .card small { display: block; font-size: 24px; line-height: 1.25; color: var(--dim); margin-top: 8px; }
+.nv .card.ice { border-color: rgba(127, 227, 255, 0.55); background: linear-gradient(180deg, rgba(127, 227, 255, 0.2), rgba(127, 227, 255, 0.05)), rgba(5, 10, 16, 0.86);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(127, 227, 255, 0.18); }
+.nv .card.ice .num, .nv .card.ice .lab { color: var(--ice-2); }
+.nv .card.amber { border-color: rgba(255, 181, 71, 0.6); background: linear-gradient(180deg, rgba(255, 181, 71, 0.2), rgba(255, 181, 71, 0.05)), rgba(12, 9, 5, 0.86); }
+.nv .card.amber .num, .nv .card.amber .lab { color: var(--amber); }
+.nv .card.up { border-color: rgba(62, 230, 160, 0.6); background: linear-gradient(180deg, rgba(62, 230, 160, 0.2), rgba(62, 230, 160, 0.05)), rgba(5, 12, 9, 0.86); }
+.nv .card.up .num, .nv .card.up .lab { color: var(--up); }
+.nv .card.down { border-color: rgba(255, 106, 94, 0.6); background: linear-gradient(180deg, rgba(255, 106, 94, 0.2), rgba(255, 106, 94, 0.05)), rgba(14, 6, 6, 0.86); }
+.nv .card.down .num, .nv .card.down .lab { color: var(--down); }
+/* The one that carries the scene's idea: paper white, like the essay look. */
+.nv .card.key { background: #f3f0e9; border-color: #fff; color: #3b3a36; box-shadow: 0 30px 90px rgba(127, 227, 255, 0.25), 0 30px 80px rgba(0, 0, 0, 0.6); }
+.nv .card.key b { color: #121110; }
+.nv .card.key .serif { font-family: var(--serif); }
+.nv .card.key .lab { color: #6b6760; }
+.nv .card.key .num { color: #121110; }
+
+/* Rows inside a panel: what on the left, its figure on the right. */
+.nv .card .line { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; padding: 9px 0; font-size: 30px; line-height: 1.15;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.nv .card .line:first-of-type { border-top: 0; }
+.nv .card .line span { color: var(--dim); }
+.nv .card .line b { font-family: var(--fig); font-weight: 600; font-variant-numeric: tabular-nums; }
+.nv .card .line b.up { color: var(--up); }
+.nv .card .line b.down { color: var(--down); }
+.nv .card .line b.ice { color: var(--ice-2); }
+
+/* A company's logo, on a white chip. */
+.nv .logo { display: inline-flex; align-items: center; justify-content: center; background: #fff; border-radius: 10px; padding: 8px; vertical-align: middle; }
+.nv .logo img { display: block; height: 100%; width: auto; }
+
+/* A label that floats in the world (a billboard), or over it. */
+.nv .tag { font-family: var(--mono); font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ice-2); white-space: nowrap; }
+.nv .val { font-family: var(--fig); font-weight: 600; font-size: 56px; letter-spacing: -0.01em; color: var(--fg); white-space: nowrap;
+  text-shadow: 0 0 24px rgba(127, 227, 255, 0.5), 0 2px 12px rgba(0, 0, 0, 0.8); font-variant-numeric: tabular-nums; }
+
+/* At the foot: the source, in small. */
+.nv .src { position: absolute; left: 72px; right: 150px; top: 1360px; font-family: var(--fig); font-size: 21px; line-height: 1.3; color: rgba(220, 232, 250, 0.62);
+  text-shadow: 0 0 10px #04060b, 0 0 18px #04060b, 0 1px 2px #000; }
+
+.nv.wide .hud { left: 90px; right: 90px; top: 56px; }
+.nv.wide .head { left: 90px; right: auto; width: 820px; top: 160px; }
+.nv.wide .src { left: 90px; right: auto; width: 820px; top: 980px; }
+
+/* The close: the account's picture and a line beside it. */
+.nv .sign { display: flex; align-items: center; gap: 22px; font-family: var(--mono); font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--soft); }
+.nv .sign img { width: 84px; height: 84px; border-radius: 50%; border: 2px solid rgba(199, 244, 255, 0.5); box-shadow: 0 0 30px rgba(127, 227, 255, 0.3); }
