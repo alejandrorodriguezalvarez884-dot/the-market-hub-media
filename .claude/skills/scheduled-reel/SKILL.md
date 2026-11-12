@@ -117,7 +117,8 @@ Before paying for the voice, `make film PIECE=reels/<folder> STILLS=1` and **loo
 nothing over the right edge, no holes in the 3D, the figures right, the hook clear without sound.
 Fix and draw again until it is right. Then `make reel` (the voice, about 1.000 to 1.300
 characters of ElevenLabs, and the film; run it in the background with a long timeout and wait for
-it) and look at the stills again.
+it: in the cloud the film takes about ten minutes, against one on the Mac) and look at the stills
+again. Budget for two films at most: stills are cheap, films are not.
 
 ## 4. Publish it in its window
 
