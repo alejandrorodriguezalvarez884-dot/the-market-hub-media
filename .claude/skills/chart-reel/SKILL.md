@@ -8,8 +8,11 @@ description: Market Hub's chart-reading reels on Instagram, in Spanish, "Lee el 
 The fourth line of reels on the account `the_market_hub_app` (the user, 2026-11-03), beside the
 daily market updates, the reflective ones and the didactic ones (`docs/reels.md`). In the user's
 words: *"vídeos con un patrón, preguntes a la persona que ve el reel qué haría y luego des la
-solución explicando, tras haber dejado un poco de tiempo para pensar"*. **On demand only**: the
-user names the pattern (or leaves it to you) and asks; nothing is scheduled. The first one, the
+solución explicando, tras haber dejado un poco de tiempo para pensar"*. **On demand**, when the
+user names the pattern (or leaves it to you) and asks, **and scheduled since 2026-11-12**: a cloud
+routine makes one every Tuesday, Wednesday and Thursday and publishes it at 13:00 with the skill
+`scheduled-reel` (argument `grafico`), which picks the pattern from `docs/temas.md` and then follows
+this skill as it is. The first one, the
 example to copy, is `reels/2026-11-03-grafico-doble-suelo/` (a double bottom of Tesla, 2025).
 
 Everything in `CLAUDE.md` holds. Above all, for this line:

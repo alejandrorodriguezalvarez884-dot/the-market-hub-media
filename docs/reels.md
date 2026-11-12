@@ -9,11 +9,37 @@ automático, qué se pide a mano y cómo dejarlo todo listo.
 | Línea | Cuándo | Voz (ElevenLabs) | Aspecto | Destacada |
 |---|---|---|---|---|
 | **Market updates**: apertura y cierre de Wall Street, de lunes a viernes; el repaso de la semana, el sábado a las 18:00 (antes a las 10:00; el usuario, 2026-11-03); y los futuros y la semana que viene, la noche del domingo al lunes a la 01:05 (los futuros abren a medianoche de España) | **Automáticos, en la nube**, de lunes a viernes: apertura a las 15:45 y cierre a las 22:05 (hora de Madrid), con el ordenador apagado | Dani (`[reel]` en `channel.toml`) | Oscuro: `<body data-bg="...">` | "Al día" (propuesta) |
-| **Reflexión**: una tesis sobre los mercados, con fuentes | **A demanda**: cuando el usuario da el tema y lo pide | Julián, "profesor sereno" (`[reel.voices.reflexion]`) | Ensayo: `<body class="light essay">` | "A fondo" |
-| **Didácticos**: un concepto de bolsa, con un guiño al mercado de hoy | **A demanda**: cuando el usuario da el tema y lo pide | Rafa (`[reel.voices.didactico]`) | Claro y colorido: `<body class="light">` | "Aprende" |
-| **Lee el gráfico**: un gráfico real con el valor y las fechas tapados, "¿qué crees que pasó después?", cinco segundos de cuenta atrás con tic, y la respuesta: el patrón, qué pasó en ese caso y que un patrón no es una promesa | **A demanda**: cuando el usuario pide un patrón (o deja elegirlo) | Rafalupi (`[reel.voices.grafico]`), elegida por el usuario de oído el 2026-11-03 | Papel liso, gráfico de velas: `<body class="light chart-reel" data-bg="plain">` | "Lee el gráfico" (propuesta) |
+| **Reflexión**: una tesis sobre los mercados, con fuentes | **Programados** (desde el 2026-11-12): martes y jueves a las 19:30, en la nube; y a demanda | Julián, "profesor sereno" (`[reel.voices.reflexion]`) | Ensayo: `<body class="light essay">` | "A fondo" |
+| **Didácticos**: un concepto de bolsa, con un guiño al mercado de hoy | **Programados** (desde el 2026-11-12): lunes, miércoles y viernes a las 19:30, en la nube; y a demanda | Rafa (`[reel.voices.didactico]`) | Claro y colorido: `<body class="light">` | "Aprende" |
+| **Lee el gráfico**: un gráfico real con el valor y las fechas tapados, "¿qué crees que pasó después?", cinco segundos de cuenta atrás con tic, y la respuesta: el patrón, qué pasó en ese caso y que un patrón no es una promesa | **Programados** (desde el 2026-11-12): martes, miércoles y jueves a las 13:00, en la nube; y a demanda, cuando el usuario pide un patrón | Rafalupi (`[reel.voices.grafico]`), elegida por el usuario de oído el 2026-11-03 | Papel liso, gráfico de velas: `<body class="light chart-reel" data-bg="plain">` | "Lee el gráfico" (propuesta) |
 
 En época de resultados, los resultados van primero en los cuatro (el usuario, 2026-11-02).
+
+**Los programados de Aprende, Lee el gráfico y A fondo** (el usuario, 2026-11-12: «Quiero
+automatizar un reel de aprende los lunes, miércoles y viernes. Ve buscando temas sin repetir… de
+análisis técnico martes, miércoles y jueves. Y uno de reflexión martes y jueves. Elige tú los
+horarios y todo. El estilo quiero que sea innovador, como el reel de CoreWeave… Para los reels de
+análisis técnico hazlos como hasta ahora»). Los hace la skill
+[`scheduled-reel`](../.claude/skills/scheduled-reel/SKILL.md), que elige el tema de
+[docs/temas.md](temas.md) sin repetir y lo apunta allí al publicar. La semana queda así (Madrid):
+
+| | 13:00 | ~16:00 | 19:30 | ~22:25 |
+|---|---|---|---|---|
+| Lunes | | Apertura | **Aprende** | Cierre |
+| Martes | **Lee el gráfico** | Apertura | **A fondo** | Cierre |
+| Miércoles | **Lee el gráfico** | Apertura | **Aprende** | Cierre |
+| Jueves | **Lee el gráfico** | Apertura | **A fondo** | Cierre |
+| Viernes | | Apertura | **Aprende** | Cierre |
+
+Más el sábado a las 18:00 y la noche del domingo. Cada uno a dos horas o más de cualquier otro: si
+no llega a tiempo (13:45 o 20:20 como tarde), se queda montado sin publicar y se dice. Por qué esas
+horas: las 19:30, como hasta ahora; las 13:00, la hora de comer en España y la tarde en la India y
+el Reino Unido, de donde son casi todas las cuentas a las que llegan los reels, y un gráfico se
+entiende sin palabras. Aprende y A fondo se dibujan **cada uno en un mundo propio en CSS 3D, con
+una cámara que se mueve**, como «La nave» del reel de CoreWeave (`reels/2026-11-11-neoclouds/slides/look/`),
+con Remotion; Aprende sin perder su papel claro y su ámbar. Lee el gráfico, como hasta ahora. No
+traen vídeo largo; el usuario lo puede pedir. Un reel que el usuario pide a mano ocupa el hueco de
+su línea ese día (la rutina ve que ya está y no hace el suyo) o las 13:00 del lunes o el viernes.
 
 **Los diarios, sin fórmula** (el usuario, 2026-11-09: «quiero que los mejores un poco… que le
 quites algo de AI slop, sin cambiar mucho el estilo»): el mismo formato, contado con los hechos en
@@ -152,6 +178,9 @@ del canal ni con la voz de Google) y con el aspecto del reel (no el del canal co
 | Market Hub · reel del cierre de Wall Street | `CRON_TZ=Europe/Madrid 5 22 * * 1-5` | `trig_01MgSgfpR5a8YPi6FHN7h7gv` |
 | Market Hub · reel de la semana (sábado, `week`) | `CRON_TZ=Europe/Madrid 0 18 * * 6` | `trig_01YM4JwMLEvqA7Fp8dkMPcz9` |
 | Market Hub · reel de la semana que viene (noche del domingo, `ahead`) | `CRON_TZ=Europe/Madrid 5 1 * * 1` | `trig_016A6VKPeVAbJV1sjtqweDTU` |
+| Market Hub · reel de Aprende (`scheduled-reel aprende`, sale a las 19:30) | `CRON_TZ=Europe/Madrid 0 18 * * 1,3,5` | `trig_01BicFNiqv9z5KWXw4Bk8LZR` |
+| Market Hub · reel de Lee el gráfico (`scheduled-reel grafico`, sale a las 13:00) | `CRON_TZ=Europe/Madrid 0 12 * * 2-4` | `trig_01Pqx75QzrZtMqvypNtpo26N` |
+| Market Hub · reel de A fondo (`scheduled-reel reflexion`, sale a las 19:30) | `CRON_TZ=Europe/Madrid 0 18 * * 2,4` | `trig_01PD6HVGvzH8guvhMNpDg8JC` |
 
 Corren aunque el ordenador esté apagado; cada una tarda unos 15 minutos (el montaje, unos 8). Su
 texto es el de las tareas del Mac (abajo) con lo propio de la nube (`git pull`, `uv sync`, el

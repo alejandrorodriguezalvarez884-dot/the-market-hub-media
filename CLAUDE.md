@@ -54,7 +54,7 @@ su fuente y su hora; nada de material ajeno salvo los logotipos de las empresas 
 Sin emojis, también en el pie.
 
 **Además, reels sueltos de reflexión** (decisión del usuario, 2026-11-02): aparte de los dos
-diarios, **solo a demanda** (el usuario da el tema y lo pide; nada programado), el usuario pide reels puntuales "más reflexivos" sobre un tema (por ejemplo, si los
+diarios, a demanda (el usuario da el tema y lo pide) y, **desde el 2026-11-12, también programados** (abajo), el usuario pide reels puntuales "más reflexivos" sobre un tema (por ejemplo, si los
 resultados de las grandes dicen que esto es o no una burbuja). Mismo formato y mismas reglas, con
 tres diferencias: la carpeta es `reels/<fecha>-<unas-palabras>/`; el guion dice `voice: reflexion`,
 que es **Julián** con "un poco más de entusiasmo, no te pases" (`[reel.voices.reflexion]`); y el
@@ -63,7 +63,9 @@ nunca aconsejar ni predecir precios, y se publican cuando el usuario lo pide en 
 el reel en el feed (`make reelpost`). **Todos los reels a demanda** (reflexión, didácticos y Lee
 el gráfico) salen **a las 19:30 de Madrid, de lunes a viernes, uno al día como mucho y a dos horas
 o más de cualquier otro reel**, y empiezan con algo del mercado de hoy que se entiende sin sonido
-(el usuario, 2026-11-06; skill `daily-reel`, paso 6, y `docs/instagram-strategy.md`). Si se piden
+(el usuario, 2026-11-06; skill `daily-reel`, paso 6, y `docs/instagram-strategy.md`; desde el
+2026-11-12 las 19:30 son de los programados, y uno pedido ocupa el hueco de su línea o las 13:00 del
+lunes o el viernes). Si se piden
 antes, se dejan montados y se suben a esa hora; una hora que diga el usuario manda. **La historia la hace el usuario desde la app**, compartiendo
 el reel ("Añadir a tu historia"), para que al tocarla se vaya al reel ("quiero que en la historia
 se pueda hacer click e ir al reel. Es como resubirlo", 2026-11-02), y la guarda en la destacada
@@ -97,7 +99,22 @@ después?", cinco segundos de cuenta atrás con un tic hecho por el código, y l
 es una promesa. Voz **Rafalupi** (`voice: grafico`), elegida por él de oído; aspecto claro de papel
 (`<body class="light chart-reel" data-bg="plain">`, `theme/chart.js` y `theme/chart.css`). La
 pregunta es de lectura, nunca "¿compras o vendes?", y nada de señales, objetivos ni porcentajes de
-acierto. Se publica solo cuando él lo pide ("súbelo"), como los otros a demanda.
+acierto. A demanda, se publica solo cuando él lo pide ("súbelo"); los programados, abajo.
+
+**Y, desde el 2026-11-12, Aprende, Lee el gráfico y A fondo también salen solos** (el usuario:
+«Quiero automatizar un reel de aprende los lunes, miércoles y viernes. Ve buscando temas sin
+repetir… análisis técnico martes, miércoles y jueves. Y uno de reflexión martes y jueves. Elige tú
+los horarios y todo. El estilo quiero que sea innovador, como el reel de CoreWeave… Para los reels
+de análisis técnico hazlos como hasta ahora»), con la skill
+[`scheduled-reel`](.claude/skills/scheduled-reel/SKILL.md) y tres rutinas en la nube: **Aprende**
+los lunes, miércoles y viernes a las 19:30; **Lee el gráfico** de martes a jueves a las 13:00; y
+**A fondo** los martes y jueves a las 19:30 (hora de Madrid; cada uno a dos horas o más de los
+diarios). Eligen el tema sin repetir de [docs/temas.md](docs/temas.md), donde apuntan cada uno; se
+publican sin preguntar; no traen vídeo largo (no hay nadie a quien preguntar; el usuario lo puede
+pedir). Aprende y A fondo se dibujan con Remotion, **cada uno en un mundo propio en CSS 3D con una
+cámara que se mueve**, como «La nave» del reel de CoreWeave, sin perder el color de su línea; Lee el
+gráfico, como hasta ahora (HTML, `chart-reel`). Un reel que pide el usuario ocupa el hueco de su
+línea ese día (y la rutina ya no hace el suyo) o las 13:00 del lunes o el viernes.
 
 **Y cada reel que pide el usuario puede traer su vídeo largo en YouTube, si él lo quiere**
 (decisión del usuario, 2026-11-09: "automatizar la creación de videos largos de 10/12 mins a
@@ -134,9 +151,10 @@ tres aspectos, los fondos, las piezas que entran con la voz y las tres marcas de
 e hipótesis), y Remotion dibuja y monta la película en este ordenador. El guion, la voz, los
 tiempos de cada palabra y las comprobaciones siguen en Python, y `make reel` y `make render` eligen
 solos el motor. Gratis por su licencia (hasta tres personas); nada de Remotion Lambda ni otro
-servicio de pago sin preguntar. **Los reels diarios, los programados, se quedan siempre en HTML**
+servicio de pago sin preguntar. **Los reels diarios del mercado (apertura, cierre, semana y futuros) se quedan siempre en HTML**
 (el usuario, 2026-11-09: «para los vídeos programados no quiero usar remotion»), y Lee el gráfico
-también, hasta que su gráfico de velas esté en el kit.
+también, hasta que su gráfico de velas esté en el kit. Los Aprende y A fondo programados desde el
+2026-11-12 sí van con Remotion, porque el usuario pidió para ellos el estilo del de CoreWeave.
 
 Cada tema del canal en inglés (las series como Money 101) da **dos piezas**: un vídeo horizontal de 4 a 6 minutos y un Short vertical de 30
 segundos a 1 minuto, que es un recorte del vídeo (algunas de sus escenas, con las mismas palabras
@@ -194,8 +212,9 @@ Reglas que no se negocian:
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.
 - **Nada programado y nada en GitHub Actions.** Todo se lanza a mano, con una skill o desde el
   `Makefile`. Tampoco se programa la publicación en YouTube. Las únicas excepciones son `autopost`
-  (arriba), que el usuario pidió el 2026-10-21, y `daily-reel`, el 2026-11-02: tareas programadas de la app de Claude, no un
-  servicio ni un cron en la nube.
+  (arriba), que el usuario pidió el 2026-10-21, `daily-reel`, el 2026-11-02, y `scheduled-reel`
+  (Aprende, Lee el gráfico y A fondo), el 2026-11-12: tareas programadas y rutinas de Claude, no un
+  servicio propio ni un cron.
 - **Claves solo en `.secrets/`, en `.env`, en el entorno o en Secret Manager.** Nunca en el repo,
   en logs ni en commits. Las de la API de X están también en Secret Manager
   (`market-hub-x-api-keys`, proyecto `arctic-robot-474306-g3`): en otro equipo, `make xkeys` las

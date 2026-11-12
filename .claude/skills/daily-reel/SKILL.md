@@ -155,7 +155,9 @@ with **Remotion**: one React component per scene, `slides/<scene>.tsx`, with the
 (`Look`, `Column`, `Reveal say=...`, `Count`, `Mark`, `Logo`, the three marks); copy
 `remotion/examples/2026-11-09-jensen-huang/` and `remotion/examples/kit/`. The rules below (what
 goes on a slide, where, the logos, nothing from the network) are the same; only the code differs:
-`say="palabra"` instead of `data-say`, and nothing moves with CSS. **The daily reels** (open,
+`say="palabra"` instead of `data-say`, and nothing moves with CSS. The scheduled Aprende and A fondo
+reels (skill `scheduled-reel`, the owner, 2026-11-12: "innovador, como el reel de CoreWeave") are
+also Remotion, each in a world of its own. **The daily reels** (open,
 close, week, ahead) are **always HTML pages**, as follows, never Remotion (the user, 2026-11-09:
 "para los vídeos programados no quiero usar remotion"); `make reelcheck` refuses one in `.tsx`.
 
@@ -250,6 +252,14 @@ So when the user says "súbelo" and it is not 19:30 yet, leave it made, tell the
 goes at 19:30, and post it when they confirm at that time. An hour the user gives ("súbelo ya",
 "a las 21:00") wins over this; say what the rule would have been. Asked on a Saturday or a
 Sunday, it waits for Monday at 19:30 unless the user says otherwise. The daily reels keep their own times.
+
+**Since 2026-11-12 the 19:30 of every weekday, and the 13:00 of Tuesday to Thursday, belong to the
+scheduled reels** (skill `scheduled-reel`: Aprende on Monday, Wednesday and Friday, A fondo on
+Tuesday and Thursday at 19:30; Lee el gráfico on Tuesday to Thursday at 13:00). So a reel the user
+asks for goes, unless they give an hour: **in the slot of the scheduled reel of its own line that
+day, which it then replaces** (the routine sees a reel of its line already up today and stops), or
+else **at 13:00 on Monday or Friday**, the slots left free. Write it down in `docs/temas.md` like
+the scheduled ones, so they do not repeat it.
 
 `make reelpost` publishes it once (the film goes through the bucket of `channel.toml` and leaves
 it), writes `instagram.json` and tells the portal's Media page. If Instagram refuses (an expired

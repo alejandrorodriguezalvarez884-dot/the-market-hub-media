@@ -14,6 +14,7 @@ guion y `make check`/`make reelcheck`, la voz (ElevenLabs y Google), cuándo se 
 |---|---|
 | **Reels a demanda** (reflexión, didácticos, especiales como el de Jensen Huang) | **Remotion**: `slides/<escena>.tsx` |
 | **Vídeos largos de YouTube** de esos reels (skill `long-video`) | **Remotion**, en horizontal; la miniatura sigue siendo `thumbnail.html` |
+| Reels programados de Aprende y A fondo (skill `scheduled-reel`, desde el 2026-11-12) | **Remotion**, cada uno en un mundo propio en CSS 3D como «La nave» del reel de CoreWeave (el usuario: «innovador, como el reel de CoreWeave»). En la nube funciona: el entorno trae Node 22 y la prueba del 2026-11-12 dibujó las escenas de los neoclouds en 30 s |
 | Reels diarios automáticos (apertura, cierre, semana, futuros) | **HTML, siempre** (decisión del usuario, abajo) |
 | Lee el gráfico (`chart-reel`) | HTML, como antes: su gráfico de velas (`theme/chart.js`) aún no está en el kit |
 | Vídeos del canal en inglés con presentador, Shorts recortados, historias y carruseles | HTML, como antes |

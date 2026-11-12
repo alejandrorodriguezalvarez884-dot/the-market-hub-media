@@ -49,9 +49,10 @@ Buffer, y es una carga que se puede sostener.
 | Cierre de Wall Street | 22:05, de lunes a viernes | 5 a la semana | Rutina en la nube |
 | Repaso de la semana | Sábado, 18:00 (antes, 10:00) | 1 | Rutina en la nube |
 | Futuros y la semana que viene | Lunes, 01:05 | 1 | Rutina en la nube |
-| Aprende (didáctico) | Cuando el usuario lo pide; sale a las 19:30, de lunes a viernes | Uno al día entre los tres, como mucho | A mano |
-| A fondo (reflexión) | Igual | Igual | A mano |
-| Lee el gráfico | Igual | Igual | A mano |
+| Aprende (didáctico) | Lunes, miércoles y viernes, 19:30 (desde el 2026-11-12) | 3 a la semana | Rutina en la nube (`scheduled-reel`) |
+| A fondo (reflexión) | Martes y jueves, 19:30 (desde el 2026-11-12) | 2 a la semana | Rutina en la nube (`scheduled-reel`) |
+| Lee el gráfico | Martes, miércoles y jueves, 13:00 (desde el 2026-11-12) | 3 a la semana | Rutina en la nube (`scheduled-reel`) |
+| Uno que pide el usuario | En el hueco de su línea ese día, o a las 13:00 del lunes o el viernes | Cuando lo pide | A mano |
 | Historias | Cada reel lo comparte el usuario desde la app | 1 por reel | A mano |
 | Carruseles | Ninguno desde el 2026-11-02 (los sustituyeron los reels) | — | — |
 
