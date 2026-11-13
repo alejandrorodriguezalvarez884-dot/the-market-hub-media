@@ -1,0 +1,90 @@
+/* "La pila": the look of the Aprende reel on the P/E (2026-11-13). A paper floor in CSS 3D where the
+   price of a share stands as a glass tower and a year of profit is a block of amber; the P/E is how
+   many blocks it takes to fill the tower. The warm light paper of the Aprende line, amber for the word
+   that matters, the black kicker tag, white cards. Scoped to .pl, no CSS animation: look/pila.tsx
+   moves everything from the frame. Upright, 1080 x 1920. */
+
+.pl {
+  --bg: #f3ede1; --ink: #17140f; --soft: #3d382f; --dim: #7a7264; --hair: rgba(23, 20, 15, 0.14);
+  --amber: #e08a00; --amber-2: #ffc85c; --up: #13a067; --down: #d6402f; --glass: rgba(80, 120, 170, 0.10);
+  --serif: "Noto Serif", Georgia, serif;
+  --sans: Inter, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  position: absolute; inset: 0; overflow: hidden; isolation: isolate; background: var(--bg);
+  color: var(--ink); font-family: var(--sans); font-size: 34px; line-height: 1.22; -webkit-font-smoothing: antialiased;
+}
+.pl * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.pl .world { position: absolute; inset: 0; perspective: 1600px; z-index: 0; }
+.pl .world .cam, .pl .world .cam * { transform-style: preserve-3d; }
+.pl .world .cam { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.pl .face { position: absolute; backface-visibility: visible; }
+.pl .world .cam .face, .pl .world .cam .face * { transform-style: flat; }
+
+.pl .haze { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.pl .grain { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: multiply; }
+.pl .over { position: absolute; inset: 0; z-index: 3; }
+
+.pl .hud { position: absolute; left: 72px; right: 150px; top: 250px; }
+.pl .hud .row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 21px; line-height: 1;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+.pl .hud .row b { color: var(--ink); font-weight: 700; }
+.pl .hud .bars { display: flex; gap: 6px; margin-top: 16px; }
+.pl .hud .bars i { flex: 1; height: 4px; background: rgba(23, 20, 15, 0.12); position: relative; overflow: hidden; }
+.pl .hud .bars i span { position: absolute; inset: 0; background: var(--ink); transform-origin: left center; }
+
+.pl .head { position: absolute; left: 72px; right: 150px; top: 322px; }
+.pl .kick { display: inline-block; font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; background: var(--ink); padding: 9px 16px 8px; margin-bottom: 20px; border-radius: 4px; }
+.pl h1 { font-family: var(--sans); font-weight: 800; font-size: 88px; line-height: 1.0; letter-spacing: -0.035em; color: var(--ink); }
+.pl h1.mid { font-size: 76px; }
+.pl .hi { display: inline-block; white-space: nowrap; padding: 0 0.04em 0.12em; margin: 0 -0.04em -0.12em;
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.pl .num { font-family: var(--sans); font-weight: 800; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.03em; line-height: 0.95; white-space: nowrap; }
+
+.pl .card { position: absolute; padding: 22px 28px; font-size: 31px; line-height: 1.22; color: var(--soft);
+  background: #fffdf8; border: 1.5px solid var(--hair); border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(60, 40, 10, 0.16), 0 2px 0 rgba(255, 255, 255, 0.8) inset; }
+.pl .card b { color: var(--ink); font-weight: 800; }
+.pl .card .lab { display: block; font-family: var(--mono); font-size: 19px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  line-height: 1.15; color: var(--dim); margin-bottom: 10px; }
+.pl .card .num { display: block; font-size: 112px; color: var(--ink); }
+.pl .card .num.mid { font-size: 84px; }
+.pl .card .num.sm { font-size: 60px; }
+.pl .card small { display: block; font-size: 23px; line-height: 1.25; color: var(--dim); margin-top: 8px; }
+.pl .card.amber { border-color: rgba(224, 138, 0, 0.55); background: #fff6e3; }
+.pl .card.amber .num, .pl .card.amber .lab { color: var(--amber); }
+.pl .card.up .num { color: var(--up); }
+.pl .card.down .num { color: var(--down); }
+.pl .card.key { background: var(--ink); border-color: var(--ink); color: #e9e2d4; box-shadow: 0 24px 70px rgba(23, 20, 15, 0.35); }
+.pl .card.key b { color: #fff; }
+.pl .card.key .lab { color: #b3a993; }
+.pl .card.key .num { color: #fff; }
+.pl .card.key .y { color: var(--amber-2); }
+.pl .ej { display: inline-block; font-family: var(--mono); font-size: 18px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber); border: 2px solid var(--amber); border-radius: 4px; padding: 4px 10px 3px; margin-bottom: 12px; }
+
+.pl .card .line { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; padding: 9px 0; font-size: 30px; line-height: 1.15;
+  border-top: 1px solid var(--hair); }
+.pl .card .line:first-of-type { border-top: 0; }
+.pl .card .line span { color: var(--dim); }
+.pl .card .line b { font-weight: 800; font-variant-numeric: tabular-nums; }
+.pl .card .line b.up { color: var(--up); }
+.pl .card .line b.down { color: var(--down); }
+.pl .card .line b.y { color: var(--amber); }
+
+.pl .logo { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1.5px solid var(--hair); border-radius: 10px; padding: 7px; vertical-align: middle; }
+.pl .logo img { display: block; height: 100%; width: auto; }
+
+.pl .tag { font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); white-space: nowrap;
+  background: rgba(255, 253, 248, 0.92); padding: 6px 12px; border-radius: 6px; border: 1.5px solid var(--hair); }
+.pl .val { font-family: var(--sans); font-weight: 800; font-size: 54px; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 18px var(--bg), 0 0 8px var(--bg); }
+.pl .val.y { color: var(--amber); }
+
+.pl .src { position: absolute; left: 72px; right: 150px; top: 1368px; font-size: 20px; line-height: 1.3; color: var(--dim);
+  text-shadow: 0 0 10px var(--bg), 0 0 18px var(--bg); }
+
+.pl .sign { display: flex; align-items: center; gap: 22px; font-family: var(--mono); font-weight: 700; font-size: 23px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+.pl .sign img { width: 84px; height: 84px; border-radius: 50%; border: 2px solid var(--ink); }
