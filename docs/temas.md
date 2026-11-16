@@ -23,6 +23,7 @@ en la fila.
 | 2026-11-09 | Quién pone el precio: el libro de órdenes | `2026-11-09-como-se-mueve-el-precio` |
 | 2026-11-10 | Cómo se mide la inflación (el IPC) | `2026-11-10-inflacion-ipc` |
 | 2026-11-13 | El PER: cuántos años de beneficios se pagan (Nvidia, de 53 a 20; el S&P 500, 25,9 frente a 16,2) | `2026-11-13-per` |
+| 2026-11-16 | Batir previsiones: el BPA, el consenso y la sorpresa (Nvidia, listón de 2,49 $ la víspera de sus cuentas; cuatro trimestres por encima) | `2026-11-16-batir-previsiones` |
 
 ### Por hacer
 
@@ -31,44 +32,43 @@ En este orden si nada del mercado de hoy pide otro: **gana el que conecta con la
 concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se añade a «Hechos».
 
 1. La capitalización: qué quiere decir que una empresa «vale» un billón
-2. Batir previsiones: el BPA, el consenso y la sorpresa
-3. La previsión (guidance): por qué una acción cae con buenos resultados
-4. Los tipos de la Fed y por qué mueven la bolsa
-5. Qué es un ETF y en qué se diferencia de un fondo
-6. Cómo se calcula un índice: el S&P 500 por capitalización, el Dow por precio
-7. El dividendo y la fecha ex-dividendo
-8. Las recompras de acciones
-9. El split: por qué partir una acción no la abarata
-10. El drawdown: tras caer un 50 %, hay que subir un 100 %
-11. La curva de tipos y qué significa que se invierta
-12. Preapertura, postcierre y por qué una acción abre con hueco
-13. Las ventas en corto y el short squeeze
-14. Margen bruto, operativo y neto
-15. El flujo de caja libre: beneficio no es caja
-16. La amortización: por qué un chip «gasta» dinero cada año
-17. La deuda de una empresa: deuda neta y EBITDA
-18. Cíclicas y defensivas
-19. Crecimiento y valor (growth y value)
-20. Las pequeñas frente a las grandes (Russell 2000 y S&P 500)
-21. La beta: cuánto se mueve una acción cuando se mueve el mercado
-22. La diversificación y la correlación
-23. La volatilidad implícita y por qué cae después de los resultados
-24. Qué es una opción call y una put (para entender las noticias)
-25. El empleo en EE. UU.: las nóminas no agrícolas
-26. El PIB y la recesión técnica
-27. Los tipos reales: el tipo de interés menos la inflación
-28. El dólar fuerte y las multinacionales
-29. Rentabilidad en dólares y en euros: el tipo de cambio
-30. Una salida a bolsa (OPV / IPO), paso a paso
-31. El rebalanceo de un índice: qué pasa cuando una empresa entra en el S&P 500
-32. Qué mueve el petróleo: la OPEP+ y los inventarios
-33. El oro como refugio
-34. El capex: lo que gastan las grandes en centros de datos
-35. Los bonos basura y el diferencial de crédito
-36. Las compras de los directivos (Form 4 en la SEC)
-37. Qué compran los grandes fondos (el 13F)
-38. La rotación sectorial
-39. La concentración: cuánto pesan siete empresas en el S&P 500
+2. La previsión (guidance): por qué una acción cae con buenos resultados
+3. Los tipos de la Fed y por qué mueven la bolsa
+4. Qué es un ETF y en qué se diferencia de un fondo
+5. Cómo se calcula un índice: el S&P 500 por capitalización, el Dow por precio
+6. El dividendo y la fecha ex-dividendo
+7. Las recompras de acciones
+8. El split: por qué partir una acción no la abarata
+9. El drawdown: tras caer un 50 %, hay que subir un 100 %
+10. La curva de tipos y qué significa que se invierta
+11. Preapertura, postcierre y por qué una acción abre con hueco
+12. Las ventas en corto y el short squeeze
+13. Margen bruto, operativo y neto
+14. El flujo de caja libre: beneficio no es caja
+15. La amortización: por qué un chip «gasta» dinero cada año
+16. La deuda de una empresa: deuda neta y EBITDA
+17. Cíclicas y defensivas
+18. Crecimiento y valor (growth y value)
+19. Las pequeñas frente a las grandes (Russell 2000 y S&P 500)
+20. La beta: cuánto se mueve una acción cuando se mueve el mercado
+21. La diversificación y la correlación
+22. La volatilidad implícita y por qué cae después de los resultados
+23. Qué es una opción call y una put (para entender las noticias)
+24. El empleo en EE. UU.: las nóminas no agrícolas
+25. El PIB y la recesión técnica
+26. Los tipos reales: el tipo de interés menos la inflación
+27. El dólar fuerte y las multinacionales
+28. Rentabilidad en dólares y en euros: el tipo de cambio
+29. Una salida a bolsa (OPV / IPO), paso a paso
+30. El rebalanceo de un índice: qué pasa cuando una empresa entra en el S&P 500
+31. Qué mueve el petróleo: la OPEP+ y los inventarios
+32. El oro como refugio
+33. El capex: lo que gastan las grandes en centros de datos
+34. Los bonos basura y el diferencial de crédito
+35. Las compras de los directivos (Form 4 en la SEC)
+36. Qué compran los grandes fondos (el 13F)
+37. La rotación sectorial
+38. La concentración: cuánto pesan siete empresas en el S&P 500
 
 ## Lee el gráfico (análisis técnico)
 
