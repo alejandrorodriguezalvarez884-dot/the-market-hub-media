@@ -1,0 +1,1 @@
+Lee el gráfico: bandera alcista de Meta (abr.–jun. 2023), porque el último (hombro-cabeza-hombro de Nvidia) falló y toca uno que se cumplió; patrón de continuación, distinto de los dos anteriores (de giro), y un valor no usado.

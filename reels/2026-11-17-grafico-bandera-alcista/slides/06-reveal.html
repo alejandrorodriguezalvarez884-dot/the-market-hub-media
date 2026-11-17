@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- What happened: the next day it broke the line, then above the top; five weeks later, 19 % higher -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker green in">La respuesta</p>
+<h1 class="in">Lo que <span class="hl" data-say="siguiente">pasó</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }, { to: EPISODE.out, say: "siguiente", for: 0.6 }, { to: EPISODE.high, say: "otro", for: 0.6 }, { to: EPISODE.end, say: "paro", for: 2.6 }],
+  marks: [
+    flagLine("high", EPISODE.out, { at: 0, for: 0.01 }),
+    flagLine("low", EPISODE.ask, { at: 0, for: 0.01 }),
+    { type: "level", price: EPISODE.topPrice, dash: true, color: "ink", label: "Máximo del mástil", from: EPISODE.top, say: "maximo", for: 0.8 },
+    { type: "move", from: [EPISODE.out, 242.49], to: [EPISODE.end, 288.73], color: "up", label: "+19 %", dx: -40, say: "semanas", for: 1 },
+  ],
+}));
+</script>
+</body>
+</html>

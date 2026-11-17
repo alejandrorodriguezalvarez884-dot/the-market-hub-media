@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- The pattern's name: a flagpole and a short pause, the flag -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">El patrón</p>
+<h1 class="small in">Una <span class="hl" data-say="bandera">bandera alcista</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="choices"><span class="sticker green pop" data-say="continuacion">Patrón de continuación</span></div>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "move", from: [EPISODE.base, 209.40], to: [EPISODE.top, EPISODE.topPrice], color: "up", label: "Mástil", dx: -30, say: "mastil", for: 0.8 },
+    { type: "zone", from: EPISODE.flag0, to: EPISODE.ask, color: "amber", label: "Bandera", say: "pausa" },
+    flagLine("high", EPISODE.ask, { say: "bandera+0.1", for: 0.8 }),
+    flagLine("low", EPISODE.ask, { say: "bandera+0.3", for: 0.8 }),
+  ],
+}));
+</script>
+</body>
+</html>

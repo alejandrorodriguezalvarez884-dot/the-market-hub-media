@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- What makes it: a sharp rise on heavy volume, then a short pause between two parallel lines -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">Para que cuente</p>
+<div class="checks">
+  <p class="in" data-say="mastil">Un mástil: subida fuerte, mucho volumen</p>
+  <p class="in" data-say="pausa">Una pausa corta, entre paralelas</p>
+  <p class="in" data-say="cediendo">Cede poco</p>
+</div>
+<div class="plot short"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "move", from: [EPISODE.base, 209.40], to: [EPISODE.top, EPISODE.topPrice], color: "up", label: "+17 %", dx: -80, say: "diecisiete", for: 0.8 },
+    { type: "ring", day: EPISODE.gap, where: "close", r: 34, color: "ink", label: "×3,9 volumen", side: "above", say: "volumen" },
+    flagLine("high", EPISODE.ask, { say: "paralelas", for: 0.8 }),
+    flagLine("low", EPISODE.ask, { say: "paralelas+0.2", for: 0.8 }),
+    { type: "ring", day: EPISODE.flagLow, where: "low", r: 30, color: "sky", label: "−6 %", side: "below", say: "seis" },
+  ],
+}));
+</script>
+</body>
+</html>

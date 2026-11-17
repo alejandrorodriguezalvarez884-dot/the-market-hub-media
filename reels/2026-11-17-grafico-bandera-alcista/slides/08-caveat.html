@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- A pattern is not a promise: it worked, not in a straight line, and a flag can also break down -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker red in">Ojo</p>
+<h1 class="small in">Un patrón <span class="hl" data-say="promesa">no es una promesa</span></h1>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Meta Platforms (META) · velas diarias · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.end }],
+  axis: { at: 0 },
+  marks: [
+    flagLine("high", EPISODE.out, { at: 0, for: 0.01 }),
+    flagLine("low", EPISODE.ask, { id: "low", at: 0, for: 0.01 }),
+    { type: "ring", day: EPISODE.dip, where: "close", r: 32, color: "down", label: "−2,8 % en un día", side: "below", say: "junio" },
+    { type: "ring", day: EPISODE.flagLow, where: "low", r: 32, color: "down", label: "Podía romper por abajo", side: "below", say: "abajo" },
+  ],
+}));
+</script>
+</body>
+</html>

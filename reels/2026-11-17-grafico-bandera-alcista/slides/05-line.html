@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- The key line: the flag's upper line, and the chart just under it at the question -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">La clave</p>
+<h1 class="small in">La línea <span class="hl" data-say="arriba">de arriba</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    flagLine("high", EPISODE.ask, { at: 0, for: 0.01 }),
+    flagLine("low", EPISODE.ask, { at: 0, for: 0.01 }),
+    { type: "ring", day: EPISODE.ask, where: "high", r: 32, color: "amber", label: "Justo debajo", side: "above", say: "debajo" },
+  ],
+}));
+</script>
+</body>
+</html>
