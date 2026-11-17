@@ -105,6 +105,7 @@ concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se a
 | 2026-11-06 | Tres años de ChatGPT en bolsa: esto no es el año 2000 | IA, puntocom | `2026-11-06-ai-crash` |
 | 2026-11-09 | Especial: el caso Jensen Huang, lo confirmado y lo que pudo pasar | Nvidia | `2026-11-09-jensen-huang` |
 | 2026-11-11 | A los neoclouds les salen las cuentas; el riesgo es la deuda | CoreWeave, IREN, Nebius | `2026-11-11-neoclouds` |
+| 2026-11-17 | Siete empresas pesan un tercio del S&P 500: comprar el índice ya no es repartir (tres años sumó, en 2026 resta: +7,2 % frente a +12,7 % a partes iguales) | S&P 500, las siete grandes (de la lista, n.º 2) | `2026-11-17-siete-empresas` |
 
 ### Cómo elegir la siguiente
 
@@ -115,7 +116,7 @@ ni las mismas empresas en cuatro semanas. Si la semana no da una pregunta clara,
 primera que no esté hecha:
 
 1. ¿Está cara la bolsa? El PER de Shiller frente a los tipos
-2. Siete empresas pesan un tercio del S&P 500: qué significa para quien compra «el índice»
+2. ~~Siete empresas pesan un tercio del S&P 500: qué significa para quien compra «el índice»~~ (hecho el 2026-11-17)
 3. ¿Se pagará lo que gastan las grandes en centros de datos?
 4. La electricidad, el cuello de botella de la IA
 5. Europa frente a EE. UU.: por qué una cotiza a la mitad que la otra
