@@ -1,0 +1,28 @@
+LOS CHIPS, A EXAMEN: PER Y PER ADELANTADO
+
+Lo pedisteis en comentarios, @lauragcd (Broadcom) y @rafanavarromarzal (Micron): aquí están, con los grandes de los chips. El PER divide el precio entre lo que la empresa ganó en los últimos doce meses; el PER adelantado, entre lo que los analistas esperan que gane en su próximo año.
+
+· Ejemplo: una panadería que ganó 10.000 € y se espera que gane 20.000 €, comprada por 200.000 €. PER: 20. Adelantado: 10.
+· Nvidia: PER 19,7; adelantado 9,9.
+· Broadcom: 42,6 y 17,2.
+· TSMC: 24,2 y 16,0.
+· ASML: 34,6 y 22,6.
+· Micron: 9,7 y 4,1, la más baja en los dos. Vende memoria, un negocio de ciclos: en su año fiscal 2023 perdió 5,34 $ por acción; en el de 2026, ganó 74,33 $.
+· AMD: 107,8 y 28,6.
+· Intel: sin PER, porque en los últimos doce meses perdió dinero (−2,35 $ por acción). Adelantado: 31,0.
+▼ Ayer, al cierre, Micron cayó un 7,6 %; Intel, un 7,0 %; TSMC, un 6,3 %; Nvidia, un 4,1 %. El Nasdaq 100, un 2,7 %.
+
+Dos avisos: las previsiones son estimaciones y cambian; y suelen hacerse con el beneficio ajustado, sin gastos que el PER de los últimos doce meses sí resta. Parte de la distancia entre los dos PER de AMD viene de ahí.
+
+Esta noche, tras el cierre de Wall Street, presenta Nvidia: sus nuevas cifras cambiarán sus dos PER.
+
+¿Qué empresas comparamos la próxima vez? Te leo en comentarios.
+
+Precios al cierre del 16 de noviembre de 2026. PER adelantado: el precio entre la media de lo que esperan los analistas para el año fiscal que cae sobre todo en 2027 (Nvidia, hasta enero de 2028; Broadcom, hasta octubre de 2027; Micron, hasta agosto de 2027; las demás, 2027). ASML, con su previsión en euros pasada a dólares. Cálculo propio.
+
+Fuentes: Yahoo Finance (precios, beneficio por acción, PER y estimaciones de los analistas, 16 y 17 de noviembre de 2026); SEC (beneficio por acción de Micron); Market Hub (datos de Yahoo Finance). La panadería es un ejemplo inventado.
+
+Contenido informativo de The Market Hub. No es una recomendación de inversión.
+themarkethub.app
+
+#per #semiconductores #nvidia #micron #broadcom #aprendebolsa
