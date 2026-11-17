@@ -24,6 +24,7 @@ en la fila.
 | 2026-11-10 | Cómo se mide la inflación (el IPC) | `2026-11-10-inflacion-ipc` |
 | 2026-11-13 | El PER: cuántos años de beneficios se pagan (Nvidia, de 53 a 20; el S&P 500, 25,9 frente a 16,2) | `2026-11-13-per` |
 | 2026-11-16 | Batir previsiones: el BPA, el consenso y la sorpresa (Nvidia, listón de 2,49 $ la víspera de sus cuentas; cuatro trimestres por encima) | `2026-11-16-batir-previsiones` |
+| 2026-11-17 | El PER adelantado frente al PER, en los grandes de los chips (Nvidia, Broadcom, TSMC, ASML, Micron, AMD, Intel; pedido en comentarios; a demanda, publicado a las 09:09) | `2026-11-17-per-semis` |
 
 ### Por hacer
 
