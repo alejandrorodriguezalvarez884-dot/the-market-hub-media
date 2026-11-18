@@ -1,0 +1,24 @@
+NVIDIA, CIFRA A CIFRA: UN TRIMESTRE RÉCORD Y UNA SILLA VACÍA
+
+Nvidia presentó el 17 de noviembre, tras el cierre, los resultados de su tercer trimestre (de julio a octubre de 2026): los primeros sin Jensen Huang, que dimitió el 11 de noviembre.
+
+▲ Ingresos: 115.800 M$, un 103 % más que hace un año y un 20 % más que en el trimestre anterior. Los analistas esperaban 109.100 M$ (LSEG).
+▲ Centros de datos: 107.600 M$, el 93 % del total (+110 %). Grandes nubes, 60.100 M$; nubes de IA, industria y empresas, 47.500 M$.
+▲ Beneficio neto: 65.300 M$. Margen bruto: 74,8 %.
+▲ Beneficio por acción ajustado: 2,68 $, frente a 2,48 $ esperados (2,70 $ sin ajustar).
+▲ Previsión para el trimestre que acaba en enero: 130.000 M$ (±3 %), frente a 125.100 M$ esperados, y sin contar ventas a China para centros de datos, adonde ya no envía chips (2.400 M$ en este trimestre).
+· Huang dimitió el 11 de noviembre, con un comité independiente del consejo investigándole desde el 8. Colette Kress, directora financiera, es consejera delegada en funciones mientras se busca sustituto.
+▲ La acción, hoy antes de abrir: +3,4 %, a 160,70 $ (11:44 de España). Desde su máximo del 6 de octubre (239,24 $) había caído un 35 % hasta el cierre del martes.
+▼ El martes, Wall Street cerró a la baja: S&P 500 −1,0 % (su cierre más bajo desde finales de julio), Nasdaq −0,7 %, Dow Jones −1,6 %.
+▲ Hoy, antes de abrir (11:44 de España): CoreWeave +5,6 %, TSMC +3,5 %, Micron +3,1 %, AMD +2,7 %; futuros del Nasdaq 100 +0,8 % y del S&P 500 +0,5 %.
+
+Nuestra opinión: el mercado ya no duda de la demanda. Duda de lo que no está en el comunicado: quién manda, China y cuánto durará este gasto.
+
+¿Pesa más un trimestre récord, o una silla vacía? Te leo en comentarios.
+
+Fuentes: Nvidia (comunicado, comentario de la directora financiera, 8-K y conferencia de resultados); SEC; CNBC (LSEG); AP; Yahoo Finance.
+
+Contenido informativo de The Market Hub. No es una recomendación de inversión.
+themarkethub.app
+
+#bolsa #nvidia #resultados #inteligenciaartificial #wallstreet
