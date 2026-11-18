@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- The hook: the chart drawn as the voice tells it, name and dates hidden, stopping at the question -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">Lee el gráfico</p>
+<h1 class="in">¿Qué pasó <span class="hl" data-say="paso">después</span>?</h1>
+<p class="secret fade">Valor <i></i> Fechas <i></i></p>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: "2025-04-21", at: 0, for: 0.6 },
+         { to: EPISODE.top1, say: "sube", for: 2.2 },
+         { to: EPISODE.trough, say: "cae", for: 1.4 },
+         { to: EPISODE.top2, say: "vuelve", for: 1.2 },
+         { to: EPISODE.ask, say: "gira", for: 0.8 }],
+  marks: [{ type: "note", day: EPISODE.ask, price: "low", side: "below", text: "¿Y ahora?", color: "ink", say: "paso" }],
+}));
+</script>
+</body>
+</html>

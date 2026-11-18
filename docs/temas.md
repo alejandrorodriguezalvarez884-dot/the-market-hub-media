@@ -80,6 +80,7 @@ concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se a
 | 2026-11-03 | Doble suelo | Tesla, feb.–jun. 2025 | Sí: +24 % en cuatro semanas | `2026-11-03-grafico-doble-suelo` |
 | 2026-11-04 | Hombro-cabeza-hombro | Nvidia, jun.–nov. 2023 | No: se completó y subió un 22 % | `2026-11-04-grafico-hombro-cabeza-hombro` |
 | 2026-11-17 | Bandera alcista | Meta, abr.–jun. 2023 | Sí: rompió el 17 de mayo y subió un 19 % en cinco semanas | `2026-11-17-grafico-bandera-alcista` |
+| 2026-11-18 | Doble techo | Micron, abr.–oct. 2025 | No: nunca rompió el soporte (103,38 $); el 5 de septiembre cerró por encima de los dos techos y el 8 de octubre estaba un 49,6 % más arriba | `2026-11-18-grafico-doble-techo` |
 
 ### Cómo elegir el siguiente
 
