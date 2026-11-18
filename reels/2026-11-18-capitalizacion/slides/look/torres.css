@@ -1,0 +1,100 @@
+/* "Las torres": the look of the Aprende reel on market capitalisation (2026-11-18), from "El listón"
+   (reels/2026-11-16-batir-previsiones). A paper floor in CSS 3D where a company is a tower: its floor is
+   its number of shares, its height the price of one share, its volume the capitalisation. The warm light
+   paper of the Aprende line, amber for the word that matters, the black kicker tag, white cards. Scoped
+   to .tw, no CSS animation: look/torres.tsx moves everything from the frame. Upright, 1080 x 1920. */
+
+.tw {
+  --bg: #f3ede1; --ink: #17140f; --soft: #3d382f; --dim: #7a7264; --hair: rgba(23, 20, 15, 0.14);
+  --amber: #e08a00; --amber-2: #ffc85c; --up: #13a067; --down: #d6402f; --glass: rgba(80, 120, 170, 0.10);
+  --serif: "Noto Serif", Georgia, serif;
+  --sans: Inter, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  position: absolute; inset: 0; overflow: hidden; isolation: isolate; background: var(--bg);
+  color: var(--ink); font-family: var(--sans); font-size: 34px; line-height: 1.22; -webkit-font-smoothing: antialiased;
+}
+.tw * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.tw .world { position: absolute; inset: 0; perspective: 1600px; z-index: 0; }
+.tw .world .cam, .tw .world .cam * { transform-style: preserve-3d; }
+.tw .world .cam { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.tw .face { position: absolute; backface-visibility: visible; }
+.tw .world .cam .face, .tw .world .cam .face * { transform-style: flat; }
+
+.tw .haze { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.tw .grain { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: multiply; }
+.tw .over { position: absolute; inset: 0; z-index: 3; }
+
+.tw .hud { position: absolute; left: 72px; right: 150px; top: 250px; }
+.tw .hud .row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 21px; line-height: 1;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+.tw .hud .row b { color: var(--ink); font-weight: 700; }
+.tw .hud .bars { display: flex; gap: 6px; margin-top: 16px; }
+.tw .hud .bars i { flex: 1; height: 4px; background: rgba(23, 20, 15, 0.12); position: relative; overflow: hidden; }
+.tw .hud .bars i span { position: absolute; inset: 0; background: var(--ink); transform-origin: left center; }
+
+.tw .head { position: absolute; left: 72px; right: 150px; top: 322px; }
+.tw .kick { display: inline-block; font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; background: var(--ink); padding: 9px 16px 8px; margin-bottom: 20px; border-radius: 4px; }
+.tw h1 { font-family: var(--sans); font-weight: 800; font-size: 88px; line-height: 1.0; letter-spacing: -0.035em; color: var(--ink); }
+.tw h1.mid { font-size: 76px; }
+.tw .hi { display: inline-block; white-space: nowrap; padding: 0 0.04em 0.12em; margin: 0 -0.04em -0.12em;
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.tw .num { font-family: var(--sans); font-weight: 800; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.03em; line-height: 0.95; white-space: nowrap; }
+
+.tw .card { position: absolute; padding: 22px 28px; font-size: 31px; line-height: 1.22; color: var(--soft);
+  background: #fffdf8; border: 1.5px solid var(--hair); border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(60, 40, 10, 0.16), 0 2px 0 rgba(255, 255, 255, 0.8) inset; }
+.tw .card b { color: var(--ink); font-weight: 800; }
+.tw .card .lab { display: block; font-family: var(--mono); font-size: 19px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  line-height: 1.15; color: var(--dim); margin-bottom: 10px; }
+.tw .card .num { display: block; font-size: 112px; color: var(--ink); }
+.tw .card .num.mid { font-size: 84px; }
+.tw .card .num.sm { font-size: 60px; }
+.tw .card small { display: block; font-size: 23px; line-height: 1.25; color: var(--dim); margin-top: 8px; }
+.tw .card.amber { border-color: rgba(224, 138, 0, 0.55); background: #fff6e3; }
+.tw .card.amber .num, .tw .card.amber .lab { color: var(--amber); }
+.tw .card.up .num { color: var(--up); }
+.tw .card.down .num { color: var(--down); }
+.tw .card.key { background: var(--ink); border-color: var(--ink); color: #e9e2d4; box-shadow: 0 24px 70px rgba(23, 20, 15, 0.35); }
+.tw .card.key b { color: #fff; }
+.tw .card.key .lab { color: #b3a993; }
+.tw .card.key .num { color: #fff; }
+.tw .card.key .y { color: var(--amber-2); }
+.tw .ej { display: inline-block; font-family: var(--mono); font-size: 18px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber); border: 2px solid var(--amber); border-radius: 4px; padding: 4px 10px 3px; margin-bottom: 12px; }
+
+.tw .card .line { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; padding: 9px 0; font-size: 30px; line-height: 1.15;
+  border-top: 1px solid var(--hair); }
+.tw .card .line:first-of-type { border-top: 0; }
+.tw .card .line span { color: var(--dim); }
+.tw .card .line b { font-weight: 800; font-variant-numeric: tabular-nums; }
+.tw .card .line b.up { color: var(--up); }
+.tw .card .line b.down { color: var(--down); }
+.tw .card .line b.y { color: var(--amber); }
+
+.tw .logo { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1.5px solid var(--hair); border-radius: 10px; padding: 7px; vertical-align: middle; }
+.tw .logo img { display: block; height: 100%; width: auto; }
+
+.tw .tag { font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); white-space: nowrap;
+  background: rgba(255, 253, 248, 0.92); padding: 6px 12px; border-radius: 6px; border: 1.5px solid var(--hair); }
+.tw .val { font-family: var(--sans); font-weight: 800; font-size: 54px; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 18px var(--bg), 0 0 8px var(--bg); }
+.tw .val.y { color: var(--amber); }
+
+.tw .src { position: absolute; left: 72px; right: 150px; top: 1368px; font-size: 20px; line-height: 1.3; color: var(--dim);
+  text-shadow: 0 0 10px var(--bg), 0 0 18px var(--bg); }
+
+.tw .sign { display: flex; align-items: center; gap: 22px; font-family: var(--mono); font-weight: 700; font-size: 23px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+.tw .sign img { width: 84px; height: 84px; border-radius: 50%; border: 2px solid var(--ink); }
+
+.tw .val.g { color: var(--up); }
+.tw .val.r { color: var(--down); }
+.tw .val.q { color: var(--dim); }
+.tw .bar-tag { font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.08em; color: #fff; background: var(--ink); white-space: nowrap;
+  padding: 6px 12px; border-radius: 6px; }
+.tw .bar-tag.soft { background: rgba(255, 253, 248, 0.92); color: var(--dim); border: 1.5px solid var(--hair); }
+.tw .pill { display: inline-block; font-family: var(--sans); font-weight: 800; font-size: 34px; color: #fff; border-radius: 999px; padding: 6px 18px; white-space: nowrap; }
+.tw .pill.g { background: var(--up); }
+.tw .pill.r { background: var(--down); }

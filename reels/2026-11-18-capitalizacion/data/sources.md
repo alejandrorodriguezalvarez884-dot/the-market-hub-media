@@ -1,0 +1,1 @@
+Aprende: la capitalización (n.º 1 de «Por hacer»), porque hoy Nvidia, el día después de sus resultados, cae un 2 % y tres dólares por acción son unos 76.000 millones de valor en bolsa. (La previsión, n.º 2, se dejó: el reel especial de hoy ya contó la previsión de Nvidia.)
