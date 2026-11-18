@@ -107,6 +107,7 @@ concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se a
 | 2026-11-09 | Especial: el caso Jensen Huang, lo confirmado y lo que pudo pasar | Nvidia | `2026-11-09-jensen-huang` |
 | 2026-11-11 | A los neoclouds les salen las cuentas; el riesgo es la deuda | CoreWeave, IREN, Nebius | `2026-11-11-neoclouds` |
 | 2026-11-17 | Siete empresas pesan un tercio del S&P 500: comprar el índice ya no es repartir (tres años sumó, en 2026 resta: +7,2 % frente a +12,7 % a partes iguales) | S&P 500, las siete grandes (de la lista, n.º 2) | `2026-11-17-siete-empresas` |
+| 2026-11-18 | Especial: los resultados de Nvidia cifra a cifra; el mercado ya no duda de la demanda, duda de quién manda, de China y de cuánto durará el gasto (a demanda, publicado a las 12:45 por petición del usuario) | Nvidia, chips, el mercado | `2026-11-18-nvidia-resultados` |
 
 ### Cómo elegir la siguiente
 
