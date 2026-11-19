@@ -81,6 +81,7 @@ concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se a
 | 2026-11-04 | Hombro-cabeza-hombro | Nvidia, jun.–nov. 2023 | No: se completó y subió un 22 % | `2026-11-04-grafico-hombro-cabeza-hombro` |
 | 2026-11-17 | Bandera alcista | Meta, abr.–jun. 2023 | Sí: rompió el 17 de mayo y subió un 19 % en cinco semanas | `2026-11-17-grafico-bandera-alcista` |
 | 2026-11-18 | Doble techo | Micron, abr.–oct. 2025 | No: nunca rompió el soporte (103,38 $); el 5 de septiembre cerró por encima de los dos techos y el 8 de octubre estaba un 49,6 % más arriba (hecho y sin publicar: el reel de Nvidia salió a las 12:45 y no cabía a dos horas dentro de la ventana) | `2026-11-18-grafico-doble-techo` |
+| 2026-11-19 | Resistencia y ruptura | Oracle, jun.–oct. 2024 | Sí: tres toques a 145–146,59 $ y 60 sesiones sin cerrar por encima; el 10 de septiembre saltó un 11,4 % con seis veces el volumen y el 9 de octubre cerraba un 27,5 % sobre el 9 de septiembre | `2026-11-19-grafico-ruptura-resistencia` |
 
 ### Cómo elegir el siguiente
 

@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- The name: a resistance, the ceiling marked on the chart -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">El patrón</p>
+<h1 class="small in">Una <span class="hl" data-say="resistencia">resistencia</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="choices"><span class="sticker green pop" data-say="aguanta">¿Aguanta o se rompe?</span></div>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "level", price: EPISODE.line, say: "resistencia", for: 0.8, label: "Resistencia" },
+    { type: "zone", from: EPISODE.t1, to: EPISODE.t3, color: "amber", label: "Las ventas frenan", say: "ventas" },
+  ],
+}));
+</script>
+</body>
+</html>
