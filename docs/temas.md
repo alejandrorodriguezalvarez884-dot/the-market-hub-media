@@ -109,6 +109,7 @@ concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se a
 | 2026-11-11 | A los neoclouds les salen las cuentas; el riesgo es la deuda | CoreWeave, IREN, Nebius | `2026-11-11-neoclouds` |
 | 2026-11-17 | Siete empresas pesan un tercio del S&P 500: comprar el índice ya no es repartir (tres años sumó, en 2026 resta: +7,2 % frente a +12,7 % a partes iguales) | S&P 500, las siete grandes (de la lista, n.º 2) | `2026-11-17-siete-empresas` |
 | 2026-11-18 | Especial: los resultados de Nvidia cifra a cifra; el mercado ya no duda de la demanda, duda de quién manda, de China y de cuánto durará el gasto (a demanda, publicado a las 12:45 por petición del usuario) | Nvidia, chips, el mercado | `2026-11-18-nvidia-resultados` |
+| 2026-11-19 | Las empresas ganan más y el bono se lo come: los beneficios del S&P 500 crecen un 31,9 % y su PER adelantado baja de 22,0 a 18,3, pero el bono a 10 años sube del 4,16 % al 5,15 % y lo que rinde la bolsa en beneficios le saca lo mismo o menos (0,38 → 0,31 puntos); la caída habla del precio del dinero (actas de la Fed del 18) | S&P 500, bono a 10 años, Fed (de la lista, n.º 1, con los datos de esta semana) | `2026-11-19-bono-y-beneficios` |
 
 ### Cómo elegir la siguiente
 
@@ -118,7 +119,7 @@ tesis propia sobre ello, defendible con tres hechos y con lo que la contradiría
 ni las mismas empresas en cuatro semanas. Si la semana no da una pregunta clara, una de estas, la
 primera que no esté hecha:
 
-1. ¿Está cara la bolsa? El PER de Shiller frente a los tipos
+1. ~~¿Está cara la bolsa? El PER de Shiller frente a los tipos~~ (hecho el 2026-11-19, con el PER adelantado frente al bono)
 2. ~~Siete empresas pesan un tercio del S&P 500: qué significa para quien compra «el índice»~~ (hecho el 2026-11-17)
 3. ¿Se pagará lo que gastan las grandes en centros de datos?
 4. La electricidad, el cuello de botella de la IA
