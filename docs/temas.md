@@ -27,6 +27,7 @@ en la fila.
 | 2026-11-17 | El PER adelantado frente al PER, en los grandes de los chips (Nvidia, Broadcom, TSMC, ASML, Micron, AMD, Intel; pedido en comentarios; a demanda, publicado a las 09:09) | `2026-11-17-per-semis` |
 | 2026-11-18 | La capitalización: precio por acciones, y qué es un billón (Nvidia −2,0 % el día después de sus resultados, unos 76.000 M$; las torres de Apple, Microsoft y Nvidia; −2 billones desde el 6 de octubre) | `2026-11-18-capitalizacion` |
 | 2026-11-20 | La previsión (guidance): se paga lo que vendrá, y se compara con el consenso (Gap rebaja su previsión del año, BPA ajustado de 2,29–2,34 $ frente a 2,35–2,45 $ y un consenso de 2,39, y sube un 12,3 % con el Nasdaq 100 a −3,7 %; la heladería que avisa del invierno) | `2026-11-20-prevision` |
+| 2026-11-23 | Comprar con acciones: la ecuación de canje, la prima y el hueco (CrowdStrike compra Zscaler, 1,135 acciones por cada una; prima del 33,7 % con los cierres del viernes; a las 18:06, Zscaler +15,2 %, CrowdStrike −10,8 %, canje de 232,37 $ frente a 224,43 $: hueco del 3,5 %; el cambio de cromos; concepto nuevo, fuera de «Por hacer») | `2026-11-23-canje-en-acciones` |
 
 ### Por hacer
 
