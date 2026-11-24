@@ -1,0 +1,5 @@
+Lee el gráfico: un martillo de Amazon (feb.–mar. 2025) que falló, porque el último (ruptura de Oracle) se cumplió y toca uno que no; un patrón de velas (giro), distinto de los dos últimos (doble techo y resistencia), y un valor no usado en los cinco últimos (Tesla, Nvidia, Meta, Micron, Oracle). Elegido de un escaneo de martillos (mecha ≥ 2,5 veces el cuerpo, tras una caída) en 36 valores e índices grandes, cinco años de velas diarias.
+
+- Yahoo Finance, velas diarias de AMZN del 15 de noviembre de 2024 al 15 de abril de 2025, leídas el 24 de noviembre de 2026 a las 11:04 UTC (data/candles.json) | https://finance.yahoo.com/quote/AMZN/history/
+- StockCharts ChartSchool, Introduction to Candlesticks (Hammer and Hanging Man), leída el 24 de noviembre de 2026 | https://chartschool.stockcharts.com/table-of-contents/chart-analysis/candlestick-charts/introduction-to-candlesticks
+- StockCharts ChartSchool, Candlestick Bullish Reversal Patterns, leída el 24 de noviembre de 2026 | https://chartschool.stockcharts.com/table-of-contents/chart-analysis/candlestick-charts/candlestick-bullish-reversal-patterns

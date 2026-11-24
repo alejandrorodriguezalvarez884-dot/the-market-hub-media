@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- The rules: how many touches, and no close above it -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">Lo que se mira</p>
+<div class="checks">
+  <p class="in" data-say="caida">Llega tras una caída</p>
+  <p class="in" data-say="mecha">Mecha larga: 6 × el cuerpo</p>
+  <p class="in" data-say="confirmen">Lo confirman los días siguientes</p>
+</div>
+<div class="plot short"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "move", from: [EPISODE.top, 242.06], to: [EPISODE.pre, 212.71], color: "down", label: "−12,1 %", dx: -90, say: "doce", for: 1 },
+    { type: "ring", day: EPISODE.ask, where: "low", r: 30, color: "amber", side: "below", label: "×6", say: "seis" },
+  ],
+}));
+</script>
+</body>
+</html>

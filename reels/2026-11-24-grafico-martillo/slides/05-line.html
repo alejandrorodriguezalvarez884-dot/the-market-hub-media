@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- The key level, and where the price stood at the question -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">La clave</p>
+<h1 class="small in">El <span class="hl" data-say="minimo">mínimo</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "level", price: EPISODE.low, say: "minimo", for: 0.8, label: "Mínimo del martillo" },
+    { type: "ring", day: EPISODE.ask, where: "low", r: 30, color: "amber", label: "−4,0 % y vuelta", side: "below", say: "cuatro" },
+  ],
+}));
+</script>
+</body>
+</html>
