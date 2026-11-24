@@ -12,6 +12,10 @@
 <main class="reel">
 <p class="kicker red in">Ojo</p>
 <h1 class="small in">Un patrón <span class="hl" data-say="promesa">no es una promesa</span></h1>
+<div class="choices">
+  <span class="sticker pop" data-say="vendedores">Quedan vendedores</span>
+  <span class="sticker pop" data-say="abrio">Abre arriba, cierra abajo</span>
+</div>
 <div class="plot"><canvas class="chart"></canvas></div>
 <p class="source">Amazon (AMZN) · velas diarias · Yahoo Finance</p>
 </main>
@@ -25,8 +29,8 @@ reelChart("canvas.chart", chartOf({
   axis: { at: 0 },
   marks: [
     { type: "level", price: EPISODE.low, at: 0, for: 0.01, label: "204,16 $" },
-    { type: "note", day: EPISODE.ask, price: "low", side: "below", text: "Quedan vendedores", color: "down", say: "vendedores" },
-    { type: "ring", day: EPISODE.next, where: "high", r: 30, color: "down", label: "Abre arriba, cierra abajo", side: "above", say: "medias" },
+    { type: "ring", day: EPISODE.ask, where: "low", r: 26, color: "down", say: "vendedores" },
+    { type: "ring", day: EPISODE.next, where: "high", r: 30, color: "down", say: "abrio" },
   ],
 }));
 </script>

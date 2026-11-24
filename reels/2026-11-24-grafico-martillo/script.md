@@ -42,7 +42,7 @@ Al día siguiente abrió por encima del martillo... pero se desinfló. Una seman
 
 ## 08-caveat
 
-Un patrón no es una promesa. Aquí falló. La propia definición avisa: ese mínimo dice que aún quedan muchos vendedores. Y la confirmación llegó a medias: abrió arriba, pero cerró por debajo de donde abrió. Otras veces, un martillo sí marca el suelo.
+Un patrón no es una promesa, y aquí falló. Su mínimo ya decía que quedaban vendedores. Y al día siguiente abrió arriba... pero cerró por debajo de su apertura.
 
 ## 09-question
 
