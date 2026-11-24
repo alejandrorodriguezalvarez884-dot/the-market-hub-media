@@ -1,0 +1,124 @@
+/* "El mapa" (2026-11-24): the Nasdaq 100's 25 biggest up-days as towers on a night map in CSS 3D,
+   on the machinery of "La nave" (2026-11-11) and "La marea" (2026-11-19). Headlines in a serif (the
+   reflective line's essay voice), figures in Inter, labels in JetBrains Mono. Scoped to .mp, with
+   no CSS animation: everything that moves is moved by look/mapa.tsx from the frame. */
+
+.mp {
+  --bg: #04060b; --fg: #f3f6fb; --soft: #c9d2df; --dim: #8a96a8; --hair: rgba(190, 215, 255, 0.16);
+  --ice: #7fe3ff; --ice-2: #c7f4ff; --amber: #ffb547; --up: #3ee6a0; --down: #ff6a5e;
+  --serif: "Noto Serif", Georgia, serif;
+  --fig: Inter, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  position: absolute; inset: 0; overflow: hidden; isolation: isolate; background: var(--bg);
+  color: var(--fg); font-family: var(--fig); font-weight: 400; font-size: 34px; line-height: 1.22;
+  -webkit-font-smoothing: antialiased;
+}
+.mp * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* The world: a 3D stage that fills the frame behind the words. */
+.mp .world { position: absolute; inset: 0; perspective: 1500px; z-index: 0; }
+.mp .world .cam, .mp .world .cam * { transform-style: preserve-3d; }
+.mp .world .cam { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.mp .face { position: absolute; backface-visibility: visible; }
+/* What is drawn on a face lies flat on it: as layers of their own in the same plane, the 3D sorting cut holes in them. */
+.mp .world .cam .face, .mp .world .cam .face * { transform-style: flat; }
+
+/* Over the world: the haze that keeps the words readable, and the grain. */
+.mp .haze { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.mp .grain { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: overlay; }
+
+.mp .over { position: absolute; inset: 0; z-index: 3; }
+
+/* On top: the brand, the line and a bar per scene that fills as the scene is told. */
+.mp .hud { position: absolute; left: 72px; right: 150px; top: 250px; }
+.mp .hud .row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 21px; line-height: 1;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+.mp .hud .row b { color: var(--fg); font-weight: 400; }
+.mp .hud .bars { display: flex; gap: 6px; margin-top: 16px; }
+.mp .hud .bars i { flex: 1; height: 4px; background: rgba(255, 255, 255, 0.15); position: relative; overflow: hidden; }
+.mp .hud .bars i span { position: absolute; inset: 0; background: var(--ice-2); transform-origin: left center; }
+
+/* The headline: serif, white, with the words that carry it lit in ice. */
+.mp .head { position: absolute; left: 72px; right: 150px; top: 330px; }
+.mp .kick { display: inline-block; font-family: var(--mono); font-size: 23px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ice); padding-bottom: 10px; margin-bottom: 18px; border-bottom: 2px solid rgba(127, 227, 255, 0.55); }
+.mp .kick.amber { color: var(--amber); border-color: rgba(255, 181, 71, 0.6); }
+.mp .kick.up { color: var(--up); border-color: rgba(62, 230, 160, 0.6); }
+.mp h1 { font-family: var(--serif); font-weight: 700; font-size: 92px; line-height: 1.02; letter-spacing: -0.02em; color: var(--fg);
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.7); }
+.mp h1.mid { font-size: 80px; }
+.mp h1.big { font-size: 112px; }
+.mp h1 i { font-style: italic; font-weight: 400; }
+.mp .hi { display: inline-block; white-space: nowrap; padding: 0 0.05em 0.1em; margin: 0 -0.05em -0.1em;
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* A figure that carries a scene: big, in the engineering face. */
+.mp .num { font-family: var(--fig); font-weight: 600; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.02em; line-height: 0.95; white-space: nowrap; }
+
+/* A panel of glass, placed with left/top in its style. */
+.mp .card { position: absolute; padding: 22px 28px; font-size: 32px; line-height: 1.2; color: var(--soft);
+  background: linear-gradient(180deg, rgba(160, 200, 255, 0.11), rgba(160, 200, 255, 0.03)), rgba(6, 9, 15, 0.82);
+  border: 1.5px solid var(--hair); border-radius: 6px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+.mp .card b { color: var(--fg); font-weight: 600; }
+.mp .card .lab { display: block; font-family: var(--mono); font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase;
+  line-height: 1.15; color: var(--dim); margin-bottom: 10px; }
+.mp .card .num { display: block; font-size: 120px; color: var(--fg); }
+.mp .card .num.mid { font-size: 88px; }
+.mp .card .num.sm { font-size: 64px; }
+.mp .card small { display: block; font-size: 24px; line-height: 1.25; color: var(--dim); margin-top: 8px; }
+.mp .card.ice { border-color: rgba(127, 227, 255, 0.55); background: linear-gradient(180deg, rgba(127, 227, 255, 0.2), rgba(127, 227, 255, 0.05)), rgba(5, 10, 16, 0.86);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(127, 227, 255, 0.18); }
+.mp .card.ice .num, .mp .card.ice .lab { color: var(--ice-2); }
+.mp .card.amber { border-color: rgba(255, 181, 71, 0.6); background: linear-gradient(180deg, rgba(255, 181, 71, 0.2), rgba(255, 181, 71, 0.05)), rgba(12, 9, 5, 0.86); }
+.mp .card.amber .num, .mp .card.amber .lab { color: var(--amber); }
+.mp .card.up { border-color: rgba(62, 230, 160, 0.6); background: linear-gradient(180deg, rgba(62, 230, 160, 0.2), rgba(62, 230, 160, 0.05)), rgba(5, 12, 9, 0.86); }
+.mp .card.up .num, .mp .card.up .lab { color: var(--up); }
+.mp .card.down { border-color: rgba(255, 106, 94, 0.6); background: linear-gradient(180deg, rgba(255, 106, 94, 0.2), rgba(255, 106, 94, 0.05)), rgba(14, 6, 6, 0.86); }
+.mp .card.down .num, .mp .card.down .lab { color: var(--down); }
+/* The one that carries the scene's idea: paper white, like the essay look. */
+.mp .card.key { background: #f3f0e9; border-color: #fff; color: #3b3a36; box-shadow: 0 30px 90px rgba(127, 227, 255, 0.25), 0 30px 80px rgba(0, 0, 0, 0.6); }
+.mp .card.key b { color: #121110; }
+.mp .card.key .serif { font-family: var(--serif); }
+.mp .card.key .lab { color: #6b6760; }
+.mp .card.key .num { color: #121110; }
+
+/* Rows inside a panel: what on the left, its figure on the right. */
+.mp .card .line { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; padding: 9px 0; font-size: 30px; line-height: 1.15;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.mp .card .line:first-of-type { border-top: 0; }
+.mp .card .line span { color: var(--dim); }
+.mp .card .line b { font-family: var(--fig); font-weight: 600; font-variant-numeric: tabular-nums; }
+.mp .card .line b.up { color: var(--up); }
+.mp .card .line b.down { color: var(--down); }
+.mp .card .line b.ice { color: var(--ice-2); }
+
+/* A company's logo, on a white chip. */
+.mp .logo { display: inline-flex; align-items: center; justify-content: center; background: #fff; border-radius: 10px; padding: 8px; vertical-align: middle; }
+.mp .logo img { display: block; height: 100%; width: auto; }
+
+/* A label that floats in the world (a billboard), or over it. */
+.mp .tag { font-family: var(--mono); font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ice-2); white-space: nowrap; }
+.mp .val { font-family: var(--fig); font-weight: 600; font-size: 56px; letter-spacing: -0.01em; color: var(--fg); white-space: nowrap;
+  text-shadow: 0 0 24px rgba(127, 227, 255, 0.5), 0 2px 12px rgba(0, 0, 0, 0.8); font-variant-numeric: tabular-nums; }
+
+/* At the foot: the source, in small. */
+.mp .src { position: absolute; left: 72px; right: 150px; top: 1360px; font-family: var(--fig); font-size: 21px; line-height: 1.3; color: rgba(220, 232, 250, 0.62);
+  text-shadow: 0 0 10px #04060b, 0 0 18px #04060b, 0 1px 2px #000; }
+
+.mp.wide .hud { left: 90px; right: 90px; top: 56px; }
+.mp.wide .head { left: 90px; right: auto; width: 820px; top: 160px; }
+.mp.wide .src { left: 90px; right: auto; width: 820px; top: 980px; }
+
+/* The close: the account's picture and a line beside it. */
+.mp .sign { display: flex; align-items: center; gap: 22px; font-family: var(--mono); font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--soft); }
+.mp .sign img { width: 84px; height: 84px; border-radius: 50%; border: 2px solid rgba(199, 244, 255, 0.5); box-shadow: 0 0 30px rgba(127, 227, 255, 0.3); }
+
+
+/* The marks on the map's ground and over its towers. */
+.mp .gmark { font-family: var(--mono); font-size: 46px; letter-spacing: 0.06em; color: var(--soft); white-space: nowrap;
+  text-shadow: 0 0 12px #04060b, 0 0 20px #04060b; }
+.mp .gmark.year { font-size: 54px; color: var(--dim); }
+.mp .dtag { font-family: var(--fig); font-weight: 600; font-size: 56px; white-space: nowrap; text-align: center; line-height: 1.05;
+  text-shadow: 0 0 18px #04060b, 0 0 30px #04060b, 0 2px 6px #000; }
+.mp .dtag small { display: block; font-family: var(--mono); font-weight: 400; font-size: 30px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); }
