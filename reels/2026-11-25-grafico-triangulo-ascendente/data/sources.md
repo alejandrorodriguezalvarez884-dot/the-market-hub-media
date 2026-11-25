@@ -1,0 +1,4 @@
+Lee el gráfico: un triángulo ascendente de Apple (may.–sep. 2025) que se cumplió, porque el último (martillo de Amazon) falló y toca uno que sí; un patrón de continuación, distinto de los dos últimos (resistencia y martillo), y un valor no usado en los cinco últimos (Amazon, Oracle, Micron, Meta, Nvidia). Elegido de un escaneo de triángulos ascendentes (dos máximos a menos de un 1,2 %, suelos cada vez más altos entre ellos, cierre por encima en 15 sesiones) en 42 valores e índices grandes, seis años de velas diarias.
+
+- Yahoo Finance, velas diarias de AAPL del 3 de marzo al 15 de octubre de 2025, leídas el 25 de noviembre de 2026 a las 11:04 UTC (data/candles.json) | https://finance.yahoo.com/quote/AAPL/history/
+- StockCharts ChartSchool, Ascending Triangle, leída el 25 de noviembre de 2026 | https://chartschool.stockcharts.com/table-of-contents/chart-analysis/chart-patterns/ascending-triangle

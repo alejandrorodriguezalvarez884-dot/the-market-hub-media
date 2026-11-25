@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- The reveal: the candles that came after -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">La respuesta</p>
+<h1 class="in">Lo que <span class="hl" data-say="siguiente">pasó</span></h1>
+<p class="secret">Valor <i></i> Fechas <i></i></p>
+<div class="choices"><span class="sticker green pop" data-say="encima">Cierra sobre el techo</span></div>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }, { to: EPISODE.jump, say: "siguiente", for: 0.5 },
+         { to: EPISODE.out, say: "otro", for: 0.5 }, { to: EPISODE.to, say: "semanas", for: 1.6 }],
+  marks: [
+    { type: "level", price: EPISODE.line, at: 0, for: 0.01, label: "Techo" },
+    { type: "note", day: EPISODE.jump, price: "low", side: "below", text: "+5,1 % · 2,1 × volumen", color: "up", say: "cinco" },
+    { type: "ring", day: EPISODE.out, where: "close", r: 26, color: "up", say: "encima" },
+    { type: "note", day: EPISODE.end, price: "high", side: "above", text: "+15,0 % desde la pregunta", color: "up", say: "quince" },
+  ],
+}));
+</script>
+</body>
+</html>

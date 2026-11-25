@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- The caveat: a pattern is not a promise -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker red in">Ojo</p>
+<h1 class="small in">Un patrón <span class="hl" data-say="promesa">no es una promesa</span></h1>
+<div class="choices">
+  <span class="sticker pop" data-say="dos">−2,5 % en un día</span>
+  <span class="sticker pop" data-say="cuando">Sin fecha de salida</span>
+</div>
+<div class="plot"><canvas class="chart"></canvas></div>
+<p class="source">Apple (AAPL) · velas diarias · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.to }],
+  axis: { at: 0 },
+  marks: [
+    { type: "level", price: EPISODE.line, at: 0, for: 0.01, label: "216,23 $" },
+    { type: "path", points: [[EPISODE.low1, 193.46], [EPISODE.low2, 195.07], [EPISODE.low3, 201.50]], say: "linea", for: 0.8, color: "up" },
+    { type: "ring", day: EPISODE.low3, where: "low", r: 28, color: "down", say: "dos" },
+  ],
+}));
+</script>
+</body>
+</html>

@@ -84,6 +84,7 @@ concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se a
 | 2026-11-18 | Doble techo | Micron, abr.–oct. 2025 | No: nunca rompió el soporte (103,38 $); el 5 de septiembre cerró por encima de los dos techos y el 8 de octubre estaba un 49,6 % más arriba (hecho y sin publicar: el reel de Nvidia salió a las 12:45 y no cabía a dos horas dentro de la ventana) | `2026-11-18-grafico-doble-techo` |
 | 2026-11-19 | Resistencia y ruptura | Oracle, jun.–oct. 2024 | Sí: tres toques a 145–146,59 $ y 60 sesiones sin cerrar por encima; el 10 de septiembre saltó un 11,4 % con seis veces el volumen y el 9 de octubre cerraba un 27,5 % sobre el 9 de septiembre | `2026-11-19-grafico-ruptura-resistencia` |
 | 2026-11-24 | Martillo (vela de giro) | Amazon, ene.–mar. 2025 | No: tras caer un 12,1 % (4–24 feb.), el martillo del 25 de febrero (mínimo 204,16 $, cierre 212,80 $, mecha 6,4 veces el cuerpo) abrió arriba al día siguiente pero cerró bajo su apertura; el 4 de marzo cerró bajo su mínimo y el 10 de marzo estaba un 8,6 % más abajo | `2026-11-24-grafico-martillo` |
+| 2026-11-25 | Triángulo ascendente | Apple, may.–ago. 2025 | Sí: techo de 216,23 $ (máximos de 213,94, 216,23 y 215,69 $, ningún cierre sobre 214,40 $ en 58 sesiones) y suelos de 193,46, 195,07 y 201,50 $; el 6 de agosto +5,1 % con 2,1 veces el volumen, el 7 cerró a 220,03 $ sobre el techo y el 13 estaba un 15,0 % sobre el día de la pregunta | `2026-11-25-grafico-triangulo-ascendente` |
 
 ### Cómo elegir el siguiente
 
