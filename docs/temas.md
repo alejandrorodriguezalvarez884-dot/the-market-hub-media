@@ -28,6 +28,7 @@ en la fila.
 | 2026-11-18 | La capitalización: precio por acciones, y qué es un billón (Nvidia −2,0 % el día después de sus resultados, unos 76.000 M$; las torres de Apple, Microsoft y Nvidia; −2 billones desde el 6 de octubre) | `2026-11-18-capitalizacion` |
 | 2026-11-20 | La previsión (guidance): se paga lo que vendrá, y se compara con el consenso (Gap rebaja su previsión del año, BPA ajustado de 2,29–2,34 $ frente a 2,35–2,45 $ y un consenso de 2,39, y sube un 12,3 % con el Nasdaq 100 a −3,7 %; la heladería que avisa del invierno) | `2026-11-20-prevision` |
 | 2026-11-23 | Comprar con acciones: la ecuación de canje, la prima y el hueco (CrowdStrike compra Zscaler, 1,135 acciones por cada una; prima del 33,7 % con los cierres del viernes; a las 18:06, Zscaler +15,2 %, CrowdStrike −10,8 %, canje de 232,37 $ frente a 224,43 $: hueco del 3,5 %; el cambio de cromos; concepto nuevo, fuera de «Por hacer») | `2026-11-23-canje-en-acciones` |
+| 2026-11-25 | Los tipos de la Fed y por qué mueven la bolsa: la deuda, el bono y el valor del futuro (el objetivo, del 3,75 % al 4,00 %, FRED; la PCE de octubre al 3,8 % y un 98 % de probabilidad de subida en diciembre según CME Group; a las 18:06, Nasdaq 100 −3,2 % y Dow −0,7 %; en 2022, de 0,25 % a 4,50 % y el Nasdaq 100 −33,0 % frente al Dow −8,8 %; la panadería y los 100 € a diez años) | `2026-11-25-tipos-de-la-fed` |
 
 ### Por hacer
 
@@ -35,7 +36,6 @@ En este orden si nada del mercado de hoy pide otro: **gana el que conecta con la
 (día de la Fed, los tipos; un gran resultado, el BPA y la previsión; un split, el split). Un
 concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se añade a «Hechos».
 
-1. Los tipos de la Fed y por qué mueven la bolsa
 2. Qué es un ETF y en qué se diferencia de un fondo
 3. Cómo se calcula un índice: el S&P 500 por capitalización, el Dow por precio
 4. El dividendo y la fecha ex-dividendo
