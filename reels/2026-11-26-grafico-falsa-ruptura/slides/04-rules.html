@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- What is looked at: the touches of the ceiling, no close above, and the breakout's strength -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../theme/reel.css">
+<link rel="stylesheet" href="../../../theme/chart.css">
+</head>
+<body class="light chart-reel" data-bg="plain">
+<canvas class="bg"></canvas>
+<header class="brand">The Market Hub · Lee el gráfico</header>
+<main class="reel">
+<p class="kicker in">Lo que se mira</p>
+<div class="checks">
+  <p class="in" data-say="techo">Un techo tocado varias veces</p>
+  <p class="in" data-say="cierre">5 toques, ningún cierre encima</p>
+  <p class="in" data-say="fuerza">Cierre +3,8 % sobre el techo</p>
+  <p class="in" data-say="volumen">2,3 veces el volumen medio</p>
+</div>
+<div class="plot short"><canvas class="chart"></canvas></div>
+<p class="source">Velas diarias reales · Yahoo Finance</p>
+</main>
+<script src="../data/candles.js"></script>
+<script src="../data/episode.js"></script>
+<script src="../../../theme/reel.js"></script>
+<script src="../../../theme/chart.js"></script>
+<script>
+reelChart("canvas.chart", chartOf({
+  show: [{ to: EPISODE.ask }],
+  marks: [
+    { type: "level", price: EPISODE.line, from: EPISODE.hi1, to: EPISODE.ask, at: 0, for: 0.01, label: "Techo" },
+    { type: "ring", day: EPISODE.hi1, where: "high", r: 22, color: "amber", say: "veces" },
+    { type: "ring", day: EPISODE.hi2, where: "high", r: 22, color: "amber", say: "cinco" },
+    { type: "ring", day: EPISODE.hi3, where: "high", r: 22, color: "amber", say: "cinco+0.2" },
+    { type: "ring", day: EPISODE.hi4, where: "high", r: 22, color: "amber", say: "cinco+0.4" },
+    { type: "ring", day: EPISODE.hi5, where: "high", r: 22, color: "amber", say: "cinco+0.6" },
+    { type: "ring", day: EPISODE.jump, where: "close", r: 26, color: "up", say: "fuerza" },
+  ],
+}));
+</script>
+</body>
+</html>
