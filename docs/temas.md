@@ -29,6 +29,7 @@ en la fila.
 | 2026-11-20 | La previsión (guidance): se paga lo que vendrá, y se compara con el consenso (Gap rebaja su previsión del año, BPA ajustado de 2,29–2,34 $ frente a 2,35–2,45 $ y un consenso de 2,39, y sube un 12,3 % con el Nasdaq 100 a −3,7 %; la heladería que avisa del invierno) | `2026-11-20-prevision` |
 | 2026-11-23 | Comprar con acciones: la ecuación de canje, la prima y el hueco (CrowdStrike compra Zscaler, 1,135 acciones por cada una; prima del 33,7 % con los cierres del viernes; a las 18:06, Zscaler +15,2 %, CrowdStrike −10,8 %, canje de 232,37 $ frente a 224,43 $: hueco del 3,5 %; el cambio de cromos; concepto nuevo, fuera de «Por hacer») | `2026-11-23-canje-en-acciones` |
 | 2026-11-25 | Los tipos de la Fed y por qué mueven la bolsa: la deuda, el bono y el valor del futuro (el objetivo, del 3,75 % al 4,00 %, FRED; la PCE de octubre al 3,8 % y un 98 % de probabilidad de subida en diciembre según CME Group; a las 18:06, Nasdaq 100 −3,2 % y Dow −0,7 %; en 2022, de 0,25 % a 4,50 % y el Nasdaq 100 −33,0 % frente al Dow −8,8 %; la panadería y los 100 € a diez años) | `2026-11-25-tipos-de-la-fed` |
+| 2026-11-27 | Preapertura, postcierre y por qué una acción abre con hueco (Vertex anuncia con la sesión cerrada que la FDA retrasa hasta tres meses su decisión sobre el povetacicept; postcierre a 520 $; el jueves, Acción de Gracias, cerrado; abre el viernes a 517,37 $ frente a 564,12 $, hueco del −8,3 %; Nvidia, +5,1 % en la preapertura, +1,8 % en la apertura y −0,6 % a las 18:06; la tienda y la bici; sesión corta del Black Friday) | `2026-11-27-preapertura-y-huecos` |
 
 ### Por hacer
 
@@ -43,7 +44,6 @@ concepto que no está en la lista se puede hacer si hoy lo pide el mercado; se a
 6. El split: por qué partir una acción no la abarata
 7. El drawdown: tras caer un 50 %, hay que subir un 100 %
 8. La curva de tipos y qué significa que se invierta
-9. Preapertura, postcierre y por qué una acción abre con hueco
 10. Las ventas en corto y el short squeeze
 11. Margen bruto, operativo y neto
 12. El flujo de caja libre: beneficio no es caja

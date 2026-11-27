@@ -1,0 +1,116 @@
+/* "La pista": the look of the Aprende reel on pre-market, after-hours and gaps (2026-11-27), from "La escalera" (reels/2026-11-25-tipos-de-la-fed). A paper floor in CSS 3D with the trading clock as a track and the price as blocks. Upright, 1080 x 1920. */
+
+.cm {
+  --bg: #f3ede1; --ink: #17140f; --soft: #3d382f; --dim: #7a7264; --hair: rgba(23, 20, 15, 0.14);
+  --amber: #e08a00; --amber-2: #ffc85c; --up: #13a067; --down: #d6402f; --glass: rgba(80, 120, 170, 0.10);
+  --serif: "Noto Serif", Georgia, serif;
+  --sans: Inter, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  position: absolute; inset: 0; overflow: hidden; isolation: isolate; background: var(--bg);
+  color: var(--ink); font-family: var(--sans); font-size: 34px; line-height: 1.22; -webkit-font-smoothing: antialiased;
+}
+.cm * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.cm .world { position: absolute; inset: 0; perspective: 1600px; z-index: 0; }
+.cm .world .cam, .cm .world .cam * { transform-style: preserve-3d; }
+.cm .world .cam { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.cm .face { position: absolute; backface-visibility: visible; }
+.cm .world .cam .face, .cm .world .cam .face * { transform-style: flat; }
+
+.cm .haze { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.cm .grain { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: multiply; }
+.cm .over { position: absolute; inset: 0; z-index: 3; }
+
+.cm .hud { position: absolute; left: 72px; right: 150px; top: 250px; }
+.cm .hud .row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 21px; line-height: 1;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+.cm .hud .row b { color: var(--ink); font-weight: 700; }
+.cm .hud .bars { display: flex; gap: 6px; margin-top: 16px; }
+.cm .hud .bars i { flex: 1; height: 4px; background: rgba(23, 20, 15, 0.12); position: relative; overflow: hidden; }
+.cm .hud .bars i span { position: absolute; inset: 0; background: var(--ink); transform-origin: left center; }
+
+.cm .head { position: absolute; left: 72px; right: 150px; top: 322px; }
+.cm .kick { display: inline-block; font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; background: var(--ink); padding: 9px 16px 8px; margin-bottom: 20px; border-radius: 4px; }
+.cm h1 { font-family: var(--sans); font-weight: 800; font-size: 88px; line-height: 1.0; letter-spacing: -0.035em; color: var(--ink); }
+.cm h1.mid { font-size: 76px; }
+.cm .hi { display: inline-block; white-space: nowrap; padding: 0 0.04em 0.12em; margin: 0 -0.04em -0.12em;
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.cm .num { font-family: var(--sans); font-weight: 800; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.03em; line-height: 0.95; white-space: nowrap; }
+
+.cm .card { position: absolute; padding: 22px 28px; font-size: 31px; line-height: 1.22; color: var(--soft);
+  background: #fffdf8; border: 1.5px solid var(--hair); border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(60, 40, 10, 0.16), 0 2px 0 rgba(255, 255, 255, 0.8) inset; }
+.cm .card b { color: var(--ink); font-weight: 800; }
+.cm .card .lab { display: block; font-family: var(--mono); font-size: 19px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  line-height: 1.15; color: var(--dim); margin-bottom: 10px; }
+.cm .card .num { display: block; font-size: 112px; color: var(--ink); }
+.cm .card .num.mid { font-size: 84px; }
+.cm .card .num.sm { font-size: 60px; }
+.cm .card small { display: block; font-size: 23px; line-height: 1.25; color: var(--dim); margin-top: 8px; }
+.cm .card.amber { border-color: rgba(224, 138, 0, 0.55); background: #fff6e3; }
+.cm .card.amber .num, .cm .card.amber .lab { color: var(--amber); }
+.cm .card.up .num { color: var(--up); }
+.cm .card.down .num { color: var(--down); }
+.cm .card.key { background: var(--ink); border-color: var(--ink); color: #e9e2d4; box-shadow: 0 24px 70px rgba(23, 20, 15, 0.35); }
+.cm .card.key b { color: #fff; }
+.cm .card.key .lab { color: #b3a993; }
+.cm .card.key .num { color: #fff; }
+.cm .card.key .y { color: var(--amber-2); }
+.cm .ej { display: inline-block; font-family: var(--mono); font-size: 18px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber); border: 2px solid var(--amber); border-radius: 4px; padding: 4px 10px 3px; margin-bottom: 12px; }
+
+.cm .card .line { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; padding: 9px 0; font-size: 30px; line-height: 1.15;
+  border-top: 1px solid var(--hair); }
+.cm .card .line:first-of-type { border-top: 0; }
+.cm .card .line span { color: var(--dim); }
+.cm .card .line b { font-weight: 800; font-variant-numeric: tabular-nums; }
+.cm .card .line b.up { color: var(--up); }
+.cm .card .line b.down { color: var(--down); }
+.cm .card .line b.y { color: var(--amber); }
+
+.cm .logo { display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1.5px solid var(--hair); border-radius: 10px; padding: 7px; vertical-align: middle; }
+.cm .logo img { display: block; height: 100%; width: auto; }
+
+.cm .tag { font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); white-space: nowrap;
+  background: rgba(255, 253, 248, 0.92); padding: 6px 12px; border-radius: 6px; border: 1.5px solid var(--hair); }
+.cm .val { font-family: var(--sans); font-weight: 800; font-size: 54px; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 18px var(--bg), 0 0 8px var(--bg); }
+.cm .val.y { color: var(--amber); }
+
+.cm .src { position: absolute; left: 72px; right: 150px; top: 1368px; font-size: 20px; line-height: 1.3; color: var(--dim);
+  text-shadow: 0 0 10px var(--bg), 0 0 18px var(--bg); }
+
+.cm .sign { display: flex; align-items: center; gap: 22px; font-family: var(--mono); font-weight: 700; font-size: 23px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+.cm .sign img { width: 84px; height: 84px; border-radius: 50%; border: 2px solid var(--ink); }
+
+.cm .val.g { color: var(--up); }
+.cm .val.r { color: var(--down); }
+.cm .val.q { color: var(--dim); }
+.cm .bar-tag { font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.08em; color: #fff; background: var(--ink); white-space: nowrap;
+  padding: 6px 12px; border-radius: 6px; }
+.cm .bar-tag.soft { background: rgba(255, 253, 248, 0.92); color: var(--dim); border: 1.5px solid var(--hair); }
+.cm .pill { display: inline-block; font-family: var(--sans); font-weight: 800; font-size: 34px; color: #fff; border-radius: 999px; padding: 6px 18px; white-space: nowrap; }
+.cm .pill.g { background: var(--up); }
+.cm .pill.r { background: var(--down); }
+
+.cm .co { font-weight: 800; white-space: nowrap; }
+.cm .co.crwd { color: #d81f26; }
+.cm .co.zs { color: #1d63d8; }
+.cm .chip { display: inline-block; font-family: var(--sans); font-weight: 800; font-size: 30px; color: #fff; border-radius: 8px; padding: 6px 14px; white-space: nowrap; }
+.cm .chip.crwd { background: #d81f26; }
+.cm .chip.zs { background: #1d63d8; }
+.cm .cromo { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;
+  font-family: var(--mono); font-weight: 700; font-size: 26px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
+
+.cm .zt { font-family: var(--mono); font-weight: 700; font-size: 24px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  padding: 8px 14px 7px; border-radius: 6px; color: #fff; background: var(--ink); text-align: center; line-height: 1.15; }
+.cm .zt small { display: block; font-size: 18px; letter-spacing: 0.06em; opacity: 0.8; text-transform: none; }
+.cm .zt.amb { background: var(--amber); }
+.cm .zt.blue { background: #3c6fb8; }
+.cm .zt.soft { background: rgba(255, 253, 248, 0.94); color: var(--soft); border: 1.5px solid var(--hair); }
+.cm .zt.red { background: var(--down); }
+.cm .tk { display: inline-block; font-family: var(--sans); font-weight: 800; font-size: 30px; color: #fff; background: #5b2a86; border-radius: 8px; padding: 4px 12px; letter-spacing: 0.02em; }
+.cm .gapnum { font-family: var(--sans); font-weight: 800; font-size: 64px; color: var(--down); letter-spacing: -0.03em; white-space: nowrap;
+  text-shadow: 0 0 18px var(--bg), 0 0 8px var(--bg); }

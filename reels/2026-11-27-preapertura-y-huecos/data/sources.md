@@ -1,0 +1,9 @@
+Aprende: preapertura, postcierre y por qué una acción abre con hueco (n.º 9 de «Por hacer»), porque hoy Vertex abre un 8,3 % por debajo de su cierre del miércoles tras una noticia dada con la sesión cerrada (la FDA retrasa su decisión sobre el povetacicept), Nvidia pasa de subir un 5 % en la preapertura a caer, y la sesión es corta por el Black Friday: el día enseña el concepto.
+
+- overview.json: Market Hub /api/public/overview, as_of 2026-11-27T17:06:54Z (18:06 de España), intraday.
+- yahoo-VRTX-1d.json / yahoo-NVDA-1d.json: Yahoo Finance, velas diarias, leídas a las 17:06 UTC. Vertex: cierre del 25, 564,12 $; el 27, apertura 517,37 $ (−8,3 %), mínimo 502,90 $, 533,77 $ a las 12:06 de Nueva York (−5,4 %). Nvidia: cierre del 25, 149,30 $; el 27, apertura 151,94 $ (+1,8 %), 148,47 $ a las 12:06 (−0,6 %). Horario de hoy (currentTradingPeriod): preapertura desde las 4:00, sesión de 9:30 a 13:00, postcierre hasta las 20:00 (Nueva York).
+- yahoo-VRTX-5m.json / yahoo-NVDA-5m.json: velas de 5 minutos con preapertura y postcierre, 25 y 27 de noviembre. Los bloques de la pista son el último cierre de cada media hora. Vertex, postcierre del 25: mínimo 520,00 $ (−7,8 %). Nvidia, preapertura del 27: máximo 156,98 $ (+5,1 %).
+- nyse-hours.html: NYSE, horarios: sesión principal 9:30-16:00; NYSE Arca, sesión temprana 4:00-9:30 y tardía 16:00-20:00 (hora de Nueva York); Acción de Gracias, jueves 26 de noviembre de 2026.
+- techtimes.html: Tech Times, 26-11-2026: la FDA lleva la fecha de decisión del povetacicept del 30 de noviembre al 28 de febrero de 2027 como tarde; Vertex lo anunció el miércoles 25; las acciones cayeron más de un 6 % fuera de hora, según Reuters.
+- Hora: el 27 de noviembre, Nueva York UTC−5 y Madrid UTC+1: seis horas de diferencia.
+- Ejemplo (inventado, marcado «Ejemplo»): la tienda y la bici, 100 € al cerrar y 80 € al abrir.
